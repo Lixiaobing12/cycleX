@@ -1,24 +1,39 @@
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import '@rainbow-me/rainbowkit/styles.css';
-import ReactDOM from 'react-dom/client';
+import {
+  connectorsForWallets,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
+import "@rainbow-me/rainbowkit/styles.css";
+import {
+  injectedWallet,
+  metaMaskWallet,
+  rainbowWallet,
+  tokenPocketWallet,
+  walletConnectWallet,
+} from "@rainbow-me/rainbowkit/wallets";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { bsc } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
-import App from './App';
-import './global.css';
-import './polyfills';
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
+import { bsc } from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
+import App from "./App";
+import "./global.css";
+import "./polyfills";
 
-const { chains, publicClient } = configureChains(
-  [bsc],
-  [publicProvider()]
-);
+const projectId = "50b9173be949d82c3ec0d89211b8967e";
+const { chains, publicClient } = configureChains([bsc], [publicProvider()]);
 
-const { connectors } = getDefaultWallets({
-  appName: 'PowPepe',
-  projectId: 'f0b5506e58c1188dbafa3c0faadedc2e',
-  chains,
-});
+const connectors = connectorsForWallets([
+  {
+    groupName: "Recommended",
+    wallets: [
+      metaMaskWallet({ projectId, chains }),
+      tokenPocketWallet({ projectId, chains }),
+      injectedWallet({ chains }),
+      rainbowWallet({ projectId, chains }),
+      walletConnectWallet({ projectId, chains }),
+    ],
+  },
+]);
 
 const wagmiConfig = createConfig({
   autoConnect: true,
@@ -26,7 +41,7 @@ const wagmiConfig = createConfig({
   publicClient,
 });
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <WagmiConfig config={wagmiConfig}>
     <RainbowKitProvider chains={chains} locale="en-US">
       <Router>

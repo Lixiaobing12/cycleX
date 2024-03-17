@@ -1,115 +1,70 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Drawer } from "antd";
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { Drawer, Space } from "antd";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAccount } from "wagmi";
 
 const HeaderComponent = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const ticking = useRef<boolean>(false);
-  const [headStyle, setStyle] = useState<React.CSSProperties>({
-    position: "relative",
-  });
-  const [hash, setHash] = useState<string>("/");
-  useEffect(() => {
-    function scrollEvent() {
-      const lastKnownScrollPosition = window.scrollY;
-      if (!ticking.current) {
-        window.requestAnimationFrame(() => {
-          if (lastKnownScrollPosition === 0) {
-            setStyle({
-              position: "relative",
-            });
-          } else if (headStyle?.position === "relative") {
-            setStyle({
-              position: "fixed",
-            });
-          }
-          ticking.current = false;
-        });
-        ticking.current = true;
-      }
-    }
-    document.addEventListener("scroll", scrollEvent);
+  const { openConnectModal } = useConnectModal();
+  const { address, isConnected } = useAccount();
 
-    const path = window.location.pathname;
-    setHash(path);
-
-    return () => {
-      document.removeEventListener("scroll", scrollEvent);
-    };
-  }, []);
-
-  useEffect(() => {
-    setHash(location.pathname);
-  }, [location]);
   return (
     <>
-      <div className="w-full h-10">
-        <div
-          className={`flex p-4 left-0 right-0 z-10 border-b-2 ${
-            headStyle.position !== "relative" && "glass"
-          }`}
-          style={headStyle}
-        >
-          <div
-            className="text-black font-bold text-2xl flex items-center cursor-pointer"
-            onClick={() => navigate("/")}
-          >
-            <img src="/assets/logos.png" className="w-10" alt="" />
-            <span className="ml-2">PoWPepe</span>
-          </div>
-          <div className="flex-1 flex items-center justify-end">
-            <span
-              className={`head-item-mb text-2xl flex mx-4 ${
-                hash === "/" && "head-item-active"
-              }`}
-              onClick={() => navigate("/")}
-            >
-              <img src="/assets/homt.svg" width={25} alt="" />
-              Home
-            </span>
-            <span
-              className={`head-item-mb text-2xl flex mx-4 ${
-                hash === "/inscription" && "head-item-active"
-              }`}
-              onClick={() => navigate("/inscription")}
-            >
-              <img src="/assets/pen.svg" width={25} alt="" />
-              Inscribe
-            </span>
-            <span
-              className={`head-item-mb text-2xl flex mx-4 ${
-                hash === "/bsc20" && "head-item-active"
-              }`}
-              onClick={() => navigate("/bsc20")}
-            >
-              <img src="/assets/code.svg" width={25} alt="" />
-              BSC-20
-            </span>
-            <span
-              className={`head-item-mb text-2xl flex mx-4 ${
-                hash === "/marketplace" && "head-item-active"
-              }`}
-              onClick={() => navigate("/marketplace")}
-            >
-              <img src="/assets/shop.svg" width={25} alt="" />
-              Marketplace
-            </span>
-            <ConnectButton accountStatus="avatar" />
-            <span className="head-item-pc" onClick={() => setOpen(true)}>
-              <img src="/assets/menu.svg" className="w-10" />
-            </span>
-          </div>
+      <div className="w-full leading-10 font-bold p-4 flex justify-between md:justify-around">
+        <div className="flex-1 md:flex md:justify-end md:items-center">
+          <img src="/assets/avant.png" className="cursor-pointer w-36 h-[37px]" alt="" onClick={() => navigate("/")} />
+        </div>
+        <div className="w-0 h-0 md:h-auto md:flex-1 overflow-hidden md:leading-[3] md:ml-20">
+          <Space size="large">
+            <div className="cursor-pointer hover:scale-105">基金</div>
+            <div className="cursor-pointer  hover:scale-105">新手指南</div>
+            <div className="cursor-pointer  hover:scale-105">资产发行</div>
+          </Space>
+        </div>
+        <div className="w-0 h-0 md:h-auto md:flex-[2] text-right mr-4 overflow-hidden">
+          <Space size="large">
+            <div className="cursor-pointer  hover:scale-105">登录</div>
+            <div className="cursor-pointer  hover:scale-105">注册</div>
+
+            {isConnected ? (
+              <a className="flex items-center border rounded-full px-4 h-[37px]">
+                <img src="/assets/icon.png" width={30} />
+                {address?.replace(/^(.{4}).*(.{4})$/, "$1...$2")}
+              </a>
+            ) : (
+              <div className="cursor-pointer  hover:scale-105" onClick={openConnectModal}>
+                链接钱包
+              </div>
+            )}
+          </Space>
+        </div>
+        <div className="w-0 h-0 md:h-auto md:flex-1 overflow-hidden">
+          <Space className="rounded-full border p-2 px-4 h-[37px]" size="large">
+            <img className="cursor-pointer  hover:scale-105" src="/assets/download.png" width={20} alt="" />
+            <img className="cursor-pointer  hover:scale-105" src="/assets/phone.png" width={20} alt="" />
+            <img className="cursor-pointer  hover:scale-105" src="/assets/email.png" width={20} alt="" />
+            <img className="cursor-pointer  hover:scale-105" src="/assets/lang.png" width={20} alt="" />
+          </Space>
+        </div>
+        <div className="flex-[2] md:grow-0 overflow-hidden text-right md:w-0">
+          <Space size="large">
+            {isConnected ? (
+              <a className="flex items-center border rounded-full px-4">
+                <img src="/assets/icon.png" width={30} />
+                {address?.replace(/^(.{4}).*(.{4})$/, "$1...$2")}
+              </a>
+            ) : (
+              <div className="cursor-pointer  hover:scale-105" onClick={openConnectModal}>
+                链接钱包
+              </div>
+            )}
+            <img className="cursor-pointer  hover:scale-105" src="/assets/lang.png" width={20} alt="" />
+          </Space>
         </div>
       </div>
-      <Drawer
-        placement="right"
-        closable={false}
-        onClose={() => setOpen(false)}
-        open={open}
-      >
+      <Drawer placement="right" closable={false} onClose={() => setOpen(false)} open={open}>
         <p>Some contents...</p>
       </Drawer>
     </>
