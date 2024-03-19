@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Reassets from "../components/Home/Re_Assets";
 
 const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
@@ -46,7 +47,9 @@ export default function Home() {
               </div>
               <div className="flex max-w-[70%] flex-wrap gap-4 mb-10">
                 {item.chars.map((ch) => (
-                  <div className="rounded-full px-4 py-1 bg-[#222] text-grey" key={ch}>{ch}</div>
+                  <div className="rounded-full px-4 py-1 bg-[#222] text-grey" key={ch}>
+                    {ch}
+                  </div>
                 ))}
               </div>
               <div>
@@ -63,12 +66,36 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="p-4 lg:p-20 md:p-10">
-          <div className="w-full text-center">
+        <div className="p-4 lg:p-20 lg:px-44 md:p-10">
+          <div className="w-full text-center mb-20">
             <h1 className="text-black text-3xl mb-6">海量资产实现</h1>
             <p className="text-greyblack">经公允审计的超额抵押方式代币化，无缝访问现实资产</p>
           </div>
-          <div className="flex flex-wrap gap-6 item-center justify-center"></div>
+          <Reassets />
+        </div>
+
+        <div className="p-4 lg:p-20 lg:px-44 md:p-10">
+          <div className="w-full text-center mb-20">
+            <h1 className="text-black text-3xl mb-6">资产列表</h1>
+            <p className="text-greyblack">最可靠的真实资产，通过代币化实现标准的机构型金融产品</p>
+          </div>
+          <Reassets />
+        </div>
+
+        <div className="p-4 lg:p-20 lg:px-44 md:p-10">
+          <div className="w-full text-center mb-20">
+            <h1 className="text-black text-3xl mb-6">资产储备证明（POR）</h1>
+            <p className="text-greyblack">新增/锁定的现实资产每月更新/次，通过权威审计机构披露</p>
+          </div>
+          <Reassets />
+        </div>
+
+        <div className="p-4 lg:p-20 lg:px-44 md:p-10">
+          <div className="w-full text-center mb-20">
+            <h1 className="text-black text-3xl mb-6">交易流程</h1>
+            <p className="text-greyblack">购买代币化资产最便捷的方式，无需面临繁琐的交易流程</p>
+          </div>
+          <Reassets />
         </div>
       </div>
     </>

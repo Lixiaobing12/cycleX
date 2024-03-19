@@ -48,7 +48,7 @@ const HeaderComponent = () => {
             <img className="cursor-pointer  hover:scale-105" src="/assets/lang.png" width={20} alt="" />
           </Space>
         </div>
-        <div className="flex-[2] md:grow-0 overflow-hidden text-right md:w-0">
+        <div className="flex-[2] md:grow-0 overflow-hidden text-right md:w-0 md:h-0">
           <Space size="large">
             {isConnected ? (
               <a className="flex items-center border rounded-full px-4">
