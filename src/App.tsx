@@ -1,3 +1,4 @@
+import Footers from "./components/Footers";
 import HeaderComponent from "./components/Headers";
 import RouterProviders from "./router";
 
@@ -6,6 +7,7 @@ function App() {
     <>
       <HeaderComponent />
       <RouterProviders />
+      <Footers/>
     </>
   );
 }

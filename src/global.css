@@ -1,11 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+  font-family: 'Whale';
+  src: url('/assets/Whale_regular.otf') format('opentype');
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: Whale, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fff;
@@ -25,6 +30,14 @@ body {
   visibility: hidden;
   position: absolute;
   z-index: -1;
+}
+summary {
+  font-weight: bold;
+}
+.hidden-scroll {
+}
+.hidden-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 @media screen and (max-width: 600px) {

@@ -1,5 +1,6 @@
 import { Chart } from "@antv/g2";
 import { useEffect, useState } from "react";
+import WrapperButton from "../Common/Button";
 
 /** k线 */
 const KLine = () => {
@@ -23,22 +24,16 @@ const KLine = () => {
   }, []);
   return (
     <div className="w-full rounded-box shadow-2xl p-4 pt-10" id="pv">
-      <div className="flex gap-6">
-        <button
-          onClick={() => setItem(1)}
-          className={`btn btn-sm rounded-full hover:text-white ${activeItem === 1 ? "bg-black text-white border-0" : "bg-white text-greyblack border border-slate-800"}`}>
+      <div className="flex gap-6 w-full">
+        <WrapperButton click={() => setItem(1)} isActive={activeItem === 1}>
           全部
-        </button>
-        <button
-          onClick={() => setItem(2)}
-          className={`btn btn-sm rounded-full hover:text-white ${activeItem === 2 ? "bg-black text-white border-0" : "bg-white text-greyblack border border-slate-800"}`}>
-          7日APY
-        </button>
-        <button
-          onClick={() => setItem(3)}
-          className={`btn btn-sm rounded-full hover:text-white ${activeItem === 3 ? "bg-black text-white border-0" : "bg-white text-greyblack border border-slate-800"}`}>
-          累计派发利息
-        </button>
+        </WrapperButton>
+        <WrapperButton click={() => setItem(2)} isActive={activeItem === 2}>
+          7日APY{" "}
+        </WrapperButton>
+        <WrapperButton click={() => setItem(3)} isActive={activeItem === 3}>
+          累计派发利息{" "}
+        </WrapperButton>
       </div>
       <div id="ichart"></div>
     </div>

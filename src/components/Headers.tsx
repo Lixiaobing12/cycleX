@@ -3,6 +3,7 @@ import { Drawer, Space } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
+import WrapperImg from "./Common/Img";
 
 const HeaderComponent = () => {
   const [open, setOpen] = useState(false);
@@ -42,10 +43,10 @@ const HeaderComponent = () => {
         </div>
         <div className="w-0 h-0 md:h-auto md:flex-1 overflow-hidden">
           <Space className="rounded-full border p-2 px-4 h-[37px]" size="large">
-            <img className="cursor-pointer  hover:scale-105" src="/assets/download.png" width={20} alt="" />
-            <img className="cursor-pointer  hover:scale-105" src="/assets/phone.png" width={20} alt="" />
-            <img className="cursor-pointer  hover:scale-105" src="/assets/email.png" width={20} alt="" />
-            <img className="cursor-pointer  hover:scale-105" src="/assets/lang.png" width={20} alt="" />
+            <WrapperImg src="/assets/download.png" />
+            <WrapperImg src="/assets/phone.png" />
+            <WrapperImg src="/assets/email.png" />
+            <WrapperImg src="/assets/lang.png" />
           </Space>
         </div>
         <div className="flex-[2] md:grow-0 overflow-hidden text-right md:w-0 md:h-0">
@@ -60,7 +61,7 @@ const HeaderComponent = () => {
                 链接钱包
               </div>
             )}
-            <img className="cursor-pointer  hover:scale-105" src="/assets/lang.png" width={20} alt="" />
+            <WrapperImg src="/assets/lang.png" width={30} />
           </Space>
         </div>
       </div>
