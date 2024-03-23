@@ -1,15 +1,7 @@
-import {
-  connectorsForWallets,
-  RainbowKitProvider,
-} from "@rainbow-me/rainbowkit";
+import { connectorsForWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import {
-  injectedWallet,
-  metaMaskWallet,
-  rainbowWallet,
-  tokenPocketWallet,
-  walletConnectWallet,
-} from "@rainbow-me/rainbowkit/wallets";
+import { injectedWallet, metaMaskWallet, rainbowWallet, tokenPocketWallet, walletConnectWallet } from "@rainbow-me/rainbowkit/wallets";
+import { ConfigProvider } from "antd";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
@@ -44,9 +36,22 @@ const wagmiConfig = createConfig({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <WagmiConfig config={wagmiConfig}>
     <RainbowKitProvider chains={chains} locale="en-US">
-      <Router>
-        <App />
-      </Router>
+      <ConfigProvider
+        theme={{
+          components: {
+            Tabs: {
+              inkBarColor: "#000",
+              itemActiveColor: "#000",
+              itemHoverColor: "#000",
+              itemColor: "rgba(0,0,0,0.38)",
+              itemSelectedColor: "#000",
+            },
+          },
+        }}>
+        <Router>
+          <App />
+        </Router>
+      </ConfigProvider>
     </RainbowKitProvider>
   </WagmiConfig>
 );

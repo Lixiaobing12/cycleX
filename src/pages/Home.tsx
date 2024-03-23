@@ -64,7 +64,7 @@ export default function Home() {
                   <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {item.price} AUM</div>
                   <img src="/assets/eth.png" width={38} alt="" />
                 </div>
-                <img src="/assets/right.png" width={38} className="cursor-pointer hover:scale-105" />
+                <img src="/assets/right.png" width={38} className="cursor-pointer hover:scale-105" onClick={()=>navigate(`/assets/${item.id}`)}/>
               </div>
             </div>
           ))}

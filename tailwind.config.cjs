@@ -3,19 +3,21 @@ module.exports = {
   plugins: [require("daisyui")],
   theme: {
     backgroundSize: {
-      "100": "100% 100%",
+      100: "100% 100%",
     },
     extend: {
       backgroundImage: {
         assets_f: "url('/assets/assets_f.png')",
         assets_s: "url('/assets/assets_s.png')",
         assets_t: "url('/assets/assets_t.png')",
+        login_mene: "url('/assets/login_background.png')",
       },
     },
     colors: {
-      light:'#d6d6d6',
-      greyblack:"rgba(0,0,0,0.6)",
-      black:"#000",
+      transblack: "rgba(0,0,0,0.1)",
+      light: "#d6d6d6",
+      greyblack: "rgba(0,0,0,0.6)",
+      black: "#000",
       transparent: "transparent",
       current: "currentColor",
       white: "#ffffff",
