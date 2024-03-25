@@ -32,7 +32,7 @@ export default function Home() {
           </div>
         )}
         <div className="relative flex items-center justify-center">
-          <img src="/assets/home_content.png" className="w-full h-[80vh]" alt="" />
+          <img src="/assets/home_content.png" className="w-full h-screen md:h-[80vh]" alt="" />
           <div className="absolute flex flex-col items-center mt-[-120px]">
             <p className="tracking-widest	text-4xl font-bold mb-10">代币化基金已上线</p>
             <p className="text-grey text-center tracking-widest leading-relaxed">

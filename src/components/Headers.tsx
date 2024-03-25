@@ -1,21 +1,24 @@
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { Drawer, Space } from "antd";
+import { Drawer, Dropdown, MenuProps, Space } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAccount } from "wagmi";
 import WrapperImg from "./Common/Img";
 
 const HeaderComponent = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { openConnectModal } = useConnectModal();
-  const { address, isConnected } = useAccount();
+  // const { openConnectModal } = useConnectModal();
+  // const { address, isConnected } = useAccount();
+
+  const items: MenuProps["items"] = [
+    { label: "简体中文", key: "zh" },
+    { label: "English", key: "en" },
+  ];
 
   return (
     <>
       <div className="w-full leading-10 font-bold p-4 flex justify-between md:justify-around">
         <div className="flex-1 md:flex md:justify-end md:items-center">
-          <img src="/assets/avant.png" className="cursor-pointer w-36 h-[37px]" alt="" onClick={() => navigate("/")} />
+          <img src="/assets/avant.png" className="cursor-pointer w-36" alt="" onClick={() => navigate("/")} />
         </div>
         <div className="w-0 h-0 md:h-auto md:flex-1 overflow-hidden md:leading-[3] md:ml-20">
           <Space size="large">
@@ -26,19 +29,12 @@ const HeaderComponent = () => {
         </div>
         <div className="w-0 h-0 md:h-auto md:flex-[2] text-right mr-4 overflow-hidden">
           <Space size="large">
-            <div className="cursor-pointer  hover:scale-105">登录</div>
-            <div className="cursor-pointer  hover:scale-105">注册</div>
-
-            {isConnected ? (
-              <a className="flex items-center border rounded-full px-4 h-[37px]">
-                <img src="/assets/icon.png" width={30} />
-                {address?.replace(/^(.{4}).*(.{4})$/, "$1...$2")}
-              </a>
-            ) : (
-              <div className="cursor-pointer  hover:scale-105" onClick={openConnectModal}>
-                链接钱包
-              </div>
-            )}
+            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=in")}>
+              登录
+            </div>
+            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=up")}>
+              注册
+            </div>
           </Space>
         </div>
         <div className="w-0 h-0 md:h-auto md:flex-1 overflow-hidden">
@@ -46,22 +42,26 @@ const HeaderComponent = () => {
             <WrapperImg src="/assets/download.png" />
             <WrapperImg src="/assets/phone.png" />
             <WrapperImg src="/assets/email.png" />
-            <WrapperImg src="/assets/lang.png" />
+            <Dropdown menu={{ items }}>
+              <a onClick={(e) => e.preventDefault()}>
+                <WrapperImg src="/assets/lang.png" />
+              </a>
+            </Dropdown>
           </Space>
         </div>
         <div className="flex-[2] md:grow-0 overflow-hidden text-right md:w-0 md:h-0">
           <Space size="large">
-            {isConnected ? (
-              <a className="flex items-center border rounded-full px-4">
-                <img src="/assets/icon.png" width={30} />
-                {address?.replace(/^(.{4}).*(.{4})$/, "$1...$2")}
+            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=in")}>
+              登录
+            </div>
+            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=up")}>
+              注册
+            </div>
+            <Dropdown menu={{ items }}>
+              <a onClick={(e) => e.preventDefault()}>
+                <WrapperImg src="/assets/lang.png" width={20} />
               </a>
-            ) : (
-              <div className="cursor-pointer  hover:scale-105" onClick={openConnectModal}>
-                链接钱包
-              </div>
-            )}
-            <WrapperImg src="/assets/lang.png" width={30} />
+            </Dropdown>
           </Space>
         </div>
       </div>

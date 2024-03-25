@@ -18,7 +18,14 @@ body {
   color: #000;
   user-select: none;
 }
+* + *{
+  box-sizing: border-box;
+}
 
+.ant_input_placeholder{
+}
+.ant_input_placeholder input::placeholder{
+}
 .head-item-mb {
   font-weight: 700;
   cursor: pointer;

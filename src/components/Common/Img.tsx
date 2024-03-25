@@ -2,11 +2,11 @@ import React from "react";
 
 type Img_Type = {
   src: string;
-  click?: () => void;
+  onClick?: (e: any) => any;
   width?: number;
   className?: string;
 };
-const WrapperImg: React.FC<Img_Type> = ({ width = 20, src, click = () => {}, className }) => {
-  return <img src={src} onClick={click} className={`cursor-pointer hover:scale-105 ${className}`} width={width} />;
+const WrapperImg: React.FC<Img_Type> = ({ width = 20, src, onClick = () => {}, className }) => {
+  return <img src={src} onClick={onClick} className={`cursor-pointer hover:scale-105 ${className}`} width={width} />;
 };
 export default WrapperImg;

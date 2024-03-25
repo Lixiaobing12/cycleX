@@ -7,6 +7,7 @@ const KLine = () => {
   const [activeItem, setItem] = useState(1);
 
   useEffect(() => {
+    console.log(document.querySelector("#pv"))
     const chart = new Chart({
       container: "ichart",
       autoFit: true,
@@ -23,7 +24,7 @@ const KLine = () => {
     chart.render();
   }, []);
   return (
-    <div className="w-full rounded-box shadow-2xl p-4 pt-10" id="pv">
+    <div className="w-full pt-10" id="pv">
       <div className="flex gap-6 w-full">
         <WrapperButton click={() => setItem(1)} isActive={activeItem === 1}>
           全部
@@ -50,7 +51,7 @@ const Reassets = () => {
   ];
   return (
     <div className="flex flex-col md:flex-row w-full items-center gap-10">
-      <div className="flex-1">
+      <div className="flex-1 w-full p-4 rounded-box shadow-2xl ">
         <KLine />
       </div>
       <div className="flex-1 flex flex-col gap-8">

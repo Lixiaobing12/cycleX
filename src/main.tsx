@@ -38,6 +38,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <RainbowKitProvider chains={chains} locale="en-US">
       <ConfigProvider
         theme={{
+          token: {
+            colorPrimary: "#000",
+            controlOutlineWidth:1
+          },
           components: {
             Tabs: {
               inkBarColor: "#000",
