@@ -4,17 +4,50 @@ import { Checkbox, Col, Form, Input, Row, Tabs } from "antd";
 import { atom, useAtom } from "jotai";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { message } from "../App";
+import Loader from "../components/Loader";
+import { request } from "../utils/request";
 
 const tabTypes = atom<"Sign" | "Forgot" | "Revise">("Sign");
 
 /** 登录 */
 const In = () => {
+  const [toast] = useAtom(message);
   const [form] = Form.useForm();
   const [nickname, setNickName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [type, setType] = useAtom(tabTypes);
-
+  const [loading, setLoading] = useState(false);
+  const confirm = () => {
+    setLoading(true);
+    request
+      .post("/api/oauth/token", {
+        grant_type: "password",
+        client_id: 2,
+        client_secret: "9FBI5MxzMfMafJKF0TDdBclOgnMcVPXhiLoGBFVG",
+        username: nickname,
+        password: password,
+      })
+      .then(({ data }) => {
+        setLoading(false);
+        navigate("/");
+        window.localStorage.setItem(
+          "token",
+          JSON.stringify({
+            token: data.access_token,
+            nickname: nickname,
+          })
+        );
+        const setItemEvent = new Event("localstorage_save");
+        window.dispatchEvent(setItemEvent);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        toast?.error("账号或密码错误");
+      });
+  };
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
@@ -37,7 +70,8 @@ const In = () => {
             />
           </Form.Item>
           <Form.Item>
-            <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!nickname || !password}>
+            <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-threePranentTransblack" disabled={!nickname || !password || loading} onClick={confirm}>
+              <Loader spinning={loading} />
               登录
             </button>
           </Form.Item>
@@ -75,12 +109,12 @@ const Up = () => {
             <div className="flex gap-4 items-center">
               <button
                 onClick={() => setChange(1)}
-                className={`btn rounded-full border-0 btn-sm btn-cycle hover:text-white ${emailOrPhone === 1 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
+                className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 1 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
                 邮箱
               </button>
               <button
                 onClick={() => setChange(2)}
-                className={`btn rounded-full border-0 btn-sm btn-cycle hover:text-white ${emailOrPhone === 2 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
+                className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 2 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
                 手机号
               </button>
             </div>
@@ -281,7 +315,7 @@ const Revise = () => {
             <Form.Item label="新密码">
               <Input.Password onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder="请输入新密码" />
             </Form.Item>
-            <Form.Item label="新密码校验" validateStatus={!!newPassword && !vilid ? 'error' : 'success'}>
+            <Form.Item label="新密码校验" validateStatus={!!newPassword && !vilid ? "error" : "success"}>
               <Input.Password onChange={onVilid} size="large" placeholder="请再次输入新密码" />
             </Form.Item>
             <Form.Item>
@@ -316,7 +350,7 @@ const Login = () => {
       </div>
       <div className="flex-1">
         <div className="p-6 md:p-20 flex flex-col h-screen">
-          <div className="flex items-center gap-2 cursor-pointer w-fit btn btn-sm bg-white border-transblack text-black hover:text-white" onClick={back}>
+          <div className="flex items-center gap-2 cursor-pointer w-fit btn btn-sm bg-white border-transblack text-black active:text-white" onClick={back}>
             <Icon size={18}>
               <ArrowLeft />
             </Icon>

@@ -16,9 +16,14 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://api.whaleflow.co",
+        target: "https://app.whaleflow.co",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+      "/wapi": {
+        target: "https://api.whaleflow.co",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/wapi/, ""),
       },
     },
   },

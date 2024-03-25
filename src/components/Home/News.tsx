@@ -1,5 +1,5 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { Fetch } from "../../hooks/fetch";
 
 interface NewsInter {
   id: number;
@@ -18,8 +18,8 @@ interface NewsInter {
 const News = () => {
   const [news, setNewsList] = useState<NewsInter[]>([]);
   useEffect(() => {
-    Fetch.get("/api/article/getList?page=0&size=10&type=NEWS").then((res) => {
-      setNewsList(res.data);
+    axios.get("/wapi/article/getList?page=0&size=10&type=NEWS").then(({ data }) => {
+      setNewsList(data.data);
     });
   }, []);
   return (

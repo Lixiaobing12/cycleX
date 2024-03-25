@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
-  font-family: 'Whale';
-  src: url('/assets/Whale_regular.otf') format('opentype');
+  font-family: "Whale";
+  src: url("/assets/Whale_regular.otf") format("opentype");
 }
 
 body {
@@ -18,13 +17,32 @@ body {
   color: #000;
   user-select: none;
 }
-* + *{
+
+.rotating-image {
+  width: 2rem;
+  height: 2rem;
+  /* 保持纵横比 */
+  animation: rotate 3s linear infinite;
+  /* 设置旋转动画 */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+* + * {
   box-sizing: border-box;
 }
 
-.ant_input_placeholder{
+.ant_input_placeholder {
 }
-.ant_input_placeholder input::placeholder{
+.ant_input_placeholder input::placeholder {
 }
 .head-item-mb {
   font-weight: 700;

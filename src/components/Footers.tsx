@@ -2,7 +2,7 @@ import WrapperImg from "./Common/Img";
 
 const Footers = () => {
   return (
-    <div className="w-full p-4 md:p-20 flex flex-col bg-black">
+    <div className="w-full p-4 md:p-20 flex flex-col bg-black" id="footer">
       <div className="flex justify-between items-end text-white md:w-[80%] m-auto flex-col md:flex-row">
         <div className="flex flex-col gap-4">
           <div className="flex items-center">

@@ -42,7 +42,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex p-4 lg:p-20 md:p-10 mt-20 flex-wrap gap-6 item-center justify-center">
+        <div className="flex p-4 lg:p-20 md:p-10 mt-20 flex-wrap gap-6 item-center justify-center" id="fund">
           {assets.map((item, ind) => (
             <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col ${getAssetsBgImg(ind++)} w-full lg:w-[26%] min-h-80 bg-100`}>
               <div className="flex items-center my-4">
@@ -64,12 +64,11 @@ export default function Home() {
                   <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {item.price} AUM</div>
                   <img src="/assets/eth.png" width={38} alt="" />
                 </div>
-                <img src="/assets/right.png" width={38} className="cursor-pointer hover:scale-105" onClick={()=>navigate(`/assets/${item.id}`)}/>
+                <img src="/assets/right.png" width={38} className="cursor-pointer hover:scale-105" onClick={() => navigate(`/assets/${item.id}`)} />
               </div>
             </div>
           ))}
         </div>
-
         <div className="p-4 lg:p-20 lg:px-44 md:p-10 mt-14 md:mt-0">
           <div className="w-full text-center mb-14 md:mb-20">
             <h1 className="text-black text-3xl mb-6">海量资产实现</h1>
@@ -117,7 +116,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="p-4 lg:p-20 lg:px-44 md:p-10">
+        <div className="p-4 lg:p-20 lg:px-44 md:p-10" id="download">
           <div className="w-full lg:w-5/6 m-auto rounded-box bg-[#19191A] flex justify-around px-4 md:px-10 flex-col md:flex-row pt-10">
             <div className="flex-1 flex flex-col gap-6 md:mt-[8%] md:ml-[5%]">
               <h2 className="text-2xl">下载我们的产品进行投资</h2>
