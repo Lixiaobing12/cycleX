@@ -40,9 +40,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         theme={{
           token: {
             colorPrimary: "#000",
-            controlOutlineWidth:1
+            controlOutlineWidth: 1,
           },
           components: {
+            Select: {
+              optionSelectedColor: "#fff",
+            },
             Tabs: {
               inkBarColor: "#000",
               itemActiveColor: "#000",

@@ -1,4 +1,4 @@
-import { DownOutlined } from "@ricons/antd";
+import { DownOutlined, WarningOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
 import { Drawer, Dropdown, MenuProps, Space } from "antd";
 import { useEffect, useState } from "react";
@@ -43,6 +43,18 @@ const HeaderComponent = () => {
   ];
 
   const accountItems: MenuProps["items"] = [
+    {
+      label: "实名认证",
+      icon: (
+        <div className="flex items-center">
+          <Icon size={15}>
+            <WarningOutlined />
+          </Icon>
+        </div>
+      ),
+      key: "realName",
+      onClick: () => navigate("/verify"),
+    },
     { label: "钱包", icon: <img src="/assets/wallet.png" width={12} />, key: "wallet" },
     { label: "邀请好友", icon: <img src="/assets/users.png" width={12} />, key: "users" },
     {
@@ -91,7 +103,7 @@ const HeaderComponent = () => {
   }, [accessToken]);
   return (
     <>
-      <div className="w-full leading-10 font-bold p-4 flex justify-between md:justify-around">
+      <div className="w-full leading-10 font-bold p-4 flex justify-between md:justify-around border-b border-transblack">
         <div className="flex-1 md:flex md:justify-end md:items-center">
           <img src="/assets/avant.png" className="cursor-pointer w-36" alt="" onClick={() => navigate("/")} />
         </div>
@@ -110,7 +122,7 @@ const HeaderComponent = () => {
               <Dropdown menu={{ items: accountItems }}>
                 <a onClick={(e) => e.preventDefault()} className="flex items-center">
                   {users.avatar && <img src={users.avatar} width={32} className="mr-2 rounded-full" alt="" />}
-                  {users.email.replace(/^(.{2}).*(.{6})$/, "$1...$2")}
+                  {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
                   <div className="mt-1 ml-1">
                     <Icon size={12}>
                       <DownOutlined />
@@ -148,7 +160,7 @@ const HeaderComponent = () => {
               <Dropdown menu={{ items: accountItems }}>
                 <a onClick={(e) => e.preventDefault()} className="flex items-center">
                   {users.avatar && <img src={users.avatar} width={20} className="mr-2 rounded-full" alt="" />}
-                  {users.email.replace(/^(.{2}).*(.{6})$/, "$1...$2")}
+                  {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
                   <div className="mt-1 ml-1">
                     <Icon size={12}>
                       <DownOutlined />

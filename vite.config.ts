@@ -25,6 +25,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wapi/, ""),
       },
+      '/images':{
+        target:'https://app.whaleflow.co/uploads',
+        changeOrigin:true
+      }
     },
   },
 });
