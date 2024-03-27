@@ -55,7 +55,7 @@ const HeaderComponent = () => {
       key: "realName",
       onClick: () => navigate("/verify"),
     },
-    { label: "钱包", icon: <img src="/assets/wallet.png" width={12} />, key: "wallet" },
+    { label: "钱包", icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
     { label: "邀请好友", icon: <img src="/assets/users.png" width={12} />, key: "users" },
     {
       label: "退出登录",
@@ -103,7 +103,7 @@ const HeaderComponent = () => {
   }, [accessToken]);
   return (
     <>
-      <div className="w-full leading-10 font-bold p-4 flex justify-between md:justify-around border-b border-transblack">
+      <div className="w-full leading-10 font-bold p-4 flex justify-between items-center md:justify-around border-b border-transblack">
         <div className="flex-1 md:flex md:justify-end md:items-center">
           <img src="/assets/avant.png" className="cursor-pointer w-36" alt="" onClick={() => navigate("/")} />
         </div>
@@ -143,19 +143,17 @@ const HeaderComponent = () => {
           </Space>
         </div>
         <div className="w-0 h-0 md:h-auto md:flex-1 overflow-hidden">
-          <Space className="rounded-full border p-2 px-4 h-[37px]" size="large">
+          <div className="rounded-full border p-2 px-4 h-[37px] w-fit flex gap-2">
             <WrapperImg src="/assets/download.png" onClick={() => anchor("download")} />
             <WrapperImg src="/assets/phone.png" onClick={() => anchor("footer")} />
             <WrapperImg src="/assets/email.png" onClick={() => anchor("footer")} />
             <Dropdown menu={{ items }}>
-              <a onClick={(e) => e.preventDefault()}>
-                <WrapperImg src="/assets/lang.png" />
-              </a>
+              <WrapperImg src="/assets/lang.png" onClick={(e) => e.preventDefault()} />
             </Dropdown>
-          </Space>
+          </div>
         </div>
         <div className="flex-[2] md:grow-0 overflow-hidden text-right md:w-0 md:h-0">
-          <Space size="large">
+          <Space>
             {users && accessToken ? (
               <Dropdown menu={{ items: accountItems }}>
                 <a onClick={(e) => e.preventDefault()} className="flex items-center">
@@ -179,11 +177,9 @@ const HeaderComponent = () => {
               </>
             )}
             <Dropdown menu={{ items }}>
-              <a onClick={(e) => e.preventDefault()}>
-                <WrapperImg src="/assets/lang.png" width={20} />
-              </a>
+              <WrapperImg src="/assets/lang.png" width={20} onClick={(e) => e.preventDefault()} />
             </Dropdown>
-            {openMenu ? <img src="/assets/close.png" width={20} onClick={() => setOpenMenu(false)} /> : <img src="/assets/menu.png" width={24} onClick={() => setOpenMenu(true)} />}
+            {openMenu ? <img src="/assets/close.png" width={20} onClick={() => setOpenMenu(false)} /> : <img src="/assets/menu.png" width={20} onClick={() => setOpenMenu(true)} />}
           </Space>
         </div>
       </div>

@@ -1,24 +1,60 @@
 import { ArrowLeft } from "@ricons/tabler";
 import { Icon } from "@ricons/utils";
-import { Checkbox, Col, Form, Input, Row, Tabs } from "antd";
+import { Checkbox, Col, Form, Input, Modal, Row, Tabs } from "antd";
 import { atom, useAtom } from "jotai";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { message } from "../App";
+import { messageContext } from "../App";
+import WrapperImg from "../components/Common/Img";
 import Loader from "../components/Loader";
 import { request } from "../utils/request";
 
 const tabTypes = atom<"Sign" | "Forgot" | "Revise">("Sign");
 
+/** 用户协议弹窗 */
+const agreemenetModel = atom(false);
+const AgreementProtocol = () => {
+  const [show, setShow] = useAtom(agreemenetModel);
+
+  const protocol = useRef<{
+    read_num: number;
+    title: string;
+    desc: string;
+    content: string;
+    created_at: string;
+  }>();
+
+  useEffect(() => {
+    request.post("/api/api/announce/getDetail", { id: "15" }).then(({ data }) => {
+      protocol.current = data.data;
+    });
+  }, []);
+  return (
+    <Modal
+      open={show}
+      onCancel={() => setShow(false)}
+      modalRender={() => (
+        <div className="w-full rounded-md bg-white p-4 text-black relative pointer-events-auto">
+          <WrapperImg src="/assets/close.png" width={18} className="absolute top-2 right-2 " onClick={() => setShow(false)} />
+          <div className="w-full text-3xl font-bold">{protocol.current?.title}</div>
+          <p className="text-threePranentTransblack">{protocol.current?.created_at}</p>
+          <p dangerouslySetInnerHTML={{ __html: protocol.current?.content || "" }}></p>
+        </div>
+      )}></Modal>
+  );
+};
 /** 登录 */
 const In = () => {
-  const [toast] = useAtom(message);
+  /** 是否显示密码 */
+  const [visible, setVisible] = useState(false);
+  const [toast] = useAtom(messageContext);
   const [form] = Form.useForm();
   const [nickname, setNickName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [type, setType] = useAtom(tabTypes);
   const [loading, setLoading] = useState(false);
+
   const confirm = () => {
     setLoading(true);
     request
@@ -55,19 +91,21 @@ const In = () => {
           <Form.Item label="账号">
             <Input onChange={(e) => setNickName(e.target.value)} size="large" placeholder="请输入邮箱或者手机号" />
           </Form.Item>
-          <Form.Item
-            label="密码"
-            extra={
-              <a className="text-[#193CF6]" onClick={() => setType("Forgot")}>
-                忘记密码
-              </a>
-            }>
-            <Input.Password
-              onChange={(e) => setPassword(e.target.value)}
-              size="large"
-              placeholder="请输入密码"
-              iconRender={(visible) => (visible ? <img src="/assets/miss.png" width={20} /> : <img src="/assets/watch.png" width={20} />)}
-            />
+          <Form.Item noStyle>
+            <div className="flex w-full flex-col mb-10">
+              <div className="flex justify-between items-center w-full mb-1">
+                <span>密码</span>
+                <a className="text-[#193CF6]" onClick={() => setType("Forgot")}>
+                  忘记密码
+                </a>
+              </div>
+              <div className="relative items-center flex">
+                <Input type={visible ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} size="large" placeholder="请输入密码" />
+                <div className="absolute right-2">
+                  {visible ? <WrapperImg src="/assets/watch.png" width={20} onClick={() => setVisible(false)} /> : <WrapperImg src="/assets/miss.png" width={20} onClick={() => setVisible(true)} />}
+                </div>
+              </div>
+            </div>
           </Form.Item>
           <Form.Item>
             <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-threePranentTransblack" disabled={!nickname || !password || loading} onClick={confirm}>
@@ -212,6 +250,7 @@ const ForgotPhone = () => {
 const Sign = () => {
   const navigate = useNavigate();
   const [activeKey, setKey] = useState("1");
+  const [, setAgreeModalShow] = useAtom(agreemenetModel);
   const location = useLocation();
   const items = [
     {
@@ -248,7 +287,9 @@ const Sign = () => {
       <div className="flex flex-col items-center justify-center gap-4 text-threePranentTransblack text-xs">
         <div>ALL RIGHTS RESERVED ©2024 CycleX</div>
         <div className="flex gap-4">
-          <a className="cursor-pointer">用户协议</a>
+          <a className="cursor-pointer" onClick={() => setAgreeModalShow(true)}>
+            用户协议
+          </a>
           <a className="cursor-pointer">隐私条款</a>
         </div>
       </div>
@@ -359,6 +400,7 @@ const Login = () => {
           {type === "Sign" ? <Sign /> : type === "Forgot" ? <Forget /> : <Revise />}
         </div>
       </div>
+      <AgreementProtocol />
     </div>
   );
 };

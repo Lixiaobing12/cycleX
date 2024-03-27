@@ -1,17 +1,17 @@
 import { Col, Form, Input, Row, Select, Upload, UploadProps } from "antd";
 import { useAtom } from "jotai";
 import { useRef, useState } from "react";
-import { message } from "../App";
+import { messageContext } from "../App";
 import { request } from "../utils/request";
 
 const { Dragger } = Upload;
 
 const Verify = () => {
   const items = useRef({
-    real_name:'',
-    nationality:1
+    real_name: "",
+    nationality: 1,
   });
-  const [toast] = useAtom(message);
+  const [toast] = useAtom(messageContext);
   const [form] = Form.useForm();
   const [idBackImg, setBackImg] = useState("");
   const [idFrontImg, setFrontImg] = useState("");
