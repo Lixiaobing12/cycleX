@@ -43,6 +43,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             controlOutlineWidth: 1,
           },
           components: {
+            Menu:{
+              itemSelectedBg:"rgba(0, 0, 0, 0.06)"
+            },
             Select: {
               optionSelectedColor: "#fff",
             },

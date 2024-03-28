@@ -1,9 +1,12 @@
 import { DownOutlined, WarningOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
-import { Drawer, Dropdown, MenuProps, Space } from "antd";
+import { Dropdown, MenuProps, Space } from "antd";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DrawerShow } from "../atom/menu";
 import useLocalStorage from "../hooks/localStorage";
+import { utilAnchor } from "../utils/anchor";
 import { request } from "../utils/request";
 import WrapperImg from "./Common/Img";
 
@@ -30,10 +33,9 @@ type UserInfoType = {
 };
 const HeaderComponent = () => {
   const accessToken = useLocalStorage();
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [users, setUsersInfo] = useState<UserInfoType>();
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useAtom(DrawerShow);
   // const { openConnectModal } = useConnectModal();
   // const { address, isConnected } = useAccount();
 
@@ -68,30 +70,9 @@ const HeaderComponent = () => {
       },
     },
   ];
-  const animationToAnchor = (startNum: number, stopNum: number) => {
-    var nowNum = startNum + stopNum / (startNum + 10) + 20; // 步进为10
-
-    if (nowNum > stopNum) {
-      nowNum = stopNum;
-    }
-
-    // 缓动方法
-    window.requestAnimationFrame(function () {
-      document.documentElement.scrollTop = nowNum; // 当前示例页面，滚动条在body，所以滚动body
-      // 滚动到预定位置则结束
-      if (nowNum == stopNum) {
-        return;
-      }
-      animationToAnchor(nowNum, stopNum); // 只要还符合缓动条件，则递归调用
-    });
-  };
   const anchor = (id: string = "fund") => {
     navigate("/");
-    setTimeout(() => {
-      const fund_top = document.getElementById(id)!.getBoundingClientRect().top;
-      const screenTop = document.documentElement.scrollTop;
-      animationToAnchor(screenTop, fund_top + screenTop);
-    }, 100);
+    utilAnchor(id);
   };
 
   useEffect(() => {
@@ -112,8 +93,12 @@ const HeaderComponent = () => {
             <div className="cursor-pointer hover:scale-105" onClick={() => anchor()}>
               基金
             </div>
-            <div className="cursor-pointer  hover:scale-105">新手指南</div>
-            <div className="cursor-pointer  hover:scale-105">资产发行</div>
+            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/guide")}>
+              新手指南
+            </div>
+            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/issus")}>
+              资产发行
+            </div>
           </Space>
         </div>
         <div className="w-0 h-0 md:h-auto md:flex-[2] text-right mr-4 overflow-hidden">
@@ -183,9 +168,6 @@ const HeaderComponent = () => {
           </Space>
         </div>
       </div>
-      <Drawer placement="right" closable={false} onClose={() => setOpen(false)} open={open}>
-        <p>Some contents...</p>
-      </Drawer>
     </>
   );
 };

@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router-dom";
+import Issus from "./pages/AssestIssus";
 import Assets from "./pages/Assets";
+import Guide from "./pages/Guide";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Platform from "./pages/Platform";
@@ -13,6 +15,8 @@ const router = [
   { path: "/verify", element: <Verify /> },
   { path: "/wallet", element: <Wallet /> },
   { path: "/platform", element: <Platform /> },
+  { path: "/guide", element: <Guide /> },
+  { path: "/issus", element: <Issus /> },
 ];
 function RouterProviders() {
   return (
