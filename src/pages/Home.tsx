@@ -1,26 +1,28 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import News from "../components/Home/News";
 import Process from "../components/Home/Process";
 import ProofAssets from "../components/Home/Proof_Assets";
 import Reassets from "../components/Home/Re_Assets";
 import TodoListAssets from "../components/Home/Todo_Assets";
+import { fundProductApiType } from "../types/fundProduct";
 
 const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
 };
 export default function Home() {
   const [openNotice, setNotice] = useState(true);
-  const [assets, setAssetsItems] = useState([
-    { name: "CUSDA", chars: ["随时申赎", "流动性强", "现实资产锚定"], apy: "5", price: "2M", id: 0 },
-    { name: "CFRO", chars: ["可赎回", "收益稳定", "现实资产锚定"], apy: "5", price: "2M", id: 1 },
-    { name: "CFRC", chars: ["可赎回", "上市收益", "现实资产锚定"], apy: "5", price: "2M", id: 2 },
-  ]);
+  const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
   const navigate = useNavigate();
   const openBook = () => {
     window.open("https://powpepe.gitbook.io/powpepe/", "_blank");
   };
-
+  useEffect(() => {
+    axios.post("/api/api/fundProduct/getList").then(({ data }) => {
+      setAssetsItems(data.data);
+    });
+  }, []);
   return (
     <>
       <div className="relative text-white">
@@ -50,18 +52,18 @@ export default function Home() {
                 <span className="text-3xl font-bold ml-2">{item.name}</span>
               </div>
               <div className="flex max-w-[70%] flex-wrap gap-4 mb-10">
-                {item.chars.map((ch) => (
+                {item.labels.map((ch) => (
                   <div className="rounded-full px-4 py-1 bg-[#222] text-grey" key={ch}>
                     {ch}
                   </div>
                 ))}
               </div>
               <div>
-                <span className="text-3xl font-bold">{item.apy}%</span>年化收益率(APY)
+                <span className="text-3xl font-bold">{item.income2}</span>年化收益率(APY)
               </div>
               <div className="flex items-center justify-between mt-4">
                 <div className="flex gap-4 font-bold">
-                  <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {item.price} AUM</div>
+                  <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ ？AUM</div>
                   <img src="/assets/eth.png" width={38} alt="" />
                 </div>
                 <img src="/assets/right.png" width={38} className="cursor-pointer hover:scale-105" onClick={() => navigate(`/assets/${item.id}`)} />
