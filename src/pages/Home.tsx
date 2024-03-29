@@ -7,6 +7,7 @@ import ProofAssets from "../components/Home/Proof_Assets";
 import Reassets from "../components/Home/Re_Assets";
 import TodoListAssets from "../components/Home/Todo_Assets";
 import { fundProductApiType } from "../types/fundProduct";
+import { scientific } from "../utils/BigNumberToString";
 
 const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
@@ -63,7 +64,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-between mt-4">
                 <div className="flex gap-4 font-bold">
-                  <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ ？AUM</div>
+                  <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(item.market_value)}AUM</div>
                   <img src="/assets/eth.png" width={38} alt="" />
                 </div>
                 <img src="/assets/right.png" width={38} className="cursor-pointer hover:scale-105" onClick={() => navigate(`/assets/${item.id}`)} />
