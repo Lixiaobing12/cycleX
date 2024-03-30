@@ -1,5 +1,8 @@
 import { Table, TableProps } from "antd";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { fundProductApiType } from "../../types/fundProduct";
+import { scientific } from "../../utils/BigNumberToString";
 import WrapperButton from "../Common/Button";
 import WrapperImg from "../Common/Img";
 
@@ -13,8 +16,9 @@ interface DataType {
 
 const TodoListAssets = () => {
   const [activeItem, setItem] = useState(1);
+  const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
 
-  const columns: TableProps<DataType>["columns"] = [
+  const columns: TableProps<fundProductApiType>["columns"] = [
     {
       title: "名称",
       dataIndex: "name",
@@ -23,53 +27,37 @@ const TodoListAssets = () => {
     },
     {
       title: "类型",
-      dataIndex: "age",
-      key: "age",
+      key: "unit",
       width: 100,
+      render: () => <span>基金</span>,
     },
     {
       title: "管理规模/AUM",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "market_value",
+      key: "market_value",
       width: 100,
+      render: (value) => scientific(value),
     },
     {
       title: "单位净值/NAV",
-      key: "tags",
-      dataIndex: "tags",
+      key: "net_worth",
+      dataIndex: "net_worth",
       width: 100,
     },
     {
       title: "预期收益率/APY",
-      key: "tags",
-      dataIndex: "tags",
+      key: "income",
+      dataIndex: "income",
       width: 100,
+      render: (value) => `${value}%`,
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: "1",
-      name: "CUSDA",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+  useEffect(() => {
+    axios.post("/api/api/fundProduct/getList").then(({ data }) => {
+      setAssetsItems(data.data);
+    });
+  }, []);
   return (
     <div className="flex flex-col w-full items-center gap-10">
       <div className="flex-col items-start gap-4 md:flex-row w-full flex justify-between md:items-center">
@@ -90,7 +78,7 @@ const TodoListAssets = () => {
           <WrapperImg src="/assets/reflush.png" width={18} />
         </div>
       </div>
-      <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 500 }} />
+      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} />
     </div>
   );
 };

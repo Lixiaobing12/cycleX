@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { messageContext } from "../App";
 import WrapperImg from "../components/Common/Img";
 import Loader from "../components/Loader";
+import useLocalStorage from "../hooks/localStorage";
 import { request } from "../utils/request";
 
 const tabTypes = atom<"Sign" | "Forgot" | "Revise">("Sign");
@@ -15,7 +16,6 @@ const tabTypes = atom<"Sign" | "Forgot" | "Revise">("Sign");
 const agreemenetModel = atom(false);
 const AgreementProtocol = () => {
   const [show, setShow] = useAtom(agreemenetModel);
-
   const protocol = useRef<{
     read_num: number;
     title: string;
@@ -372,6 +372,8 @@ const Revise = () => {
 };
 
 const Login = () => {
+  const accessToken = useLocalStorage();
+  const [toast] = useAtom(messageContext);
   const [type, setType] = useAtom(tabTypes);
   const navigate = useNavigate();
   const back = () => {
@@ -383,7 +385,12 @@ const Login = () => {
       setType("Forgot");
     }
   };
-
+  useEffect(() => {
+    if (accessToken) {
+      toast?.loading("Logging In");
+      setTimeout(() => navigate("/"), 1000);
+    }
+  }, [accessToken]);
   return (
     <div className="flex text-black">
       <div className="flex-0 h-0 w-0 md:flex-1 md:h-screen bg-login_mene bg-100 flex justify-center items-center">
