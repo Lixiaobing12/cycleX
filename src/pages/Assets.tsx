@@ -1,23 +1,25 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { AxiosResponse } from "axios";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
+import CountUp from "react-countup";
+import { useParams } from "react-router-dom";
+import { product_info } from "../atom/product";
 import Constitute from "../components/Assets/Constitute";
 import Deposit from "../components/Assets/Deposit";
 import Performance from "../components/Assets/Performance";
+import { fundProductApiType } from "../types/fundProduct";
+import { scientific } from "../utils/BigNumberToString";
+import { request } from "../utils/request";
 
-const getAssetsBgImg = (ind = 1) => {
-  return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
-};
 export default function Assets() {
-  const [assets, setAssetsItems] = useState([
-    { name: "CUSDA", chars: ["随时申赎", "流动性强", "现实资产锚定"], apy: "5", price: "2M", id: 0 },
-    { name: "CFRO", chars: ["可赎回", "收益稳定", "现实资产锚定"], apy: "5", price: "2M", id: 1 },
-    { name: "CFRC", chars: ["可赎回", "上市收益", "现实资产锚定"], apy: "5", price: "2M", id: 2 },
-  ]);
-  const navigate = useNavigate();
-  const openBook = () => {
-    window.open("https://powpepe.gitbook.io/powpepe/", "_blank");
-  };
-
+  const params = useParams();
+  const [product, setProductInfo] = useAtom(product_info);
+  
+  useEffect(() => {
+    request.post("/api/api/fundProduct/getDetail", { id: params.id }).then(({ data }: { data: AxiosResponse<fundProductApiType> }) => {
+      setProductInfo(data.data);
+    });
+  }, [params]);
   return (
     <>
       <div className="relative text-white">
@@ -26,19 +28,24 @@ export default function Assets() {
           <div className="absolute flex flex-col left-4 top-[20%] md:left-[20%] ">
             <p className="tracking-widest	text-4xl font-bold mb-8 flex items-center gap-4">
               <img src="/assets/assets_dollor.png" className="w-14" alt="" />
-              <span>CRFO</span>
+              <span>{product?.name}</span>
             </p>
-            <p className="text-grey text-center tracking-widest leading-relaxed text-xl">CycleX liquid mortgage loan</p>
+            <p className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:max-w-[600px]" dangerouslySetInnerHTML={{ __html: product?.desc ?? "" }}></p>
             <div className="flex gap-10 items-end mt-14 mb-10">
-              <div className="text-3xl">$ 10.56</div>
+              <div className="text-3xl">
+                $<CountUp end={Number(product?.net_worth ?? 0)} start={0} duration={10} />
+              </div>
               <div className="flex items-center gap-1">
-                <span>+$0.5 today</span>
+                <span>
+                  +$ 0.
+                  <CountUp end={5} duration={2} /> today
+                </span>
                 <img src="/assets/up.png" width={14} alt="" />
               </div>
             </div>
             <div className="flex gap-6 items-center">
-              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">7% APY</div>
-              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$130M TVL</div>
+              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">{product?.income2} APY</div>
+              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(product?.market_value || 0)} AUM</div>
               <img src="/assets/eth_white.png" width={30} alt="" />
             </div>
           </div>
@@ -105,7 +112,6 @@ export default function Assets() {
             </details>
           </div>
         </div>
-
       </div>
     </>
   );

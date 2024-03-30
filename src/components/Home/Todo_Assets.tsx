@@ -1,6 +1,7 @@
 import { Table, TableProps } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fundProductApiType } from "../../types/fundProduct";
 import { scientific } from "../../utils/BigNumberToString";
 import WrapperButton from "../Common/Button";
@@ -15,6 +16,7 @@ interface DataType {
 }
 
 const TodoListAssets = () => {
+  const navigate = useNavigate();
   const [activeItem, setItem] = useState(1);
   const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
 
@@ -24,6 +26,7 @@ const TodoListAssets = () => {
       dataIndex: "name",
       key: "name",
       width: 100,
+      render: (value, row) => <a className="text-[#0958d9]" onClick={() => navigate(`/assets/${row.id}`)}>{value}</a>,
     },
     {
       title: "类型",

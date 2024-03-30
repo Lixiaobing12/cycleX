@@ -6,31 +6,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DrawerShow } from "../atom/menu";
 import useLocalStorage from "../hooks/localStorage";
+import { UserInfoType } from "../types/user";
 import { utilAnchor } from "../utils/anchor";
 import { request } from "../utils/request";
 import WrapperImg from "./Common/Img";
 
-type UserInfoType = {
-  avatar: string | null;
-  created_at: string;
-  email: string;
-  email_verified_at: null | string;
-  id: number;
-  ip: null | string;
-  last_online_at: string;
-  mobile: null | string;
-  mobile_prefix: null | string;
-  name: string;
-  referral_code: string;
-  referrer_id: number;
-  risk_type: number;
-  security_password_flag: number;
-  status: number;
-  updated_at: string;
-  user_level_id: number;
-  user_pv: number;
-  user_type: number;
-};
+
 const HeaderComponent = () => {
   const accessToken = useLocalStorage();
   const navigate = useNavigate();

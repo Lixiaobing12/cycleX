@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fundProductApiType } from "../types/fundProduct";
 import WrapperImg from "./Common/Img";
 
 const Footers = () => {
   const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.post("/api/api/fundProduct/getList").then(({ data }) => {
@@ -14,39 +16,37 @@ const Footers = () => {
   return (
     <div className="w-full p-4 md:p-20 flex flex-col bg-black" id="footer">
       <div className="flex justify-between items-end text-white md:w-[80%] m-auto flex-col md:flex-row">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 w-full">
           <div className="flex items-center">
             <img src="/assets/icon.png" className="w-8" alt="" />
             <span className="ml-4 text-2xl">CycleX App</span>
           </div>
-          <table className="table">
-            <tbody>
-              <tr className="border-0">
-                <td className="p-0 py-2 w-44">产品</td>
-                <td className="p-0 py-2 w-44">公司</td>
-                <td className="p-0 py-2 w-44">支持</td>
-              </tr>
-              <tr className="border-0">
-                <td className="p-0 py-2 w-44">CFRO</td>
-                <td className="p-0 py-2 w-44">关于我们</td>
-                <td className="p-0 py-2 w-44">联系我们</td>
-              </tr>
-              <tr className="border-0">
-                <td className="p-0 py-2 w-44">CFRS</td>
-                <td className="p-0 py-2 w-44">法律与隐私</td>
-              </tr>
-              <tr className="border-0">
-                <td className="p-0 py-2 w-44">CURSDA</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="flex gap-10 w-full my-4">
+            <div className="flex flex-col gap-4">
+              <div>产品</div>
+              {assets.map((item, index) => (
+                <div key={index} onClick={() => navigate(`/assets/${item.id}`)} className="cursor-pointer hover:scale-105">
+                  {item.name}
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-4">
+              <div>公司</div>
+              <div>关于我们</div>
+              <div>法律与隐私</div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div>支持</div>
+              <div>联系我们</div>
+            </div>
+          </div>
         </div>
         <div className="flex flex-col gap-4 md:items-end mt-10 md:mt-0">
           <div>移动应用</div>
-          <a href="https://mp-cd080341-1a5f-41e1-a2ff-373ad4347341.cdn.bspapp.com/cyclex/cyclex_latest.apk" className="w-2/6 cursor-pointer">
+          <a href="https://mp-cd080341-1a5f-41e1-a2ff-373ad4347341.cdn.bspapp.com/cyclex/cyclex_latest.apk" className="w-2/6 md:w-44 cursor-pointer">
             <img src="/assets/download-googleplay.png" alt="" />
           </a>
-          <img src="/assets/download-appstore.png" className="w-2/6 cursor-pointer" onClick={() => window.open("https://apps.apple.com/us/app/cyclex/id6464595733")} alt="" />
+          <img src="/assets/download-appstore.png" className="w-2/6 md:w-44 cursor-pointer" onClick={() => window.open("https://apps.apple.com/us/app/cyclex/id6464595733")} alt="" />
         </div>
       </div>
       <div className="text-white my-10">
