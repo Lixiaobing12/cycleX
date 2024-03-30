@@ -1,6 +1,16 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { fundProductApiType } from "../types/fundProduct";
 import WrapperImg from "./Common/Img";
 
 const Footers = () => {
+  const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
+
+  useEffect(() => {
+    axios.post("/api/api/fundProduct/getList").then(({ data }) => {
+      setAssetsItems(data.data);
+    });
+  }, []);
   return (
     <div className="w-full p-4 md:p-20 flex flex-col bg-black" id="footer">
       <div className="flex justify-between items-end text-white md:w-[80%] m-auto flex-col md:flex-row">
