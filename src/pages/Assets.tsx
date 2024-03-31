@@ -14,7 +14,7 @@ import { request } from "../utils/request";
 export default function Assets() {
   const params = useParams();
   const [product, setProductInfo] = useAtom(product_info);
-  
+
   useEffect(() => {
     request.post("/api/api/fundProduct/getDetail", { id: params.id }).then(({ data }: { data: AxiosResponse<fundProductApiType> }) => {
       setProductInfo(data.data);

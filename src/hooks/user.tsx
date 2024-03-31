@@ -9,15 +9,24 @@ const useAccounts = () => {
   const [isSign, setSign] = useState(false);
   const [walletsInfo, setWalletsInfo] = useState<WalletInfoType>();
   useEffect(() => {
-    if (accessToken) {
-      request.post("/api/api/my/getMyInfo").then(({ data }) => {
-        setUsersInfo(data.data);
-      });
-      request.post("/api/api/my/getWallet").then(({ data }) => {
-        setWalletsInfo(data.data);
-      });
-      setSign(true);
-    }
+    const todo = () => {
+      if (accessToken) {
+        request.post("/api/api/my/getMyInfo").then(({ data }) => {
+          setUsersInfo(data.data);
+        });
+        request.post("/api/api/my/getWallet").then(({ data }) => {
+          setWalletsInfo(data.data);
+        });
+        setSign(true);
+      }
+    };
+    todo();
+    const timer = setInterval(() => {
+      todo();
+    }, 6000);
+    return () => {
+      clearInterval(timer);
+    };
   }, [accessToken]);
 
   return useMemo<[boolean, UserInfoType | undefined, WalletInfoType | undefined]>(() => [isSign, users, walletsInfo], [isSign, users, walletsInfo]);

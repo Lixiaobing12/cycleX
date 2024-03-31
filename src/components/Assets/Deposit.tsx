@@ -1,26 +1,111 @@
 import { Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useCopyToClipboard } from "usehooks-ts";
-import { messageContext } from "../../App";
+import { messageContext, modalContext } from "../../App";
 import { product_info } from "../../atom/product";
 import useAccounts from "../../hooks/user";
 import { scientific } from "../../utils/BigNumberToString";
+import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
+import Loader from "../Loader";
 
+const SafetyInput: React.FC<{
+  onSave: Function;
+}> = ({ onSave }) => {
+  const inputs = useRef([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }]);
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
+    inputs.current[key].value = e.target.value;
+    if (key < inputs.current.length - 1) {
+      (document.querySelector(`#dinput${key + 1}`) as any)?.focus();
+    } else {
+      (document.querySelector(`#dinput${key}`) as any)?.blur();
+      onSave(inputs.current.map((i) => i.value).join(""));
+    }
+  };
+  return (
+    <div className="flex items-center gap-2 w-full justify-center">
+      {inputs.current.map((item, key) => (
+        <input type="number" className="input  border-black w-12 bg-white" onChange={(e) => handleInput(e, key)} key={key} id={`dinput${key}`} autoComplete="new-password" />
+      ))}
+    </div>
+  );
+};
 const ItemDeposit = () => {
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [isSign, user, walletInfo] = useAccounts();
   const [amount, setAmount] = useState(0);
+  const [modal] = useAtom(modalContext);
+  const [btnDisabled, setDisabled] = useState(false);
+  const secrityKey = useRef<string>();
+  const [loading, setLoading] = useState(false);
+
+  const checkSecurity = async () => {
+    console.log(secrityKey.current);
+    if (!secrityKey.current) return;
+    setLoading(true);
+    const { data } = await request.post("/api/api/fundOrder/create", {
+      amount: amount.toString(),
+      product_id: String(product?.id),
+      security_password: secrityKey.current,
+    });
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    if (data.res_code !== 0) {
+      toast?.warning(data.res_msg);
+      return Promise.reject();
+    }
+    toast?.success("恭喜申购成功！");
+  };
   const handlerClick = () => {
     if (!isSign) {
       toast?.warning("请先登录！");
     } else {
       const min = product?.min_pay;
       const balance = walletInfo?.balance;
-      
+      if (amount < Number(min)) {
+        setDisabled(true);
+        return toast?.warning("不足最少购买数量");
+      }
+      if (amount > Number(balance)) {
+        setDisabled(true);
+        return toast?.warning("余额不足");
+      }
+      const context: any = modal?.info({
+        closable: true,
+        icon: <></>,
+        onCancel: () => context.destroy(),
+        title: <h1 className="w-full py-2 text-center text-lg">请输入安全密钥</h1>,
+        content: (
+          <SafetyInput
+            onSave={(e: string) => {
+              secrityKey.current = e;
+            }}
+          />
+        ),
+        centered: true,
+        footer: () => (
+          <button
+            className="btn btn-block m-auto mt-4 disabled:text-threePranentTransblack"
+            onClick={() => {
+              checkSecurity().then(() => {
+                context.destroy();
+              });
+            }}>
+            <Loader spinning={loading} />
+            确认
+          </button>
+        ),
+        styles: {
+          body: {
+            width: "100%",
+          },
+        },
+      });
     }
   };
   return (
@@ -35,7 +120,15 @@ const ItemDeposit = () => {
         </div>
       </div>
       <div className="w-full relative items-center flex">
-        <input type="number" className="w-full input bg-[#F7F8FA] rounded-md border-0" onChange={(e) => setAmount(Number(e.target.value))} placeholder={`最小购买数量${product?.min_pay}`} />
+        <input
+          type="number"
+          className="w-full input bg-[#F7F8FA] rounded-md border-0"
+          onChange={(e) => {
+            setDisabled(false);
+            setAmount(Number(e.target.value));
+          }}
+          placeholder={`最小购买数量${product?.min_pay}`}
+        />
         <div className="absolute flex items-center right-4 gap-2">
           <div>
             <img src="/assets/usdt.png" width={20} />
@@ -47,7 +140,7 @@ const ItemDeposit = () => {
         <div>最低金额：{product?.min_pay} USDT</div>
         <div>可用余额: {walletInfo?.balance ?? 0} USDT</div>
       </div>
-      <button className="btn btn-block bg-[#161618] border-0 rounded-md text-white p-4" onClick={handlerClick}>
+      <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
         {!isSign ? "请先登录" : "确定购买"}
       </button>
       <div className="flex items-center justify-center gap-1">
