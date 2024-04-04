@@ -1,26 +1,37 @@
 import { Chart } from "@antv/g2";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { request } from "../../utils/request";
 import WrapperButton from "../Common/Button";
 
 /** k线 */
 const KLine = () => {
   const [activeItem, setItem] = useState(1);
-
+  const params = useParams();
   useEffect(() => {
-    const chart = new Chart({
-      container: "ichart",
-      autoFit: true,
-      width: document.querySelector("#pv")!.clientWidth,
-    });
-    chart
-      .line()
-      .data({
-        type: "fetch",
-        value: "https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv",
+    request
+      .post("/sapi/fundApy/list", {
+        ProductId: Number(params.id),
+        Page: 1,
+        Size: 10,
       })
-      .encode("x", "date")
-      .encode("y", "close");
-    chart.render();
+      .then((res: any) => {
+        console.log(res.data.data);
+        const chart = new Chart({
+          container: "ichart",
+          autoFit: true,
+          width: document.querySelector("#pv")!.clientWidth,
+        });
+        chart
+          .line()
+          .data({
+            type: "fetch",
+            value: "https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv",
+          })
+          .encode("x", "date")
+          .encode("y", "close");
+        chart.render();
+      });
   }, []);
   return (
     <div className="w-full rounded-box shadow-2xl p-4 pt-10" id="pv">

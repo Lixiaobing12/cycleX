@@ -1,67 +1,60 @@
 import { Table, TableProps } from "antd";
-
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { scientific } from "../../utils/BigNumberToString";
+import { request } from "../../utils/request";
 
 const Constitute = () => {
-  const columns: TableProps<DataType>["columns"] = [
+  const params = useParams();
+  const [assets, setAssets] = useState<any[]>([]);
+
+  const columns: TableProps<any>["columns"] = [
     {
       title: "资产",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "Name",
+      key: "Name",
       width: 100,
+      render: (value) => (
+        <div className="flex items-center gap-2">
+          <img src="/assets/assets1.png" width={20} alt="" />
+          <span>{value}</span>
+        </div>
+      ),
     },
     {
       title: "储备资产构成",
-      dataIndex: "age",
-      key: "age",
+      dataIndex: "MarketValue",
+      key: "MarketValue",
       width: 100,
+      render: (value) => <strong>${scientific(value)} AUM</strong>,
     },
     {
-      title: "到期日",
-      dataIndex: "address",
-      key: "address",
+      title: "到期日(天)",
+      dataIndex: "ExprieDay",
+      key: "ExprieDay",
       width: 100,
     },
     {
       title: "资产类别",
-      key: "tags",
-      dataIndex: "tags",
+      key: "Labels",
+      dataIndex: "Labels",
       width: 200,
     },
   ];
-
-  const data: DataType[] = [
-    {
-      key: "1",
-      name: "CUSDA",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+  useEffect(() => {
+    request
+      .post("/sapi/fundReserve/list", {
+        ProductId: Number(params.id),
+        Page: 1,
+        Size: 10,
+      })
+      .then((res: any) => {
+        setAssets(res.data.data);
+      });
+  }, []);
   return (
     <div className="flex flex-col w-full items-center gap-10">
-      <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 500 }} />
+      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} />
     </div>
   );
 };

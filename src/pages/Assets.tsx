@@ -19,6 +19,7 @@ export default function Assets() {
     request.post("/api/api/fundProduct/getDetail", { id: params.id }).then(({ data }: { data: AxiosResponse<fundProductApiType> }) => {
       setProductInfo(data.data);
     });
+   
   }, [params]);
   return (
     <>

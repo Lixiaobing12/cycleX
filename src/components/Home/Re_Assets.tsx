@@ -7,7 +7,6 @@ const KLine = () => {
   const [activeItem, setItem] = useState(1);
 
   useEffect(() => {
-    console.log(document.querySelector("#pv"))
     const chart = new Chart({
       container: "ichart",
       autoFit: true,

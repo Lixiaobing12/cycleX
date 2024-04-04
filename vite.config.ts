@@ -25,10 +25,19 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wapi/, ""),
       },
-      '/images':{
-        target:'https://app.whaleflow.co/uploads',
-        changeOrigin:true
-      }
+      "/sapi": {
+        target: "http://m.quliantechnology.com/api/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/sapi/, ""),
+      },
+      "/images": {
+        target: "https://app.whaleflow.co/uploads",
+        changeOrigin: true,
+      },
+      "/static/file": {
+        target: "http://127.0.0.1:8080",
+        changeOrigin: true,
+      },
     },
   },
 });
