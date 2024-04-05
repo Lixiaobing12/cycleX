@@ -3,7 +3,7 @@ import { Divider } from "antd";
 const Law = () => {
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold text-3xl mb-6">法律</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">法律</h1>
       <p className="py-4">可以通过 services@whaleflow.co 与我们取得联系，我们的动态更新会披露在我们的X和Telegram找到我们。</p>
       <Divider />
 

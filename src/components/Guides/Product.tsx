@@ -65,7 +65,7 @@ const Product = () => {
   ];
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold text-3xl mb-6">产品列表</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">产品列表</h1>
       <Divider />
       <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 700 }}/>
     </div>

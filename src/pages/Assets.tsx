@@ -27,7 +27,7 @@ export default function Assets() {
         <div className="relative flex items-center justify-center">
           <img src="/assets/assets_bg.png" className="w-full h-[80vh]" alt="" />
           <div className="absolute flex flex-col left-4 top-[20%] md:left-[20%] ">
-            <p className="tracking-widest	text-4xl font-bold mb-8 flex items-center gap-4">
+            <p className="tracking-widest	text-4xl font-bold font-whalebold mb-8 flex items-center gap-4">
               <img src="/assets/assets_dollor.png" className="w-14" alt="" />
               <span>{product?.name}</span>
             </p>
@@ -76,7 +76,7 @@ export default function Assets() {
           </div>
           <div className="w-full lg:w-5/6 m-auto rounded-box border border-light p-6">
             <details className="collapse collapse-arrow bg-white text-black">
-              <summary className="collapse-title text-base font-bold">资产的发行和赎回流程有哪些？</summary>
+              <summary className="collapse-title text-base font-bold font-whalebold">资产的发行和赎回流程有哪些？</summary>
               <div className="collapse-content">
                 <h2>代币化资产主要3个流程:</h2>
                 <p>1.创建，创建新的代币资产</p>
@@ -86,14 +86,14 @@ export default function Assets() {
             </details>
             <div className="divider my-0"></div>
             <details className="collapse collapse-arrow bg-white text-black">
-              <summary className="collapse-title text-base font-bold">用户如何进行KYC认证流程？</summary>
+              <summary className="collapse-title text-base font-bold font-whalebold">用户如何进行KYC认证流程？</summary>
               <div className="collapse-content">
                 <p>个人及机构投资者可在CycleX官网或App提交KYC审核，我们将在1-3个工作日协助您完成KYC审核流程，用户可根据App的提示流程进行操作</p>
               </div>
             </details>
             <div className="divider my-0"></div>
             <details className="collapse collapse-arrow bg-white text-black">
-              <summary className="collapse-title text-base font-bold">资产标的构成和管理是怎样的？</summary>
+              <summary className="collapse-title text-base font-bold font-whalebold">资产标的构成和管理是怎样的？</summary>
               <div className="collapse-content">
                 <p>资产管理公司： 指导服务提供商并管理基金的普通合伙人（GP）</p>
                 <p>基金经理：协助基金发行并提供基金管理服务</p>
@@ -105,7 +105,7 @@ export default function Assets() {
             </details>
             <div className="divider my-0"></div>
             <details className="collapse collapse-arrow bg-white text-black">
-              <summary className="collapse-title text-base font-bold">收取哪些费用？</summary>
+              <summary className="collapse-title text-base font-bold font-whalebold">收取哪些费用？</summary>
               <div className="collapse-content">
                 <p>管理费：根据资产类别不同，收取相应的管理费用，平均控制在0.1-2%区间（可根据单一资产披露进行查看）</p>
                 <p>交易手续费：暂不收取</p>

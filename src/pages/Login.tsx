@@ -36,7 +36,7 @@ const AgreementProtocol = () => {
       modalRender={() => (
         <div className="w-full rounded-md bg-white p-4 text-black relative pointer-events-auto">
           <WrapperImg src="/assets/close.png" width={18} className="absolute top-2 right-2 " onClick={() => setShow(false)} />
-          <div className="w-full text-3xl font-bold">{protocol.current?.title}</div>
+          <div className="w-full text-3xl font-bold font-whalebold">{protocol.current?.title}</div>
           <p className="text-threePranentTransblack">{protocol.current?.created_at}</p>
           <p dangerouslySetInnerHTML={{ __html: protocol.current?.content || "" }}></p>
         </div>
@@ -323,7 +323,7 @@ const Forget = () => {
 
   return (
     <div className="mt-8 flex-1">
-      <div className="text-2xl font-bold my-4">忘记密码</div>
+      <div className="text-2xl font-bold font-whalebold my-4">忘记密码</div>
       <Tabs items={items} activeKey={activeKey} onChange={(e) => setKey(e)}></Tabs>
     </div>
   );
@@ -346,7 +346,7 @@ const Revise = () => {
   const confirm = () => {};
   return (
     <div className="mt-8 flex-1">
-      <div className="text-2xl font-bold my-4">修改密码</div>
+      <div className="text-2xl font-bold font-whalebold my-4">修改密码</div>
       <Form form={form} layout="vertical" autoComplete="off">
         <Row align="middle" justify="center">
           <Col xs={{ span: 22 }} md={{ span: 12 }}>

@@ -3,7 +3,7 @@ import { Divider } from "antd";
 const Aguide = () => {
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold text-3xl mb-6">发行摘要</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">发行摘要</h1>
 
       <div className="rounded-box border border-light p-4">
         <p className="text-base">
@@ -20,7 +20,7 @@ const Aguide = () => {
         </div>
       </div>
 
-      <h1 className="font-bold text-3xl my-6">发行要素</h1>
+      <h1 className="font-bold font-whalebold text-3xl my-6">发行要素</h1>
 
       <div className="rounded-box border border-light p-4">
         <div>
@@ -54,7 +54,7 @@ const Aguide = () => {
         </div>
       </div>
 
-      <h1 className="font-bold text-3xl my-6">常见问题</h1>
+      <h1 className="font-bold font-whalebold text-3xl my-6">常见问题</h1>
       <Divider />
 
       <div className="mt-10">

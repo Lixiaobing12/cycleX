@@ -65,11 +65,11 @@ const HeaderComponent = () => {
   }, [accessToken]);
   return (
     <>
-      <div className="w-full leading-10 font-bold p-4 flex justify-between items-center md:justify-around border-b border-transblack">
-        <div className="flex-1 md:flex md:justify-end md:items-center">
+      <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack  md:px-[10%]">
+        <div className="flex md:justify-end md:items-center">
           <img src="/assets/avant.png" className="cursor-pointer w-36" alt="" onClick={() => navigate("/")} />
         </div>
-        <div className="w-0 h-0 md:h-auto md:flex-1 overflow-hidden md:leading-[3] md:ml-20">
+        <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20">
           <Space size="large">
             <div className="cursor-pointer hover:scale-105" onClick={() => anchor()}>
               基金
@@ -82,7 +82,7 @@ const HeaderComponent = () => {
             </div>
           </Space>
         </div>
-        <div className="w-0 h-0 md:h-auto md:flex-[2] text-right mr-4 overflow-hidden">
+        <div className="hidden md:flex text-right mr-10">
           <Space size="large">
             {users && accessToken ? (
               <Dropdown menu={{ items: accountItems }}>
@@ -108,8 +108,8 @@ const HeaderComponent = () => {
             )}
           </Space>
         </div>
-        <div className="w-0 h-0 md:h-auto md:flex-1 overflow-hidden">
-          <div className="rounded-full border p-2 px-4 h-[37px] w-fit flex gap-2">
+        <div className="hidden md:flex">
+          <div className="rounded-full border border-transblack p-2 px-4 h-[37px] w-fit flex gap-4">
             <WrapperImg src="/assets/download.png" onClick={() => anchor("download")} />
             <WrapperImg src="/assets/phone.png" onClick={() => anchor("footer")} />
             <WrapperImg src="/assets/email.png" onClick={() => anchor("footer")} />
@@ -118,7 +118,7 @@ const HeaderComponent = () => {
             </Dropdown>
           </div>
         </div>
-        <div className="flex-[2] md:grow-0 overflow-hidden text-right md:w-0 md:h-0">
+        <div className="flex-[2] md:hidden text-right">
           <Space>
             {users && accessToken ? (
               <Dropdown menu={{ items: accountItems }}>

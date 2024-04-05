@@ -37,7 +37,7 @@ export default function Home() {
         <div className="relative flex items-center justify-center">
           <img src="/assets/home_content.png" className="w-full h-screen md:h-[80vh]" alt="" />
           <div className="absolute flex flex-col items-center mt-[-120px]">
-            <p className="tracking-widest	text-4xl font-bold mb-10">代币化基金已上线</p>
+            <p className="tracking-widest	text-4xl font-bold font-whalebold mb-10">代币化基金已上线</p>
             <p className="text-grey text-center tracking-widest leading-relaxed">
               CycleX致力于创造透明、安全的代币化资产交易平台，无论在世界的
               <br />
@@ -50,7 +50,7 @@ export default function Home() {
             <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col ${getAssetsBgImg(ind++)} w-full lg:w-[26%] min-h-80 bg-100`}>
               <div className="flex items-center my-4">
                 <img src="/assets/dollor_r.png" width={30} alt="" />
-                <span className="text-3xl font-bold ml-2">{item.name}</span>
+                <span className="text-3xl font-bold font-whalebold ml-2">{item.name}</span>
               </div>
               <div className="flex max-w-[70%] flex-wrap gap-4 mb-10">
                 {item.labels.map((ch) => (
@@ -60,10 +60,10 @@ export default function Home() {
                 ))}
               </div>
               <div>
-                <span className="text-3xl font-bold">{item.income2}</span>年化收益率(APY)
+                <span className="text-3xl font-bold font-whalebold">{item.income2}</span>年化收益率(APY)
               </div>
               <div className="flex items-center justify-between mt-4">
-                <div className="flex gap-4 font-bold">
+                <div className="flex gap-4 font-bold font-whalebold">
                   <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(item.market_value)} AUM</div>
                   <img src="/assets/eth.png" width={38} alt="" />
                 </div>
@@ -103,18 +103,18 @@ export default function Home() {
           </div>
           <Process />
           <div className="flex flex-col gap-4 items-left text-black mt-12 ml-0 lg:ml-40">
-            <h2 className="text-xl font-bold">温馨提示</h2>
+            <h2 className="text-xl font-bold font-whalebold">温馨提示</h2>
             <p>
-              <span className="font-bold">*资产SPV</span> <span className="text-greyblack ml-4">对应代币化基金锚定相应的底层资产并经审计及确权，确保资产安全并透明化</span>
+              <span className="font-bold font-whalebold">*资产SPV</span> <span className="text-greyblack ml-4">对应代币化基金锚定相应的底层资产并经审计及确权，确保资产安全并透明化</span>
             </p>
             <p>
-              <span className="font-bold">*发行阶段</span> <span className="text-greyblack ml-4">CycleX App 发行该代币化资产/基金，并部署至公链，目前仅支持以太坊，未来将新增，届时请查阅更新提示</span>
+              <span className="font-bold font-whalebold">*发行阶段</span> <span className="text-greyblack ml-4">CycleX App 发行该代币化资产/基金，并部署至公链，目前仅支持以太坊，未来将新增，届时请查阅更新提示</span>
             </p>
             <p>
-              <span className="font-bold">*平台交易</span> <span className="text-greyblack ml-4">用户在平台提交KYC审核并投资该类资产，根据资产类别提供封闭/开放，购买完成后即可持仓享有对应收益</span>
+              <span className="font-bold font-whalebold">*平台交易</span> <span className="text-greyblack ml-4">用户在平台提交KYC审核并投资该类资产，根据资产类别提供封闭/开放，购买完成后即可持仓享有对应收益</span>
             </p>
             <p>
-              <span className="font-bold">*获得收益</span> <span className="text-greyblack ml-4">用户至CycleX App根据已投资的产品列表选择产品提交至C2C交易大厅转让/不同种类产品可自动赎回</span>
+              <span className="font-bold font-whalebold">*获得收益</span> <span className="text-greyblack ml-4">用户至CycleX App根据已投资的产品列表选择产品提交至C2C交易大厅转让/不同种类产品可自动赎回</span>
             </p>
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function Home() {
           </div>
           <div className="w-full lg:w-5/6 m-auto rounded-box border border-light p-6">
             <details className="collapse collapse-arrow bg-white text-black">
-              <summary className="collapse-title text-base font-bold">资产的发行和赎回流程有哪些？</summary>
+              <summary className="collapse-title text-base font-bold font-whalebold">资产的发行和赎回流程有哪些？</summary>
               <div className="collapse-content">
                 <h2>代币化资产主要3个流程:</h2>
                 <p>1.创建，创建新的代币资产</p>
@@ -154,14 +154,14 @@ export default function Home() {
             </details>
             <div className="divider my-0"></div>
             <details className="collapse collapse-arrow bg-white text-black">
-              <summary className="collapse-title text-base font-bold">用户如何进行KYC认证流程？</summary>
+              <summary className="collapse-title text-base font-bold font-whalebold">用户如何进行KYC认证流程？</summary>
               <div className="collapse-content">
                 <p>个人及机构投资者可在CycleX官网或App提交KYC审核，我们将在1-3个工作日协助您完成KYC审核流程，用户可根据App的提示流程进行操作</p>
               </div>
             </details>
             <div className="divider my-0"></div>
             <details className="collapse collapse-arrow bg-white text-black">
-              <summary className="collapse-title text-base font-bold">资产标的构成和管理是怎样的？</summary>
+              <summary className="collapse-title text-base font-bold font-whalebold">资产标的构成和管理是怎样的？</summary>
               <div className="collapse-content">
                 <p>资产管理公司： 指导服务提供商并管理基金的普通合伙人（GP）</p>
                 <p>基金经理：协助基金发行并提供基金管理服务</p>
@@ -173,7 +173,7 @@ export default function Home() {
             </details>
             <div className="divider my-0"></div>
             <details className="collapse collapse-arrow bg-white text-black">
-              <summary className="collapse-title text-base font-bold">收取哪些费用？</summary>
+              <summary className="collapse-title text-base font-bold font-whalebold">收取哪些费用？</summary>
               <div className="collapse-content">
                 <p>管理费：根据资产类别不同，收取相应的管理费用，平均控制在0.1-2%区间（可根据单一资产披露进行查看）</p>
                 <p>交易手续费：暂不收取</p>

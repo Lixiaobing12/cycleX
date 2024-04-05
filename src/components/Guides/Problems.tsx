@@ -3,7 +3,7 @@ import { Divider } from "antd";
 const Problems = () => {
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold text-3xl mb-6">常见问题</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">常见问题</h1>
       <Divider />
 
       <div className="mt-10">

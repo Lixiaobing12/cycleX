@@ -66,7 +66,7 @@ const Verify = () => {
           <Col span={24}>
             <Form.Item>
               <div className="flex flex-col gap-6 items-center">
-                <h1 className="font-bold text-3xl">实名认证</h1>
+                <h1 className="font-bold font-whalebold text-3xl">实名认证</h1>
                 <div className="flex items-center gap-2">
                   <img src="/assets/verified.png" alt="" width={14} />
                   <span className="text-threePranentTransblack">Crypto 全力保护你的信息安全</span>
@@ -111,7 +111,7 @@ const Verify = () => {
             <Form.Item>
               <div className="flex justify-end">
                 <div className="rounded-box border border-light p-8 w-full md:w-2/3 pb-12">
-                  <div className="font-bold text-center mb-2">上传国徽面</div>
+                  <div className="font-bold font-whalebold text-center mb-2">上传国徽面</div>
                   <Dragger {...BackProps}>
                     {idBackImg ? (
                       <div>
@@ -135,7 +135,7 @@ const Verify = () => {
             <Form.Item>
               <div className="flex justify-start">
                 <div className="rounded-box border border-light p-8 w-full md:w-2/3 pb-12">
-                  <div className="font-bold text-center mb-2">上传人像面</div>
+                  <div className="font-bold font-whalebold text-center mb-2">上传人像面</div>
                   <Dragger {...FrontProps}>
                     {idFrontImg ? (
                       <div>

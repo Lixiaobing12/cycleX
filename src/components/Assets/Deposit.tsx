@@ -109,7 +109,7 @@ const ItemDeposit = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-4  text-greyblack font-bold">
+    <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
       <div className="flex justify-between items-center">
         <span>结算期</span>
         <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
@@ -133,7 +133,7 @@ const ItemDeposit = () => {
           <div>
             <img src="/assets/usdt.png" width={20} />
           </div>
-          <span className="text-black font-bold">USDT</span>
+          <span className="text-black font-bold font-whalebold">USDT</span>
         </div>
       </div>
       <div className="flex flex-col gap-1">
@@ -156,7 +156,7 @@ const ItemDeposit = () => {
 const ItemWithDraw = () => {
   const [product] = useAtom(product_info);
   return (
-    <div className="flex flex-col gap-4  text-greyblack font-bold">
+    <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
       <div className="flex justify-between items-center">
         <span>结算期</span>
         <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
@@ -172,7 +172,7 @@ const ItemWithDraw = () => {
           <div>
             <img src="/assets/usdt.png" width={20} />
           </div>
-          <span className="text-black font-bold">USDT</span>
+          <span className="text-black font-bold font-whalebold">USDT</span>
         </div>
       </div>
       <div className="flex flex-col gap-1">
@@ -287,7 +287,7 @@ const Deposit = () => {
                       <WrapperImg src="/assets/question.png" width={16} />
                     </div>
                   </div>
-                  <div className="text-black text-2xl font-bold">{item.value}</div>
+                  <div className="text-black text-2xl font-bold font-whalebold">{item.value}</div>
                 </div>
                 {index < 3 && <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>}
               </div>

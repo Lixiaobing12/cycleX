@@ -13,6 +13,9 @@ module.exports = {
         login_mene: "url('/assets/login_background.png')",
       },
     },
+    fontFamily:{
+      whalebold:['Whale-bold'],
+    },
     colors: {
       transblack: "rgba(0,0,0,0.1)",
       threePranentTransblack:"rgba(0,0,0,0.38)",

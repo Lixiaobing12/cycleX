@@ -58,7 +58,7 @@ const Reassets = () => {
           <div key={index} className="flex items-center gap-8">
             <img src={item.icon} className="w-16 h-16" />
             <div className="flex flex-col">
-              <div className="text-xl text-black font-bold opacity-85">{item.title}</div>
+              <div className="text-xl text-black font-bold font-whalebold opacity-85">{item.title}</div>
               <div className="text-greyblack text-md">{item.description}</div>
             </div>
           </div>
