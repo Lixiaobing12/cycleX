@@ -155,6 +155,10 @@ const ItemDeposit = () => {
 };
 const ItemWithDraw = () => {
   const [product] = useAtom(product_info);
+  const [btnDisabled, setDisabled] = useState(false);
+  const [isSign, user, walletInfo] = useAccounts();
+
+  const handlerClick = () => {};
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
       <div className="flex justify-between items-center">
@@ -179,7 +183,9 @@ const ItemWithDraw = () => {
         <div>最低金额：100,000 USDT</div>
         <div>1 CRFS =1000 USD</div>
       </div>
-      <button className="button btn-block bg-[#161618] border-0 rounded-md text-white p-4">请先登录</button>
+      <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
+        {!isSign ? "请先登录" : "确定购买"}
+      </button>
       <div className="flex items-center justify-center gap-1">
         <span>联系support@cyclex.com获取访问权限</span>
         <div className="flex items-center gap-1">

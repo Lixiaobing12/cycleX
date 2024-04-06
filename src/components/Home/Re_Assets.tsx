@@ -6,7 +6,7 @@ import WrapperButton from "../Common/Button";
 
 /** k线 */
 const KLine = () => {
-  const [activeItem, setItem] = useState(1);
+  const [activeItem, setItem] = useState(40);
   const option = (lineDatas: number[], XPosition: number[]) => {
     return {
       grid: {
@@ -112,6 +112,7 @@ const KLine = () => {
       ],
     };
   };
+
   useEffect(() => {
     var chartDom = document.getElementById("ichart");
     var myChart = echarts.init(chartDom);
@@ -120,7 +121,7 @@ const KLine = () => {
       .get("/api/api/bondState/getList", {
         params: {
           page: 0,
-          size: 40,
+          size: activeItem,
         },
       })
       .then(({ data }) => {
@@ -129,32 +130,17 @@ const KLine = () => {
         const XPositions = Array.from({ length: data.data.map((l: any) => l.yield_2y).length }, (value, index) => index);
         myChart.setOption(option(homePlatformDataPosition2, XPositions));
       });
-
-    // const chart = new Chart({
-    //   container: "ichart",
-    //   autoFit: true,
-    //   width: document.querySelector("#pv")!.clientWidth,
-    // });
-    // chart
-    //   .line()
-    //   .data({
-    //     type: "fetch",
-    //     value: "https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv",
-    //   })
-    //   .encode("x", "date")
-    //   .encode("y", "close");
-    // chart.render();
-  }, []);
+  }, [activeItem]);
   return (
     <div className="w-full pt-10 h-full" id="pv">
       <div className="flex gap-6 w-full">
-        <WrapperButton click={() => setItem(1)} isActive={activeItem === 1}>
+        <WrapperButton click={() => setItem(40)} isActive={activeItem === 40}>
           全部
         </WrapperButton>
-        <WrapperButton click={() => setItem(2)} isActive={activeItem === 2}>
+        <WrapperButton click={() => setItem(7)} isActive={activeItem === 7}>
           7日APY{" "}
         </WrapperButton>
-        <WrapperButton click={() => setItem(3)} isActive={activeItem === 3}>
+        <WrapperButton click={() => setItem(14)} isActive={activeItem === 14}>
           累计派发利息{" "}
         </WrapperButton>
       </div>

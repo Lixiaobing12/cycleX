@@ -26,7 +26,17 @@ const TodoListAssets = () => {
       dataIndex: "name",
       key: "name",
       width: 100,
-      render: (value, row) => <a className="text-[#0958d9]" onClick={() => navigate(`/assets/${row.id}`)}>{value}</a>,
+      render: (value, row) => (
+        <a className="text-black flex items-center gap-2" onClick={() => navigate(`/assets/${row.id}`)}>
+          <div>
+            <img src="/assets/assets_dollor.png" width={25} alt="" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-lg font-bold">{value}</span>
+            <span className="text-threePranentTransblack ">代币化基金</span>
+          </div>
+        </a>
+      ),
     },
     {
       title: "类型",
@@ -39,20 +49,21 @@ const TodoListAssets = () => {
       dataIndex: "market_value",
       key: "market_value",
       width: 100,
-      render: (value) => scientific(value),
+      render: (value) => '$'+scientific(value),
     },
     {
       title: "单位净值/NAV",
       key: "net_worth",
       dataIndex: "net_worth",
       width: 100,
+      render: (value) => '$'+value,
     },
     {
       title: "预期收益率/APY",
       key: "income",
       dataIndex: "income",
       width: 100,
-      render: (value) => `${value}%`,
+      render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">+{value}%</span> : <span className="text-[#FF6838]">-{value}%</span>}</div>,
     },
   ];
 
