@@ -49,7 +49,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="w-full md:w-11/12 lg:w-9/12 m-auto">
+        <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto">
           <div className="flex flex-wrap gap-4 item-center justify-center my-20" id="fund">
             {assets.map((item, ind) => (
               <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col ${getAssetsBgImg(ind++)} w-full lg:w-[30%] min-h-80 bg-100`}>
