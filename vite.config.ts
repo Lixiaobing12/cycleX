@@ -20,11 +20,6 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
-      "/wapi": {
-        target: "https://api.whaleflow.co",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/wapi/, ""),
-      },
       "/sapi": {
         target: "http://m.quliantechnology.com/api/",
         changeOrigin: true,

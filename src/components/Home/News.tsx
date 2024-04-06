@@ -18,7 +18,7 @@ interface NewsInter {
 const News = () => {
   const [news, setNewsList] = useState<NewsInter[]>([]);
   useEffect(() => {
-    axios.get("/wapi/article/getList?page=0&size=10&type=NEWS").then(({ data }) => {
+    axios.get("https://api.whaleflow.co/article/getList?page=0&size=10&type=NEWS").then(({ data }) => {
       setNewsList(data.data);
     });
   }, []);
