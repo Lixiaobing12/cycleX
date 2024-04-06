@@ -150,7 +150,7 @@ export default function Home() {
             <div className="w-full rounded-box border border-transblack p-6">
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">资产的发行和赎回流程有哪些？</summary>
-                <div className="collapse-content text-sm text-threePranentTransblack">
+                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <h2>代币化资产主要3个流程:</h2>
                   <p>1.创建，创建新的代币资产</p>
                   <p>2.赎回，投资者将代币返还给Cycle以收回资金（加上应计收益）</p>
@@ -167,7 +167,7 @@ export default function Home() {
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">资产标的构成和管理是怎样的？</summary>
-                <div className="collapse-content text-sm text-threePranentTransblack">
+                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <p>资产管理公司： 指导服务提供商并管理基金的普通合伙人（GP）</p>
                   <p>基金经理：协助基金发行并提供基金管理服务</p>
                   <p>技术服务公司：提供基金代币比的技术服务支持</p>
@@ -179,7 +179,7 @@ export default function Home() {
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">收取哪些费用？</summary>
-                <div className="collapse-content text-sm text-threePranentTransblack">
+                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <p>管理费：根据资产类别不同，收取相应的管理费用，平均控制在0.1-2%区间（可根据单一资产披露进行查看）</p>
                   <p>交易手续费：暂不收取</p>
                 </div>

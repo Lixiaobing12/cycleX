@@ -21,9 +21,8 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/sapi": {
-        target: "http://m.quliantechnology.com/api/",
+        target: "http://cycle.quliantechnology.com",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/sapi/, ""),
       },
       "/images": {
         target: "https://app.whaleflow.co/uploads",
