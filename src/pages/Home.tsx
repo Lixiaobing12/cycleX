@@ -187,7 +187,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="md:p-10 mt-14 md:mt-0">
+        <div className="w-[92%] m-auto md:p-10 mt-14 md:mt-0">
           <div className="w-full text-center mb-14 md:mb-20">
             <h1 className="text-black text-3xl mb-6">新闻和洞见</h1>
           </div>
