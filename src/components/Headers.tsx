@@ -3,6 +3,7 @@ import { Icon } from "@ricons/utils";
 import { Dropdown, MenuProps, Space } from "antd";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { DrawerShow } from "../atom/menu";
 import useLocalStorage from "../hooks/localStorage";
@@ -19,29 +20,37 @@ const HeaderComponent = () => {
   const [openMenu, setOpenMenu] = useAtom(DrawerShow);
   // const { openConnectModal } = useConnectModal();
   // const { address, isConnected } = useAccount();
-
+  const { t, i18n } = useTranslation();
   const items: MenuProps["items"] = [
-    { label: "简体中文", key: "zh" },
-    { label: "English", key: "en" },
+    {
+      label: "中文", key: "zh", onClick: () => {
+        i18n.changeLanguage("zh")
+      }
+    },
+    {
+      label: "English", key: "en", onClick: () => {
+        i18n.changeLanguage("en")
+      }
+    },
   ];
 
   const accountItems: MenuProps["items"] = [
     {
-      label: "实名认证",
+      label: t("Certification"),
       icon: (
         <div className="flex items-center">
           <Icon size={15}>
-            <WarningOutlined />
+            <WarningOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
           </Icon>
         </div>
       ),
       key: "realName",
       onClick: () => navigate("/verify"),
     },
-    { label: "钱包", icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-    { label: "邀请好友", icon: <img src="/assets/users.png" width={12} />, key: "users" },
+    { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+    { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users" },
     {
-      label: "退出登录",
+      label: t("Logout"),
       icon: <img src="/assets/exit.png" width={12} />,
       key: "exit",
       onClick: () => {
@@ -72,13 +81,13 @@ const HeaderComponent = () => {
         <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20">
           <Space size="large">
             <div className="cursor-pointer hover:scale-105" onClick={() => anchor()}>
-              基金
+              {t("Fund")}
             </div>
             <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/guide")}>
-              新手指南
+              {t("Newbie Guide")}
             </div>
             <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/issus")}>
-              资产发行
+              {t("Asset Backed Securities")}
             </div>
           </Space>
         </div>
@@ -91,7 +100,7 @@ const HeaderComponent = () => {
                   {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
                   <div className="mt-1 ml-1">
                     <Icon size={12}>
-                      <DownOutlined />
+                      <DownOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
                     </Icon>
                   </div>
                 </a>
@@ -99,10 +108,10 @@ const HeaderComponent = () => {
             ) : (
               <>
                 <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=in")}>
-                  登录
+                  {t("Sign in")}
                 </div>
                 <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=up")}>
-                  注册
+                  {t("Sign up")}
                 </div>
               </>
             )}
@@ -114,7 +123,9 @@ const HeaderComponent = () => {
             <WrapperImg src="/assets/phone.png" onClick={() => anchor("footer")} />
             <WrapperImg src="/assets/email.png" onClick={() => anchor("footer")} />
             <Dropdown menu={{ items }}>
-              <WrapperImg src="/assets/lang.png" onClick={(e) => e.preventDefault()} />
+              <div onClick={(e) => e.preventDefault()} >
+                <WrapperImg src="/assets/lang.png" />
+              </div>
             </Dropdown>
           </div>
         </div>
@@ -127,7 +138,7 @@ const HeaderComponent = () => {
                   {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
                   <div className="mt-1 ml-1">
                     <Icon size={12}>
-                      <DownOutlined />
+                      <DownOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
                     </Icon>
                   </div>
                 </a>
@@ -135,10 +146,10 @@ const HeaderComponent = () => {
             ) : (
               <>
                 <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=in")}>
-                  登录
+                  {t("Sign in")}
                 </div>
                 <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=up")}>
-                  注册
+                  {t("Sign up")}
                 </div>
               </>
             )}

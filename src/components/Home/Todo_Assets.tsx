@@ -1,6 +1,7 @@
 import { Table, TableProps } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { fundProductApiType } from "../../types/fundProduct";
 import { scientific } from "../../utils/BigNumberToString";
@@ -16,13 +17,14 @@ interface DataType {
 }
 
 const TodoListAssets = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [activeItem, setItem] = useState(1);
   const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
 
   const columns: TableProps<fundProductApiType>["columns"] = [
     {
-      title: "名称",
+      title: t("Name"),
       dataIndex: "name",
       key: "name",
       width: 100,
@@ -33,33 +35,33 @@ const TodoListAssets = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-bold">{value}</span>
-            <span className="text-threePranentTransblack ">代币化基金</span>
+            <span className="text-threePranentTransblack ">{t("Tokenized funds")}</span>
           </div>
         </a>
       ),
     },
     {
-      title: "类型",
+      title: t("Type"),
       key: "unit",
       width: 100,
-      render: () => <span>基金</span>,
+      render: () => <span>{t("Fund")}</span>,
     },
     {
-      title: "管理规模/AUM",
+      title: t("AUM /Asset Under Management"),
       dataIndex: "market_value",
       key: "market_value",
       width: 100,
-      render: (value) => '$'+scientific(value),
+      render: (value) => '$' + scientific(value),
     },
     {
-      title: "单位净值/NAV",
+      title: t("Net value per unit /NAV"),
       key: "net_worth",
       dataIndex: "net_worth",
       width: 100,
-      render: (value) => '$'+value,
+      render: (value) => '$' + value,
     },
     {
-      title: "预期收益率/APY",
+      title: t("Expected yield /APY"),
       key: "income",
       dataIndex: "income",
       width: 100,
@@ -77,7 +79,7 @@ const TodoListAssets = () => {
       <div className="flex-col items-start gap-4 md:flex-row w-full flex justify-between md:items-center">
         <div className="flex gap-6">
           <WrapperButton click={() => setItem(1)} isActive={activeItem === 1}>
-            全部
+            {t("All")}
           </WrapperButton>
           <WrapperButton click={() => setItem(2)} isActive={activeItem === 2}>
             Fixed income
@@ -88,7 +90,7 @@ const TodoListAssets = () => {
         </div>
 
         <div className="self-end md:self-auto flex items-center text-greyblack">
-          <span className="mr-2">截止2024年/01月/20日</span>
+          <span className="mr-2">{t("Until January /20, 2024")}</span>
           <WrapperImg src="/assets/reflush.png" width={18} />
         </div>
       </div>

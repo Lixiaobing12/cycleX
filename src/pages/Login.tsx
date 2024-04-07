@@ -139,10 +139,15 @@ const Up = () => {
   const [inviteCode, setInviteCode] = useState("");
   const [isAgree, setAgree] = useState(false);
 
+  useEffect(()=>{
+    request.get('/api/msgProvideCountry/getList').then(({data})=>{
+      console.log(data)
+    })
+  },[])
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
-        <Col xs={{ span: 22 }} md={{ span: 12 }}>
+        <Col xs={{ span: 22 }} sm={{span:20}} md={{ span: 18 }} lg={{span:14}}>
           <Form.Item>
             <div className="flex gap-4 items-center">
               <button
@@ -157,6 +162,9 @@ const Up = () => {
               </button>
             </div>
           </Form.Item>
+          {
+
+          }
           <Form.Item label="账号">
             <Input onChange={(e) => setNickName(e.target.value)} size="large" placeholder="请输入邮箱或者手机号" />
           </Form.Item>
@@ -343,7 +351,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => {};
+  const confirm = () => { };
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">修改密码</div>
@@ -393,10 +401,10 @@ const Login = () => {
   }, [accessToken]);
   return (
     <div className="flex text-black">
-      <div className="flex-0 h-0 w-0 md:flex-1 md:h-screen bg-login_mene bg-100 flex justify-center items-center">
+      <div className="hidden md:flex flex-1 md:h-screen bg-login_mene bg-100 flex justify-center items-center">
         <img src="/assets/login_logo.png" width={300} alt="" />
       </div>
-      <div className="flex-1">
+      <div className="flex-1 overflow-auto">
         <div className="p-6 md:p-20 flex flex-col h-screen">
           <div className="flex items-center gap-2 cursor-pointer w-fit btn btn-sm bg-white border-transblack text-black active:text-white" onClick={back}>
             <Icon size={18}>
@@ -404,7 +412,9 @@ const Login = () => {
             </Icon>
             <span>返回</span>
           </div>
-          {type === "Sign" ? <Sign /> : type === "Forgot" ? <Forget /> : <Revise />}
+          <div className="pb-20">
+            {type === "Sign" ? <Sign /> : type === "Forgot" ? <Forget /> : <Revise />}
+          </div>
         </div>
       </div>
       <AgreementProtocol />

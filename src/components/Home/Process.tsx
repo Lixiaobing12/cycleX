@@ -1,9 +1,12 @@
+import { useTranslation } from "react-i18next";
+
 const Process = () => {
+  const { t } = useTranslation();
   const cards = [
-    { avant: "/assets/process1.png", name: "资产", desc: "资产SPV", id: 0 },
-    { avant: "/assets/process2.png", name: "发行", desc: "基金代币", id: 1 },
-    { avant: "/assets/process3.png", name: "平台", desc: "申赎/C2C", id: 2 },
-    { avant: "/assets/process4.png", name: "用户", desc: "获得收益", id: 3 },
+    { avant: "/assets/process1.png", name: t("Assets"), desc: t("Asset SPV"), id: 0 },
+    { avant: "/assets/process2.png", name: t("Release"), desc: t("Fund token"), id: 1 },
+    { avant: "/assets/process3.png", name: t("Platform"), desc: t("Redemption /C2C"), id: 2 },
+    { avant: "/assets/process4.png", name: t("Users"), desc: t("Gain income"), id: 3 },
   ];
   return (
     <div className="pl-[102%] sm:pl-[20%] md:pl-0 w-full flex items-center overflow-auto text-black justify-center gap-6 hidden-scroll">
