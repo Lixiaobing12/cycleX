@@ -1,29 +1,31 @@
 import { Divider, Table } from "antd";
+import { useTranslation } from "react-i18next";
 
 const Rw = () => {
+  const { t } = useTranslation();
   const columns = [
     {
-      title: "类型",
-      dataIndex: "age",
-      key: "age",
+      title: t("type"),
+      dataIndex: "type",
+      key: "type",
       width: 100,
     },
     {
-      title: "描述",
-      dataIndex: "address",
-      key: "address",
+      title: t("describe"),
+      dataIndex: "desc",
+      key: "desc",
       width: 100,
     },
     {
-      title: "收费/费用",
-      dataIndex: "address",
-      key: "address",
+      title: t("rate"),
+      dataIndex: "rate",
+      key: "rate",
       width: 100,
     },
     {
-      title: "备注",
-      dataIndex: "address",
-      key: "address",
+      title: t("tip"),
+      dataIndex: "tip",
+      key: "tip",
       width: 100,
     },
   ];
@@ -31,29 +33,36 @@ const Rw = () => {
   const data = [
     {
       key: "1",
-      name: "CUSDA",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
+      type: t("equity in assets"),
+      desc: t("Accrued interest on underlying assets"),
+      rate: t("5% annualized rate of return"),
+      tip: t("Net asset value increase calculation"),
     },
     {
       key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
+      type: t("- Escrow fee"),
+      desc: t("Fees charged by third-party custodians of underlying assets"),
+      rate: t("5% annualized rate of return"),
+      tip: t("Deducted from asset interest"),
     },
     {
       key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      type: t("- service charge"),
+      desc: t("Fees charged by CycleX operations"),
+      rate: t("5% annualized rate of return"),
+      tip: t("Net asset value increase calculation"),
+    },
+    {
+      key: "4",
+      type: t("- Redemption fee"),
+      desc: t("Fees are charged based on the exchange amount"),
+      rate: t("5% annualized rate of return"),
+      tip: t("Deducted from asset interest"),
     },
   ];
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">收费标准</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Charges")}</h1>
       <Divider />
       <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 500 }} />
     </div>

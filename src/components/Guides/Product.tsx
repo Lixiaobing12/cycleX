@@ -1,73 +1,72 @@
-import { Divider, Table } from "antd";
+import { Divider, Table, TableProps } from "antd";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { fundProductApiType } from "../../types/fundProduct";
+import { scientific } from "../../utils/BigNumberToString";
+import { request } from "../../utils/request";
 
 const Product = () => {
-  const columns = [
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
+  const columns: TableProps<fundProductApiType>["columns"] = [
     {
-      title: "名称",
+      title: t("Name"),
       dataIndex: "name",
       key: "name",
       width: 100,
+      render: (value, row) => (
+        <a className="text-black flex items-center gap-2" onClick={() => navigate(`/assets/${row.id}`)}>
+          <div>
+            <img src="/assets/assets_dollor.png" width={25} alt="" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-lg font-bold">{value}</span>
+            <span className="text-threePranentTransblack ">{t("Tokenized funds")}</span>
+          </div>
+        </a>
+      ),
     },
     {
-      title: "类型",
-      dataIndex: "age",
-      key: "age",
+      title: t("Type"),
+      key: "unit",
       width: 100,
+      render: () => <span>{t("Fund")}</span>,
     },
     {
-      title: "管理规模/AUM",
-      dataIndex: "address",
-      key: "address",
+      title: t("AUM /Asset Under Management"),
+      dataIndex: "market_value",
+      key: "market_value",
       width: 100,
+      render: (value) => "$" + scientific(value),
     },
     {
-      title: "单位净值/NAV",
-      dataIndex: "address",
-      key: "address",
+      title: t("Net value per unit /NAV"),
+      key: "net_worth",
+      dataIndex: "net_worth",
       width: 100,
+      render: (value) => "$" + value,
     },
     {
-      title: "预期收益率/APY",
-      dataIndex: "address",
-      key: "address",
+      title: t("Expected yield /APY"),
+      key: "income",
+      dataIndex: "income",
       width: 100,
-    },
-    {
-      title: "发行概要",
-      dataIndex: "address",
-      key: "address",
-      width: 150,
+      render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">+{value}%</span> : <span className="text-[#FF6838]">-{value}%</span>}</div>,
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      name: "CUSDA",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+  useEffect(() => {
+    request.post("/api/api/fundProduct/getList").then(({ data }) => {
+      setAssetsItems(data.data);
+    });
+  }, []);
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">产品列表</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Product List")}</h1>
       <Divider />
-      <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 700 }}/>
+      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} />
     </div>
   );
 };
