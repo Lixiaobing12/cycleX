@@ -408,7 +408,7 @@ const Login = () => {
         <div className="p-6 md:p-20 flex flex-col h-screen">
           <div className="flex items-center gap-2 cursor-pointer w-fit btn btn-sm bg-white border-transblack text-black active:text-white" onClick={back}>
             <Icon size={18}>
-              <ArrowLeft />
+              <ArrowLeft onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
             </Icon>
             <span>返回</span>
           </div>
