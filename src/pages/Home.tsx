@@ -153,37 +153,62 @@ export default function Home() {
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the issuance and redemption processes for assets?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
-                  <h2>{t("There are three main processes for tokenizing assets")}:</h2>
-                  <p>1.{t("Create, create a new token asset")}</p>
-                  <p>2.{t("Redemption, where investors return tokens to Cycle to recover funds (plus accruals)")}</p>
-                  <p>3.{t("Transfer, investors can submit transfer/sell tokens on the CycleX App Transfer Marketplace")}</p>
+                  <h2 className="text-black text-base font-bold">{t("The issuance and redemption process for an asset usually involves the following steps")}:</h2>
+
+                  <h3 className="text-black text-base my-2">{t("Issuance process")}</h3>
+                  <ul>
+                    <li>{t("Create an asset: Before issuing a tokenized asset, it needs to be created. This may involve the asset manager or issuer working with a partner, such as a technology service provider, to determine the characteristics, parameters, and compliance requirements of the asset.")}</li>
+                    <li>{t("Issue tokens: Once the asset is created, the tokens are issued onto the blockchain network via smart contracts. This includes determining the number of tokens, the mechanism for allocating the tokens, and the rules for issuing the tokens.")}</li>
+                    <li>{t("Distribute the tokens: Once the tokens have been issued, the tokens can be distributed to investors. This may include a private distribution to designated investors or an offering on the open market.")}</li>
+                  </ul>
+
+                  <h3 className="text-black text-base my-2">{t("Redemption process")}:</h3>
+                  <ul>
+                    <li>{t("Investor Request for redemption: The investor decides to redeem the tokens held by him/her and makes a redemption request to the asset management company or relevant institution.")}</li>
+                    <li>{t("Redemption review: The asset management company or relevant institution reviews the redemption request to ensure that the request complies with relevant regulations and contract provisions.")}</li>
+                    <li>{t("Redemption of tokens: Once the redemption request is reviewed and approved, the asset management company or relevant institution will redeem the corresponding number of tokens and send the corresponding funds to the investors.")}</li>
+                  </ul>
                 </div>
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("How do users go through the KYC authentication process?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack">
-                  <p>{t("Individual and institutional investors can submit KYC review on the CycleX official website or App. We will assist you to complete the KYC review process within 1-3 working days. Users can follow the prompt process of the App")}</p>
+                  <h2 className="text-black text-base font-bold my-2">{t("The KYC authentication process for users usually includes the following steps")}:</h2>
+                  <ul>
+                    <li>{t("Submit information: Users submit personal or organizational information required for KYC certification on the CycleX website or App.")}</li>
+                    <li>{t("Audit: The asset management company or relevant organization reviews the submitted KYC information to ensure that it complies with regulations and compliance requirements.")}</li>
+                    <li>{t("Audit: After the audit is approved, the user will receive a confirmation notification that their KYC certification is complete.")}</li>
+                  </ul>
                 </div>
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What is the structure and management of the asset lease?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
-                  <p>{t("Asset Manager: General partner (GP) who directs service providers and manages funds")}</p>
-                  <p>{t("Fund Manager: Assist fund issuance and provide fund management services")}</p>
-                  <p>{t("Technical service company: Provide technical service support for the fund token ratio")}</p>
-                  <p>{t("Tokenized assets: Entity control of SPV assets managed by asset management companies")}</p>
-                  <p>{t("CycleX App: Provides project publishing, user transaction management, foreclosure and transfer processes.")}</p>
-                  <p>{t("Net worth advisory: Independent fund managers responsible for accounting and reporting (e.g. calculating daily net worth prices)")}</p>
+                  <h2 className="text-black text-base font-bold my-2">{t("The composition and management of the asset subject matter involves the following main roles and components")}:</h2>
+
+                  <ul>
+                    <li>{t("Asset management company: The general partner (GP) who directs the service provider and manages the fund.")}</li>
+                    <li>{t("Fund Manager: assists in fund issuance and provides fund management services.")}</li>
+                    <li>{t("Technical service company: provide technical service support for fund tokenization.")}</li>
+                    <li>{t("Tokenized assets: controlled by the SPV asset subject managed by the asset management company.")}</li>
+                    <li>{t("CycleX App: provides functions such as project release, user transaction management, redemption and transfer process.")}</li>
+                    <li>{t("Fund management consulting: Independent fund managers are responsible for accounting and reporting, such as calculating daily NAV prices.")}</li>
+                  </ul>
                 </div>
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the fees?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
-                  <p>{t("Management fee: Depending on the asset class, the corresponding management fee is charged, and the average control is 0.1-2% (can be viewed according to the single asset disclosure)")}</p>
-                  <p>{t("Transaction fee: not charged")}</p>
+                  <h2 className="text-black text-base font-bold my-2">{t("The fees charged usually include")}:</h2>
+
+                  <ul>
+                    <li>{t("Management fees: Management fees are charged depending on the asset class, usually between 0.1% and 2% of the fund size.")}</li>
+                    <li>{t("Transaction fees: not currently charged.")}</li>
+                    <li>{t("Custodial fees: Typically 0.1% to 0.2% of the fund size, charged by third-party custodians.")}</li>
+                  </ul>
                 </div>
               </details>
             </div>

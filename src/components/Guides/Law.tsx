@@ -1,20 +1,25 @@
 import { Divider } from "antd";
+import { useTranslation } from "react-i18next";
 
 const Law = () => {
+  const { t } = useTranslation();
   return (
     <div className="w-full text-black md:p-8">
       <h1 className="font-bold font-whalebold text-3xl mb-6">法律</h1>
-      <p className="py-4">可以通过 services@whaleflow.co 与我们取得联系，我们的动态更新会披露在我们的X和Telegram找到我们。</p>
       <Divider />
 
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">资产的发行和赎回流程有哪些？</summary>
+          <summary className="collapse-title">{t("User service agreement")}</summary>
           <div className="collapse-content">
-            <h2>代币化资产主要3个流程:</h2>
-            <p>1.创建，创建新的代币资产</p>
-            <p>2.赎回，投资者将代币返还给Cycle以收回资金（加上应计收益）</p>
-            <p>3.转账，投资者可在CycleX App转让市场提交转让/出售代币</p>
+            <h2 className="text-black text-base font-bold my-2">{t("Terms of Service")}</h2>
+            <p>{t("Last Updated: Apr. 2024")}</p>
+            <p className="">
+              These terms of service, together with any documents and additional terms they expressly incorporate by reference, which includes any other terms and conditions or other agreement that WHALE FLOW Inc. ("WHALE FLOW," "we," "us" and "our") posts publicly or makes available to you or the company or other legal entity you represent ("you" or "your") (collectively, these "Terms" or "Agreement"), are entered into between WHALE FLOW and you concerning your use of, and access to, WHALE FLOW's websites, including WHALE FLOW; web applications; mobile applications; and all associated sites linked thereto by WHALE FLOW or its affiliates (collectively with any materials and services available therein, and successor website(s) or application(s) thereto, the "Site") and the Services (as defined in Section 2.1 hereto).<br/>
+              By clicking "I agree" (or a similar language) to these Terms, acknowledging these Terms by other means, or otherwise accessing or using the Site or the Services, you accept and agree to be bound by and to comply with these Terms, including, without limitation, the mandatory arbitration provision in Section 14. If you do not agree to these Terms, then you must not access or use the Site or the Services. Please carefully review the disclosures and disclaimers set forth in Section 12 in their entirety before using any software developed or owned by WHALE FLOW. The information in Section 12 provides important details about the legal obligations associated with your use of the Services.<br/>
+              1. Modifications to These Terms<br/>
+
+            </p>
           </div>
         </details>
         <div className="divider my-0"></div>

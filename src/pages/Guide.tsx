@@ -1,5 +1,6 @@
 import { Col, Drawer, Menu, MenuProps, Row } from "antd";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import WrapperImg from "../components/Common/Img";
 import Audit from "../components/Guides/Audit";
 import Book from "../components/Guides/Book";
@@ -11,17 +12,18 @@ import Rw from "../components/Guides/Rw";
 import Us from "../components/Guides/Us";
 
 const Guide = () => {
+  const { t } = useTranslation();
   const [show, setModalShow] = useState(false);
   const [active, setActiveItem] = useState("us");
   const items: MenuProps["items"] = [
-    { icon: <img width={24} src="/assets/us.png" />, label: "关于我们", key: "us" },
-    { icon: <img width={24} src="/assets/products.png" />, label: "产品列表", key: "products" },
-    { icon: <img width={24} src="/assets/kyc.png" />, label: "KYC(实名认证)", key: "kyc" },
-    { icon: <img width={24} src="/assets/reward.png" />, label: "收益标准", key: "reward" },
-    { icon: <img width={24} src="/assets/audit.png" />, label: "审计(储备证明)", key: "audit" },
-    { icon: <img width={24} src="/assets/law.png" />, label: "法律", key: "law" },
-    { icon: <img width={24} src="/assets/problem.png" />, label: "常见问题", key: "problem" },
-    { icon: <img width={24} src="/assets/book.png" />, label: "白皮书", key: "book" },
+    { icon: <img width={24} src="/assets/us.png" />, label: t("About us"), key: "us" },
+    { icon: <img width={24} src="/assets/products.png" />, label: t("Product list"), key: "products" },
+    { icon: <img width={24} src="/assets/kyc.png" />, label: t("KYC(Authentication)"), key: "kyc" },
+    { icon: <img width={24} src="/assets/reward.png" />, label: t("Income standard"), key: "reward" },
+    { icon: <img width={24} src="/assets/audit.png" />, label: t("Audit (Certificate of reserves)"), key: "audit" },
+    { icon: <img width={24} src="/assets/law.png" />, label: t("law"), key: "law" },
+    { icon: <img width={24} src="/assets/problem.png" />, label: t("FAQ"), key: "problem" },
+    { icon: <img width={24} src="/assets/book.png" />, label: t("White paper"), key: "book" },
   ];
 
   return (

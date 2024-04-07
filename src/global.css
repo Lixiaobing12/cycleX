@@ -23,6 +23,11 @@ body {
   user-select: none;
 }
 
+ul li{
+  list-style-type: disc;
+  margin-left: 2em;
+  margin: 12px 0;
+}
 .rotating-image {
   width: 2rem;
   height: 2rem;

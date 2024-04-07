@@ -1,10 +1,10 @@
 import { Table, TableProps } from "antd";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { fundProductApiType } from "../../types/fundProduct";
 import { scientific } from "../../utils/BigNumberToString";
+import { request } from "../../utils/request";
 import WrapperButton from "../Common/Button";
 import WrapperImg from "../Common/Img";
 
@@ -70,7 +70,7 @@ const TodoListAssets = () => {
   ];
 
   useEffect(() => {
-    axios.post("/api/api/fundProduct/getList").then(({ data }) => {
+    request.post("/api/api/fundProduct/getList").then(({ data }) => {
       setAssetsItems(data.data);
     });
   }, []);
