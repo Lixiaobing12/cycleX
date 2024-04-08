@@ -1,102 +1,272 @@
 import { Divider } from "antd";
+import { useTranslation } from "react-i18next";
 
 const Aguide = () => {
+  const { t } = useTranslation();
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">发行摘要</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Value-added Services")}</h1>
 
       <div className="rounded-box border border-light p-4">
         <p className="text-base">
-          下述信息表适用于基金代币、资产代币的发行信息登记，为了不耽误您的宝贵时间，请务必根据您的实际情况填写完整，我们将根据您的信息提供必要的审核流程，提交信息后，将于 7
-          个工作日内通知您进行后续流程：
+          {t(
+            "If you require additional value-added services such as registration services, legal services, audit services, translation services, etc., please specify in the form and indicate whether the services will be provided by a designated third party."
+          )}
         </p>
-        <Divider />
-        <div>
-          <p> KYC 请根据您的如实情况进行填写，如有疑问请至 services@whaleflow.co与我们进行联络，协助您完成填写 </p>
-          <p>资产信息表1 指发行债券类的资产信息登记，仅适用于传统资产信息登记（附件查询） </p>
-          <p> 资产信息表2 指资产发行规则的信息登记，适用于加密资产、基金、现货、债券、另类资产的基金代币发行信息登记（附件查询） </p>
-          <p> 提供服务（我司提供服务范围，发行报告、投资分析报告、发行平台、资产托管、运营管理、市值管理、用户流动性管理） </p>
-          <p> 增值服务 （注册服务、法律服务、审计服务、翻译服务、由指定第三方提供）</p>
-        </div>
+        <p className="text-base mt-2">
+          {t(
+            "Make sure the information you fill in is accurate and complete, and feel free to contact our service team (services@whaleflow.co) for support and help, and we will provide you with the necessary audit process and follow-up process as soon as possible."
+          )}
+        </p>
       </div>
 
-      <h1 className="font-bold font-whalebold text-3xl my-6">发行要素</h1>
+      <h1 className="font-bold font-whalebold text-3xl my-6">{t("Issue Elements")}</h1>
 
       <div className="rounded-box border border-light p-4">
-        <div>
+        <div className="flex flex-col gap-2">
           <p>
-            <span className="text-base">审核标准</span> （KYC信息、法律意见书、审计及评估文件、发行说明文件）
+            <span className="text-lg font-bold">{t("Review criteria")}:</span>
           </p>
           <p>
-            <span className="text-base">规模范围</span> {"（<1500万美金内，可发行资产具备有价资产范围，金融及商品类资产，发行的货币标准为美金、及数字美元稳定币）"}
+            <span className="text-base text-black mr-2">{t("KYC information")}:</span> {t("Strictly implement KYC (Know your Customer) policies to ensure that investors are true and compliant.")}
           </p>
           <p>
-            <span className="text-base">主体标准</span> （以SPV设立发行主体，根据符合本地合规设立，发行后的交付主体由所在地资管主体进行确权）
+            <span className="text-base text-black mr-2">{t("Legal opinions")}:</span>{" "}
+            {t("Execute in accordance with the law to ensure that the issuance and transactions are in compliance with local laws and regulations, including securities laws and KYC requirements.")}
           </p>
           <p>
-            <span className="text-base">产品标准</span> （附件查询）
+            <span className="text-base text-black mr-2">{t("Audit and appraisal documents")}:</span>{" "}
+            {t("An audit and appraisal of an asset is conducted to verify its authenticity, viability and value.")}
           </p>
           <p>
-            <span className="text-base">交易形式</span>（发行后的交易阶段仅针对可政策开放国家用户开放的平台零售用户、机构用户）
+            <span className="text-base text-black mr-2">{t("Issuance description documents")}:</span>
+            {t("describe the assets, issuance rules, risk disclosure, etc., in detail to provide investors with comprehensive information.")}
+          </p>
+        </div>
+        <Divider />
+        <div className="flex flex-col gap-2">
+          <p>
+            <span className="text-lg font-bold">{t("Size range")}:</span>
           </p>
           <p>
-            <span className="text-base">协议附件</span> （附件查询）
+            <span className="text-base text-black mr-2">{t("Issue amount")}:</span> {t("limited to 15 million USDT.")}
           </p>
           <p>
-            <span className="text-base">收费标准</span> （附件查询）
+            <span className="text-base text-black mr-2">{t("Range of issuable assets")}:</span> {t("including marketable assets, financial and commodity assets.")}
           </p>
           <p>
-            <span className="text-base">交易周期</span> （发行的方式为代币化基金形式，可设计1-10年内的存续期，发行周期控制在1-6月内，资金交付根据发行后的资金比例10%-100%内逐渐交付）
+            <span className="text-base text-black mr-2">{t("Currency standard")}:</span> {t("USDT and corresponding value digital currency.")}
+          </p>
+        </div>
+        <Divider />
+        <div className="flex flex-col gap-2">
+          <p>
+            <span className="text-lg font-bold">{t("Subject standard")}:</span>
           </p>
           <p>
-            <span className="text-base">清算退出</span> （在基金到期后，由双方根据产品情况进行清算退出阶段）
+            <span className="text-base text-black mr-2">{t("Issuer")}:</span> {t("set up as SPV (special purpose entity) and meet local compliance requirements.")}
           </p>
+          <p>
+            <span className="text-base text-black mr-2">{t("Delivery subject")}:</span> {t("the rights shall be confirmed by the local asset management subject.")}
+          </p>
+        </div>
+
+        <Divider />
+        <div className="flex flex-col gap-2">
+          <p>
+            <span className="text-lg font-bold">{t("Product standard")}:</span>
+          </p>
+          <p>{t("Including detailed provisions on product characteristics, investment strategies, risk factors, etc.")}</p>
+        </div>
+
+        <Divider />
+        <div className="flex flex-col gap-2">
+          <p>
+            <span className="text-lg font-bold">{t("Form of transaction")}:</span>
+          </p>
+          <p>{t("Open only to users in policy compliant regions, including retail and institutional users.")}</p>
+        </div>
+
+        <Divider />
+        <div className="flex flex-col gap-2">
+          <p>
+            <span className="text-lg font-bold">{t("Appendix to the Agreement")}:</span>
+          </p>
+          <p>{t("Include relevant agreements, contracts, terms and other attached documents.")}</p>
+        </div>
+
+        <Divider />
+        <div className="flex flex-col gap-2">
+          <p>
+            <span className="text-lg font-bold">{t("Fee standard")}:</span>
+          </p>
+          <p>{t("Including management fee, transaction fee, custodian fee and other fees.")}</p>
+        </div>
+
+        <Divider />
+        <div className="flex flex-col gap-2">
+          <p>
+            <span className="text-lg font-bold">{t("Transaction cycle")}:</span>
+          </p>
+          <p>
+            <span className="text-base text-black mr-2">{t("Issuance method")}:</span> {t("in the form of tokenized fund, the duration can be designed for 1-10 years.")}
+          </p>
+          <p>
+            <span className="text-base text-black mr-2">{t("Issuance period")}:</span> {t("controlled within 1-6 months, fund delivery is carried out gradually.")}
+          </p>
+        </div>
+
+        <Divider />
+        <div className="flex flex-col gap-2">
+          <p>
+            <span className="text-lg font-bold">{t("Liquidation exit")}:</span>
+          </p>
+          <p>{t("Upon maturity of the fund, liquidation and withdrawal shall be carried out according to the agreement of both parties.")}</p>
         </div>
       </div>
 
-      <h1 className="font-bold font-whalebold text-3xl my-6">常见问题</h1>
+      <h1 className="font-bold font-whalebold text-3xl mt-12">{t("FAQ")}</h1>
       <Divider />
 
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">资产的发行和赎回流程有哪些？</summary>
+          <summary className="collapse-title">{t("What is tokenization?")}</summary>
           <div className="collapse-content">
-            <h2>代币化资产主要3个流程:</h2>
-            <p>1.创建，创建新的代币资产</p>
-            <p>2.赎回，投资者将代币返还给Cycle以收回资金（加上应计收益）</p>
-            <p>3.转账，投资者可在CycleX App转让市场提交转让/出售代币</p>
+            <p>
+              {t(
+                "Tokenized assets are the process of using blockchain technology to digitize physical assets or equity interests in the real world and issue, circulate and trade them on the blockchain in the form of tokens. These tokens can represent the ownership, equity, or value of the actual asset and are transacted securely and transparently through the blockchain network."
+              )}
+            </p>
+
+            <h3 className="text-black font-bold my-2">{t("The advantages of tokenized assets include")}:</h3>
+            <ul className="ml-6">
+              <li>{t("Global liquidity: Blockchain technology enables assets to be traded globally, with greater flexibility both in terms of location and time.")}</li>
+              <li>
+                {t(
+                  "Transparency and traceability: All transaction records are recorded on the blockchain, which is open and transparent and cannot be tampered with, ensuring transparency and credibility of transactions."
+                )}
+              </li>
+              <li>
+                {t(
+                  "24-hour global transactions: Due to the round-the-clock operation of the blockchain network, tokenized assets can realize round-the-clock global transactions, improving the liquidity and accessibility of the market."
+                )}
+              </li>
+              <li>
+                {t(
+                  "Reduced transaction costs: Compared with traditional financial markets, tokenized assets trade at a lower cost, reducing intermediate links and related formalities, while speeding up transactions."
+                )}
+              </li>
+              <li>
+                {t(
+                  "Expand investment opportunities: Tokenized assets provide investors with more types of asset investment opportunities, including real estate, art, enterprise equity, etc., making the investment portfolio more diversified."
+                )}
+              </li>
+              <li>{t("Enhanced asset liquidity: The digital nature of tokenized assets makes it easier to divide and transfer assets, improving the liquidity and tradability of assets.")}</li>
+            </ul>
           </div>
         </details>
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">用户如何进行KYC认证流程？</summary>
+          <summary className="collapse-title">{t("Are tokenized assets compliant? What are the distribution cases?")}</summary>
           <div className="collapse-content">
-            <p>个人及机构投资者可在CycleX官网或App提交KYC审核，我们将在1-3个工作日协助您完成KYC审核流程，用户可根据App的提示流程进行操作</p>
+            <p>
+              {t(
+                "Compliance with tokenized assets depends on the legal and regulatory requirements of the location. In some countries and regions, governments have started to formulate relevant regulations to regulate the issuance and trading of tokenized assets. Compliance typically involves procedures such as KYC (Know your Customer) and AML (anti-money laundering), as well as meeting the requirements of securities laws or other financial regulatory regulations."
+              )}
+            </p>
+            <h3 className="text-black font-bold my-2">{t("Here are some of the distribution cases of tokenized assets")}:</h3>
+            <ul className="ml-6">
+              <li>
+                <span>{t("Green bonds")}:</span>
+                <span>
+                  {t(
+                    "Some financial institutions such as jpmorgan Chase, Goldman Sachs, Citibank, etc., as well as some governments such as the governments of Singapore and Hong Kong, have issued tokenized assets such as green bonds."
+                  )}
+                </span>
+              </li>
+              <li>
+                <span>{t("Real estate tokenization")}:</span>
+                <span>
+                  {t("Some real estate developers and platforms have digitized real estate and issued tokenized assets, which allow investors to hold and trade real estate through tokens.")}
+                </span>
+              </li>
+              <li>
+                <span>{t("Tokenization of artworks")}:</span>
+                <span>{t("Some art trading platforms and art funds have digitized artworks and issued tokenized assets, allowing investors to hold and trade artworks through tokens.")}</span>
+              </li>
+              <li>
+                <span>{t("Tokenization of venture capital assets")}:</span>
+                <span>
+                  {t(
+                    "Some start-ups and venture capital institutions have digitized venture capital assets and issued tokenized assets, allowing investors to invest in and hold equity in startups through tokens."
+                  )}
+                </span>
+              </li>
+            </ul>
           </div>
         </details>
+
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">资产标的构成和管理是怎样的？</summary>
+          <summary className="collapse-title">{t("What if the issuance doesn't work out")}?</summary>
           <div className="collapse-content">
-            <p>资产管理公司： 指导服务提供商并管理基金的普通合伙人（GP）</p>
-            <p>基金经理：协助基金发行并提供基金管理服务</p>
-            <p>技术服务公司：提供基金代币比的技术服务支持</p>
-            <p>代币化资产: 资产管理公司管理的SPV资产主体控制</p>
-            <p>CycleX App：提供项目发布、用户交易管理、申赎和转让流程。</p>
-            <p>资产净值咨询：独立基金管理人负责会计和报告（例如计算每日资产净值价格）</p>
+            <p>
+              {t(
+                "Theoretically, if the tokenized assets are issued in strict accordance with the standard issuance process of other overseas countries, and have passed procedures such as legal opinions, audit reports, issuance instructions and code review, there should be no problem of unsuccessful issuance in the issuance process. These steps ensure the compliance and credibility of the issuance plan, and improve investors' confidence and recognition of the project."
+              )}
+            </p>
+            <p className="mt-2">
+              {t(
+                "However, in the actual situation, even if the issuance is carried out according to strict standards and procedures, some challenges and difficulties may still be faced. For example, changes in the market environment, fluctuations in investor sentiment, the influence of competitors and other factors may have an impact on the results of the issuance.Therefore, even if the issuance proposal has passed various procedures and reviews, it is necessary to pay close attention to market dynamics and investor feedback and make corresponding adjustments and response measures at any time to ensure the smooth progress and ultimate success of the issuance."
+              )}
+            </p>
           </div>
         </details>
+
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">收取哪些费用？</summary>
+          <summary className="collapse-title">{t("Issuance cost of tokenized assets")}</summary>
           <div className="collapse-content">
-            <p>管理费：根据资产类别不同，收取相应的管理费用，平均控制在0.1-2%区间（可根据单一资产披露进行查看）</p>
-            <p>交易手续费：暂不收取</p>
+            <p>
+              {t(
+                "The cost of issuing tokenized assets depends on a variety of factors, including the complexity of the project, local legal and regulatory requirements, market demand, technical requirements, and more. Here are some of the factors that may affect the cost of issuing tokenized assets"
+              )}
+              :
+            </p>
+            <ul className="ml-6">
+              <li>
+                <span>{t("Legal and regulatory costs")}:</span>
+                <span>{t("these include legal advisory fees, compliance review fees, regulatory registration fees, etc.")}</span>
+              </li>
+              <li>
+                <span>{t("Technology development costs")}:</span>
+                <span>{t("including blockchain development fees, smart contract writing fees, code audit fees, etc.")}</span>
+              </li>
+              <li>
+                <span>{t("Tokenization of artworks")}:</span>
+                <span>{t("Some art trading platforms and art funds have digitized artworks and issued tokenized assets, allowing investors to hold and trade artworks through tokens.")}</span>
+              </li>
+              <li>
+                <span>{t("Project management costs")}:</span>
+                <span>{t("including project management costs, team compensation, administrative costs, etc.")}</span>
+              </li>
+              <li>
+                <span>{t("Marketing and promotion costs")}:</span>
+                <span>{t("including publicity and promotion costs, market research costs, community construction costs, etc.")}</span>
+              </li>
+              <li>
+                <span>{t("Exchange launch cost")}:</span>
+                <span>{t("If you plan to trade online on a digital currency exchange, you also need to consider the launch cost and marketing cost.")}</span>
+              </li>
+
+              <li>
+                <span>{t("Legal documents and audit costs")}:</span>
+                <span>{t("including the preparation and review costs of legal opinions, audit reports, issuance instructions, etc.")}</span>
+              </li>
+            </ul>
           </div>
         </details>
       </div>
-
-      <p>可以通过 services@whaleflow.co 与我们取得联系，我们的动态更新会披露在我们的X和Telegram找到我们。</p>
     </div>
   );
 };

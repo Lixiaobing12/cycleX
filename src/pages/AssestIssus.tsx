@@ -1,17 +1,19 @@
 import { Col, Drawer, Menu, MenuProps, Row } from "antd";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Aguide from "../components/AssestIssus/guide";
 import WrapperImg from "../components/Common/Img";
 import Kyc from "../components/Guides/Kyc";
 import Law from "../components/Guides/Law";
 
 const Issus = () => {
+  const {t} = useTranslation();
   const [show, setModalShow] = useState(false);
   const [active, setActiveItem] = useState("guide");
   const items: MenuProps["items"] = [
-    { icon: <img width={24} src="/assets/guide.png" />, label: "产品列表", key: "guide" },
-    { icon: <img width={24} src="/assets/kyc.png" />, label: "KYC(实名认证)", key: "kyc" },
-    { icon: <img width={24} src="/assets/law.png" />, label: "法律", key: "law" },
+    { icon: <img width={24} src="/assets/guide.png" />, label: t("Release Guidelines"), key: "guide" },
+    { icon: <img width={24} src="/assets/kyc.png" />, label: t("KYC(Authentication)"), key: "kyc" },
+    { icon: <img width={24} src="/assets/law.png" />, label: t("law"), key: "law" },
   ];
 
   return (
