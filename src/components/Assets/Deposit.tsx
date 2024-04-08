@@ -2,6 +2,8 @@ import { Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
 import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { useCopyToClipboard } from "usehooks-ts";
 import { messageContext, modalContext } from "../../App";
 import { product_info } from "../../atom/product";
@@ -33,6 +35,7 @@ const SafetyInput: React.FC<{
   );
 };
 const ItemDeposit = () => {
+  const { t } = useTranslation();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [isSign, user, walletInfo] = useAccounts();
@@ -59,27 +62,27 @@ const ItemDeposit = () => {
       toast?.warning(data.res_msg);
       return Promise.reject();
     }
-    toast?.success("恭喜申购成功！");
+    toast?.success(t("Congratulations on your successful subscription!"));
   };
   const handlerClick = () => {
     if (!isSign) {
-      toast?.warning("请先登录！");
+      toast?.warning(t("please sign in"));
     } else {
       const min = product?.min_pay;
       const balance = walletInfo?.balance;
       if (amount < Number(min)) {
         setDisabled(true);
-        return toast?.warning("不足最少购买数量");
+        return toast?.warning(t("Less than minimum purchase quantity"));
       }
       if (amount > Number(balance)) {
         setDisabled(true);
-        return toast?.warning("余额不足");
+        return toast?.warning(t("Insufficient balance"));
       }
       const context: any = modal?.info({
         closable: true,
         icon: <></>,
         onCancel: () => context.destroy(),
-        title: <h1 className="w-full py-2 text-center text-lg">请输入安全密钥</h1>,
+        title: <h1 className="w-full py-2 text-center text-lg">{t("Please enter security key")}</h1>,
         content: (
           <SafetyInput
             onSave={(e: string) => {
@@ -97,7 +100,7 @@ const ItemDeposit = () => {
               });
             }}>
             <Loader spinning={loading} />
-            确认
+            {t("confirm")}
           </button>
         ),
         styles: {
@@ -111,7 +114,7 @@ const ItemDeposit = () => {
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
       <div className="flex justify-between items-center">
-        <span>结算期</span>
+        <span>{t("settlement period")}</span>
         <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
           T+{product?.pay_t_n}
           <div>
@@ -127,7 +130,7 @@ const ItemDeposit = () => {
             setDisabled(false);
             setAmount(Number(e.target.value));
           }}
-          placeholder={`最小购买数量${product?.min_pay}`}
+          placeholder={`${t("Minimum purchase quantity")}${product?.min_pay}`}
         />
         <div className="absolute flex items-center right-4 gap-2">
           <div>
@@ -137,14 +140,18 @@ const ItemDeposit = () => {
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <div>最低金额：{product?.min_pay} USDT</div>
-        <div>可用余额: {walletInfo?.balance ?? 0} USDT</div>
+        <div>
+          {t("Minimum amount")}: {product?.min_pay} USDT
+        </div>
+        <div>
+          {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
+        </div>
       </div>
       <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
-        {!isSign ? "请先登录" : "确定购买"}
+        {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span>联系support@cyclex.com获取访问权限</span>
+        <span>{t("Contact support@cyclex.com to gain access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} />
           <WrapperImg src="/assets/transparent_telegram.png" width={18} />
@@ -154,6 +161,7 @@ const ItemDeposit = () => {
   );
 };
 const ItemWithDraw = () => {
+  const { t } = useTranslation();
   const [product] = useAtom(product_info);
   const [btnDisabled, setDisabled] = useState(false);
   const [isSign, user, walletInfo] = useAccounts();
@@ -162,7 +170,7 @@ const ItemWithDraw = () => {
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
       <div className="flex justify-between items-center">
-        <span>结算期</span>
+        <span>{t("settlement period")}</span>
         <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
           T+{product?.sell_t_n}
           <div>
@@ -171,7 +179,7 @@ const ItemWithDraw = () => {
         </div>
       </div>
       <div className="w-full relative items-center flex">
-        <input type="text" className="w-full input bg-[#F7F8FA] rounded-md border-0" placeholder="最小购买数量1.0000" />
+        <input type="text" className="w-full input bg-[#F7F8FA] rounded-md border-0" />
         <div className="absolute flex items-center right-4 gap-2">
           <div>
             <img src="/assets/usdt.png" width={20} />
@@ -180,14 +188,14 @@ const ItemWithDraw = () => {
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <div>最低金额：100,000 USDT</div>
+        <div>{t("Minimum amount")}：100,000 USDT</div>
         <div>1 CRFS =1000 USD</div>
       </div>
       <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
-        {!isSign ? "请先登录" : "确定购买"}
+        {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span>联系support@cyclex.com获取访问权限</span>
+        <span>{t("Contact support@cyclex.com to gain access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} />
           <WrapperImg src="/assets/transparent_telegram.png" width={18} />
@@ -197,6 +205,7 @@ const ItemWithDraw = () => {
   );
 };
 const Card = () => {
+  const { t } = useTranslation();
   const [active, setActive] = useState("1");
 
   const items = [
@@ -204,7 +213,7 @@ const Card = () => {
       key: "1",
       label: (
         <div className="flex gap-2 items-center">
-          <span className="text-base">投资</span>
+          <span className="text-base">{t("invest")}</span>
           <div>
             <img src={active === "1" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
           </div>
@@ -216,7 +225,7 @@ const Card = () => {
       key: "2",
       label: (
         <div className="flex gap-1">
-          <span className="text-base">赎回</span>
+          <span className="text-base">{t("redemption")}</span>
           <div>
             <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
           </div>
@@ -229,7 +238,7 @@ const Card = () => {
     <div className="p-4 flex flex-col">
       <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
         <img src="/assets/eth.png" width={20} />
-        以太坊
+        Ethereum
         <img src="/assets/down.png" width={10} alt="" />
       </div>
       <div>
@@ -239,14 +248,16 @@ const Card = () => {
   );
 };
 const Deposit = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [, copy] = useCopyToClipboard();
   const assetsData = [
-    { value: "$ " + scientific(product?.market_value ?? 0), name: "总资产" },
-    { value: product?.rate ?? "0%", name: "管理费" },
-    { value: "150%", name: "超额抵押率" },
-    { value: product?.income2 ?? "5%", name: "收益率" },
+    { value: "$ " + scientific(product?.market_value ?? 0), name: t("Total assets") },
+    { value: product?.rate ?? "0%", name: t("management fee") },
+    { value: "150%", name: t("OC rate") },
+    { value: product?.income2 ?? "5%", name: "Rate Fee" },
   ];
   const handleCopy = (text: string) => {
     copy(text)
@@ -261,23 +272,23 @@ const Deposit = () => {
     <div className="flex flex-col md:flex-row w-full items-center gap-10 text-black">
       <div className="flex-1 flex flex-col">
         <div className="flex flex-col gap-4">
-          <span className="text-2xl mr-4">经公允审计的超额抵押方式代币化，无缝访问现实资产</span>
-          <span className="text-greyblack">链上赚取无风险美国国债收益率，由6个月内到期的美国国债和逆回购提供全面支持</span>
+          <span className="text-2xl mr-4">{t("Fairly audited over-collateralization tokenization for seamless access to real-world assets")}</span>
+          <span className="text-greyblack">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
           <div className="text-greyblack flex items-center gap-10">
             <div className="flex gap-2">
-              <span>免责声明</span>
+              <span>{t("Disclaimer")}</span>
               <div>
-                <WrapperImg src="/assets/goto.png" width={18} />
+                <WrapperImg src="/assets/goto.png" width={18} onClick={() => navigate("/issus")} />
               </div>
             </div>
             <div className="flex gap-2">
-              <span>发行摘要</span>
+              <span>{t("Release summary")}</span>
               <div>
-                <WrapperImg src="/assets/goto.png" width={18} />
+                <WrapperImg src="/assets/goto.png" width={18} onClick={() => navigate("/guide")} />
               </div>
             </div>
             <div className="flex gap-2">
-              <span>ERC1400标准</span>
+              <span>ERC1400</span>
             </div>
           </div>
         </div>
@@ -303,7 +314,7 @@ const Deposit = () => {
             <div className="join join-vertical w-full">
               <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
                 <div className="flex gap-2">
-                  <span>审计报告</span>
+                  <span>{t("Audit Report")}</span>
                   <div>
                     <WrapperImg src="/assets/question.png" width={15} />
                   </div>
@@ -311,16 +322,16 @@ const Deposit = () => {
               </div>
               <div className="join-item flex justify-between p-2 text-greyblack border-b border-transblack">
                 <div className="flex gap-2">
-                  <span>流动性</span>
+                  <span>{t("fluidity")}</span>
                   <div>
                     <WrapperImg src="/assets/question.png" width={15} />
                   </div>
                 </div>
-                <div>日交易量达 0.25 亿美元</div>
+                <div>{t("Daily trading volume reaches $25 million")}</div>
               </div>
               <div className="join-item flex justify-between p-2 text-greyblack">
                 <div className="flex gap-2">
-                  <span>链上地址</span>
+                  <span>{t("On-chain address")}</span>
                   <div>
                     <WrapperImg src="/assets/question.png" width={15} />
                   </div>
@@ -337,7 +348,9 @@ const Deposit = () => {
               </div>
             </div>
           </div>
-          <div className="text-greyblack">最后更新日期 {moment(product?.updated_at ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}</div>
+          <div className="text-greyblack">
+            {t("last updated date")} {moment(product?.updated_at ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}
+          </div>
         </div>
       </div>
       <div className="flex-1 rounded-box shadow-2xl p-4 pt-10">

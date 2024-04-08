@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 import CountUp from "react-countup";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { product_info } from "../atom/product";
 import Constitute from "../components/Assets/Constitute";
@@ -12,6 +13,7 @@ import { scientific } from "../utils/BigNumberToString";
 import { request } from "../utils/request";
 
 export default function Assets() {
+  const { t } = useTranslation();
   const params = useParams();
   const [product, setProductInfo] = useAtom(product_info);
 
@@ -33,7 +35,7 @@ export default function Assets() {
             <p className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:max-w-[600px]" dangerouslySetInnerHTML={{ __html: product?.desc ?? "" }}></p>
             <div className="flex gap-10 items-end mt-14 mb-10">
               <div className="text-3xl">
-                $<CountUp end={Number(product?.net_worth ?? 0)} start={0} duration={10} />
+                $<CountUp end={Number(product?.net_worth ?? 0)} start={0} duration={4} />
               </div>
               <div className="flex items-center gap-1">
                 <span>
@@ -57,57 +59,66 @@ export default function Assets() {
 
           <div className="mt-14">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6">CFRO的资产储备和构成</h1>
+              <h1 className="text-black text-3xl mb-6">{product?.name}</h1>
             </div>
             <Constitute />
           </div>
 
           <div className="mt-14">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6">表现</h1>
+              <h1 className="text-black text-3xl mb-6">{t("Performance")}</h1>
             </div>
             <Performance />
           </div>
 
           <div className="mt-14">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6">常见问题</h1>
+              <h1 className="text-black text-3xl mb-6">{t("FAQ")}</h1>
             </div>
             <div className="w-full rounded-box border border-light p-6">
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">资产的发行和赎回流程有哪些？</summary>
+                <summary className="collapse-title text-base font-bold font-whalebold">{t("Issuance and redemption process for assets")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
-                  <h2>代币化资产主要3个流程:</h2>
-                  <p>1.创建，创建新的代币资产</p>
-                  <p>2.赎回，投资者将代币返还给Cycle以收回资金（加上应计收益）</p>
-                  <p>3.转账，投资者可在CycleX App转让市场提交转让/出售代币</p>
+                  <p>
+                    {t(
+                      "The issuance and redemption process of assets is an important link in tokenized asset management, involving multiple steps and coordination between parties. The issuance process includes steps such as asset creation, token issuance and distribution. The redemption process of assets includes steps such as investor request for redemption, redemption review and redemption of tokens."
+                    )}
+                  </p>
+                </div>
+              </details>
+
+              <div className="divider my-0"></div>
+              <details className="collapse collapse-arrow bg-white text-black">
+                <summary className="collapse-title text-base font-bold font-whalebold">{t("The user goes through the KYC authentication process")}</summary>
+                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
+                  <p>
+                    {t(
+                      "KYC authentication refers to the Know Your Customer identity verification and compliance review process. The KYC process for users usually includes steps such as submitting personal or organizational information, data review and confirmation. These steps are designed to ensure that transaction participants are in compliance with relevant regulations and compliance requirements."
+                    )}
+                  </p>
                 </div>
               </details>
               <div className="divider my-0"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">用户如何进行KYC认证流程？</summary>
-                <div className="collapse-content  text-sm text-threePranentTransblack leading-6">
-                  <p>个人及机构投资者可在CycleX官网或App提交KYC审核，我们将在1-3个工作日协助您完成KYC审核流程，用户可根据App的提示流程进行操作</p>
+                <summary className="collapse-title text-base font-bold font-whalebold">{t("Composition and management of asset subject matter")}</summary>
+                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
+                  <p>
+                    {t(
+                      "The composition and management of asset subject matter involves multiple roles and components, including asset management companies, fund managers, technology service companies, tokenized assets, CycleX App and fund management consulting, among others. These components work together to provide functions such as asset management, technical support, trading platform and reporting services."
+                    )}
+                  </p>
                 </div>
               </details>
+
               <div className="divider my-0"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">资产标的构成和管理是怎样的？</summary>
-                <div className="collapse-content  text-sm text-threePranentTransblack leading-6">
-                  <p>资产管理公司： 指导服务提供商并管理基金的普通合伙人（GP）</p>
-                  <p>基金经理：协助基金发行并提供基金管理服务</p>
-                  <p>技术服务公司：提供基金代币比的技术服务支持</p>
-                  <p>代币化资产: 资产管理公司管理的SPV资产主体控制</p>
-                  <p>CycleX App：提供项目发布、用户交易管理、申赎和转让流程。</p>
-                  <p>资产净值咨询：独立基金管理人负责会计和报告（例如计算每日资产净值价格）</p>
-                </div>
-              </details>
-              <div className="divider my-0"></div>
-              <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">收取哪些费用？</summary>
-                <div className="collapse-content  text-sm text-threePranentTransblack leading-6">
-                  <p>管理费：根据资产类别不同，收取相应的管理费用，平均控制在0.1-2%区间（可根据单一资产披露进行查看）</p>
-                  <p>交易手续费：暂不收取</p>
+                <summary className="collapse-title text-base font-bold font-whalebold">{t("Fees charged")}</summary>
+                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
+                  <p>
+                    {t(
+                      "The fees charged include management fees, transaction fees and custodial fees. Management fees are charged depending on the asset class and are typically between 0.1% and 2% of the fund's size. Transaction fees may vary depending on the circumstances. Custodial fees are typically charged by third-party custodians and are typically between 0.1% and 0.2% of the fund size."
+                    )}
+                  </p>
                 </div>
               </details>
             </div>
