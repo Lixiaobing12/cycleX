@@ -1,6 +1,6 @@
 import { DownOutlined, WarningOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
-import { Dropdown, MenuProps, Space } from "antd";
+import { Drawer, Dropdown, Menu, MenuProps, Space } from "antd";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,6 @@ import { utilAnchor } from "../utils/anchor";
 import { request } from "../utils/request";
 import WrapperImg from "./Common/Img";
 
-
 const HeaderComponent = () => {
   const accessToken = useLocalStorage();
   const navigate = useNavigate();
@@ -23,14 +22,18 @@ const HeaderComponent = () => {
   const { t, i18n } = useTranslation();
   const items: MenuProps["items"] = [
     {
-      label: "中文", key: "zh", onClick: () => {
-        i18n.changeLanguage("zh")
-      }
+      label: "中文",
+      key: "zh",
+      onClick: () => {
+        i18n.changeLanguage("zh");
+      },
     },
     {
-      label: "English", key: "en", onClick: () => {
-        i18n.changeLanguage("en")
-      }
+      label: "English",
+      key: "en",
+      onClick: () => {
+        i18n.changeLanguage("en");
+      },
     },
   ];
 
@@ -60,6 +63,42 @@ const HeaderComponent = () => {
       },
     },
   ];
+
+  const MobileItems: MenuProps["items"] = [
+    {
+      label: t("Home"),
+      key: "home",
+      onClick: () => {
+        navigate("/");
+        setOpenMenu(false);
+      },
+    },
+    {
+      label: t("Fund"),
+      key: "fund",
+      onClick: () => {
+        anchor();
+        setOpenMenu(false);
+      },
+    },
+    {
+      label: t("Newbie Guide"),
+      key: "guide",
+      onClick: () => {
+        navigate("/guide");
+        setOpenMenu(false);
+      },
+    },
+    {
+      label: t("Asset Backed Securities"),
+      key: "issus",
+      onClick: () => {
+        navigate("/issus");
+        setOpenMenu(false);
+      },
+    },
+  ];
+
   const anchor = (id: string = "fund") => {
     navigate("/");
     utilAnchor(id);
@@ -88,6 +127,9 @@ const HeaderComponent = () => {
             </div>
             <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/issus")}>
               {t("Asset Backed Securities")}
+            </div>
+            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/airdrop")}>
+              {t("Airdrop")}
             </div>
           </Space>
         </div>
@@ -123,14 +165,14 @@ const HeaderComponent = () => {
             <WrapperImg src="/assets/phone.png" onClick={() => anchor("footer")} />
             <WrapperImg src="/assets/email.png" onClick={() => anchor("footer")} />
             <Dropdown menu={{ items }}>
-              <div onClick={(e) => e.preventDefault()} >
+              <div onClick={(e) => e.preventDefault()}>
                 <WrapperImg src="/assets/lang.png" />
               </div>
             </Dropdown>
           </div>
         </div>
-        <div className="flex-[2] md:hidden text-right">
-          <Space>
+        <div className="flex-[2] md:hidden flex justify-end">
+          {/* <Space>
             {users && accessToken ? (
               <Dropdown menu={{ items: accountItems }}>
                 <a onClick={(e) => e.preventDefault()} className="flex items-center">
@@ -156,10 +198,31 @@ const HeaderComponent = () => {
             <Dropdown menu={{ items }}>
               <WrapperImg src="/assets/lang.png" width={20} onClick={(e) => e.preventDefault()} />
             </Dropdown>
-            {openMenu ? <img src="/assets/close.png" width={20} onClick={() => setOpenMenu(false)} /> : <img src="/assets/menu.png" width={20} onClick={() => setOpenMenu(true)} />}
-          </Space>
+          </Space> */}
+          <img src="/assets/menu.png" width={30} onClick={() => setOpenMenu(true)} />
         </div>
       </div>
+      <Drawer
+        placement="right"
+        height="auto"
+        width="70vw"
+        closable={false}
+        onClose={() => setOpenMenu(false)}
+        open={openMenu}
+        getContainer={false}
+        styles={{
+          body: {
+            padding: 0,
+            border: 0,
+            background: "#000",
+          },
+        }}>
+        <div className="mt-4 flex justify-between px-6">
+          <img src="/assets/icon.png" width={30} />
+          <img src="/assets/menu-white.png" width={30} />
+        </div>
+        <Menu mode="inline" items={MobileItems} theme="dark" />
+      </Drawer>
     </>
   );
 };

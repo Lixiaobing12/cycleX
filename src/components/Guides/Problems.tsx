@@ -5,7 +5,7 @@ const Problems = () => {
   const { t } = useTranslation();
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("FAQ")}</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Q&A")}</h1>
       <Divider />
 
       <div className="mt-10">

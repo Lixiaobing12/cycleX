@@ -147,7 +147,7 @@ export default function Home() {
 
           <div className="md:p-10 mt-14 md:mt-0">
             <div className="w-full text-center mb-8">
-              <h1 className="text-black text-3xl font-bold text-whalebold">{t("FAQ")}</h1>
+              <h1 className="text-black text-3xl font-bold text-whalebold">{t("Q&A")}</h1>
             </div>
             <div className="w-full rounded-box border border-transblack p-6">
               <details className="collapse collapse-arrow bg-white text-black">

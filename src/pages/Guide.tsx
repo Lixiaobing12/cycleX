@@ -22,7 +22,7 @@ const Guide = () => {
     { icon: <img width={24} src="/assets/reward.png" />, label: t("Income standard"), key: "reward" },
     { icon: <img width={24} src="/assets/audit.png" />, label: t("Audit (Certificate of reserves)"), key: "audit" },
     { icon: <img width={24} src="/assets/law.png" />, label: t("law"), key: "law" },
-    { icon: <img width={24} src="/assets/problem.png" />, label: t("FAQ"), key: "problem" },
+    { icon: <img width={24} src="/assets/problem.png" />, label: t("Q&A"), key: "problem" },
     { icon: <img width={24} src="/assets/book.png" />, label: t("White paper"), key: "book" },
   ];
 

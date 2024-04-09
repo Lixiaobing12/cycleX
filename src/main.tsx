@@ -9,9 +9,8 @@ import { bsc } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import App from "./App";
 import "./global.css";
-import './i18n/config';
+import "./i18n/config";
 import "./polyfills";
-
 
 const projectId = "50b9173be949d82c3ec0d89211b8967e";
 const { chains, publicClient } = configureChains([bsc], [publicProvider()]);
@@ -45,8 +44,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             controlOutlineWidth: 1,
           },
           components: {
-            Menu:{
-              itemSelectedBg:"rgba(0, 0, 0, 0.06)"
+            Menu: {
+              itemSelectedBg: "rgba(0, 0, 0, 0.06)",
+              darkItemSelectedBg: "transparent",
+              darkItemBg: "#000",
+              darkItemColor: "#fff",
             },
             Select: {
               optionSelectedColor: "#fff",

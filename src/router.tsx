@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Airdrop from "./pages/Airdrop";
 import Issus from "./pages/AssestIssus";
 import Assets from "./pages/Assets";
 import Guide from "./pages/Guide";
@@ -17,6 +18,7 @@ const router = [
   { path: "/platform", element: <Platform /> },
   { path: "/guide", element: <Guide /> },
   { path: "/issus", element: <Issus /> },
+  { path: "/airdrop", element: <Airdrop /> },
 ];
 function RouterProviders() {
   return (

@@ -73,7 +73,7 @@ export default function Assets() {
 
           <div className="mt-14">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6">{t("FAQ")}</h1>
+              <h1 className="text-black text-3xl mb-6">{t("Q&A")}</h1>
             </div>
             <div className="w-full rounded-box border border-light p-6">
               <details className="collapse collapse-arrow bg-white text-black">

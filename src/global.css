@@ -11,10 +11,19 @@
   font-family: "Whale-bold";
   src: url("/assets/Whale_bold.otf") format("opentype");
 }
+
+@font-face {
+  font-family: "nomal-font";
+  src: url("/assets/nomal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Alliance-bold";
+  src: url("/assets/font.woff2") format("woff2");
+}
 body {
   margin: 0;
   font-weight: 500;
-  font-family: 'Whale', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "nomal-font", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fff;
@@ -23,7 +32,7 @@ body {
   user-select: none;
 }
 
-ul li{
+ul li {
   list-style-type: disc;
   margin-left: 2em;
   margin: 12px 0;

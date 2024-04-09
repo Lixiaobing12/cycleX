@@ -942,7 +942,7 @@ const Law = () => {
           <summary className="collapse-title">{t("Restricted Countries")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base font-bold my-2">{t("We do not open access to the following countries and regions")}:</h2>
-            <p>{t("China, Hong Kong, Macau, Russia, Cuba, Iran, North Korea, Syria.")}</p>
+            <p>{t("Macau, Russia, Cuba, Iran, North Korea, Syria.")}</p>
           </div>
         </details>
       </div>

@@ -125,7 +125,7 @@ const Aguide = () => {
         </div>
       </div>
 
-      <h1 className="font-bold font-whalebold text-3xl mt-12">{t("FAQ")}</h1>
+      <h1 className="font-bold font-whalebold text-3xl mt-12">{t("Q&A")}</h1>
       <Divider />
 
       <div className="mt-10">
