@@ -27,49 +27,59 @@ const Guide = () => {
   ];
 
   return (
-    <div className="py-4 relative">
-      <Row justify="center">
-        <div className="md:hidden flex w-full justify-end mb-4 mr-2">
-          <WrapperImg src="/assets/menu.png" width={30} onClick={() => setModalShow(true)} />
+    <div>
+      <div className="relative flex items-center justify-center">
+        <img src="/assets/guide-banner.png" className="w-full min-h-[120px]" alt="" />
+        <div className="absolute flex w-[94%] m-auto">
+          <p className="tracking-widest	text-4xl font-bold font-whalebold text-white text-center m-auto">{t("Newbie Guide")}</p>
         </div>
-        <Col xs={0} md={6} lg={4}>
-          <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} onSelect={({ key }) => setActiveItem(key)} style={{ height: "100%" }} />
-        </Col>
-        <Col xs={24} md={14} lg={16}>
-          <div className="min-h-screen px-4">
-            {active === "us" ? (
-              <Us />
-            ) : active === "products" ? (
-              <Product />
-            ) : active === "kyc" ? (
-              <Kyc />
-            ) : active === "reward" ? (
-              <Rw />
-            ) : active === "audit" ? (
-              <Audit />
-            ) : active === "law" ? (
-              <Law />
-            ) : active === "problem" ? (
-              <Problems />
-            ) : active === "book" ? (
-              <Book />
-            ) : (
-              <></>
-            )}
+      </div>
+      <div className="py-6 relative">
+        <Row justify="center">
+          <div className="md:hidden fixed bottom-6 right-4 z-10">
+            <button className="btn btn-circle bg-white border-black" onClick={() => setModalShow(true)}>
+              <WrapperImg src="/assets/open.png" width={30} />
+            </button>
           </div>
-        </Col>
-      </Row>
-      <Drawer
-        onClose={() => setModalShow(false)}
-        open={show}
-        width={230}
-        styles={{
-          body: {
-            padding: 0,
-          },
-        }}>
-        <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} onSelect={({ key }) => setActiveItem(key)} />
-      </Drawer>
+          <Col xs={0} md={6} lg={4}>
+            <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} onSelect={({ key }) => setActiveItem(key)} style={{ height: "100%" }} />
+          </Col>
+          <Col xs={24} md={14} lg={16}>
+            <div className="min-h-screen px-4">
+              {active === "us" ? (
+                <Us />
+              ) : active === "products" ? (
+                <Product />
+              ) : active === "kyc" ? (
+                <Kyc />
+              ) : active === "reward" ? (
+                <Rw />
+              ) : active === "audit" ? (
+                <Audit />
+              ) : active === "law" ? (
+                <Law />
+              ) : active === "problem" ? (
+                <Problems />
+              ) : active === "book" ? (
+                <Book />
+              ) : (
+                <></>
+              )}
+            </div>
+          </Col>
+        </Row>
+        <Drawer
+          onClose={() => setModalShow(false)}
+          open={show}
+          width={230}
+          styles={{
+            body: {
+              padding: 0,
+            },
+          }}>
+          <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} onSelect={({ key }) => setActiveItem(key)} />
+        </Drawer>
+      </div>
     </div>
   );
 };
