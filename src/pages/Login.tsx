@@ -3,6 +3,7 @@ import { Icon } from "@ricons/utils";
 import { Checkbox, Col, Form, Input, Modal, Row, Tabs } from "antd";
 import { atom, useAtom } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { messageContext } from "../App";
 import WrapperImg from "../components/Common/Img";
@@ -45,6 +46,7 @@ const AgreementProtocol = () => {
 };
 /** 登录 */
 const In = () => {
+  const { t } = useTranslation();
   /** 是否显示密码 */
   const [visible, setVisible] = useState(false);
   const [toast] = useAtom(messageContext);
@@ -81,26 +83,26 @@ const In = () => {
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        toast?.error("账号或密码错误");
+        toast?.error(t("Incorrect username or password"));
       });
   };
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
-          <Form.Item label="账号">
-            <Input onChange={(e) => setNickName(e.target.value)} size="large" placeholder="请输入邮箱或者手机号" />
+          <Form.Item label={t("Username")}>
+            <Input onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Please enter your email or mobile phone number")} />
           </Form.Item>
           <Form.Item noStyle>
             <div className="flex w-full flex-col mb-10">
               <div className="flex justify-between items-center w-full mb-1">
-                <span>密码</span>
+                <span>{t("Password")}</span>
                 <a className="text-[#193CF6]" onClick={() => setType("Forgot")}>
-                  忘记密码
+                  {t("Forget")}
                 </a>
               </div>
               <div className="relative items-center flex">
-                <Input type={visible ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} size="large" placeholder="请输入密码" />
+                <Input type={visible ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please enter password")} />
                 <div className="absolute right-2">
                   {visible ? <WrapperImg src="/assets/watch.png" width={20} onClick={() => setVisible(false)} /> : <WrapperImg src="/assets/miss.png" width={20} onClick={() => setVisible(true)} />}
                 </div>
@@ -110,14 +112,14 @@ const In = () => {
           <Form.Item>
             <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-threePranentTransblack" disabled={!nickname || !password || loading} onClick={confirm}>
               <Loader spinning={loading} />
-              登录
+              {t("Sign in")}
             </button>
           </Form.Item>
           <Form.Item>
             <div className="text-center">
-              <span>还没有账号?</span>
+              <span>{t("No account yet")}?</span>
               <a className="ml-2 text-[#193CF6]" onClick={() => navigate("/login?t=up")}>
-                去注册
+                {t("Sign up")}
               </a>
             </div>
           </Form.Item>
@@ -128,6 +130,7 @@ const In = () => {
 };
 /** 注册 */
 const Up = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   /** 1:email
    * 2:phone
@@ -139,53 +142,52 @@ const Up = () => {
   const [inviteCode, setInviteCode] = useState("");
   const [isAgree, setAgree] = useState(false);
 
-  useEffect(()=>{
-    request.get('/api/msgProvideCountry/getList').then(({data})=>{
-      console.log(data)
-    })
-  },[])
+  useEffect(() => {
+    request.get("/api/msgProvideCountry/getList").then(({ data }) => {
+      console.log(data);
+    });
+  }, []);
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
-        <Col xs={{ span: 22 }} sm={{span:20}} md={{ span: 18 }} lg={{span:14}}>
+        <Col xs={{ span: 22 }} sm={{ span: 20 }} md={{ span: 18 }} lg={{ span: 14 }}>
           <Form.Item>
             <div className="flex gap-4 items-center">
               <button
                 onClick={() => setChange(1)}
                 className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 1 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
-                邮箱
+                {t("Email")}
               </button>
               <button
                 onClick={() => setChange(2)}
                 className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 2 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
-                手机号
+                {t("Phone number")}
               </button>
             </div>
           </Form.Item>
-          {
-
-          }
-          <Form.Item label="账号">
-            <Input onChange={(e) => setNickName(e.target.value)} size="large" placeholder="请输入邮箱或者手机号" />
+          {}
+          <Form.Item label={t("Username")}>
+            <Input onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Please enter your email or mobile phone number")} />
           </Form.Item>
-          <Form.Item label="密码">
-            <Input onChange={(e) => setPassword(e.target.value)} size="large" placeholder="请设置密码" />
+          <Form.Item label={t("Password")}>
+            <Input onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
           </Form.Item>
-          <Form.Item label="验证码">
-            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder="请输入验证码" suffix={<a className="text-xs text-[#193CF6]">发送验证码</a>} />
+          <Form.Item label={t("Verification code")}>
+            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder={t("please enter verification code")} suffix={<a className="text-xs text-[#193CF6]">{t("Send")}</a>} />
           </Form.Item>
-          <Form.Item label="推荐码（选填）">
-            <Input onChange={(e) => setInviteCode(e.target.value)} size="large" placeholder="推荐码" />
+          <Form.Item label={t("Referral code (optional)")}>
+            <Input onChange={(e) => setInviteCode(e.target.value)} size="large" placeholder={t("Referral code")} />
           </Form.Item>
           <Form.Item>
             <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!nickname || !password || !code || !isAgree}>
-              立即注册
+              {t("Sign up now")}
             </button>
           </Form.Item>
           <Form.Item>
             <div className="text-center">
               <Checkbox onChange={(e) => setAgree(e.target.checked)}>
-                我已阅读并同意并了解<a className="text-[#193CF6]">用户协议</a>和<a className="text-[#193CF6]">隐私政策</a>
+                {t("I have read, agreed and understood")}
+                <a className="text-[#193CF6]">{t("User Agreement")}</a>&<a className="text-[#193CF6]">{t("Privacy Policy")}</a>
               </Checkbox>
             </div>
           </Form.Item>
@@ -197,6 +199,7 @@ const Up = () => {
 
 /** 忘记密码 - 邮箱 */
 const ForgotEmail = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [email, setNEmail] = useState("");
   const [code, setCode] = useState("");
@@ -208,15 +211,15 @@ const ForgotEmail = () => {
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
-          <Form.Item label="邮箱">
-            <Input onChange={(e) => setNEmail(e.target.value)} size="large" placeholder="请输入邮箱" />
+          <Form.Item label={t("Email")}>
+            <Input onChange={(e) => setNEmail(e.target.value)} size="large" placeholder={t("please input your email")} />
           </Form.Item>
-          <Form.Item label="验证码">
-            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder="请输入验证码" suffix={<a className="text-xs text-[#193CF6]">发送验证码</a>} />
+          <Form.Item label={t("Verification code")}>
+            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder={t("please enter verification code")} suffix={<a className="text-xs text-[#193CF6]">{t("Send")}</a>} />
           </Form.Item>
           <Form.Item>
             <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!email || !code} onClick={confirm}>
-              确定修改
+              {t("Confirm modification")}
             </button>
           </Form.Item>
         </Col>
@@ -226,6 +229,7 @@ const ForgotEmail = () => {
 };
 /** 忘记密码-手机号 */
 const ForgotPhone = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
@@ -238,15 +242,15 @@ const ForgotPhone = () => {
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
-          <Form.Item label="手机号">
-            <Input onChange={(e) => setPhone(e.target.value)} size="large" placeholder="请输入手机号" prefix={<a>+86</a>} />
+          <Form.Item label={t("Phone number")}>
+            <Input onChange={(e) => setPhone(e.target.value)} size="large" placeholder={t("Please enter phone number")} prefix={<a>+86</a>} />
           </Form.Item>
-          <Form.Item label="验证码">
-            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder="请输入验证码" suffix={<a className="text-xs text-[#193CF6]">发送验证码</a>} />
+          <Form.Item label={t("Verification code")}>
+            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder={t("please enter verification code")} suffix={<a className="text-xs text-[#193CF6]">{t("Send")}</a>} />
           </Form.Item>
           <Form.Item>
             <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!phone || !code} onClick={confirm}>
-              确定修改
+              {t("Confirm modification")}
             </button>
           </Form.Item>
         </Col>
@@ -256,6 +260,7 @@ const ForgotPhone = () => {
 };
 /** 登录注册页面 */
 const Sign = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [activeKey, setKey] = useState("1");
   const [, setAgreeModalShow] = useAtom(agreemenetModel);
@@ -265,7 +270,7 @@ const Sign = () => {
       key: "1",
       label: (
         <div className="flex gap-2 items-center">
-          <span className="text-base">登录</span>
+          <span className="text-base">{t("Sign in")}</span>
         </div>
       ),
       children: <In />,
@@ -274,7 +279,7 @@ const Sign = () => {
       key: "2",
       label: (
         <div className="flex gap-1">
-          <span className="text-base">注册</span>
+          <span className="text-base">{t("Sign up")}</span>
         </div>
       ),
       children: <Up />,
@@ -296,9 +301,9 @@ const Sign = () => {
         <div>ALL RIGHTS RESERVED ©2024 CycleX</div>
         <div className="flex gap-4">
           <a className="cursor-pointer" onClick={() => setAgreeModalShow(true)}>
-            用户协议
+            {t("User Agreement")}
           </a>
-          <a className="cursor-pointer">隐私条款</a>
+          <a className="cursor-pointer">{t("Privacy Policy")}</a>
         </div>
       </div>
     </>
@@ -307,13 +312,14 @@ const Sign = () => {
 
 /** 忘记密码 */
 const Forget = () => {
+  const { t } = useTranslation();
   const [activeKey, setKey] = useState("1");
   const items = [
     {
       key: "1",
       label: (
         <div className="flex gap-2 items-center">
-          <span className="text-base">邮箱</span>
+          <span className="text-base">{t("Email")}</span>
         </div>
       ),
       children: <ForgotEmail />,
@@ -322,7 +328,7 @@ const Forget = () => {
       key: "2",
       label: (
         <div className="flex gap-1">
-          <span className="text-base">手机</span>
+          <span className="text-base">{t("Phone number")}</span>
         </div>
       ),
       children: <ForgotPhone />,
@@ -331,7 +337,7 @@ const Forget = () => {
 
   return (
     <div className="mt-8 flex-1">
-      <div className="text-2xl font-bold font-whalebold my-4">忘记密码</div>
+      <div className="text-2xl font-bold font-whalebold my-4">{t("Forget")}</div>
       <Tabs items={items} activeKey={activeKey} onChange={(e) => setKey(e)}></Tabs>
     </div>
   );
@@ -339,6 +345,7 @@ const Forget = () => {
 
 /** 修改密码 */
 const Revise = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -351,25 +358,25 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => { };
+  const confirm = () => {};
   return (
     <div className="mt-8 flex-1">
-      <div className="text-2xl font-bold font-whalebold my-4">修改密码</div>
+      <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>
       <Form form={form} layout="vertical" autoComplete="off">
         <Row align="middle" justify="center">
           <Col xs={{ span: 22 }} md={{ span: 12 }}>
-            <Form.Item label="旧密码">
-              <Input onChange={(e) => setOldPassword(e.target.value)} size="large" placeholder="请输入旧密码" />
+            <Form.Item label={t("Old Password")}>
+              <Input onChange={(e) => setOldPassword(e.target.value)} size="large" placeholder={t("Please enter old password")} />
             </Form.Item>
-            <Form.Item label="新密码">
-              <Input.Password onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder="请输入新密码" />
+            <Form.Item label={t("New Password")}>
+              <Input.Password onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
             </Form.Item>
-            <Form.Item label="新密码校验" validateStatus={!!newPassword && !vilid ? "error" : "success"}>
-              <Input.Password onChange={onVilid} size="large" placeholder="请再次输入新密码" />
+            <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "error" : "success"}>
+              <Input.Password onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
             </Form.Item>
             <Form.Item>
               <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!vilid} onClick={confirm}>
-                确定修改
+                {t("Confirm modification")}
               </button>
             </Form.Item>
           </Col>
@@ -380,6 +387,7 @@ const Revise = () => {
 };
 
 const Login = () => {
+  const { t } = useTranslation();
   const accessToken = useLocalStorage();
   const [toast] = useAtom(messageContext);
   const [type, setType] = useAtom(tabTypes);
@@ -410,11 +418,9 @@ const Login = () => {
             <Icon size={18}>
               <ArrowLeft onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
             </Icon>
-            <span>返回</span>
+            <span>{t("Back")}</span>
           </div>
-          <div className="pb-20">
-            {type === "Sign" ? <Sign /> : type === "Forgot" ? <Forget /> : <Revise />}
-          </div>
+          <div className="pb-20">{type === "Sign" ? <Sign /> : type === "Forgot" ? <Forget /> : <Revise />}</div>
         </div>
       </div>
       <AgreementProtocol />
