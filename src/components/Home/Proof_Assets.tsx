@@ -17,23 +17,25 @@ const Table = () => {
     {
       title: t("Current assets/size"),
       dataIndex: "MarketValue",
-      key: "MarketValue",
+      key: "MarketValue_ProofAssets",
     },
     {
       title: t("Category/type"),
       dataIndex: "TypeSort",
-      key: "TypeSort",
+      key: "TypeSort_ProofAssets",
     },
     {
       title: t("Report/Reserve details"),
       dataIndex: "Name",
-      key: "Name",
-      render: (value, row) => <div className="flex items-center gap-2">
-        <span>{value}</span>
-        <a href={row.Url} target="_blank">
-          <WrapperImg src="/assets/pdf.png" width={25} />
-        </a>
-      </div>
+      key: "proofName_ProofAssets",
+      render: (value, row) => (
+        <div className="flex items-center gap-2">
+          <span>{value}</span>
+          <a href={row.Url} target="_blank">
+            <WrapperImg src="/assets/pdf.png" width={25} />
+          </a>
+        </div>
+      ),
     },
   ];
   return <ATable columns={columns} dataSource={proofs} pagination={false} className="w-full" />;
@@ -60,15 +62,15 @@ const ProofAssets = () => {
         </div>
         <div className=" w-full flex flex-col my-10">
           <div className="flex w-full rounded-full h-6 overflow-hidden">
-            {proofs.map((item) => (
-              <span style={{ width: item.Rate + "%", background: item.color }} className="h-full" key={item.Name}></span>
+            {proofs.map((item, index) => (
+              <span style={{ width: item.Rate + "%", background: item.color }} className="h-full" key={item.color + index}></span>
             ))}
           </div>
           <div className="text-greyblack mt-4">{t("(For real world assets) including public companies, Treasury bonds, money market funds, repo and alternative investments")}</div>
         </div>
         <div className="w-full grid grid-cols-2 gap-8">
-          {proofs.map((item) => (
-            <div className="w-full flex items-center" key={item.Name}>
+          {proofs.map((item,index) => (
+            <div className="w-full flex items-center" key={item.Name + item.Rate + index}>
               <div style={{ background: item.color }} className="w-6 h-6 rounded-md"></div>
               <span className="mx-4">{item.Rate}%</span>
               <span>{item.Name}</span>

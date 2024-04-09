@@ -64,7 +64,7 @@ const HeaderComponent = () => {
     },
   ];
 
-  const MobileItems: MenuProps["items"] = [
+  const MobileRouterItems: MenuProps["items"] = [
     {
       label: t("Home"),
       key: "home",
@@ -97,8 +97,76 @@ const HeaderComponent = () => {
         setOpenMenu(false);
       },
     },
+    {
+      label: t("Airdrop"),
+      key: "Airdrop",
+      onClick: () => {
+        navigate("/airdrop");
+        setOpenMenu(false);
+      },
+    },
   ];
 
+  const MobileActiveItems: MenuProps["items"] = [
+    {
+      label: t("Download"),
+      key: "download",
+      icon: <WrapperImg src="/assets/download-light.png" />,
+      onClick: () => {
+        setOpenMenu(false);
+        navigate("/");
+        anchor("download");
+      },
+    },
+    {
+      label: t("Contact us"),
+      key: "Contact us",
+      icon: <WrapperImg src="/assets/phone-light.png" />,
+      onClick: () => {
+        setOpenMenu(false);
+        navigate("/");
+        anchor("footer");
+      },
+    },
+    {
+      label: t("Email"),
+      key: "Email",
+      icon: <WrapperImg src="/assets/email-light.png" />,
+      onClick: () => {
+        setOpenMenu(false);
+        navigate("/");
+        anchor("footer");
+      },
+    },
+    {
+      label: t("Language"),
+      icon: <WrapperImg src="/assets/lang-light.png" />,
+      key: "Language",
+      children: items,
+    },
+  ];
+
+  const MobileAccountActiveItems: MenuProps["items"] = [
+    {
+      label: t("Certification"),
+      icon: <WrapperImg src="/assets/warning-light.png" />,
+      key: "realName",
+      onClick: () => {
+        setOpenMenu(false);
+        navigate("/verify");
+      },
+    },
+    {
+      label: t("wallet"),
+      icon: <WrapperImg src="/assets/wallet-light.png" />,
+      key: "wallet",
+      onClick: () => {
+        setOpenMenu(false);
+        navigate("/wallet");
+      },
+    },
+    { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
+  ];
   const anchor = (id: string = "fund") => {
     navigate("/");
     utilAnchor(id);
@@ -113,9 +181,9 @@ const HeaderComponent = () => {
   }, [accessToken]);
   return (
     <>
-      <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack  md:px-[10%]">
+      <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack md:px-[10%] pt-6">
         <div className="flex md:justify-end md:items-center">
-          <img src="/assets/avant.png" className="cursor-pointer w-36" alt="" onClick={() => navigate("/")} />
+          <img src="/assets/avant.png" className="cursor-pointer w-28 md:w-36" alt="" onClick={() => navigate("/")} />
         </div>
         <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20">
           <Space size="large">
@@ -152,9 +220,9 @@ const HeaderComponent = () => {
                 <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=in")}>
                   {t("Sign in")}
                 </div>
-                <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=up")}>
+                <button className="btn btn-sm bg-black text-white rounded-md" onClick={() => navigate("/login?t=up")}>
                   {t("Sign up")}
-                </div>
+                </button>
               </>
             )}
           </Space>
@@ -172,56 +240,81 @@ const HeaderComponent = () => {
           </div>
         </div>
         <div className="flex-[2] md:hidden flex justify-end">
-          {/* <Space>
-            {users && accessToken ? (
-              <Dropdown menu={{ items: accountItems }}>
-                <a onClick={(e) => e.preventDefault()} className="flex items-center">
-                  {users.avatar && <img src={users.avatar} width={20} className="mr-2 rounded-full" alt="" />}
-                  {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
-                  <div className="mt-1 ml-1">
-                    <Icon size={12}>
-                      <DownOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-                    </Icon>
-                  </div>
-                </a>
-              </Dropdown>
-            ) : (
-              <>
-                <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=in")}>
-                  {t("Sign in")}
-                </div>
-                <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=up")}>
-                  {t("Sign up")}
-                </div>
-              </>
-            )}
-            <Dropdown menu={{ items }}>
-              <WrapperImg src="/assets/lang.png" width={20} onClick={(e) => e.preventDefault()} />
-            </Dropdown>
-          </Space> */}
           <img src="/assets/menu.png" width={30} onClick={() => setOpenMenu(true)} />
         </div>
       </div>
       <Drawer
+        destroyOnClose
         placement="right"
-        height="auto"
         width="70vw"
         closable={false}
         onClose={() => setOpenMenu(false)}
         open={openMenu}
-        getContainer={false}
         styles={{
           body: {
             padding: 0,
             border: 0,
             background: "#000",
+            height: "100vh",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
           },
         }}>
-        <div className="mt-4 flex justify-between px-6">
+        <div className="my-6 flex justify-between px-6">
           <img src="/assets/icon.png" width={30} />
-          <img src="/assets/menu-white.png" width={30} />
+          <img src="/assets/x.png" width={30} onClick={() => setOpenMenu(false)} />
         </div>
-        <Menu mode="inline" items={MobileItems} theme="dark" />
+        <div className="flex flex-col flex-1">
+          <Menu mode="inline" items={MobileRouterItems} theme="dark" />
+          <div className="flex flex-col text-white h-full justify-end">
+            {users && accessToken && (
+              <>
+                <Menu mode="inline" items={MobileAccountActiveItems} theme="dark" />
+                <div className="divider my-0"></div>
+              </>
+            )}
+            <Menu mode="inline" items={MobileActiveItems} theme="dark" />
+            <div className="p-4">
+              {users && accessToken ? (
+                <div className="flex justify-between">
+                  <div className="flex items-center">
+                    {users.avatar && <img src={users.avatar} width={20} className="mr-2 rounded-full" alt="" />}
+                    {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
+                  </div>
+                  <button
+                    className="btn btn-sm rounded-full bg-black border-grey"
+                    onClick={() => {
+                      window.localStorage.removeItem("token");
+                      const setItemEvent = new Event("localstorage_save");
+                      window.dispatchEvent(setItemEvent);
+                    }}>
+                    {t("Logout")}
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-4">
+                  <button
+                    className="btn btn-sm rounded-full bg-white text-black flex-1"
+                    onClick={() => {
+                      setOpenMenu(false);
+                      navigate("/login?t=in");
+                    }}>
+                    {t("Sign in")}
+                  </button>
+                  <button
+                    className="btn btn-sm rounded-full bg-black border-grey flex-1"
+                    onClick={() => {
+                      setOpenMenu(false);
+                      navigate("/login?t=up");
+                    }}>
+                    {t("Sign up")}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </Drawer>
     </>
   );

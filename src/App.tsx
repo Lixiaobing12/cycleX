@@ -24,7 +24,7 @@ function App() {
         <HeaderComponent />
       </div>
       <RouterProviders />
-      <div style={{ display: router.pathname === "/login" ? "none" : "inherit" }}>
+      <div style={{ display: router.pathname === "/login" ? "none" : "inherit" }} className="mt-10">
         <Footers />
       </div>
       {contextHolder}

@@ -255,7 +255,7 @@ const Deposit = () => {
   const [, copy] = useCopyToClipboard();
   const assetsData = [
     { value: "$ " + scientific(product?.market_value ?? 0), name: t("Total assets") },
-    { value: product?.rate ?? "0%", name: t("management fee") },
+    { value: product?.rate ?? "0%", name: t("MG fee") },
     { value: "150%", name: t("OC rate") },
     { value: product?.income2 ?? "5%", name: "Rate Fee" },
   ];
@@ -274,7 +274,7 @@ const Deposit = () => {
         <div className="flex flex-col gap-4">
           <span className="text-2xl mr-4">{t("Fairly audited over-collateralization tokenization for seamless access to real-world assets")}</span>
           <span className="text-greyblack">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
-          <div className="text-greyblack flex items-center gap-10">
+          <div className="text-greyblack flex items-center gap-2 md:gap-10">
             <div className="flex gap-2">
               <span>{t("Disclaimer")}</span>
               <div>
@@ -294,7 +294,7 @@ const Deposit = () => {
         </div>
 
         <div className="rounded-box border border-light p-4 flex flex-col gap-4">
-          <div className="flex justify-between">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-4">
             {assetsData.map((item, index) => (
               <div key={item.name} className="flex items-center relative flex-1">
                 <div className="flex flex-col">
@@ -306,11 +306,11 @@ const Deposit = () => {
                   </div>
                   <div className="text-black text-2xl font-bold font-whalebold">{item.value}</div>
                 </div>
-                {index < 3 && <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>}
+                <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>
               </div>
             ))}
           </div>
-          <div className="bg-[#FAFAFC] rounded-box p-4">
+          <div className="bg-[#FAFAFC] rounded-box md:p-4">
             <div className="join join-vertical w-full">
               <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
                 <div className="flex gap-2">

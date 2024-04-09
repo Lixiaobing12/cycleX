@@ -46,7 +46,7 @@ const Footers = () => {
         <div className="flex flex-col gap-4 md:items-end mt-10 md:mt-0">
           <div>{t("Mobile application")}</div>
           <a href="https://mp-cd080341-1a5f-41e1-a2ff-373ad4347341.cdn.bspapp.com/cyclex/cyclex_latest.apk" className="w-2/6 md:w-44 cursor-pointer">
-            <img src="/assets/download-googleplay.png" alt="" />
+            <img src="/assets/download-en.png" alt="" />
           </a>
           <img src="/assets/download-appstore.png" className="w-2/6 md:w-44 cursor-pointer" onClick={() => window.open("https://apps.apple.com/us/app/cyclex/id6464595733")} alt="" />
         </div>

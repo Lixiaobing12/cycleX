@@ -14,7 +14,7 @@ const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
 };
 export default function Home() {
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
   const [openNotice, setNotice] = useState(true);
   const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function Home() {
         )}
         <div className="relative flex items-center justify-center">
           <img src="/assets/home_content.png" className="w-full h-screen md:h-[80vh]" alt="" />
-          <div className="absolute flex flex-col items-center mt-[-120px]">
+          <div className="absolute flex flex-col items-center mt-[-120px] w-[94%] m-auto text-center">
             <p className="tracking-widest	text-4xl font-bold font-whalebold mb-10">{t("The tokenized fund is online")}</p>
             <p className="text-grey text-center tracking-widest leading-relaxed">
               {t("CycleX is committed to creating a transparent and secure tokenized asset trading platform, no matter in the world")}
@@ -134,13 +134,13 @@ export default function Home() {
                 <p>{t("Global RWA trading platform with all the assets you need")}</p>
                 <div className="flex gap-8 items-center mt-10">
                   <a href="https://mp-cd080341-1a5f-41e1-a2ff-373ad4347341.cdn.bspapp.com/cyclex/cyclex_latest.apk" className="w-2/6 cursor-pointer">
-                    <img src="/assets/download-googleplay.png" alt="" />
+                  <img src="/assets/download-en.png" alt="" />
                   </a>
                   <img src="/assets/download-appstore.png" className="w-2/6 cursor-pointer" onClick={() => window.open("https://apps.apple.com/us/app/cyclex/id6464595733")} alt="" />
                 </div>
               </div>
               <div className="flex-1">
-                <img src="/assets/download-phone.png" alt="" />
+                <img src="/assets/download-phone-en.png" alt="" />
               </div>
             </div>
           </div>
@@ -149,21 +149,21 @@ export default function Home() {
             <div className="w-full text-center mb-8">
               <h1 className="text-black text-3xl font-bold text-whalebold">{t("Q&A")}</h1>
             </div>
-            <div className="w-full rounded-box border border-transblack p-6">
+            <div className="w-full rounded-box border border-transblack py-6">
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the issuance and redemption processes for assets?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <h2 className="text-black text-base font-bold">{t("The issuance and redemption process for an asset usually involves the following steps")}:</h2>
 
                   <h3 className="text-black text-base my-2">{t("Issuance process")}</h3>
-                  <ul>
+                  <ul className="ml-4">
                     <li>{t("Create an asset: Before issuing a tokenized asset, it needs to be created. This may involve the asset manager or issuer working with a partner, such as a technology service provider, to determine the characteristics, parameters, and compliance requirements of the asset.")}</li>
                     <li>{t("Issue tokens: Once the asset is created, the tokens are issued onto the blockchain network via smart contracts. This includes determining the number of tokens, the mechanism for allocating the tokens, and the rules for issuing the tokens.")}</li>
                     <li>{t("Distribute the tokens: Once the tokens have been issued, the tokens can be distributed to investors. This may include a private distribution to designated investors or an offering on the open market.")}</li>
                   </ul>
 
                   <h3 className="text-black text-base my-2">{t("Redemption process")}:</h3>
-                  <ul>
+                  <ul className="ml-4">
                     <li>{t("Investor Request for redemption: The investor decides to redeem the tokens held by him/her and makes a redemption request to the asset management company or relevant institution.")}</li>
                     <li>{t("Redemption review: The asset management company or relevant institution reviews the redemption request to ensure that the request complies with relevant regulations and contract provisions.")}</li>
                     <li>{t("Redemption of tokens: Once the redemption request is reviewed and approved, the asset management company or relevant institution will redeem the corresponding number of tokens and send the corresponding funds to the investors.")}</li>
@@ -175,7 +175,7 @@ export default function Home() {
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("How do users go through the KYC authentication process?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack">
                   <h2 className="text-black text-base font-bold my-2">{t("The KYC authentication process for users usually includes the following steps")}:</h2>
-                  <ul>
+                  <ul className="ml-4">
                     <li>{t("Submit information: Users submit personal or organizational information required for KYC certification on the CycleX website or App.")}</li>
                     <li>{t("Audit: The asset management company or relevant organization reviews the submitted KYC information to ensure that it complies with regulations and compliance requirements.")}</li>
                     <li>{t("Audit: After the audit is approved, the user will receive a confirmation notification that their KYC certification is complete.")}</li>
@@ -188,7 +188,7 @@ export default function Home() {
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <h2 className="text-black text-base font-bold my-2">{t("The composition and management of the asset subject matter involves the following main roles and components")}:</h2>
 
-                  <ul>
+                  <ul className="ml-4">
                     <li>{t("Asset management company: The general partner (GP) who directs the service provider and manages the fund.")}</li>
                     <li>{t("Fund Manager: assists in fund issuance and provides fund management services.")}</li>
                     <li>{t("Technical service company: provide technical service support for fund tokenization.")}</li>
@@ -204,7 +204,7 @@ export default function Home() {
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <h2 className="text-black text-base font-bold my-2">{t("The fees charged usually include")}:</h2>
 
-                  <ul>
+                  <ul className="ml-4">
                     <li>{t("Management fees: Management fees are charged depending on the asset class, usually between 0.1% and 2% of the fund size.")}</li>
                     <li>{t("Transaction fees: not currently charged.")}</li>
                     <li>{t("Custodial fees: Typically 0.1% to 0.2% of the fund size, charged by third-party custodians.")}</li>

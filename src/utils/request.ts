@@ -16,7 +16,6 @@ request.interceptors.request.use(
     if (method === "get") {
       config.headers["Cache-Control"] = "no-cache";
     }
-    console.log(method);
     // delete请求参数放入body中
     if (method === "delete") {
       config.headers["Content-type"] = "application/json;";

@@ -26,7 +26,7 @@ const TodoListAssets = () => {
     {
       title: t("Name"),
       dataIndex: "name",
-      key: "name",
+      key: "u_name_TodoListAssets",
       width: 100,
       render: (value, row) => (
         <a className="text-black flex items-center gap-2" onClick={() => navigate(`/assets/${row.id}`)}>
@@ -42,27 +42,27 @@ const TodoListAssets = () => {
     },
     {
       title: t("Type"),
-      key: "unit",
+      key: "unit_TodoListAssets",
       width: 100,
       render: () => <span>{t("Fund")}</span>,
     },
     {
       title: t("AUM /Asset Under Management"),
       dataIndex: "market_value",
-      key: "market_value",
+      key: "market_value_TodoListAssets",
       width: 100,
       render: (value) => '$' + scientific(value),
     },
     {
       title: t("Net value per unit /NAV"),
-      key: "net_worth",
+      key: "net_worth_TodoListAssets",
       dataIndex: "net_worth",
       width: 100,
       render: (value) => '$' + value,
     },
     {
       title: t("Expected yield /APY"),
-      key: "income",
+      key: "income_TodoListAssets",
       dataIndex: "income",
       width: 100,
       render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">+{value}%</span> : <span className="text-[#FF6838]">-{value}%</span>}</div>,

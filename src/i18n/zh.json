@@ -1,5 +1,5 @@
 {
-  "Home":"首页",
+  "Home": "首页",
   "Latest online RWA": "最新上线RWA",
   "learn more": "了解更多",
   "The tokenized fund is online": "代币化基金已上线",
@@ -311,7 +311,7 @@
   "Fees charged": "收取的费用",
   "The fees charged include management fees, transaction fees and custodial fees. Management fees are charged depending on the asset class and are typically between 0.1% and 2% of the fund's size. Transaction fees may vary depending on the circumstances. Custodial fees are typically charged by third-party custodians and are typically between 0.1% and 0.2% of the fund size.": "收取的费用包括管理费、交易手续费和托管费等。管理费根据资产类别的不同收取，通常是基金规模的0.1%至2%。交易手续费可能根据具体情况而定。托管费通常由第三方托管机构收取，通常是基金规模的0.1%至0.2%。",
   "Total assets": "总资产",
-  "management fee": "管理费",
+  "MG fee": "管理费",
   "OC rate": "超额抵押率",
   "Rate Fee": "收益率",
   "Fairly audited over-collateralization tokenization for seamless access to real-world assets": "经公允审计的超额抵押方式代币化，无缝访问现实资产",
@@ -338,10 +338,13 @@
   "Available Balance": "可用余额",
   "Airdrop": "领取空投",
   "Leading world-class RWA trading platform": "领先的世界级RWA交易平台",
-  "Private Credit":"私人信贷",
-  "U.S. Treasury":"美国国债",
-  "Stablecoin":"稳定币",
-  "Active Loans Value":"活跃贷款价值",
-  "Total Loans Value":"贷款总额",
-  "Current Avg. APR":"当前平均年利率"
+  "Private Credit": "私人信贷",
+  "U.S. Treasury": "美国国债",
+  "Stablecoin": "稳定币",
+  "Active Loans Value": "活跃贷款价值",
+  "Total Loans Value": "贷款总额",
+  "Current Avg. APR": "当前平均年利率",
+  "Download": "下载",
+  "Email": "邮箱",
+  "Language": "切换语言"
 }
