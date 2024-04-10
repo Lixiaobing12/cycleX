@@ -382,5 +382,6 @@
   "Failed to send": "发送失败",
   "registration success": "注册成功",
   "registration failed": "注册失败",
-  "Verify password": "校验密码"
+  "Verify password": "校验密码",
+  "Password reset": "密码已重置"
 }

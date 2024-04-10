@@ -367,26 +367,134 @@ const Up = () => {
 
 /** 忘记密码 - 邮箱 */
 const ForgotEmail = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
   const [email, setNEmail] = useState("");
   const [code, setCode] = useState("");
-  const [type, setType] = useAtom(tabTypes);
-  const confirm = () => {
-    setType("Revise");
+  const [toast] = useAtom(messageContext);
+  const { handleTranslate } = useTranslateLocalStorage();
+  const [sendAndCountDown, setCountDownShow] = useState(false);
+  const [validateStatus, setStatus] = useState("validating");
+  const [newPassword, setNewPassword] = useState("");
+  const [vilid, setVilid] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [, setType] = useAtom(tabTypes);
+
+  const onVilid = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === newPassword) {
+      setVilid(true);
+    } else {
+      setVilid(false);
+    }
+  };
+  const confirm = async () => {
+    try {
+      setLoading(true);
+      const { data } = await request.post("/api/api/auth/recover_password", {
+        "type": "email",
+        "username": email,
+        "password": newPassword,
+        "password_confirmation": newPassword,
+        "verify_code": code
+      });
+      if (data.res_code !== 0) {
+        toast?.error(await handleTranslate(data.res_msg));
+        setLoading(false);
+      } else {
+        setLoading(false);
+        toast?.success(t("Password reset"));
+        setTimeout(() => {
+          setType("Sign")
+        }, 500)
+      }
+    } catch (err: any) {
+      if (i18n.language === 'en') {
+        toast?.error(err.response.data.message);
+      } else {
+        toast?.error(err.response.data.res_msg);
+      }
+    }
+  };
+  const sendCode = async () => {
+    /** 验证码 */
+    const registerCode = async () => {
+      try {
+        setCountDownShow(true);
+        const { data } = await request.post("/api/api/msgSms/recoverCode", {
+          mobile_prefix: 86,
+          type: 'email',
+          username: email,
+        });
+        if (data.res_code !== 0) {
+          toast?.error(await handleTranslate(data.res_msg));
+          setCountDownShow(false);
+        }
+      } catch (err: any) {
+        if (i18n.language === 'en') {
+          toast?.error(err.response.data.message);
+        } else {
+          toast?.error(err.response.data.res_msg);
+        }
+      }
+
+    };
+    let status = false;
+    let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    status = reg.test(email);
+    if (!status) {
+      toast?.error(t("Please enter the correct email number"));
+      setStatus("warning");
+    } else {
+      await registerCode();
+    }
   };
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
-          <Form.Item label={t("Email")}>
-            <Input onChange={(e) => setNEmail(e.target.value)} size="large" placeholder={t("please input your email")} />
-          </Form.Item>
-          <Form.Item label={t("Verification code")}>
-            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder={t("please enter verification code")} suffix={<a className="text-xs text-[#193CF6]">{t("Send")}</a>} />
-          </Form.Item>
+          <Col className={`${loading && 'opacity-30	pointer-events-none'}`}>
+            <Form.Item label={t("Email")} validateStatus={validateStatus as any}>
+              <Input onChange={(e) => {
+                setStatus("validating");
+                setNEmail(e.target.value)
+              }} size="large" placeholder={t("please input your email")} />
+            </Form.Item>
+
+            <Form.Item label={t("Verification code")}>
+              <Input
+                onChange={(e) => setCode(e.target.value)}
+                size="large"
+                placeholder={t("please enter verification code")}
+                suffix={
+                  sendAndCountDown ? (
+                    <Countdown
+                      value={Date.now() + 60 * 1000}
+                      format="ss"
+                      suffix="s"
+                      valueStyle={{
+                        fontSize: "14px",
+                        color: "#193CF6",
+                      }}
+                      onFinish={() => setCountDownShow(false)}
+                    />
+                  ) : (
+                    <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                      {t("Send")}
+                    </a>
+                  )
+                }
+              />
+            </Form.Item>
+            <Form.Item label={t("New Password")}>
+              <Input type="password" autoComplete="new-password" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
+            </Form.Item>
+            <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
+              <Input type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+            </Form.Item>
+          </Col>
           <Form.Item>
-            <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!email || !code} onClick={confirm}>
+            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!email || !code || loading} onClick={confirm}>
+              <Loader spinning={loading} />
               {t("Confirm modification")}
             </button>
           </Form.Item>
@@ -397,27 +505,173 @@ const ForgotEmail = () => {
 };
 /** 忘记密码-手机号 */
 const ForgotPhone = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
-  const [phone, setPhone] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [code, setCode] = useState("");
   const [type, setType] = useAtom(tabTypes);
-
-  const confirm = () => {
-    setType("Revise");
+  const [newPassword, setNewPassword] = useState("");
+  const [validateStatus, setStatus] = useState("validating");
+  const [vilid, setVilid] = useState(false);
+  const [phonePrefix, setPhonePrefix] = useState("0");
+  const [sendAndCountDown, setCountDownShow] = useState(false);
+  const [toast] = useAtom(messageContext);
+  const { handleTranslate } = useTranslateLocalStorage();
+  const [loading, setLoading] = useState(false);
+  const [selectOptions, setOptions] = useState<
+    {
+      label: string;
+      title: string;
+      key: string;
+      onClick: Function;
+    }[]
+  >([]);
+  const confirm = async () => {
+    try {
+      setLoading(true);
+      const { data } = await request.post("/api/api/auth/recover_password", {
+        "type": "mobile",
+        "username": phoneNumber,
+        "password": newPassword,
+        "password_confirmation": newPassword,
+        "verify_code": code
+      });
+      if (data.res_code !== 0) {
+        toast?.error(await handleTranslate(data.res_msg));
+        setLoading(false);
+      } else {
+        setLoading(false);
+        toast?.success(t("Password reset"));
+        setTimeout(() => {
+          setType("Sign")
+        }, 500)
+      }
+    } catch (err: any) {
+      if (i18n.language === 'en') {
+        toast?.error(err.response.data.message);
+      } else {
+        toast?.error(err.response.data.res_msg);
+      }
+    }
   };
+  const onVilid = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === newPassword) {
+      setVilid(true);
+    } else {
+      setVilid(false);
+    }
+  };
+  const sendCode = async () => {
+    /** 验证码 */
+    const registerCode = async () => {
+      try {
+        setCountDownShow(true);
+        const { data } = await request.post("/api/api/msgSms/recoverCode", {
+          mobile_prefix: Number(phonePrefix),
+          type: 'mobile',
+          username: phoneNumber,
+        });
+        if (data.res_code !== 0) {
+          toast?.error(await handleTranslate(data.res_msg));
+          setCountDownShow(false);
+        }
+      } catch (err: any) {
+        if (i18n.language === 'en') {
+          toast?.error(err.response.data.message);
+        } else {
+          toast?.error(err.response.data.res_msg);
+        }
+      }
+    };
+    if (phoneNumber) {
+      await registerCode();
+    }
+  };
+  useEffect(() => {
+    request.get("/api/msgProvideCountry/getList").then(({ data }: any) => {
+      setOptions(
+        data.data.map((item: any) =>
+          i18n.language === "en"
+            ? {
+              label: item.name_en,
+              title: item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
+            : {
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
+        )
+      );
+    });
+  }, [i18n.language]);
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
-          <Form.Item label={t("Phone number")}>
-            <Input onChange={(e) => setPhone(e.target.value)} size="large" placeholder={t("Please enter phone number")} prefix={<a>+86</a>} />
-          </Form.Item>
-          <Form.Item label={t("Verification code")}>
-            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder={t("please enter verification code")} suffix={<a className="text-xs text-[#193CF6]">{t("Send")}</a>} />
-          </Form.Item>
+          <Col className={`${loading && 'opacity-30	pointer-events-none'}`}>
+            <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
+              <Input
+                key="phone"
+                addonBefore={
+                  <div className="min-w-10">
+                    <Dropdown menu={{ items: selectOptions as MenuProps["items"] }}>
+                      <a onClick={(e) => e.preventDefault()}>
+                        <Space>+{phonePrefix}</Space>
+                      </a>
+                    </Dropdown>
+                  </div>
+                }
+                onChange={(e) => {
+                  setStatus("validating");
+                  setPhoneNumber(e.target.value);
+                }}
+                size="large"
+                placeholder={t("Please enter phone number")}
+              />
+            </Form.Item>
+            <Form.Item label={t("Verification code")}>
+              <Input
+                onChange={(e) => setCode(e.target.value)}
+                size="large"
+                placeholder={t("please enter verification code")}
+                suffix={
+                  sendAndCountDown ? (
+                    <Countdown
+                      value={Date.now() + 60 * 1000}
+                      format="ss"
+                      suffix="s"
+                      valueStyle={{
+                        fontSize: "14px",
+                        color: "#193CF6",
+                      }}
+                      onFinish={() => setCountDownShow(false)}
+                    />
+                  ) : (
+                    <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                      {t("Send")}
+                    </a>
+                  )
+                }
+              />
+            </Form.Item>
+            <Form.Item label={t("New Password")}>
+              <Input type="password" autoComplete="new-password" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
+            </Form.Item>
+            <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
+              <Input type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+            </Form.Item>
+          </Col>
+
           <Form.Item>
-            <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!phone || !code} onClick={confirm}>
+            <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!phoneNumber || !code} onClick={confirm}>
               {t("Confirm modification")}
             </button>
           </Form.Item>
