@@ -1,47 +1,33 @@
 import { ArrowLeft } from "@ricons/tabler";
 import { Icon } from "@ricons/utils";
-import { Checkbox, Col, Form, Input, Modal, Row, Tabs } from "antd";
+import { Checkbox, Col, Dropdown, Form, Input, MenuProps, Modal, Row, Space, Tabs } from "antd";
+import Countdown from "antd/es/statistic/Countdown";
 import { atom, useAtom } from "jotai";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { messageContext } from "../App";
 import WrapperImg from "../components/Common/Img";
 import Loader from "../components/Loader";
-import useLocalStorage from "../hooks/localStorage";
+import PrivitePolicy from "../components/Login/PrivitePolicy";
+import UserAgreement from "../components/Login/UserAgreement";
+import useLocalStorage, { useTranslateLocalStorage } from "../hooks/localStorage";
 import { request } from "../utils/request";
 
 const tabTypes = atom<"Sign" | "Forgot" | "Revise">("Sign");
 
 /** 用户协议弹窗 */
-const agreemenetModel = atom(false);
-const AgreementProtocol = () => {
-  const [show, setShow] = useAtom(agreemenetModel);
-  const protocol = useRef<{
-    read_num: number;
-    title: string;
-    desc: string;
-    content: string;
-    created_at: string;
-  }>();
+const protocolModalStatus = atom(false);
+const protocolType = atom<"agreement" | "privite">("agreement");
 
-  useEffect(() => {
-    request.post("/api/api/announce/getDetail", { id: "15" }).then(({ data }) => {
-      protocol.current = data.data;
-    });
-  }, []);
+const AgreementProtocol = () => {
+  const [show, setShow] = useAtom(protocolModalStatus);
+  const [type] = useAtom(protocolType);
+
   return (
-    <Modal
-      open={show}
-      onCancel={() => setShow(false)}
-      modalRender={() => (
-        <div className="w-full rounded-md bg-white p-4 text-black relative pointer-events-auto">
-          <WrapperImg src="/assets/close.png" width={18} className="absolute top-2 right-2 " onClick={() => setShow(false)} />
-          <div className="w-full text-3xl font-bold font-whalebold">{protocol.current?.title}</div>
-          <p className="text-threePranentTransblack">{protocol.current?.created_at}</p>
-          <p dangerouslySetInnerHTML={{ __html: protocol.current?.content || "" }}></p>
-        </div>
-      )}></Modal>
+    <Modal open={show} onCancel={() => setShow(false)} centered footer={null}>
+      <div className="w-full rounded-md bg-white text-black relative pointer-events-auto overflow-auto">{type === "agreement" ? <UserAgreement /> : <PrivitePolicy />}</div>
+    </Modal>
   );
 };
 /** 登录 */
@@ -110,7 +96,7 @@ const In = () => {
             </div>
           </Form.Item>
           <Form.Item>
-            <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-threePranentTransblack" disabled={!nickname || !password || loading} onClick={confirm}>
+            <button className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-threePranentTransblack" disabled={!nickname || !password || loading} onClick={confirm}>
               <Loader spinning={loading} />
               {t("Sign in")}
             </button>
@@ -130,56 +116,220 @@ const In = () => {
 };
 /** 注册 */
 const Up = () => {
-  const { t } = useTranslation();
+  const navigator = useNavigate();
+  const { handleTranslate } = useTranslateLocalStorage();
+  const [toast] = useAtom(messageContext);
+  const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
   /** 1:email
    * 2:phone
    */
   const [emailOrPhone, setChange] = useState(1);
-  const [nickname, setNickName] = useState("");
+  const [emailNumber, setEmailNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [inviteCode, setInviteCode] = useState("");
+  const [phonePrefix, setPhonePrefix] = useState("0");
   const [isAgree, setAgree] = useState(false);
+  const [validateStatus, setStatus] = useState("validating");
+  const [sendAndCountDown, setCountDownShow] = useState(false);
+  const [selectOptions, setOptions] = useState<
+    {
+      label: string;
+      title: string;
+      key: string;
+      onClick: Function;
+    }[]
+  >([]);
+  const [, setModalShow] = useAtom(protocolModalStatus);
+  const [, setType] = useAtom(protocolType);
 
-  useEffect(() => {
-    request.get("/api/msgProvideCountry/getList").then(({ data }) => {
-      console.log(data);
+  /** 注册 */
+  const register = async () => {
+    setLoading(true);
+    const { data } = await request.post("/api/api/auth/register", {
+      "type": emailOrPhone === 1 ? 'email' : "mobile",
+      "username": emailOrPhone === 1 ? emailNumber : phoneNumber,
+      "password": password,
+      "password_confirmation": password,
+      "verify_code": code,
+      "referral_code": inviteCode,
+      "mobile_prefix": Number(phonePrefix)
     });
-  }, []);
+    if (data.res_code !== 0) {
+      toast?.error(await handleTranslate(data.res_msg))
+      setLoading(false);
+    } else {
+      setLoading(false);
+      toast?.success(t("registration success"));
+      setTimeout(() => {
+        navigator("/login?t=in");
+      }, 500)
+    }
+  }
+  const sendCode = async () => {
+    /** 验证码 */
+    const registerCode = async () => {
+      try {
+        const { data } = await request.post("/api/api/msgSms/registerCode", {
+          mobile_prefix: Number(phonePrefix),
+          type: emailOrPhone === 1 ? 'email' : "mobile",
+          username: emailOrPhone === 1 ? emailNumber : phoneNumber,
+        });
+        if (data.res_code !== 0) {
+          toast?.error(await handleTranslate(data.res_msg));
+        } else {
+          setCountDownShow(true);
+        }
+      } catch (err: any) {
+        console.log(err)
+        if (i18n.language === 'en') {
+          toast?.error(err.response.data.message);
+        } else {
+          toast?.error(err.response.data.res_msg);
+        }
+      }
+
+    };
+    if (emailOrPhone === 1) {
+      let status = false;
+      let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      status = reg.test(emailNumber);
+      if (!status) {
+        toast?.error(t("Please enter the correct email number"));
+        setStatus("warning");
+      } else {
+        await registerCode();
+      }
+    } else {
+      if (!phoneNumber) {
+        setStatus("warning");
+      } else {
+        await registerCode();
+      }
+    }
+  };
+  useEffect(() => {
+    request.get("/api/msgProvideCountry/getList").then(({ data }: any) => {
+      setOptions(
+        data.data.map((item: any) =>
+          i18n.language === "en"
+            ? {
+              label: item.name_en,
+              title: item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
+            : {
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
+        )
+      );
+    });
+  }, [i18n.language]);
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} sm={{ span: 20 }} md={{ span: 18 }} lg={{ span: 14 }}>
+          <Col className={`${loading && 'opacity-30	pointer-events-none'}`}>
+            <Form.Item>
+              <div className="flex gap-4 items-center">
+                <button
+                  onClick={() => {
+                    setStatus("validating");
+                    setChange(1);
+                  }}
+                  className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 1 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
+                  {t("Email")}
+                </button>
+                <button
+                  onClick={() => {
+                    setStatus("validating");
+                    setChange(2);
+                  }}
+                  className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 2 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
+                  {t("Phone number")}
+                </button>
+              </div>
+            </Form.Item>
+            {emailOrPhone === 1 ? (
+              <Form.Item label={t("Email")} validateStatus={validateStatus as any}>
+                <Input
+                  key="email"
+                  onChange={(e) => {
+                    setStatus("validating");
+                    setEmailNumber(e.target.value);
+                  }}
+                  size="large"
+                  placeholder={t("please input your email")}
+                />
+              </Form.Item>
+            ) : (
+              <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
+                <Input
+                  key="phone"
+                  addonBefore={
+                    <div className="min-w-10">
+                      <Dropdown menu={{ items: selectOptions as MenuProps["items"] }}>
+                        <a onClick={(e) => e.preventDefault()}>
+                          <Space>+{phonePrefix}</Space>
+                        </a>
+                      </Dropdown>
+                    </div>
+                  }
+                  onChange={(e) => {
+                    setStatus("validating");
+                    setPhoneNumber(e.target.value);
+                  }}
+                  size="large"
+                  placeholder={t("Please enter phone number")}
+                />
+              </Form.Item>
+            )}
+            <Form.Item label={t("Verification code")}>
+              <Input
+                onChange={(e) => setCode(e.target.value)}
+                size="large"
+                placeholder={t("please enter verification code")}
+                suffix={
+                  sendAndCountDown ? (
+                    <Countdown
+                      value={Date.now() + 60 * 1000}
+                      format="ss"
+                      suffix="s"
+                      valueStyle={{
+                        fontSize: "14px",
+                        color: "#193CF6",
+                      }}
+                      onFinish={() => setCountDownShow(false)}
+                    />
+                  ) : (
+                    <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                      {t("Send")}
+                    </a>
+                  )
+                }
+              />
+            </Form.Item>
+            <Form.Item label={t("Password")}>
+              <Input onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
+            </Form.Item>
+            <Form.Item label={t("Referral code (optional)")}>
+              <Input onChange={(e) => setInviteCode(e.target.value)} size="large" placeholder={t("Referral code")} />
+            </Form.Item>
+          </Col>
           <Form.Item>
-            <div className="flex gap-4 items-center">
-              <button
-                onClick={() => setChange(1)}
-                className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 1 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
-                {t("Email")}
-              </button>
-              <button
-                onClick={() => setChange(2)}
-                className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 2 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
-                {t("Phone number")}
-              </button>
-            </div>
-          </Form.Item>
-          {}
-          <Form.Item label={t("Username")}>
-            <Input onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Please enter your email or mobile phone number")} />
-          </Form.Item>
-          <Form.Item label={t("Password")}>
-            <Input onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
-          </Form.Item>
-          <Form.Item label={t("Verification code")}>
-            <Input onChange={(e) => setCode(e.target.value)} size="large" placeholder={t("please enter verification code")} suffix={<a className="text-xs text-[#193CF6]">{t("Send")}</a>} />
-          </Form.Item>
-          <Form.Item label={t("Referral code (optional)")}>
-            <Input onChange={(e) => setInviteCode(e.target.value)} size="large" placeholder={t("Referral code")} />
-          </Form.Item>
-          <Form.Item>
-            <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!nickname || !password || !code || !isAgree}>
+            <button className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!password || !code || !isAgree} onClick={register}>
+              <Loader spinning={loading} />
               {t("Sign up now")}
             </button>
           </Form.Item>
@@ -187,7 +337,25 @@ const Up = () => {
             <div className="text-center">
               <Checkbox onChange={(e) => setAgree(e.target.checked)}>
                 {t("I have read, agreed and understood")}
-                <a className="text-[#193CF6]">{t("User Agreement")}</a>&<a className="text-[#193CF6]">{t("Privacy Policy")}</a>
+                <a
+                  className="text-[#193CF6]"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setType("agreement");
+                    setModalShow(true);
+                  }}>
+                  {t("User Agreement")}
+                </a>
+                &
+                <a
+                  className="text-[#193CF6]"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setType("privite");
+                    setModalShow(true);
+                  }}>
+                  {t("Privacy Policy")}
+                </a>
               </Checkbox>
             </div>
           </Form.Item>
@@ -263,7 +431,9 @@ const Sign = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [activeKey, setKey] = useState("1");
-  const [, setAgreeModalShow] = useAtom(agreemenetModel);
+  const [, setModalShow] = useAtom(protocolModalStatus);
+  const [, setType] = useAtom(protocolType);
+
   const location = useLocation();
   const items = [
     {
@@ -300,10 +470,22 @@ const Sign = () => {
       <div className="flex flex-col items-center justify-center gap-4 text-threePranentTransblack text-xs">
         <div>ALL RIGHTS RESERVED ©2024 CycleX</div>
         <div className="flex gap-4">
-          <a className="cursor-pointer" onClick={() => setAgreeModalShow(true)}>
+          <a
+            className="cursor-pointer"
+            onClick={() => {
+              setType("agreement");
+              setModalShow(true);
+            }}>
             {t("User Agreement")}
           </a>
-          <a className="cursor-pointer">{t("Privacy Policy")}</a>
+          <a
+            className="cursor-pointer"
+            onClick={() => {
+              setType("privite");
+              setModalShow(true);
+            }}>
+            {t("Privacy Policy")}
+          </a>
         </div>
       </div>
     </>
@@ -358,7 +540,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => {};
+  const confirm = () => { };
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>

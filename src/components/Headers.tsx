@@ -207,7 +207,7 @@ const HeaderComponent = () => {
               <Dropdown menu={{ items: accountItems }}>
                 <a onClick={(e) => e.preventDefault()} className="flex items-center">
                   {users.avatar && <img src={users.avatar} width={32} className="mr-2 rounded-full" alt="" />}
-                  {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
+                  {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
                   <div className="mt-1 ml-1">
                     <Icon size={12}>
                       <DownOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
@@ -280,7 +280,7 @@ const HeaderComponent = () => {
                 <div className="flex justify-between">
                   <div className="flex items-center">
                     {users.avatar && <img src={users.avatar} width={20} className="mr-2 rounded-full" alt="" />}
-                    {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
+                    {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
                   </div>
                   <button
                     className="btn btn-sm rounded-full bg-black border-grey text-white"
@@ -303,7 +303,7 @@ const HeaderComponent = () => {
                     {t("Sign in")}
                   </button>
                   <button
-                    className="btn btn-sm rounded-full bg-black border-grey flex-1"
+                    className="btn btn-sm rounded-full bg-black border-grey flex-1 text-white"
                     onClick={() => {
                       setOpenMenu(false);
                       navigate("/login?t=up");

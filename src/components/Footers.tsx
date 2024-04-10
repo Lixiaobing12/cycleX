@@ -1,15 +1,44 @@
+import { Modal } from "antd";
 import axios from "axios";
+import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { fundProductApiType } from "../types/fundProduct";
 import WrapperImg from "./Common/Img";
+import PrivitePolicy from "./Login/PrivitePolicy";
+import UserAgreement from "./Login/UserAgreement";
+
+/** 用户协议弹窗 */
+const protocolModalStatus = atom(false);
+const protocolType = atom<'agreement' | 'privite'>('agreement');
+const AgreementProtocol = () => {
+  const [show, setShow] = useAtom(protocolModalStatus);
+  const [type] = useAtom(protocolType);
+
+  return (
+    <Modal
+      open={show}
+      onCancel={() => setShow(false)}
+      centered
+      footer={null}>
+      <div className="w-full rounded-md bg-white text-black relative pointer-events-auto overflow-auto">
+        {
+          type === 'agreement' ? <UserAgreement /> : <PrivitePolicy />
+        }
+
+      </div>
+    </Modal>
+  );
+};
 
 const Footers = () => {
   const { t } = useTranslation();
   const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
   const navigate = useNavigate();
 
+  const [, setModalShow] = useAtom(protocolModalStatus);
+  const [, setType] = useAtom(protocolType);
   useEffect(() => {
     axios.post("/api/api/fundProduct/getList").then(({ data }) => {
       setAssetsItems(data.data);
@@ -59,8 +88,14 @@ const Footers = () => {
 
       <div className="w-full flex justify-between items-center text-white mt-6 md:w-[82%] m-auto">
         <div className="flex gap-4 md:gap-10">
-          <span>{t("Service agreement")}</span>
-          <span>{t("Privacy Policy")}</span>
+          <span className="cursor-pointer" onClick={() => {
+            setModalShow(true);
+            setType("agreement");
+          }}>{t("Service agreement")}</span>
+          <span className="cursor-pointer" onClick={() => {
+            setModalShow(true);
+            setType("privite");
+          }}>{t("Privacy Policy")}</span>
         </div>
 
         <div className="text-sm hidden md:flex">© 2023 WhaleFlow Group. All rights reserved.</div>
@@ -72,6 +107,7 @@ const Footers = () => {
       </div>
 
       <div className="text-sm md:hidden text-white m-auto my-8">© 2023 WhaleFlow Group. All rights reserved.</div>
+      <AgreementProtocol />
     </div>
   );
 };

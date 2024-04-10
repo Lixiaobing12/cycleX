@@ -375,6 +375,12 @@
   "New password verification": "新密码校验",
   "Please enter new password again": "请再次输入新密码",
   "Back": "返回",
-  "Reserve asset composition":"储备资产构成",
-  "Expiration(days)":"到期日(天)" 
+  "Reserve asset composition": "储备资产构成",
+  "Expiration(days)": "到期日(天)",
+  "Please enter the correct email number": "请输入正确的邮箱号码",
+  "Sent successfully": "发送成功",
+  "Failed to send": "发送失败",
+  "registration success": "注册成功",
+  "registration failed": "注册失败",
+  "Verify password": "校验密码"
 }
