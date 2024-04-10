@@ -18,6 +18,7 @@ function App() {
   const [, setModal] = useAtom(modalContext);
   setMessage(messageApi);
   setModal(modal);
+  
   return (
     <div>
       <div style={{ display: router.pathname === "/login" ? "none" : "inherit" }}>

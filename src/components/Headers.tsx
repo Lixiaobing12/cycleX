@@ -2,12 +2,12 @@ import { DownOutlined, WarningOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
 import { Drawer, Dropdown, Menu, MenuProps, Space } from "antd";
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { DrawerShow } from "../atom/menu";
+import { userInfo_atom } from "../atom/userInfo";
 import useLocalStorage from "../hooks/localStorage";
-import { UserInfoType } from "../types/user";
 import { utilAnchor } from "../utils/anchor";
 import { request } from "../utils/request";
 import WrapperImg from "./Common/Img";
@@ -15,7 +15,7 @@ import WrapperImg from "./Common/Img";
 const HeaderComponent = () => {
   const accessToken = useLocalStorage();
   const navigate = useNavigate();
-  const [users, setUsersInfo] = useState<UserInfoType>();
+  const [users, setUsersInfo] = useAtom(userInfo_atom);
   const [openMenu, setOpenMenu] = useAtom(DrawerShow);
   // const { openConnectModal } = useConnectModal();
   // const { address, isConnected } = useAccount();
@@ -283,7 +283,7 @@ const HeaderComponent = () => {
                     {users.email.replace(/^(.{2}).*(.{10})$/, "$1...$2")}
                   </div>
                   <button
-                    className="btn btn-sm rounded-full bg-black border-grey"
+                    className="btn btn-sm rounded-full bg-black border-grey text-white"
                     onClick={() => {
                       window.localStorage.removeItem("token");
                       const setItemEvent = new Event("localstorage_save");

@@ -2,6 +2,7 @@ import { Table, TableProps } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
 import { fundProductApiType } from "../../types/fundProduct";
 import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
@@ -26,7 +27,7 @@ const TodoListAssets = () => {
     {
       title: t("Name"),
       dataIndex: "name",
-      key: "u_name_TodoListAssets",
+      key:v4().toString(),
       width: 100,
       render: (value, row) => (
         <a className="text-black flex items-center gap-2" onClick={() => navigate(`/assets/${row.id}`)}>
@@ -42,27 +43,27 @@ const TodoListAssets = () => {
     },
     {
       title: t("Type"),
-      key: "unit_TodoListAssets",
       width: 100,
+      key: v4().toString(),
       render: () => <span>{t("Fund")}</span>,
     },
     {
       title: t("AUM /Asset Under Management"),
       dataIndex: "market_value",
-      key: "market_value_TodoListAssets",
+      key: v4().toString(),
       width: 100,
       render: (value) => '$' + scientific(value),
     },
     {
       title: t("Net value per unit /NAV"),
-      key: "net_worth_TodoListAssets",
+      key: v4().toString(),
       dataIndex: "net_worth",
       width: 100,
       render: (value) => '$' + value,
     },
     {
       title: t("Expected yield /APY"),
-      key: "income_TodoListAssets",
+      key: v4().toString(),
       dataIndex: "income",
       width: 100,
       render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">+{value}%</span> : <span className="text-[#FF6838]">-{value}%</span>}</div>,

@@ -1,36 +1,37 @@
 import { Table as ATable, TableProps } from "antd";
-import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { v4 } from "uuid";
+import { FundProofType, fundProofs_atom } from "../../atom/fundProof";
+import { useTranslateLocalStorage } from "../../hooks/localStorage";
 import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 
 const Table = () => {
-  const { t } = useTranslation();
-  const [proofs, setProofs] = useState<any[]>([]);
-
-  useEffect(() => {
-    request.post("/sapi/fundProof/list").then((res: any) => {
-      setProofs(res.data.data);
-    });
-  }, []);
-  const columns: TableProps<any>["columns"] = [
+  const { t, i18n } = useTranslation();
+  const [proofs] = useAtom(fundProofs_atom);
+  const columns: TableProps<FundProofType>["columns"] = [
     {
       title: t("Current assets/size"),
       dataIndex: "MarketValue",
-      key: "MarketValue_ProofAssets",
+      key: v4().toString()
     },
     {
       title: t("Category/type"),
       dataIndex: "TypeSort",
-      key: "TypeSort_ProofAssets",
+      key: v4().toString(),
+      render: (value, row) => <>{
+        i18n.language === 'en' ? row.TypeSortDct?.en : row.TypeSortDct?.zh
+      }</>
     },
     {
       title: t("Report/Reserve details"),
       dataIndex: "Name",
-      key: "proofName_ProofAssets",
+      key: v4().toString(),
       render: (value, row) => (
         <div className="flex items-center gap-2">
-          <span>{value}</span>
+          <span>{i18n.language === 'en' ? row.NameDct?.en : row.NameDct?.zh}</span>
           <a href={row.Url} target="_blank">
             <WrapperImg src="/assets/pdf.png" width={25} />
           </a>
@@ -41,15 +42,34 @@ const Table = () => {
   return <ATable columns={columns} dataSource={proofs} pagination={false} className="w-full" />;
 };
 const colors = ["#5F79FF", "#B9CAFF", "#141537", "#E2E5EB"];
+
 const ProofAssets = () => {
-  const [proofs, setProofs] = useState<any[]>([]);
-  const { t } = useTranslation();
+  const [proofs, setProofs] = useAtom(fundProofs_atom);
+  const { handleTranslate } = useTranslateLocalStorage();
+  const { t, i18n } = useTranslation();
   useEffect(() => {
-    request.post("/sapi/fundProof/list").then((res: any) => {
-      res.data.data.forEach((item: any, index: number) => {
+    request.post("/sapi/fundProof/list").then(async ({ data }: {
+      data: {
+        data: FundProofType[]
+      }
+    }) => {
+      data.data.forEach((item: any, index: number) => {
         item.color = index < colors.length ? colors[index] : colors[0];
       });
-      setProofs(res.data.data);
+      for (let index = 0; index < data.data.length; index++) {
+        data.data[index].color = index < colors.length ? colors[index] : colors[0];
+        data.data[index].NameDct = {
+          key: data.data[index].Name,
+          zh: data.data[index].Name,
+          en: await handleTranslate(data.data[index].Name)
+        }
+        data.data[index].TypeSortDct = {
+          key: data.data[index].TypeSort,
+          zh: data.data[index].TypeSort,
+          en: await handleTranslate(data.data[index].TypeSort)
+        }
+      }
+      setProofs(data.data);
     });
   }, []);
   return (
@@ -63,17 +83,17 @@ const ProofAssets = () => {
         <div className=" w-full flex flex-col my-10">
           <div className="flex w-full rounded-full h-6 overflow-hidden">
             {proofs.map((item, index) => (
-              <span style={{ width: item.Rate + "%", background: item.color }} className="h-full" key={item.color + index}></span>
+              <span style={{ width: item.Rate + "%", background: item.color }} className="h-full" key={v4().toString()}></span>
             ))}
           </div>
           <div className="text-greyblack mt-4">{t("(For real world assets) including public companies, Treasury bonds, money market funds, repo and alternative investments")}</div>
         </div>
         <div className="w-full grid grid-cols-2 gap-8">
-          {proofs.map((item,index) => (
-            <div className="w-full flex items-center" key={item.Name + item.Rate + index}>
+          {proofs.map((item, index) => (
+            <div className="w-full flex items-center" key={v4().toString()}>
               <div style={{ background: item.color }} className="w-6 h-6 rounded-md"></div>
               <span className="mx-4">{item.Rate}%</span>
-              <span>{item.Name}</span>
+              <span>{i18n.language === 'en' ? item.NameDct?.en : item.NameDct?.zh}</span>
             </div>
           ))}
         </div>

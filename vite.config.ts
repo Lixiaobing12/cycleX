@@ -37,6 +37,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/next/, ""),
       },
+      "/translate": {
+        target: "http://cycle.quliantechnology.com",
+        changeOrigin: true,
+      },
     },
   },
 });

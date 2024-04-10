@@ -1,11 +1,13 @@
 import * as echarts from "echarts";
 import { graphic } from "echarts/core";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { request } from "../../utils/request";
 import WrapperButton from "../Common/Button";
 
 /** k线 */
 const KLine = () => {
+  const { t } = useTranslation();
   const [activeItem, setItem] = useState(40);
   const option = (lineDatas: number[], XPosition: number[]) => {
     return {
@@ -135,13 +137,13 @@ const KLine = () => {
     <div className="w-full pt-10 h-full" id="pv">
       <div className="flex gap-6 w-full">
         <WrapperButton click={() => setItem(40)} isActive={activeItem === 40}>
-          全部
+          {t("All")}
         </WrapperButton>
         <WrapperButton click={() => setItem(7)} isActive={activeItem === 7}>
-          7日APY{" "}
+          {t("7 APY")}
         </WrapperButton>
         <WrapperButton click={() => setItem(14)} isActive={activeItem === 14}>
-          累计派发利息{" "}
+          {t("Accumulated interest paid")}
         </WrapperButton>
       </div>
       <div id="ichart" className="w-full min-h-[260px]"></div>
@@ -151,12 +153,6 @@ const KLine = () => {
 
 /** 海量资产实现 -- commonent */
 const Performance = () => {
-  const lines = [
-    { icon: "/assets/reicon1.png", title: "优质的资产和管理人", description: "基金专门投资与世界领先的高流动性资产" },
-    { icon: "/assets/reicon2.png", title: "受监管和服务商提供", description: "我们的基金存放在独立的第三方存管处，进行周期性 NAV日常会计核算，并将接受年度审计" },
-    { icon: "/assets/reicon3.png", title: "第三方审计的安全性", description: "实施最佳安全策略和措施，所有关键智能合约都经过审核和认证" },
-    { icon: "/assets/reicon4.png", title: "经验丰富的管理团队", description: "执行团队来自于领先的资产管理机构和加密领域的丰富管理经验" },
-  ];
   return (
     <div className="flex flex-col w-full items-center gap-10  rounded-box shadow-2xl p-4">
       <KLine />

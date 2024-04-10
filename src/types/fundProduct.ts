@@ -1,4 +1,14 @@
 export type fundProductApiType = {
+  labelsDcts?: {
+    key: string;
+    en: string;
+    zh: string;
+  }[];
+  descDcts?: {
+    key: string;
+    en: string;
+    zh: string;
+  };
   id: number;
   simple_name: string;
   name: string;

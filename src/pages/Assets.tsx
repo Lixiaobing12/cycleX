@@ -8,17 +8,32 @@ import { product_info } from "../atom/product";
 import Constitute from "../components/Assets/Constitute";
 import Deposit from "../components/Assets/Deposit";
 import Performance from "../components/Assets/Performance";
+import { useTranslateLocalStorage } from "../hooks/localStorage";
 import { fundProductApiType } from "../types/fundProduct";
 import { scientific } from "../utils/BigNumberToString";
 import { request } from "../utils/request";
 
 export default function Assets() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const [product, setProductInfo] = useAtom(product_info);
+  const { handleTranslate } = useTranslateLocalStorage();
 
   useEffect(() => {
-    request.post("/api/api/fundProduct/getDetail", { id: params.id }).then(({ data }: { data: AxiosResponse<fundProductApiType> }) => {
+    request.post("/api/api/fundProduct/getDetail", { id: params.id }).then(async ({ data }: { data: AxiosResponse<fundProductApiType> }) => {
+      data.data.descDcts = {
+        key: '',
+        zh: data.data.desc,
+        en: await handleTranslate(data.data.desc)
+      }
+      for (let j = 0; j < data.data.labels.length; j++) {
+        const text = await handleTranslate(data.data.labels[j]);
+        data.data.labelsDcts?.push({
+          key: data.data.labels[j],
+          zh: data.data.labels[j],
+          en: text
+        })
+      }
       setProductInfo(data.data);
     });
   }, [params]);
@@ -27,12 +42,12 @@ export default function Assets() {
       <div className="relative text-white">
         <div className="relative flex items-center justify-center">
           <img src="/assets/assets_bg.png" className="w-full h-[80vh]" alt="" />
-          <div className="absolute flex flex-col left-4 top-[20%] md:left-[20%] ">
+          <div className="absolute flex flex-col left-4 top-[10%] md:top-[20%] md:left-[20%] ">
             <p className="tracking-widest	text-4xl font-bold font-whalebold mb-8 flex items-center gap-4">
               <img src="/assets/assets_dollor.png" className="w-14" alt="" />
               <span>{product?.name}</span>
             </p>
-            <p className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:max-w-[600px]" dangerouslySetInnerHTML={{ __html: product?.desc ?? "" }}></p>
+            <p className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:max-w-[600px] max-h-48 overflow-auto" dangerouslySetInnerHTML={{ __html: product ? (i18n.language === 'en' ? product?.descDcts?.en : product?.descDcts?.zh) : "" }}></p>
             <div className="flex gap-10 items-end mt-14 mb-10">
               <div className="text-3xl">
                 $<CountUp end={Number(product?.net_worth ?? 0)} start={0} duration={4} />

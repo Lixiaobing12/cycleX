@@ -1,12 +1,18 @@
 import axios from "axios";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
+import { messageContext } from "../App";
+import { products_atom } from "../atom/fundProducts";
+import { userInfo_atom } from "../atom/userInfo";
 import News from "../components/Home/News";
 import Process from "../components/Home/Process";
 import ProofAssets from "../components/Home/Proof_Assets";
 import Reassets from "../components/Home/Re_Assets";
 import TodoListAssets from "../components/Home/Todo_Assets";
+import { useTranslateLocalStorage } from "../hooks/localStorage";
 import { fundProductApiType } from "../types/fundProduct";
 import { scientific } from "../utils/BigNumberToString";
 
@@ -14,20 +20,37 @@ const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
 };
 export default function Home() {
-  const { t,i18n } = useTranslation();
+  const [users] = useAtom(userInfo_atom);
+  const [toast] = useAtom(messageContext)
+  const { t, i18n } = useTranslation();
   const [openNotice, setNotice] = useState(true);
-  const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
+  const [assets, setAssetsItems] = useAtom(products_atom);
+  const { handleTranslate } = useTranslateLocalStorage();
   const navigate = useNavigate();
-  const openBook = () => {
-    window.open("https://powpepe.gitbook.io/powpepe/", "_blank");
-  };
   useEffect(() => {
-    axios.post("/api/api/fundProduct/getList").then(({ data }) => {
-      if (data.data.length > 3) {
-        setAssetsItems(data.data.slice(0, 3));
-      } else {
-        setAssetsItems(data.data);
+    axios.post("/api/api/fundProduct/getList").then(async ({ data }: {
+      data: {
+        data: fundProductApiType[]
       }
+    }) => {
+      let items = [];
+      if (data.data.length > 3) {
+        items = data.data.slice(0, 3);
+      } else {
+        items = data.data;
+      }
+      for (let i = 0; i < items.length; i++) {
+        items[i].labelsDcts = [];
+        for (let j = 0; j < items[i].labels.length; j++) {
+          const data = await handleTranslate(items[i].labels[j]);
+          items[i].labelsDcts?.push({
+            key: items[i].labels[j],
+            zh: items[i].labels[j],
+            en: data
+          })
+        }
+      }
+      setAssetsItems(items);
     });
   }, []);
   return (
@@ -60,9 +83,9 @@ export default function Home() {
                   <span className="text-3xl font-bold font-whalebold ml-2">{item.name}</span>
                 </div>
                 <div className="flex w-full flex-wrap gap-4 mb-10">
-                  {item.labels.map((ch) => (
-                    <div className="rounded-full px-4 py-1 bg-[#222] text-grey text-sm" key={ch}>
-                      {ch}
+                  {item.labelsDcts?.map(({ zh, en }) => (
+                    <div className="rounded-full px-4 py-1 bg-[#222] text-grey text-sm" key={en + v4()}>
+                      {i18n.language === 'en' ? en : zh}
                     </div>
                   ))}
                 </div>
@@ -74,7 +97,15 @@ export default function Home() {
                     <div><div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(item.market_value)} AUM</div></div>
                     <img src="/assets/eth.png" width={30} alt="" />
                   </div>
-                  <img src="/assets/right.png" width={30} className="cursor-pointer hover:scale-105" onClick={() => navigate(`/assets/${item.id}`)} />
+                  <img src="/assets/right.png" width={30} className="cursor-pointer hover:scale-105" onClick={() => {
+                    if (users) {
+                      navigate(`/assets/${item.id}`)
+                    } else {
+                      toast?.info(t("please sign in"))
+                      navigate('/login?t=in')
+                    }
+                  }
+                  } />
                 </div>
               </div>
             ))}
@@ -134,7 +165,7 @@ export default function Home() {
                 <p>{t("Global RWA trading platform with all the assets you need")}</p>
                 <div className="flex gap-8 items-center mt-10">
                   <a href="https://mp-cd080341-1a5f-41e1-a2ff-373ad4347341.cdn.bspapp.com/cyclex/cyclex_latest.apk" className="w-2/6 cursor-pointer">
-                  <img src="/assets/download-en.png" alt="" />
+                    <img src="/assets/download-en.png" alt="" />
                   </a>
                   <img src="/assets/download-appstore.png" className="w-2/6 cursor-pointer" onClick={() => window.open("https://apps.apple.com/us/app/cyclex/id6464595733")} alt="" />
                 </div>

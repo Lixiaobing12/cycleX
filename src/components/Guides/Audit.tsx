@@ -1,18 +1,13 @@
 import { Divider } from "antd";
+import { useAtom } from "jotai";
 import moment from "moment";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { request } from "../../utils/request";
+import { fundProofs_atom } from "../../atom/fundProof";
 import WrapperImg from "../Common/Img";
 
 const Audit = () => {
-  const { t } = useTranslation();
-  const [proofs, setProofs] = useState<any[]>([]);
-  useEffect(() => {
-    request.post("/sapi/fundProof/list").then((res: any) => {
-      setProofs(res.data.data);
-    });
-  }, []);
+  const { t, i18n } = useTranslation();
+  const [proofs] = useAtom(fundProofs_atom);
   return (
     <div className="w-full text-black md:p-8">
       <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Audit and proof of reserves")}</h1>
@@ -26,8 +21,8 @@ const Audit = () => {
         {proofs.map((item, index) => (
           <div key={index}>
             <div className="flex gap-10 items-center" key={index}>
-              <span className="font-bold font-whalebold">{item.Name}</span>
-              <span>{item.TypeSort}</span>
+              <span className="font-bold font-whalebold">{i18n.language === 'en' ? item.NameDct?.en : item.NameDct?.zh}</span>
+              <span>{i18n.language === 'en' ? item.TypeSortDct?.en : item.TypeSortDct?.zh}</span>
               <span>${item.MarketValue}</span>
               <div className="flex gap-2">
                 <span>{moment(item?.UpdatedAt ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}</span>
