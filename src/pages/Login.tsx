@@ -671,7 +671,7 @@ const ForgotPhone = () => {
           </Col>
 
           <Form.Item>
-            <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!phoneNumber || !code} onClick={confirm}>
+            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!phoneNumber || !code} onClick={confirm}>
               {t("Confirm modification")}
             </button>
           </Form.Item>
