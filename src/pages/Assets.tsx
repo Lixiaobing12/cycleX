@@ -47,7 +47,7 @@ export default function Assets() {
               <img src="/assets/assets_dollor.png" className="w-14" alt="" />
               <span>{product?.name}</span>
             </p>
-            <p className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:max-w-[600px] max-h-48 overflow-auto" dangerouslySetInnerHTML={{ __html: product ? (i18n.language === 'en' ? product?.descDcts?.en! : product?.descDcts?.zh!) : "" }}></p>
+            <p className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:w-8/12 max-h-48 overflow-auto" dangerouslySetInnerHTML={{ __html: product ? (i18n.language === 'en' ? product?.descDcts?.en! : product?.descDcts?.zh!) : "" }}></p>
             <div className="flex gap-10 items-end mt-14 mb-10">
               <div className="text-3xl">
                 $<CountUp end={Number(product?.net_worth ?? 0)} start={0} duration={4} />

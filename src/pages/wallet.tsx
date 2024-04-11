@@ -85,7 +85,7 @@ const Wallet = () => {
             </div>
           </div>
           <div className="my-14">
-            <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 500 }} />
+            <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey="name"/>
           </div>
         </Col>
       </Row>

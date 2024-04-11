@@ -1,4 +1,4 @@
-import { DownOutlined, WarningOutlined } from "@ricons/antd";
+import { WarningOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
 import { Drawer, Dropdown, Menu, MenuProps, Space } from "antd";
 import { useAtom } from "jotai";
@@ -209,9 +209,10 @@ const HeaderComponent = () => {
                   {users.avatar && <img src={users.avatar} width={32} className="mr-2 rounded-full" alt="" />}
                   {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
                   <div className="mt-1 ml-1">
-                    <Icon size={12}>
+                    {/* <Icon size={12}>
                       <DownOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-                    </Icon>
+                    </Icon> */}
+                    <img src="/assets/down.png" width={15} alt="" />
                   </div>
                 </a>
               </Dropdown>

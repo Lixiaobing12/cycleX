@@ -73,7 +73,7 @@ const Constitute = () => {
   }, []);
   return (
     <div className="flex flex-col w-full items-center gap-10">
-      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} />
+      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey="Name"/>
     </div>
   );
 };

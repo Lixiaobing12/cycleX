@@ -66,7 +66,7 @@ const Product = () => {
     <div className="w-full text-black md:p-8">
       <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Product List")}</h1>
       <Divider />
-      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} />
+      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey="name"/>
     </div>
   );
 };

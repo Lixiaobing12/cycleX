@@ -64,7 +64,7 @@ const Rw = () => {
     <div className="w-full text-black md:p-8">
       <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Charges")}</h1>
       <Divider />
-      <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 500 }} />
+      <Table columns={columns} dataSource={data} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey="type"/>
     </div>
   );
 };
