@@ -1,7 +1,10 @@
 import { Col, List, Row } from "antd";
+import CountUp from "react-countup";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const Platform = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const data = [
     {
@@ -32,10 +35,12 @@ const Platform = () => {
         <Col xs={24} md={22} lg={18}>
           <div className="rounded-box bg-black flex flex-col p-8 gap-4 relative items-center justify-center">
             <div className="absolute right-4 top-4 btn btn-sm border-grey text-white hover:text-black hover:bg-white" onClick={() => navigate("/wallet")}>
-              我的资产
+              {t("my assets")}
             </div>
-            <div className="text-white">平台币总额</div>
-            <div className="text-white text-2xl">1,096,096.24</div>
+            <div className="text-white text-3xl">WFC</div>
+            <div className="text-white text-2xl">
+              <CountUp end={19829289} separator="," decimal="." decimals={2} />
+            </div>
           </div>
           <div className="my-14">
             <div className="text-center text-black text-2xl mb-10">平台币记录</div>

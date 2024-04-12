@@ -221,18 +221,18 @@ const Card = () => {
       ),
       children: <ItemDeposit />,
     },
-    {
-      key: "2",
-      label: (
-        <div className="flex gap-1">
-          <span className="text-base">{t("redemption")}</span>
-          <div>
-            <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
-          </div>
-        </div>
-      ),
-      children: <ItemWithDraw />,
-    },
+    // {
+    //   key: "2",
+    //   label: (
+    //     <div className="flex gap-1">
+    //       <span className="text-base">{t("redemption")}</span>
+    //       <div>
+    //         <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
+    //       </div>
+    //     </div>
+    //   ),
+    //   children: <ItemWithDraw />,
+    // },
   ];
   return (
     <div className="p-4 flex flex-col">

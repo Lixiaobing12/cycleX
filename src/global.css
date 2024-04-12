@@ -78,12 +78,39 @@ ul li {
 summary {
   font-weight: bold;
 }
+.ant-table-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.ant-table-body::-webkit-scrollbar-track {
+  background: rgb(179, 177, 177) !important;
+  border-radius: 10px !important;
+}
+
+.ant-table-body::-webkit-scrollbar-thumb {
+  background: rgb(136, 136, 136) !important;
+  border-radius: 10px !important;
+}
+
+.ant-table-body::-webkit-scrollbar-thumb:hover {
+  background: rgb(100, 100, 100) !important;
+  border-radius: 10px !important;
+}
+
+.ant-table-body::-webkit-scrollbar-thumb:active {
+  background: rgb(68, 68, 68) !important;
+  border-radius: 10px !important;
+}
+
 .hidden-scroll {
 }
 .hidden-scroll::-webkit-scrollbar {
   display: none;
 }
 
+.ant-modal-confirm-paragraph{
+  max-width: 100% !important;
+}
 @media screen and (max-width: 600px) {
   .head-item-mb {
     display: none;

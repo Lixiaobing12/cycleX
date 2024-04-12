@@ -1,0 +1,35 @@
+export type RechargeType = {
+  id: number;
+  ecosystem_id: number;
+  name: string;
+  name_en: string;
+  name_iso: string;
+  dsn_token_id: number;
+  rate: string;
+  symbol: string;
+  unit: string;
+  decimal: string;
+  inner_pay: number;
+  pre_create: number;
+  withdraw_enable: number;
+  withdraw_min: string;
+  withdraw_max: string;
+  withdraw_fee_rate: string;
+  withdraw_fee_min: string;
+  withdraw_fee_max: string;
+  withdraw_audit: string;
+  deposit_enable: number;
+  deposit_min: string;
+  deposit_account: string;
+  transfer_enable: number;
+  transfer_min: string;
+  transfer_max: string;
+  transfer_fee_rate: string;
+  transfer_audit: string;
+  coinmarketcap_id: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  unique_code_sub: string;
+  deposit_account_dct?:any
+};

@@ -1,10 +1,9 @@
-import { WarningOutlined } from "@ricons/antd";
-import { Icon } from "@ricons/utils";
 import { Drawer, Dropdown, Menu, MenuProps, Space } from "antd";
 import { useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { modalContext } from "../App";
 import { DrawerShow } from "../atom/menu";
 import { userInfo_atom } from "../atom/userInfo";
 import useLocalStorage from "../hooks/localStorage";
@@ -17,6 +16,8 @@ const HeaderComponent = () => {
   const navigate = useNavigate();
   const [users, setUsersInfo] = useAtom(userInfo_atom);
   const [openMenu, setOpenMenu] = useAtom(DrawerShow);
+  const [modal] = useAtom(modalContext);
+  const invite_img = useRef("");
   // const { openConnectModal } = useConnectModal();
   // const { address, isConnected } = useAccount();
   const { t, i18n } = useTranslation();
@@ -42,16 +43,14 @@ const HeaderComponent = () => {
       label: t("Certification"),
       icon: (
         <div className="flex items-center">
-          <Icon size={15}>
-            <WarningOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-          </Icon>
+          <img src="/assets/risk.png" width={15} alt="" />
         </div>
       ),
       key: "realName",
       onClick: () => navigate("/verify"),
     },
     { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-    { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users" },
+    { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
     {
       label: t("Logout"),
       icon: <img src="/assets/exit.png" width={12} />,
@@ -146,36 +145,85 @@ const HeaderComponent = () => {
     },
   ];
 
-  const MobileAccountActiveItems: MenuProps["items"] = [
-    {
-      label: t("Certification"),
-      icon: <WrapperImg src="/assets/warning-light.png" />,
-      key: "realName",
-      onClick: () => {
-        setOpenMenu(false);
-        navigate("/verify");
-      },
-    },
-    {
-      label: t("wallet"),
-      icon: <WrapperImg src="/assets/wallet-light.png" />,
-      key: "wallet",
-      onClick: () => {
-        setOpenMenu(false);
-        navigate("/wallet");
-      },
-    },
-    { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
-  ];
+  const MobileAccountActiveItems: MenuProps["items"] = useMemo(() => {
+    return users?.user_type === 1
+      ? [
+          {
+            label: t("wallet"),
+            icon: <WrapperImg src="/assets/wallet-light.png" />,
+            key: "wallet",
+            onClick: () => {
+              setOpenMenu(false);
+              navigate("/wallet");
+            },
+          },
+          { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
+        ]
+      : [
+          {
+            label: t("Certification"),
+            icon: <WrapperImg src="/assets/warning-light.png" />,
+            key: "realName",
+            onClick: () => {
+              setOpenMenu(false);
+              navigate("/verify");
+            },
+          },
+          {
+            label: t("wallet"),
+            icon: <WrapperImg src="/assets/wallet-light.png" />,
+            key: "wallet",
+            onClick: () => {
+              setOpenMenu(false);
+              navigate("/wallet");
+            },
+          },
+          {
+            label: t("Invite"),
+            icon: <WrapperImg src="/assets/invite-light.png" />,
+            key: "users",
+            onClick: () => {
+              setOpenMenu(false);
+              invite();
+            },
+          },
+        ];
+  }, [users]);
   const anchor = (id: string = "fund") => {
     navigate("/");
     utilAnchor(id);
+  };
+
+  const invite = async () => {
+    const context: any = modal?.info({
+      closable: false,
+      icon: <></>,
+      onCancel: () => context.destroy(),
+      title: null,
+      modalRender: () => (
+        <div className="w-full flex flex-col items-center pointer-events-auto">
+          <button className="btn btn-circle mb-2" onClick={() => context.destroy()}>
+            <img src="/assets/x.png" width={26} alt="" />
+          </button>
+          <img src={invite_img.current} alt="" className="w-[320px] md:w-[380px]" />
+
+          <a href={invite_img.current} download target="_blank">
+            <button className="btn btn-wide  mt-2">{t("Download")}</button>
+          </a>
+        </div>
+      ),
+      centered: true,
+      footer: null,
+    });
   };
 
   useEffect(() => {
     if (accessToken) {
       request.post("/api/api/my/getMyInfo").then(({ data }) => {
         setUsersInfo(data.data);
+      });
+      request.post("/api/api/my/getInvite").then(({ data }) => {
+        invite_img.current = data.data;
       });
     }
   }, [accessToken]);
