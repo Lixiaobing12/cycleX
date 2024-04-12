@@ -25,7 +25,7 @@ const Aguide = () => {
       <div className="rounded-box border border-light p-4">
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Review criteria")}:</span>
+            <span className="text-lg font-bold font-whalebold">{t("Review criteria")}:</span>
           </p>
           <p>
             <span className="text-base text-black mr-2">{t("KYC information")}:</span> {t("Strictly implement KYC (Know your Customer) policies to ensure that investors are true and compliant.")}
@@ -46,7 +46,7 @@ const Aguide = () => {
         <Divider />
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Size range")}:</span>
+            <span className="text-lg font-bold font-whalebold">{t("Size range")}:</span>
           </p>
           <p>
             <span className="text-base text-black mr-2">{t("Issue amount")}:</span> {t("limited to 15 million USDT.")}
@@ -61,7 +61,7 @@ const Aguide = () => {
         <Divider />
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Subject standard")}:</span>
+            <span className="text-lg font-bold font-whalebold">{t("Subject standard")}:</span>
           </p>
           <p>
             <span className="text-base text-black mr-2">{t("Issuer")}:</span> {t("set up as SPV (special purpose entity) and meet local compliance requirements.")}
@@ -74,7 +74,7 @@ const Aguide = () => {
         <Divider />
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Product standard")}:</span>
+            <span className="text-lg font-bold font-whalebold">{t("Product standard")}:</span>
           </p>
           <p>{t("Including detailed provisions on product characteristics, investment strategies, risk factors, etc.")}</p>
         </div>
@@ -82,7 +82,7 @@ const Aguide = () => {
         <Divider />
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Form of transaction")}:</span>
+            <span className="text-lg  font-bold font-whalebold">{t("Form of transaction")}:</span>
           </p>
           <p>{t("Open only to users in policy compliant regions, including retail and institutional users.")}</p>
         </div>
@@ -90,7 +90,7 @@ const Aguide = () => {
         <Divider />
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Appendix to the Agreement")}:</span>
+            <span className="text-lg  font-bold font-whalebold">{t("Appendix to the Agreement")}:</span>
           </p>
           <p>{t("Include relevant agreements, contracts, terms and other attached documents.")}</p>
         </div>
@@ -98,7 +98,7 @@ const Aguide = () => {
         <Divider />
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Fee standard")}:</span>
+            <span className="text-lg  font-bold font-whalebold">{t("Fee standard")}:</span>
           </p>
           <p>{t("Including management fee, transaction fee, custodian fee and other fees.")}</p>
         </div>
@@ -106,7 +106,7 @@ const Aguide = () => {
         <Divider />
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Transaction cycle")}:</span>
+            <span className="text-lg  font-bold font-whalebold">{t("Transaction cycle")}:</span>
           </p>
           <p>
             <span className="text-base text-black mr-2">{t("Issuance method")}:</span> {t("in the form of tokenized fund, the duration can be designed for 1-10 years.")}
@@ -119,7 +119,7 @@ const Aguide = () => {
         <Divider />
         <div className="flex flex-col gap-2">
           <p>
-            <span className="text-lg font-bold">{t("Liquidation exit")}:</span>
+            <span className="text-lg  font-bold font-whalebold">{t("Liquidation exit")}:</span>
           </p>
           <p>{t("Upon maturity of the fund, liquidation and withdrawal shall be carried out according to the agreement of both parties.")}</p>
         </div>
@@ -138,7 +138,7 @@ const Aguide = () => {
               )}
             </p>
 
-            <h3 className="text-black font-bold my-2">{t("The advantages of tokenized assets include")}:</h3>
+            <h3 className="text-black  font-bold font-whalebold my-2">{t("The advantages of tokenized assets include")}:</h3>
             <ul className="ml-6">
               <li>{t("Global liquidity: Blockchain technology enables assets to be traded globally, with greater flexibility both in terms of location and time.")}</li>
               <li>
@@ -174,7 +174,7 @@ const Aguide = () => {
                 "Compliance with tokenized assets depends on the legal and regulatory requirements of the location. In some countries and regions, governments have started to formulate relevant regulations to regulate the issuance and trading of tokenized assets. Compliance typically involves procedures such as KYC (Know your Customer) and AML (anti-money laundering), as well as meeting the requirements of securities laws or other financial regulatory regulations."
               )}
             </p>
-            <h3 className="text-black font-bold my-2">{t("Here are some of the distribution cases of tokenized assets")}:</h3>
+            <h3 className="text-black  font-bold font-whalebold my-2">{t("Here are some of the distribution cases of tokenized assets")}:</h3>
             <ul className="ml-6">
               <li>
                 <span>{t("Green bonds")}:</span>

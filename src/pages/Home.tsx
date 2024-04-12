@@ -113,7 +113,7 @@ export default function Home() {
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Mass asset realization")}</h1>
-              <p className="text-greyblack font-bold">{t("Tokenization of fairly audited excess collateral for seamless access to real assets")}</p>
+              <p className="text-greyblack  font-bold font-whalebold">{t("Tokenization of fairly audited excess collateral for seamless access to real assets")}</p>
             </div>
             <Reassets />
           </div>
@@ -121,7 +121,7 @@ export default function Home() {
           <div className="md:p-10 mt-14 md:mt-0">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Information Asset List")}</h1>
-              <p className="text-greyblack font-bold">{t("The most reliable real assets, standard institutional financial products through tokenization")}</p>
+              <p className="text-greyblack  font-bold font-whalebold">{t("The most reliable real assets, standard institutional financial products through tokenization")}</p>
             </div>
             <TodoListAssets />
           </div>
@@ -129,7 +129,7 @@ export default function Home() {
           <div className="md:p-10 mt-14 md:mt-0">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Certificate of Asset Reserve (POR)")}</h1>
-              <p className="text-greyblack font-bold">{t("New/locked real assets are updated/updated monthly and disclosed through authoritative auditing institutions")}</p>
+              <p className="text-greyblack  font-bold font-whalebold">{t("New/locked real assets are updated/updated monthly and disclosed through authoritative auditing institutions")}</p>
             </div>
             <ProofAssets />
           </div>
@@ -137,7 +137,7 @@ export default function Home() {
           <div className="md:p-10 mt-14 md:mt-0">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Transaction flow")}</h1>
-              <p className="text-greyblack font-bold">{t("The easiest way to buy tokenized assets without having to deal with cumbersome transaction processes")}</p>
+              <p className="text-greyblack  font-bold font-whalebold">{t("The easiest way to buy tokenized assets without having to deal with cumbersome transaction processes")}</p>
             </div>
             <Process />
             <div className="flex flex-col gap-4 items-left text-black mt-12 text-sm">
@@ -184,7 +184,7 @@ export default function Home() {
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the issuance and redemption processes for assets?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
-                  <h2 className="text-black text-base font-bold">{t("The issuance and redemption process for an asset usually involves the following steps")}:</h2>
+                  <h2 className="text-black text-base  font-bold font-whalebold">{t("The issuance and redemption process for an asset usually involves the following steps")}:</h2>
 
                   <h3 className="text-black text-base my-2">{t("Issuance process")}</h3>
                   <ul className="ml-4">
@@ -205,7 +205,7 @@ export default function Home() {
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("How do users go through the KYC authentication process?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack">
-                  <h2 className="text-black text-base font-bold my-2">{t("The KYC authentication process for users usually includes the following steps")}:</h2>
+                  <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The KYC authentication process for users usually includes the following steps")}:</h2>
                   <ul className="ml-4">
                     <li>{t("Submit information: Users submit personal or organizational information required for KYC certification on the CycleX website or App.")}</li>
                     <li>{t("Audit: The asset management company or relevant organization reviews the submitted KYC information to ensure that it complies with regulations and compliance requirements.")}</li>
@@ -217,7 +217,7 @@ export default function Home() {
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What is the structure and management of the asset lease?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
-                  <h2 className="text-black text-base font-bold my-2">{t("The composition and management of the asset subject matter involves the following main roles and components")}:</h2>
+                  <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The composition and management of the asset subject matter involves the following main roles and components")}:</h2>
 
                   <ul className="ml-4">
                     <li>{t("Asset management company: The general partner (GP) who directs the service provider and manages the fund.")}</li>
@@ -233,7 +233,7 @@ export default function Home() {
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the fees?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
-                  <h2 className="text-black text-base font-bold my-2">{t("The fees charged usually include")}:</h2>
+                  <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The fees charged usually include")}:</h2>
 
                   <ul className="ml-4">
                     <li>{t("Management fees: Management fees are charged depending on the asset class, usually between 0.1% and 2% of the fund size.")}</li>

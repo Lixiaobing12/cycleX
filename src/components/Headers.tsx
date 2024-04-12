@@ -104,6 +104,14 @@ const HeaderComponent = () => {
         setOpenMenu(false);
       },
     },
+    {
+      label: "IDO",
+      key: "IDO",
+      onClick: () => {
+        navigate("/ido");
+        setOpenMenu(false);
+      },
+    },
   ];
 
   const MobileActiveItems: MenuProps["items"] = [
@@ -246,6 +254,9 @@ const HeaderComponent = () => {
             </div>
             <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/airdrop")}>
               {t("Airdrop")}
+            </div>
+            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/ido")}>
+              IDO
             </div>
           </Space>
         </div>

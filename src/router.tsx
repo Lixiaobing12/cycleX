@@ -4,6 +4,7 @@ import Issus from "./pages/AssestIssus";
 import Assets from "./pages/Assets";
 import Guide from "./pages/Guide";
 import Home from "./pages/Home";
+import IDO from "./pages/IDO";
 import Login from "./pages/Login";
 import Platform from "./pages/Platform";
 import Verify from "./pages/Verify";
@@ -19,6 +20,7 @@ const router = [
   { path: "/guide", element: <Guide /> },
   { path: "/issus", element: <Issus /> },
   { path: "/airdrop", element: <Airdrop /> },
+  { path: "/ido", element: <IDO /> },
 ];
 function RouterProviders() {
   return (

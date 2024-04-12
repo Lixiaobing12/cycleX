@@ -8,7 +8,6 @@ import { useCopyToClipboard } from "usehooks-ts";
 import { messageContext, modalContext } from "../../App";
 import { product_info } from "../../atom/product";
 import useAccounts from "../../hooks/user";
-import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 import Loader from "../Loader";
@@ -221,18 +220,18 @@ const Card = () => {
       ),
       children: <ItemDeposit />,
     },
-    // {
-    //   key: "2",
-    //   label: (
-    //     <div className="flex gap-1">
-    //       <span className="text-base">{t("redemption")}</span>
-    //       <div>
-    //         <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
-    //       </div>
-    //     </div>
-    //   ),
-    //   children: <ItemWithDraw />,
-    // },
+    {
+      key: "2",
+      label: (
+        <div className="flex gap-1">
+          <span className="text-base">{t("redemption")}</span>
+          <div>
+            <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
+          </div>
+        </div>
+      ),
+      children: <ItemWithDraw />,
+    },
   ];
   return (
     <div className="p-4 flex flex-col">
@@ -254,10 +253,10 @@ const Deposit = () => {
   const [product] = useAtom(product_info);
   const [, copy] = useCopyToClipboard();
   const assetsData = [
-    { value: "$ " + scientific(product?.market_value ?? 0), name: t("Total assets") },
-    { value: product?.rate ?? "0%", name: t("MG fee") },
-    { value: "150%", name: t("OC rate") },
-    { value: product?.income2 ?? "5%", name: t("Rate Fee") },
+    { value: "$3M", name: t("Total assets") },
+    { value: "100B", name: t("TotalSupply") },
+    { value: "$ 0.001", name: t("IDO Price") },
+    { value: "6 months", name: t("lock-in") },
   ];
   const handleCopy = (text: string) => {
     copy(text)
@@ -272,11 +271,13 @@ const Deposit = () => {
     <div className="flex flex-col md:flex-row w-full items-center gap-10 text-black">
       <div className="flex-1 flex flex-col">
         <div className="flex flex-col gap-4">
-          <span className="text-2xl mr-4">{t("Fairly audited over-collateralization tokenization for seamless access to real-world assets")}</span>
-          <span className="text-greyblack">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
+          <span className="text-2xl mr-4">WFC | Whale Flow Coin</span>
+          <span className="text-greyblack">
+            {t("WFC token has the characteristics of currency-stock linkage, combining the dual income characteristics of traditional financial markets and crypto markets.")}
+          </span>
           <div className="text-greyblack flex items-center gap-2 md:gap-10">
             <div className="flex gap-2">
-              <span>{t("Disclaimer")}</span>
+              <span>{t("IDO briefing")}</span>
               <div>
                 <WrapperImg src="/assets/goto.png" width={18} onClick={() => navigate("/issus")} />
               </div>
@@ -299,7 +300,7 @@ const Deposit = () => {
               <div key={item.name} className="flex items-center relative flex-1">
                 <div className="flex flex-col">
                   <div className="text-greyblack flex items-center">
-                    <span>{item.name}</span>
+                    <span className="text-sm">{item.name}</span>
                     <div>
                       <WrapperImg src="/assets/question.png" width={16} />
                     </div>
@@ -319,6 +320,9 @@ const Deposit = () => {
                     <WrapperImg src="/assets/question.png" width={15} />
                   </div>
                 </div>
+                <div className="flex items-center gap-1">
+                  WFC Report <WrapperImg src="/assets/goto.png" width={15} />
+                </div>
               </div>
               <div className="join-item flex justify-between p-2 text-greyblack border-b border-transblack">
                 <div className="flex gap-2">
@@ -327,7 +331,7 @@ const Deposit = () => {
                     <WrapperImg src="/assets/question.png" width={15} />
                   </div>
                 </div>
-                <div>{t("Daily trading volume reaches $25 million")}</div>
+                <div>{t("Not applicable yet")}</div>
               </div>
               <div className="join-item flex justify-between p-2 text-greyblack">
                 <div className="flex gap-2">

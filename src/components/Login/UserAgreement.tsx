@@ -4,7 +4,7 @@ const UserAgreement = () => {
     const { t, i18n } = useTranslation();
     return (
         <div>
-            <h2 className="text-black text-base font-bold my-2">{t("Terms of Service")}</h2>
+            <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}</h2>
             <p>{t("Last Updated: Apr. 2024")}</p>
             {i18n.language === "en" ? (
                 <ol>

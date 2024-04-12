@@ -15,7 +15,7 @@ const Process = () => {
           <div className="flex flex-col p-10 border rounded-box items-center gap-4 border-transblack">
             <img src={item.avant} width={150} />
             <div className="rounded border px-6 py-1  border-transblack">{item.name}</div>
-            <h2 className="text-lg font-bold">{item.desc}</h2>
+            <h2 className="text-lg  font-bold font-whalebold">{item.desc}</h2>
           </div>
           {index < 3 && <img src="/assets/process_right.png" className="w-10 right-[-20%] absolute md:right-[-15%] z-10" />}
         </div>

@@ -34,7 +34,7 @@ const TodoListAssets = () => {
             <img src="/assets/assets_dollor.png" width={25} alt="" />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold">{value}</span>
+            <span className="text-lg  font-bold font-whalebold">{value}</span>
             <span className="text-threePranentTransblack ">{t("Tokenized funds")}</span>
           </div>
         </a>
