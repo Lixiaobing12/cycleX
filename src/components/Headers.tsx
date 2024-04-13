@@ -43,6 +43,7 @@ const HeaderComponent = () => {
       ? [
           { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
           { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+          // { label: t("Security"), icon: <img src="/assets/setting.png" width={12} />, key: "Security", onClick: () => navigate("/setting") },
           {
             label: t("Logout"),
             icon: <img src="/assets/exit.png" width={12} />,
@@ -67,6 +68,7 @@ const HeaderComponent = () => {
           },
           { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
           { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+          // { label: t("Security"), icon: <img src="/assets/setting.png" width={12} />, key: "Security", onClick: () => navigate("/setting") },
           {
             label: t("Logout"),
             icon: <img src="/assets/exit.png" width={12} />,
@@ -183,6 +185,7 @@ const HeaderComponent = () => {
             },
           },
           { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
+          // { label: t("Security"), icon: <WrapperImg src="/assets/setting.png" />, key: "Security", onClick: () => navigate("/setting") },
         ]
       : [
           {
@@ -212,6 +215,7 @@ const HeaderComponent = () => {
               invite();
             },
           },
+          // { label: t("Security"), icon: <WrapperImg src="/assets/setting.png" />, key: "Security", onClick: () => navigate("/setting") },
         ];
   }, [users]);
   const anchor = (id: string = "fund") => {

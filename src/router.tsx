@@ -21,6 +21,7 @@ const router = [
   { path: "/issus", element: <Issus /> },
   { path: "/airdrop", element: <Airdrop /> },
   { path: "/ido", element: <IDO /> },
+  // { path: "/setting", element: <Setting /> },
 ];
 function RouterProviders() {
   return (

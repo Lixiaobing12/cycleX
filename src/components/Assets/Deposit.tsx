@@ -30,7 +30,7 @@ const SafetyInput: React.FC<{
   return (
     <div className="flex items-center gap-2 w-full justify-center">
       {inputs.current.map((item, key) => (
-        <input type="number" className="input  border-black w-12 bg-white" onChange={(e) => handleInput(e, key)} key={key} id={`dinput${key}`} autoComplete="new-password" />
+        <input type="password" className="input  border-black w-12 bg-white" onChange={(e) => handleInput(e, key)} key={key} id={`dinput${key}`} autoComplete="new-password" />
       ))}
     </div>
   );
