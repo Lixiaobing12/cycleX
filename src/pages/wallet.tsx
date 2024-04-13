@@ -1,7 +1,8 @@
-import { Col, Row, Table, TableProps } from "antd";
+import { Col, Pagination, Row, Table, TableProps } from "antd";
 import { ethers } from "ethers";
 import { useAtom } from "jotai";
-import { useEffect, useMemo, useRef, useState } from "react";
+import moment from "moment";
+import { useEffect, useMemo, useState } from "react";
 import CountUp from "react-countup";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -17,10 +18,13 @@ const Wallet = () => {
   const [toast] = useAtom(messageContext);
   const [, copy] = useCopyToClipboard();
   const { t, i18n } = useTranslation();
-  const page = useRef({
+  const defaultPage = {
     page: 1,
-    size: 50,
-  });
+    size: 10,
+    total: 0,
+  };
+  const [page, setPage] = useState(defaultPage);
+
   const [rechargeInfo, setRechargeInfo] = useState<RechargeType>();
   const navigate = useNavigate();
   const [modal] = useAtom(modalContext);
@@ -36,8 +40,8 @@ const Wallet = () => {
   const columns: TableProps<any>["columns"] = [
     {
       title: t("Category/type"),
-      dataIndex: "description",
-      key: "description",
+      dataIndex: "Description",
+      key: "Description",
       width: 100,
       render(value, record, index) {
         return i18n.language === "en" ? record.descDcts.en : record.descDcts.zh;
@@ -45,8 +49,8 @@ const Wallet = () => {
     },
     {
       title: t("Earnings/Change"),
-      dataIndex: "balance_change",
-      key: "balance_change",
+      dataIndex: "BalanceChange",
+      key: "BalanceChange",
       width: 100,
       render(value, record, index) {
         return value + " USDT";
@@ -54,9 +58,12 @@ const Wallet = () => {
     },
     {
       title: t("Update Time"),
-      dataIndex: "updated_at",
-      key: "updated_at",
+      dataIndex: "UpdatedAt",
+      key: "UpdatedAt",
       width: 100,
+      render(value, record, index) {
+        return moment(value).format("YYYY-MM-DD HH:mm:ss");
+      },
     },
   ];
 
@@ -124,35 +131,47 @@ const Wallet = () => {
       footer: null,
     });
   };
-  const fetch = () => {
-    request
-      .post("/api/api/walletAccountAssetChange/getList", {
-        category_code: "ALL",
-        page: page.current.page,
-        size: page.current.size,
-      })
-      .then(async ({ data }) => {
-        if (Array.isArray(data.data)) {
-          for (let i = 0; i < data.data.length; i++) {
-            data.data[i].descDcts = {
-              key: data.data[i].description,
-              zh: data.data[i].description,
-              en: await handleTranslate(data.data[i].description),
-            };
-          }
-          setRecords(data.data);
-        }
-      });
-    request.post("/api/api/asset/getDetail", { id: 3 }).then(async ({ data }: any) => {
-      data.data.deposit_account_dct = {
-        key: data.data.deposit_account,
-        en: await handleTranslate(data.data.deposit_account),
-        zh: data.data.deposit_account,
-      };
-      setRechargeInfo(data.data);
-    });
+
+  const handleChange = (_page: number) => {
+    page.page = _page;
+    fetch();
   };
-  useEffect(fetch, []);
+  const fetch = () => {
+    if (user) {
+      request
+        .post("/sapi/walletAccountAssetChange/list", {
+          UserId: user?.id,
+          Page: page.page,
+          Size: page.size,
+        })
+        .then(async ({ data }) => {
+          if (Array.isArray(data.data)) {
+            for (let i = 0; i < data.data.length; i++) {
+              data.data[i].descDcts = {
+                key: data.data[i].Description,
+                zh: data.data[i].Description,
+                en: await handleTranslate(data.data[i].Description),
+              };
+            }
+            setRecords(data.data);
+          }
+          setPage({
+            page: data.page.currentPage,
+            size: 10,
+            total: data.page.count,
+          });
+        });
+      request.post("/api/api/asset/getDetail", { id: 3 }).then(async ({ data }: any) => {
+        data.data.deposit_account_dct = {
+          key: data.data.deposit_account,
+          en: await handleTranslate(data.data.deposit_account),
+          zh: data.data.deposit_account,
+        };
+        setRechargeInfo(data.data);
+      });
+    }
+  };
+  useEffect(fetch, [user]);
   return (
     <div className="w-full p-4 py-10 min-h-11/12">
       <Row justify="center">
@@ -197,7 +216,12 @@ const Wallet = () => {
             </div>
           </div>
           <div className="my-14">
-            <Table columns={columns} dataSource={records} pagination={false} className="w-full" scroll={{ x: 500, y: 500 }} rowKey="id" rootClassName="pretter-scroll" rowClassName="pretter-scroll" />
+            <Table columns={columns} dataSource={records} className="w-full" pagination={false} scroll={{ x: 500, y: 500 }} rowKey="Id" rootClassName="pretter-scroll" rowClassName="pretter-scroll" />
+            {records.length && (
+              <div className="text-right">
+                <Pagination simple total={page.total} onChange={handleChange} />
+              </div>
+            )}
           </div>
         </Col>
       </Row>

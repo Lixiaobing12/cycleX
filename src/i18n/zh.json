@@ -530,5 +530,16 @@
   "Compliance Market Opening: Currently, CycleX is open only for the compliance market and provides compliance services according to regulatory requirements. Ensure compliance with regulatory requirements in target markets.": "合规市场开放：目前，CycleX仅针对合规市场开放，并根据监管要求提供合规服务。确保符合目标市场的监管要求。",
   "Issuer: The Singapore Foundation shall act as the issuer and issue the legal statement of the relevant law firm.": "发行主体：新加坡基金会作为发行主体，并出具相关律所的法律说明书。",
   "Security": "安全设置",
-  "Payment password settings":"支付密码设置"
+  "Payment password settings": "支付密码设置",
+  "Account": "账号",
+  "Payment password": "支付密码",
+  "Verify payment password": "校验支付密码",
+  "Something went wrong, try again later": "出错了，请重新尝试",
+  "Participating": "参与中",
+  "participation time": "参与时间",
+  "cost": "费用",
+  "Unlock time": "解锁时间",
+  "Pre-sold": "已预售",
+  "Locked up": "锁仓中",
+  "released": "已释放"
 }

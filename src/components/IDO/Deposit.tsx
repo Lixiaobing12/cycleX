@@ -1,13 +1,12 @@
-import { Tabs } from "antd";
+import { Pagination, Table, TableProps, Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useCopyToClipboard } from "usehooks-ts";
 import { messageContext, modalContext } from "../../App";
 import { product_info } from "../../atom/product";
-import { useTranslateLocalStorage } from "../../hooks/localStorage";
+import useLocalStorage, { useTranslateLocalStorage } from "../../hooks/localStorage";
 import useAccounts from "../../hooks/user";
 import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
@@ -36,6 +35,7 @@ const SafetyInput: React.FC<{
 };
 
 const ItemDeposit = () => {
+  const accessToken = useLocalStorage();
   const { t, i18n } = useTranslation();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
@@ -49,27 +49,34 @@ const ItemDeposit = () => {
 
   const checkSecurity = async () => {
     if (!secrityKey.current) return;
+    if (loading) return;
     setLoading(true);
-    const { data } = await request.post("/api/api/fundOrder/create", {
-      amount: amount.toString(),
-      product_id: String(product?.id),
-      security_password: secrityKey.current,
-    });
+    try {
+      const { data } = await request.post("/sapi/presale/create", {
+        BearerToken: "Bearer " + accessToken?.token,
+        UsdAmount: amount,
+        SecurityPassowrd: secrityKey.current,
+      });
 
-    if (data.res_code !== 0) {
-      if (i18n.language === "en") {
-        toast?.warning(await handleTranslate(data.res_msg));
+      if (data.code !== 0) {
+        if (i18n.language === "en") {
+          toast?.warning(await handleTranslate(data.msg));
+        } else {
+          toast?.warning(data.msg);
+        }
+        return Promise.reject();
       } else {
-        toast?.warning(data.res_msg);
+        toast?.success(t("Congratulations on your successful participation!"));
       }
-      return Promise.reject();
-    } else {
-      toast?.success(t("Congratulations on your successful participation!"));
-    }
-
-    setTimeout(() => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    } catch (err) {
+      console.log(err);
       setLoading(false);
-    }, 500);
+      toast?.warning(t("Something went wrong, try again later"));
+      return Promise.reject();
+    }
   };
   const handlerClick = () => {
     if (!isSign) {
@@ -103,9 +110,11 @@ const ItemDeposit = () => {
           <button
             className="btn btn-block m-auto mt-4 disabled:text-threePranentTransblack"
             onClick={() => {
-              checkSecurity().then(() => {
-                context.destroy();
-              });
+              checkSecurity()
+                .then(() => {
+                  context.destroy();
+                })
+                .catch(() => {});
             }}>
             <Loader spinning={loading} />
             {t("confirm")}
@@ -167,15 +176,6 @@ const ItemWithDraw = () => {
   const handlerClick = () => {};
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
-      <div className="flex justify-between items-center">
-        <span>{t("settlement period")}</span>
-        <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
-          T+{product?.sell_t_n}
-          <div>
-            <img src="/assets/countdowm_notactive.png" width={16} alt="" />
-          </div>
-        </div>
-      </div>
       <div className="w-full relative items-center flex">
         <input type="text" className="w-full input bg-[#F7F8FA] rounded-md border-0" />
         <div className="absolute flex items-center right-4 gap-2">
@@ -192,6 +192,106 @@ const ItemWithDraw = () => {
       <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
         {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
+      <div className="flex items-center justify-center gap-1">
+        <span>{t("Contact support@cyclex.com to gain access")}</span>
+        <div className="flex items-center gap-1">
+          <WrapperImg src="/assets/transparent_copy.png" width={18} />
+          <WrapperImg src="/assets/transparent_telegram.png" width={18} />
+        </div>
+      </div>
+    </div>
+  );
+};
+const ItemParticipate = () => {
+  const [records, setRecords] = useState<any[]>([]);
+  const { t, i18n } = useTranslation();
+  const [, user] = useAccounts();
+  const defaultPage = {
+    page: 1,
+    size: 10,
+    total: 0,
+  };
+  const [page, setPage] = useState(defaultPage);
+  const columns: TableProps<any>["columns"] = [
+    {
+      title: "",
+      dataIndex: "ID",
+      render: (value, record, index) => index,
+      width: 30,
+    },
+    {
+      title: t("participation time"),
+      dataIndex: "CreatedAt",
+      key: "CreatedAt",
+      width: 130,
+      render(value, record, index) {
+        return moment(value).format("YYYY-MM-DD HH:mm:ss");
+      },
+    },
+    {
+      title: t("cost"),
+      dataIndex: "UsdAmount",
+      key: "UsdAmount",
+      width: 100,
+      render(value, record, index) {
+        return value + " USDT";
+      },
+    },
+    {
+      title: "WFC",
+      dataIndex: "TokenAmount",
+      key: "TokenAmount",
+      width: 100,
+      render(value, record, index) {
+        return value + " WFC";
+      },
+    },
+    {
+      title: t("Unlock time"),
+      dataIndex: "UnlockAt",
+      key: "UnlockAt",
+      width: 130,
+      render(value, record, index) {
+        return moment(value).format("YYYY-MM-DD HH:mm:ss");
+      },
+    },
+  ];
+
+  const handleChange = (_page: number) => {
+    page.page = _page;
+    fetch();
+  };
+  const fetch = () => {
+    if (user) {
+      request
+        .post("/sapi/presale/list", {
+          UserId: user?.id,
+          Page: page.page,
+          Size: page.size,
+        })
+        .then(async ({ data }) => {
+          if (Array.isArray(data.data)) {
+            setRecords(data.data);
+          }
+          setPage({
+            page: data.page.currentPage,
+            size: 10,
+            total: data.page.count,
+          });
+        });
+    }
+  };
+  useEffect(fetch, [user]);
+  return (
+    <div className="flex-auto flex flex-col gap-4  text-greyblack font-bold font-whalebold">
+      <div className="w-full relative flex flex-col">
+        <Table columns={columns} dataSource={records} className="w-full" pagination={false} scroll={{ x: 500, y: 500 }} rowKey="ID" />
+        {records.length && (
+          <div className="text-right">
+            <Pagination simple total={page.total} onChange={handleChange} />
+          </div>
+        )}
+      </div>
       <div className="flex items-center justify-center gap-1">
         <span>{t("Contact support@cyclex.com to gain access")}</span>
         <div className="flex items-center gap-1">
@@ -219,27 +319,39 @@ const Card = () => {
       ),
       children: <ItemDeposit />,
     },
+    // {
+    //   key: "2",
+    //   label: (
+    //     <div className="flex gap-1">
+    //       <span className="text-base">{t("redemption")}</span>
+    //       <div>
+    //         <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
+    //       </div>
+    //     </div>
+    //   ),
+    //   children: <ItemWithDraw />,
+    // },
     {
-      key: "2",
+      key: "3",
       label: (
         <div className="flex gap-1">
-          <span className="text-base">{t("redemption")}</span>
+          <span className="text-base">{t("Participating")}</span>
           <div>
-            <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
+            <img src={active === "3" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
           </div>
         </div>
       ),
-      children: <ItemWithDraw />,
+      children: <ItemParticipate />,
     },
   ];
   return (
-    <div className="p-4 flex flex-col">
+    <div className="p-4 flex flex-col w-full">
       <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
         <img src="/assets/eth.png" width={20} />
         Ethereum
         <img src="/assets/down.png" width={10} alt="" />
       </div>
-      <div>
+      <div className="w-full">
         <Tabs items={items} onChange={setActive}></Tabs>
       </div>
     </div>
@@ -248,24 +360,37 @@ const Card = () => {
 const Deposit = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [toast] = useAtom(messageContext);
-  const [product] = useAtom(product_info);
-  const [, copy] = useCopyToClipboard();
+  const [, user] = useAccounts();
+
   const assetsData = [
     { value: "$3M", name: t("Total assets") },
     { value: "100B", name: t("TotalSupply") },
     { value: "$ 0.001", name: t("IDO Price") },
     { value: "6 months", name: t("lock-in") },
   ];
-  const handleCopy = (text: string) => {
-    copy(text)
-      .then(() => {
-        toast?.success("Copied!");
-      })
-      .catch((error) => {
-        console.error("Failed to copy!", error);
-      });
+  const defaultIDOInfo = {
+    TvlPresaleUsdAmount: 0,
+    TvlPresaleTokenAmount: 0,
+    OwnerTvlTokenAmount: 0,
+    OwnerLockTokenAmount: 0,
+    OwnerPengingTokenAmount: 0,
+    OwnerReceiveTokenAmount: 0,
+    OwnerPayUsdAmount: 0,
+    OwnerBalance: 0,
   };
+
+  const [idoInfo, setIdoInfo] = useState(defaultIDOInfo);
+  useEffect(() => {
+    if (user) {
+      request
+        .post("/sapi/presale/getInfoByUserId", {
+          UserId: user?.id || 10000006,
+        })
+        .then(async ({ data }) => {
+          setIdoInfo(data.data);
+        });
+    }
+  }, [user]);
   return (
     <div className="flex flex-col md:flex-row w-full items-center gap-10 text-black">
       <div className="flex-1 flex flex-col">
@@ -323,6 +448,26 @@ const Deposit = () => {
                   WFC Report <WrapperImg src="/assets/goto.png" width={15} />
                 </div>
               </div>
+
+              <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
+                <div className="flex gap-2">
+                  <span>{t("Pre-sold")} USDT</span>
+                  <div>
+                    <WrapperImg src="/assets/question.png" width={15} />
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 items-black">{idoInfo.TvlPresaleUsdAmount}</div>
+              </div>
+
+              <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
+                <div className="flex gap-2">
+                  <span>{t("Pre-sold")} WFC</span>
+                  <div>
+                    <WrapperImg src="/assets/question.png" width={15} />
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 items-black">{idoInfo.TvlPresaleTokenAmount}</div>
+              </div>
               <div className="join-item flex justify-between p-2 text-greyblack border-b border-transblack">
                 <div className="flex gap-2">
                   <span>{t("fluidity")}</span>
@@ -339,7 +484,7 @@ const Deposit = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 rounded-box shadow-2xl p-4 pt-10">
+      <div className="flex-1 rounded-box shadow-2xl p-4 pt-10 w-full">
         <Card />
       </div>
     </div>

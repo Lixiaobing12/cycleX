@@ -8,6 +8,9 @@ const useAccounts = () => {
   const [users, setUsersInfo] = useState<UserInfoType>();
   const [isSign, setSign] = useState(false);
   const [walletsInfo, setWalletsInfo] = useState<WalletInfoType>();
+
+
+
   useEffect(() => {
     const todo = () => {
       if (accessToken) {
@@ -23,7 +26,7 @@ const useAccounts = () => {
     todo();
     const timer = setInterval(() => {
       todo();
-    }, 6000);
+    }, 10000);
     return () => {
       clearInterval(timer);
     };

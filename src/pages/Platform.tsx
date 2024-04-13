@@ -20,15 +20,32 @@ const Platform = () => {
     size: 10,
     total: 0,
   };
+  const defaulttokenInfo = {
+    TvlPresaleUsdAmount: 0,
+    TvlPresaleTokenAmount: 0,
+    OwnerTvlTokenAmount: 0,
+    OwnerLockTokenAmount: 0,
+    OwnerPengingTokenAmount: 0,
+    OwnerReceiveTokenAmount: 0,
+    OwnerPayUsdAmount: 0,
+    OwnerBalance: 0,
+  };
+  const [tokenInfo, settokenInfo] = useState(defaulttokenInfo);
   const [page, setPage] = useState(defaultPage);
-  useEffect(() => {
+
+  const handleChange = (_page: number) => {
+    page.page = _page;
+    fetch();
+  };
+
+  const fetch = () => {
     if (userInfo?.id) {
       request
-        .post("/sapi/tokenDetail/sum", {
-          UserId: userInfo?.id,
+        .post("/sapi/presale/getInfoByUserId", {
+          UserId: userInfo?.id || 10000006,
         })
-        .then<any>(({ data }) => {
-          setBalance(data.data);
+        .then(async ({ data }) => {
+          settokenInfo(data.data);
         });
       request
         .post("/sapi/tokenDetail/list", {
@@ -54,18 +71,35 @@ const Platform = () => {
           }
         });
     }
+  };
+  useEffect(() => {
+    fetch();
   }, [userInfo]);
   return (
     <div className="w-full p-4 py-10 min-h-11/12">
       <Row justify="center">
         <Col xs={24} md={22} lg={18}>
-          <div className="rounded-box bg-black flex flex-col p-8 gap-4 relative items-center justify-center bg-wallet bg-100">
+          <div className="rounded-box bg-black flex flex-col p-8 gap-4 relative  bg-wallet bg-100">
             <div className="absolute right-4 top-4 btn btn-sm border-grey text-white hover:text-black hover:bg-white" onClick={() => navigate("/wallet")}>
               {t("my assets")}
             </div>
-            <div className="text-white text-3xl">WFC</div>
+            <div className="text-grey">{t("Total assets")} WFC</div>
             <div className="text-white text-2xl">
-              <CountUp end={balance} separator="," decimal="." decimals={2} />
+              <CountUp end={tokenInfo.OwnerTvlTokenAmount} separator="," decimal="." decimals={2} />
+            </div>
+            <div className="flex gap-4 md:gap-14 flex-wrap">
+              <div className="flex flex-col gap-1">
+                <div className="text-grey text-md">{t("Locked up")} WFC</div>
+                <div className="text-white text-md">
+                  <CountUp end={tokenInfo.OwnerLockTokenAmount} separator="," decimal="." decimals={2} />
+                </div>
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="text-grey text-md">{t("released")} WFC</div>
+                <div className="text-white text-md">
+                  <CountUp end={tokenInfo.OwnerReceiveTokenAmount} separator="," decimal="." decimals={2} />
+                </div>
+              </div>
             </div>
           </div>
           <div className="my-14">
@@ -87,7 +121,7 @@ const Platform = () => {
                     )}
                   />
                   <div className="text-right">
-                    <Pagination simple total={page.total} />
+                    <Pagination simple total={page.total} onChange={handleChange} />
                   </div>
                 </>
               ) : (

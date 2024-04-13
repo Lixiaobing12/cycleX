@@ -3,19 +3,195 @@ import { Icon } from "@ricons/utils";
 import { Checkbox, Col, Dropdown, Form, Input, MenuProps, Modal, Row, Space, Tabs } from "antd";
 import Countdown from "antd/es/statistic/Countdown";
 import { atom, useAtom } from "jotai";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import { messageContext } from "../App";
+import { messageContext, modalContext } from "../App";
 import WrapperImg from "../components/Common/Img";
 import Loader from "../components/Loader";
 import PrivitePolicy from "../components/Login/PrivitePolicy";
 import UserAgreement from "../components/Login/UserAgreement";
 import useLocalStorage, { useTranslateLocalStorage } from "../hooks/localStorage";
+import useAccounts from "../hooks/user";
 import { request } from "../utils/request";
 
 const tabTypes = atom<"Sign" | "Forgot" | "Revise">("Sign");
 
+/** 设置支付密码弹窗 */
+const SafetyInput: React.FC<{
+  onComplate: () => void;
+}> = ({ onComplate }) => {
+  const [, userInfo] = useAccounts();
+  /** 1:email
+   * 2:phone
+   */
+  const [emailOrPhone, setAccountType] = useState(1);
+  const [nickname, setNickName] = useState("");
+  const { t, i18n } = useTranslation();
+  const [form] = Form.useForm();
+  const [toast] = useAtom(messageContext);
+
+  const [newPassword, setNewPassword] = useState("");
+  const [vilid, setVilid] = useState(false);
+  const { handleTranslate } = useTranslateLocalStorage();
+  const [sending, setSending] = useState(false);
+  const [code, setCode] = useState("");
+  const [sendAndCountDown, setCountDownShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [codeItemStatus, setCodeItemStatus] = useState("validating");
+
+  const onVilid = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === newPassword) {
+      setVilid(true);
+    } else {
+      setVilid(false);
+    }
+  };
+  const sendCode = async () => {
+    /** 验证码 */
+    const registerCode = async () => {
+      try {
+        setSending(true);
+        const { data } = await request.post("/api/api/msgSms/securityCode", {
+          type: emailOrPhone === 1 ? "email" : "mobile",
+          username: nickname,
+        });
+        setSending(false);
+
+        if (data.res_code !== 0) {
+          if (i18n.language === "en") {
+            toast?.warning(await handleTranslate(data.res_msg));
+          } else {
+            toast?.warning(data.res_msg);
+          }
+        } else {
+          setCountDownShow(true);
+        }
+      } catch (err: any) {
+        if (i18n.language === "en") {
+          toast?.error(err.response.data.message);
+        } else {
+          toast?.error(err.response.data.res_msg);
+        }
+      }
+    };
+    await registerCode();
+    // if (emailOrPhone === 1) {
+    //   let status = false;
+    //   let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    //   status = reg.test(emailNumber);
+    //   if (!status) {
+    //     toast?.error(t("Please enter the correct email number"));
+    //     setStatus("warning");
+    //   } else {
+    //     await registerCode();
+    //   }
+    // } else {
+    //   if (!phoneNumber) {
+    //     setStatus("warning");
+    //   } else {
+    //     await registerCode();
+    //   }
+    // }
+  };
+
+  const checkSecurity = async () => {
+    if (!code) {
+      setCodeItemStatus("warning");
+      return;
+    } else {
+      setCodeItemStatus("validating");
+      if (loading) return;
+      setLoading(true);
+      try {
+        const { data } = await request.post("/api/api/my/changeSecurityPassword", {
+          type: emailOrPhone === 1 ? "email" : "mobile",
+          username: nickname,
+          security_password: newPassword,
+          security_password_confirmation: newPassword,
+          verify_code: code,
+        });
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+
+        if (data.res_code !== 0) {
+          if (i18n.language === "en") {
+            toast?.warning(await handleTranslate(data.res_msg));
+          } else {
+            toast?.warning(data.res_msg);
+          }
+        } else {
+          toast?.success(t("registration success"));
+          onComplate();
+        }
+      } catch (err: any) {
+        setLoading(false);
+        if (i18n.language === "en") {
+          toast?.error(err?.response.data?.message);
+        } else {
+          toast?.error(err?.response.data?.res_msg);
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    if (userInfo?.email) {
+      setAccountType(1);
+      setNickName(userInfo.email);
+    } else if (userInfo?.mobile) {
+      setAccountType(2);
+      setNickName(userInfo.mobile);
+    }
+  }, [userInfo]);
+  return (
+    <div>
+      <Form form={form} layout="vertical" autoComplete="off">
+        <Form.Item label={t("Account")}>
+          <Input type="text" readOnly size="large" value={nickname} />
+        </Form.Item>
+        <Form.Item label={t("Verification code")} validateStatus={codeItemStatus as any}>
+          <Input
+            onChange={(e) => setCode(e.target.value)}
+            size="large"
+            placeholder={t("please enter verification code")}
+            suffix={
+              sendAndCountDown ? (
+                <Countdown
+                  value={Date.now() + 60 * 1000}
+                  format="ss"
+                  suffix="s"
+                  valueStyle={{
+                    fontSize: "14px",
+                    color: "#193CF6",
+                  }}
+                  onFinish={() => setCountDownShow(false)}
+                />
+              ) : (
+                <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                  {sending ? <Loader spinning={sending} /> : t("Send")}
+                </a>
+              )
+            }
+          />
+        </Form.Item>
+        <Form.Item label={t("Payment password")}>
+          <Input type="password" autoComplete="new-password" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
+        </Form.Item>
+        <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
+          <Input type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+        </Form.Item>
+        <Form.Item>
+          <button className="btn btn-block m-auto mt-4 disabled:text-threePranentTransblack" onClick={checkSecurity}>
+            <Loader spinning={loading} />
+            {t("confirm")}
+          </button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
 /** 用户协议弹窗 */
 const protocolModalStatus = atom(false);
 const protocolType = atom<"agreement" | "privite">("agreement");
@@ -35,14 +211,14 @@ const In = () => {
   const { t } = useTranslation();
   /** 是否显示密码 */
   const [visible, setVisible] = useState(false);
-  const [toast] = useAtom(messageContext);
   const [form] = Form.useForm();
   const [nickname, setNickName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [type, setType] = useAtom(tabTypes);
   const [loading, setLoading] = useState(false);
-
+  const accessToken = useLocalStorage();
+  const [toast] = useAtom(messageContext);
   const confirm = () => {
     setLoading(true);
     request
@@ -72,6 +248,7 @@ const In = () => {
         toast?.error(t("Incorrect username or password"));
       });
   };
+
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
@@ -117,8 +294,15 @@ const In = () => {
     </Form>
   );
 };
+
+type SecrityKeyType = {
+  password: string;
+  code: string;
+  nickName: string;
+};
 /** 注册 */
 const Up = () => {
+  const [modal] = useAtom(modalContext);
   const navigator = useNavigate();
   const { handleTranslate } = useTranslateLocalStorage();
   const [toast] = useAtom(messageContext);
@@ -139,6 +323,9 @@ const Up = () => {
   const [validateStatus, setStatus] = useState("validating");
   const [sendAndCountDown, setCountDownShow] = useState(false);
   const [sending, setSending] = useState(false);
+  /** 安全密钥  */
+  const secrityKey = useRef<SecrityKeyType>();
+
   const [selectOptions, setOptions] = useState<
     {
       label: string;
@@ -171,11 +358,53 @@ const Up = () => {
       }
     } else {
       setLoading(false);
-      toast?.success(t("registration success"));
-      setTimeout(() => {
-        navigator("/login?t=in");
-      }, 500);
+      const { data } = await request.post("/api/oauth/token", {
+        grant_type: "password",
+        client_id: 2,
+        client_secret: "9FBI5MxzMfMafJKF0TDdBclOgnMcVPXhiLoGBFVG",
+        username: emailOrPhone === 1 ? emailNumber : phoneNumber,
+        password: password,
+      });
+      window.localStorage.setItem(
+        "token",
+        JSON.stringify({
+          token: data.access_token,
+          nickname: emailOrPhone === 1 ? emailNumber : phoneNumber,
+        })
+      );
+      const setItemEvent = new Event("localstorage_save");
+      window.dispatchEvent(setItemEvent);
+      open();
+      // setTimeout(() => {
+      //   navigator("/login?t=in");
+      // }, 500);
     }
+  };
+
+  const open = () => {
+    const context: any = modal?.info({
+      closable: false,
+      icon: <></>,
+      onCancel: () => context.destroy(),
+      title: <h1 className="w-full py-2 text-center text-lg">{t("Payment password settings")}</h1>,
+      content: (
+        <SafetyInput
+          onComplate={() => {
+            context.destroy();
+            setTimeout(() => {
+              navigator("/");
+            }, 500);
+          }}
+        />
+      ),
+      centered: true,
+      footer: null,
+      styles: {
+        body: {
+          width: "100%",
+        },
+      },
+    });
   };
   const sendCode = async () => {
     /** 验证码 */
@@ -199,7 +428,7 @@ const Up = () => {
           setCountDownShow(true);
         }
       } catch (err: any) {
-        console.log(err);
+        setSending(false);
         if (i18n.language === "en") {
           toast?.error(err.response.data.message);
         } else {
@@ -863,8 +1092,6 @@ const Revise = () => {
 
 const Login = () => {
   const { t } = useTranslation();
-  const accessToken = useLocalStorage();
-  const [toast] = useAtom(messageContext);
   const [type, setType] = useAtom(tabTypes);
   const navigate = useNavigate();
   const back = () => {
@@ -876,12 +1103,6 @@ const Login = () => {
       setType("Forgot");
     }
   };
-  useEffect(() => {
-    if (accessToken) {
-      toast?.loading("Logging In");
-      setTimeout(() => navigate("/"), 1000);
-    }
-  }, [accessToken]);
   return (
     <div className="flex text-black">
       <div className="hidden md:flex flex-1 md:h-screen bg-login_mene bg-100 flex justify-center items-center">

@@ -48,8 +48,8 @@ const ItemDeposit = () => {
   const { handleTranslate } = useTranslateLocalStorage();
 
   const checkSecurity = async () => {
-    console.log(secrityKey.current);
     if (!secrityKey.current) return;
+    if (loading) return;
     setLoading(true);
     const { data } = await request.post("/api/api/fundOrder/create", {
       amount: amount.toString(),
