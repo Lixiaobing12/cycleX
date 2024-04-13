@@ -96,7 +96,10 @@ const In = () => {
             </div>
           </Form.Item>
           <Form.Item>
-            <button className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-threePranentTransblack" disabled={!nickname || !password || loading} onClick={confirm}>
+            <button
+              className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-threePranentTransblack"
+              disabled={!nickname || !password || loading}
+              onClick={confirm}>
               <Loader spinning={loading} />
               {t("Sign in")}
             </button>
@@ -135,6 +138,7 @@ const Up = () => {
   const [isAgree, setAgree] = useState(false);
   const [validateStatus, setStatus] = useState("validating");
   const [sendAndCountDown, setCountDownShow] = useState(false);
+  const [sending, setSending] = useState(false);
   const [selectOptions, setOptions] = useState<
     {
       label: string;
@@ -150,48 +154,58 @@ const Up = () => {
   const register = async () => {
     setLoading(true);
     const { data } = await request.post("/api/api/auth/register", {
-      "type": emailOrPhone === 1 ? 'email' : "mobile",
-      "username": emailOrPhone === 1 ? emailNumber : phoneNumber,
-      "password": password,
-      "password_confirmation": password,
-      "verify_code": code,
-      "referral_code": inviteCode,
-      "mobile_prefix": Number(phonePrefix)
+      type: emailOrPhone === 1 ? "email" : "mobile",
+      username: emailOrPhone === 1 ? emailNumber : phoneNumber,
+      password: password,
+      password_confirmation: password,
+      verify_code: code,
+      referral_code: inviteCode,
+      mobile_prefix: Number(phonePrefix),
     });
     if (data.res_code !== 0) {
-      toast?.error(await handleTranslate(data.res_msg))
       setLoading(false);
+      if (i18n.language == "en") {
+        toast?.error(await handleTranslate(data.res_msg));
+      } else {
+        toast?.error(data.res_msg);
+      }
     } else {
       setLoading(false);
       toast?.success(t("registration success"));
       setTimeout(() => {
         navigator("/login?t=in");
-      }, 500)
+      }, 500);
     }
-  }
+  };
   const sendCode = async () => {
     /** 验证码 */
     const registerCode = async () => {
       try {
+        setSending(true);
         const { data } = await request.post("/api/api/msgSms/registerCode", {
           mobile_prefix: Number(phonePrefix),
-          type: emailOrPhone === 1 ? 'email' : "mobile",
+          type: emailOrPhone === 1 ? "email" : "mobile",
           username: emailOrPhone === 1 ? emailNumber : phoneNumber,
         });
+        setSending(false);
+
         if (data.res_code !== 0) {
-          toast?.error(await handleTranslate(data.res_msg));
+          if (i18n.language === "en") {
+            toast?.warning(await handleTranslate(data.res_msg));
+          } else {
+            toast?.warning(data.res_msg);
+          }
         } else {
           setCountDownShow(true);
         }
       } catch (err: any) {
-        console.log(err)
-        if (i18n.language === 'en') {
+        console.log(err);
+        if (i18n.language === "en") {
           toast?.error(err.response.data.message);
         } else {
           toast?.error(err.response.data.res_msg);
         }
       }
-
     };
     if (emailOrPhone === 1) {
       let status = false;
@@ -217,21 +231,21 @@ const Up = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-              label: item.name_en,
-              title: item.name_en,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name_en,
+                title: item.name_en,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
             : {
-              label: item.name,
-              title: item.name,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name,
+                title: item.name,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
         )
       );
     });
@@ -240,7 +254,7 @@ const Up = () => {
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} sm={{ span: 20 }} md={{ span: 18 }} lg={{ span: 14 }}>
-          <Col className={`${loading && 'opacity-30	pointer-events-none'}`}>
+          <Col className={`${loading && "opacity-30	pointer-events-none"}`}>
             <Form.Item>
               <div className="flex gap-4 items-center">
                 <button
@@ -314,7 +328,7 @@ const Up = () => {
                     />
                   ) : (
                     <a className="text-sm text-[#193CF6]" onClick={sendCode}>
-                      {t("Send")}
+                      {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
                 }
@@ -328,7 +342,10 @@ const Up = () => {
             </Form.Item>
           </Col>
           <Form.Item>
-            <button className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!password || !code || !isAgree} onClick={register}>
+            <button
+              className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-transblack"
+              disabled={!password || !code || !isAgree}
+              onClick={register}>
               <Loader spinning={loading} />
               {t("Sign up now")}
             </button>
@@ -379,6 +396,7 @@ const ForgotEmail = () => {
   const [vilid, setVilid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [, setType] = useAtom(tabTypes);
+  const [sending, setSending] = useState(false);
 
   const onVilid = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === newPassword) {
@@ -391,24 +409,29 @@ const ForgotEmail = () => {
     try {
       setLoading(true);
       const { data } = await request.post("/api/api/auth/recover_password", {
-        "type": "email",
-        "username": email,
-        "password": newPassword,
-        "password_confirmation": newPassword,
-        "verify_code": code
+        type: "email",
+        username: email,
+        password: newPassword,
+        password_confirmation: newPassword,
+        verify_code: code,
       });
+
       if (data.res_code !== 0) {
-        toast?.error(await handleTranslate(data.res_msg));
         setLoading(false);
+        if (i18n.language === "en") {
+          toast?.warning(await handleTranslate(data.res_msg));
+        } else {
+          toast?.warning(data.res_msg);
+        }
       } else {
         setLoading(false);
         toast?.success(t("Password reset"));
         setTimeout(() => {
-          setType("Sign")
-        }, 500)
+          setType("Sign");
+        }, 500);
       }
     } catch (err: any) {
-      if (i18n.language === 'en') {
+      if (i18n.language === "en") {
         toast?.error(err.response.data.message);
       } else {
         toast?.error(err.response.data.res_msg);
@@ -419,24 +442,31 @@ const ForgotEmail = () => {
     /** 验证码 */
     const registerCode = async () => {
       try {
+        setSending(true);
         setCountDownShow(true);
         const { data } = await request.post("/api/api/msgSms/recoverCode", {
           mobile_prefix: 86,
-          type: 'email',
+          type: "email",
           username: email,
         });
+        setSending(false);
+
         if (data.res_code !== 0) {
-          toast?.error(await handleTranslate(data.res_msg));
+          setLoading(false);
           setCountDownShow(false);
+          if (i18n.language === "en") {
+            toast?.error(await handleTranslate(data.res_msg));
+          } else {
+            toast?.warning(data.res_msg);
+          }
         }
       } catch (err: any) {
-        if (i18n.language === 'en') {
+        if (i18n.language === "en") {
           toast?.error(err.response.data.message);
         } else {
           toast?.error(err.response.data.res_msg);
         }
       }
-
     };
     let status = false;
     let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
@@ -452,12 +482,16 @@ const ForgotEmail = () => {
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
-          <Col className={`${loading && 'opacity-30	pointer-events-none'}`}>
+          <Col className={`${loading && "opacity-30	pointer-events-none"}`}>
             <Form.Item label={t("Email")} validateStatus={validateStatus as any}>
-              <Input onChange={(e) => {
-                setStatus("validating");
-                setNEmail(e.target.value)
-              }} size="large" placeholder={t("please input your email")} />
+              <Input
+                onChange={(e) => {
+                  setStatus("validating");
+                  setNEmail(e.target.value);
+                }}
+                size="large"
+                placeholder={t("please input your email")}
+              />
             </Form.Item>
 
             <Form.Item label={t("Verification code")}>
@@ -479,7 +513,7 @@ const ForgotEmail = () => {
                     />
                   ) : (
                     <a className="text-sm text-[#193CF6]" onClick={sendCode}>
-                      {t("Send")}
+                      {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
                 }
@@ -530,24 +564,28 @@ const ForgotPhone = () => {
     try {
       setLoading(true);
       const { data } = await request.post("/api/api/auth/recover_password", {
-        "type": "mobile",
-        "username": phoneNumber,
-        "password": newPassword,
-        "password_confirmation": newPassword,
-        "verify_code": code
+        type: "mobile",
+        username: phoneNumber,
+        password: newPassword,
+        password_confirmation: newPassword,
+        verify_code: code,
       });
       if (data.res_code !== 0) {
-        toast?.error(await handleTranslate(data.res_msg));
         setLoading(false);
+        if (i18n.language === "en") {
+          toast?.error(await handleTranslate(data.res_msg));
+        } else {
+          toast?.error(data.res_msg);
+        }
       } else {
         setLoading(false);
         toast?.success(t("Password reset"));
         setTimeout(() => {
-          setType("Sign")
-        }, 500)
+          setType("Sign");
+        }, 500);
       }
     } catch (err: any) {
-      if (i18n.language === 'en') {
+      if (i18n.language === "en") {
         toast?.error(err.response.data.message);
       } else {
         toast?.error(err.response.data.res_msg);
@@ -568,15 +606,16 @@ const ForgotPhone = () => {
         setCountDownShow(true);
         const { data } = await request.post("/api/api/msgSms/recoverCode", {
           mobile_prefix: Number(phonePrefix),
-          type: 'mobile',
+          type: "mobile",
           username: phoneNumber,
         });
         if (data.res_code !== 0) {
-          toast?.error(await handleTranslate(data.res_msg));
+          if (i18n.language === "en") toast?.error(await handleTranslate(data.res_msg));
+          else toast?.error(data.res_msg);
           setCountDownShow(false);
         }
       } catch (err: any) {
-        if (i18n.language === 'en') {
+        if (i18n.language === "en") {
           toast?.error(err.response.data.message);
         } else {
           toast?.error(err.response.data.res_msg);
@@ -593,21 +632,21 @@ const ForgotPhone = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-              label: item.name_en,
-              title: item.name_en,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name_en,
+                title: item.name_en,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
             : {
-              label: item.name,
-              title: item.name,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name,
+                title: item.name,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
         )
       );
     });
@@ -616,7 +655,7 @@ const ForgotPhone = () => {
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
-          <Col className={`${loading && 'opacity-30	pointer-events-none'}`}>
+          <Col className={`${loading && "opacity-30	pointer-events-none"}`}>
             <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
               <Input
                 key="phone"
@@ -794,7 +833,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => { };
+  const confirm = () => {};
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>

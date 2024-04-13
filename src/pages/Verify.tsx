@@ -9,7 +9,7 @@ import { request } from "../utils/request";
 const { Dragger } = Upload;
 
 const Verify = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { handleTranslate } = useTranslateLocalStorage();
   const [loading, setLoading] = useState(false);
   const defaultInfo = {
@@ -34,6 +34,8 @@ const Verify = () => {
         return { ...state, certificate: payload.value };
       case "status":
         return { ...state, status: payload.value };
+      case "cardnumber":
+        return { ...state, cardnumber: payload.value };
       default:
         return { ...state };
     }
@@ -44,6 +46,7 @@ const Verify = () => {
   const [idBackImg, setBackImg] = useState("");
   const [idFrontImg, setFrontImg] = useState("");
   const BackProps: UploadProps = {
+    disabled: info.status === 1 || info.status === 2,
     name: "file",
     multiple: true,
     action: "/api/api/upload",
@@ -64,6 +67,7 @@ const Verify = () => {
     },
   };
   const FrontProps: UploadProps = {
+    disabled: info.status === 1 || info.status === 2,
     name: "file",
     multiple: true,
     action: "/api/api/upload",
@@ -97,7 +101,8 @@ const Verify = () => {
       })
       .then(async ({ data }) => {
         if (data.res_code !== 0) {
-          toast?.error(await handleTranslate(data.res_msg));
+          if (i18n.language === "en") toast?.error(await handleTranslate(data.res_msg));
+          else toast?.error(data.res_msg);
           setLoading(false);
         } else {
           fetch();
@@ -141,6 +146,7 @@ const Verify = () => {
           <Col xs={{ span: 24 }} md={{ span: 10 }} lg={8}>
             <Form.Item label={t("country / region")}>
               <Select
+                disabled={info.status === 1 || info.status === 2}
                 defaultValue="chn"
                 options={[
                   { value: "chn", label: t("China") },
@@ -152,12 +158,18 @@ const Verify = () => {
                 ]}></Select>
             </Form.Item>
             <Form.Item label={t("full name")}>
-              <Input placeholder={t("please enter your real name")} value={info.real_name} onChange={(e) => action({ type: "real_name", value: e.target.value })} />
+              <Input
+                placeholder={t("please enter your real name")}
+                disabled={info.status === 1 || info.status === 2}
+                value={info.real_name}
+                onChange={(e) => action({ type: "real_name", value: e.target.value })}
+              />
             </Form.Item>
           </Col>
           <Col xs={{ span: 24 }} md={{ span: 10 }} lg={8}>
             <Form.Item label={t("type of certificate")}>
               <Select
+                disabled={info.status === 1 || info.status === 2}
                 defaultValue="ID"
                 options={[
                   { value: "ID", label: t("ID card") },
@@ -166,7 +178,12 @@ const Verify = () => {
                 ]}></Select>
             </Form.Item>
             <Form.Item label={t("ID number")}>
-              <Input placeholder={t("Please enter your ID number")} value={info.cardnumber} onChange={(e) => action({ type: "cardnumber", value: e.target.value })} />
+              <Input
+                placeholder={t("Please enter your ID number")}
+                disabled={info.status === 1 || info.status === 2}
+                value={info.cardnumber}
+                onChange={(e) => action({ type: "cardnumber", value: e.target.value })}
+              />
             </Form.Item>
           </Col>
 
@@ -222,7 +239,7 @@ const Verify = () => {
           <Col xs={{ span: 24 }} md={{ span: 10 }}>
             <Form.Item>
               <div className="flex justify-center">
-                <button className="btn btn-wide border-o text-white disabled:text-white" disabled={info.status === 1 || info.status === 2} onClick={confirm}>
+                <button className="btn btn-wide border-o text-white disabled:text-white" disabled={info.status === 1 || info.status === 2 || info.status === 2} onClick={confirm}>
                   {info.status === 1 ? t("Under review") : info.status === 2 ? t("Certification successful") : info.status === 3 ? t("Resubmit") : t("submit")}
                 </button>
               </div>

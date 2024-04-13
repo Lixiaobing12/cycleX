@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useCopyToClipboard } from "usehooks-ts";
 import { messageContext, modalContext } from "../../App";
 import { product_info } from "../../atom/product";
+import { useTranslateLocalStorage } from "../../hooks/localStorage";
 import useAccounts from "../../hooks/user";
 import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
@@ -35,7 +36,7 @@ const SafetyInput: React.FC<{
   );
 };
 const ItemDeposit = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [isSign, user, walletInfo] = useAccounts();
@@ -44,6 +45,7 @@ const ItemDeposit = () => {
   const [btnDisabled, setDisabled] = useState(false);
   const secrityKey = useRef<string>();
   const [loading, setLoading] = useState(false);
+  const { handleTranslate } = useTranslateLocalStorage();
 
   const checkSecurity = async () => {
     console.log(secrityKey.current);
@@ -59,10 +61,15 @@ const ItemDeposit = () => {
     }, 500);
 
     if (data.res_code !== 0) {
-      toast?.warning(data.res_msg);
+      if (i18n.language === "en") {
+        toast?.warning(await handleTranslate(data.res_msg));
+      } else {
+        toast?.warning(data.res_msg);
+      }
       return Promise.reject();
+    } else {
+      toast?.success(t("Congratulations on your successful subscription!"));
     }
-    toast?.success(t("Congratulations on your successful subscription!"));
   };
   const handlerClick = () => {
     if (!isSign) {

@@ -38,30 +38,47 @@ const HeaderComponent = () => {
     },
   ];
 
-  const accountItems: MenuProps["items"] = [
-    {
-      label: t("Certification"),
-      icon: (
-        <div className="flex items-center">
-          <img src="/assets/risk.png" width={15} alt="" />
-        </div>
-      ),
-      key: "realName",
-      onClick: () => navigate("/verify"),
-    },
-    { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-    { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-    {
-      label: t("Logout"),
-      icon: <img src="/assets/exit.png" width={12} />,
-      key: "exit",
-      onClick: () => {
-        window.localStorage.removeItem("token");
-        const setItemEvent = new Event("localstorage_save");
-        window.dispatchEvent(setItemEvent);
-      },
-    },
-  ];
+  const accountItems: MenuProps["items"] = useMemo(() => {
+    return users?.user_type === 1
+      ? [
+          { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+          {
+            label: t("Logout"),
+            icon: <img src="/assets/exit.png" width={12} />,
+            key: "exit",
+            onClick: () => {
+              window.localStorage.removeItem("token");
+              const setItemEvent = new Event("localstorage_save");
+              window.dispatchEvent(setItemEvent);
+            },
+          },
+        ]
+      : [
+          {
+            label: t("Certification"),
+            icon: (
+              <div className="flex items-center">
+                <img src="/assets/risk.png" width={15} alt="" />
+              </div>
+            ),
+            key: "realName",
+            onClick: () => navigate("/verify"),
+          },
+          { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+          {
+            label: t("Logout"),
+            icon: <img src="/assets/exit.png" width={12} />,
+            key: "exit",
+            onClick: () => {
+              window.localStorage.removeItem("token");
+              const setItemEvent = new Event("localstorage_save");
+              window.dispatchEvent(setItemEvent);
+            },
+          },
+        ];
+  }, [users]);
 
   const MobileRouterItems: MenuProps["items"] = [
     {

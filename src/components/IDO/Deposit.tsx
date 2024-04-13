@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useCopyToClipboard } from "usehooks-ts";
 import { messageContext, modalContext } from "../../App";
 import { product_info } from "../../atom/product";
+import { useTranslateLocalStorage } from "../../hooks/localStorage";
 import useAccounts from "../../hooks/user";
 import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
@@ -28,13 +29,14 @@ const SafetyInput: React.FC<{
   return (
     <div className="flex items-center gap-2 w-full justify-center">
       {inputs.current.map((item, key) => (
-        <input type="number" className="input  border-black w-12 bg-white" onChange={(e) => handleInput(e, key)} key={key} id={`dinput${key}`} autoComplete="new-password" />
+        <input type="password" className="input  border-black w-12 bg-white" onChange={(e) => handleInput(e, key)} key={key} id={`dinput${key}`} autoComplete="new-password" />
       ))}
     </div>
   );
 };
+
 const ItemDeposit = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [isSign, user, walletInfo] = useAccounts();
@@ -43,9 +45,9 @@ const ItemDeposit = () => {
   const [btnDisabled, setDisabled] = useState(false);
   const secrityKey = useRef<string>();
   const [loading, setLoading] = useState(false);
+  const { handleTranslate } = useTranslateLocalStorage();
 
   const checkSecurity = async () => {
-    console.log(secrityKey.current);
     if (!secrityKey.current) return;
     setLoading(true);
     const { data } = await request.post("/api/api/fundOrder/create", {
@@ -53,21 +55,27 @@ const ItemDeposit = () => {
       product_id: String(product?.id),
       security_password: secrityKey.current,
     });
+
+    if (data.res_code !== 0) {
+      if (i18n.language === "en") {
+        toast?.warning(await handleTranslate(data.res_msg));
+      } else {
+        toast?.warning(data.res_msg);
+      }
+      return Promise.reject();
+    } else {
+      toast?.success(t("Congratulations on your successful participation!"));
+    }
+
     setTimeout(() => {
       setLoading(false);
     }, 500);
-
-    if (data.res_code !== 0) {
-      toast?.warning(data.res_msg);
-      return Promise.reject();
-    }
-    toast?.success(t("Congratulations on your successful subscription!"));
   };
   const handlerClick = () => {
     if (!isSign) {
       toast?.warning(t("please sign in"));
     } else {
-      const min = product?.min_pay;
+      const min = 100;
       const balance = walletInfo?.balance;
       if (amount < Number(min)) {
         setDisabled(true);
@@ -77,6 +85,7 @@ const ItemDeposit = () => {
         setDisabled(true);
         return toast?.warning(t("Insufficient balance"));
       }
+
       const context: any = modal?.info({
         closable: true,
         icon: <></>,
@@ -112,15 +121,6 @@ const ItemDeposit = () => {
   };
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
-      <div className="flex justify-between items-center">
-        <span>{t("settlement period")}</span>
-        <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
-          T+{product?.pay_t_n}
-          <div>
-            <img src="/assets/countdowm_notactive.png" width={16} alt="" />
-          </div>
-        </div>
-      </div>
       <div className="w-full relative items-center flex">
         <input
           type="number"
@@ -129,7 +129,7 @@ const ItemDeposit = () => {
             setDisabled(false);
             setAmount(Number(e.target.value));
           }}
-          placeholder={`${t("Minimum purchase quantity")}${product?.min_pay}`}
+          placeholder={`${t("Minimum purchase quantity")} 100`}
         />
         <div className="absolute flex items-center right-4 gap-2">
           <div>
@@ -139,9 +139,8 @@ const ItemDeposit = () => {
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <div>
-          {t("Minimum amount")}: {product?.min_pay} USDT
-        </div>
+        <div>{t("Minimum amount")}: 100 USDT</div>
+        <div>1 USDT = 1000 WFC</div>
         <div>
           {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
         </div>
@@ -212,7 +211,7 @@ const Card = () => {
       key: "1",
       label: (
         <div className="flex gap-2 items-center">
-          <span className="text-base">{t("invest")}</span>
+          <span className="text-base">Donate</span>
           <div>
             <img src={active === "1" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
           </div>
@@ -333,27 +332,10 @@ const Deposit = () => {
                 </div>
                 <div>{t("Not applicable yet")}</div>
               </div>
-              <div className="join-item flex justify-between p-2 text-greyblack">
-                <div className="flex gap-2">
-                  <span>{t("On-chain address")}</span>
-                  <div>
-                    <WrapperImg src="/assets/question.png" width={15} />
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <div className="flex items-center gap-1">
-                    <span>{product?.contract_address.replace(/^(.{6}).*(.{4})$/, "$1...$2")}</span>
-                    <WrapperImg src="/assets/copy.png" width={15} onClick={() => handleCopy(product?.contract_address ?? "")} />
-                    <a href={`https://etherscan.io/address/${product?.contract_address}`} target="_blank">
-                      <WrapperImg src="/assets/goto.png" width={15} />
-                    </a>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div className="text-greyblack">
-            {t("last updated date")} {moment(product?.updated_at ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}
+            {t("last updated date")} {moment().format("YYYY-MM-DD")}
           </div>
         </div>
       </div>
