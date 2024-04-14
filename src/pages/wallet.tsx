@@ -178,10 +178,10 @@ const Wallet = () => {
         <Col xs={24} md={22} lg={18}>
           <div className="rounded-box bg-black flex flex-col p-8 gap-4 relative  bg-wallet bg-100">
             <div className="absolute right-4 top-4 flex gap-2">
-              <button className=" btn btn-sm border-grey text-white hover:text-black hover:bg-white" onClick={Recharge}>
+              <button className=" btn btn-sm border-light bg-black text-white hover:text-black hover:bg-white" onClick={Recharge}>
                 {t("Recharge")}
               </button>
-              <button className=" btn btn-sm border-grey text-white hover:text-black hover:bg-white" onClick={() => navigate("/platform")}>
+              <button className=" btn btn-sm border-light bg-black text-white hover:text-black hover:bg-white" onClick={() => navigate("/platform")}>
                 WFC
               </button>
             </div>

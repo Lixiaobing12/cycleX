@@ -1,5 +1,3 @@
-import { ArrowLeft } from "@ricons/tabler";
-import { Icon } from "@ricons/utils";
 import { Checkbox, Col, Dropdown, Form, Input, MenuProps, Modal, Row, Space, Tabs } from "antd";
 import Countdown from "antd/es/statistic/Countdown";
 import { atom, useAtom } from "jotai";
@@ -460,8 +458,8 @@ const Up = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en,
-                title: item.name_en,
+                label: item.name_en === "Chain" ? "China" : item.name_en,
+                title: item.name_en === "Chain" ? "China" : item.name_en,
                 key: item.prefix,
                 onClick: (e: any) => {
                   setPhonePrefix(e.key);
@@ -861,8 +859,8 @@ const ForgotPhone = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en,
-                title: item.name_en,
+                label: item.name_en === "Chain" ? "China" : item.name_en,
+                title: item.name_en === "Chain" ? "China" : item.name_en,
                 key: item.prefix,
                 onClick: (e: any) => {
                   setPhonePrefix(e.key);
@@ -1111,9 +1109,7 @@ const Login = () => {
       <div className="flex-1 overflow-auto">
         <div className="p-6 md:p-20 flex flex-col h-screen">
           <div className="flex items-center gap-2 cursor-pointer w-fit btn btn-sm bg-white border-transblack text-black active:text-white" onClick={back}>
-            <Icon size={18}>
-              <ArrowLeft onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-            </Icon>
+            <img src="/assets/arrowLeft.png" width={16} />
             <span>{t("Back")}</span>
           </div>
           <div className="pb-20">{type === "Sign" ? <Sign /> : type === "Forgot" ? <Forget /> : <Revise />}</div>

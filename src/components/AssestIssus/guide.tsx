@@ -22,107 +22,121 @@ const Aguide = () => {
 
       <h1 className="font-bold font-whalebold text-3xl my-6">{t("Issue Elements")}</h1>
 
-      <div className="rounded-box border border-light p-4">
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg font-bold font-whalebold">{t("Review criteria")}:</span>
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("KYC information")}:</span> {t("Strictly implement KYC (Know your Customer) policies to ensure that investors are true and compliant.")}
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Legal opinions")}:</span>{" "}
-            {t("Execute in accordance with the law to ensure that the issuance and transactions are in compliance with local laws and regulations, including securities laws and KYC requirements.")}
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Audit and appraisal documents")}:</span>{" "}
-            {t("An audit and appraisal of an asset is conducted to verify its authenticity, viability and value.")}
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Issuance description documents")}:</span>
-            {t("describe the assets, issuance rules, risk disclosure, etc., in detail to provide investors with comprehensive information.")}
-          </p>
-        </div>
-        <Divider />
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg font-bold font-whalebold">{t("Size range")}:</span>
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Issue amount")}:</span> {t("limited to 15 million USDT.")}
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Range of issuable assets")}:</span> {t("including marketable assets, financial and commodity assets.")}
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Currency standard")}:</span> {t("USDT and corresponding value digital currency.")}
-          </p>
-        </div>
-        <Divider />
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg font-bold font-whalebold">{t("Subject standard")}:</span>
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Issuer")}:</span> {t("set up as SPV (special purpose entity) and meet local compliance requirements.")}
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Delivery subject")}:</span> {t("the rights shall be confirmed by the local asset management subject.")}
-          </p>
-        </div>
+      <div className="rounded-box border border-light">
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Review criteria")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>
+                <span className="text-base text-black mr-2">{t("KYC information")}:</span> {t("Strictly implement KYC (Know your Customer) policies to ensure that investors are true and compliant.")}
+              </p>
+              <p>
+                <span className="text-base text-black mr-2">{t("Legal opinions")}:</span>{" "}
+                {t(
+                  "Execute in accordance with the law to ensure that the issuance and transactions are in compliance with local laws and regulations, including securities laws and KYC requirements."
+                )}
+              </p>
+              <p>
+                <span className="text-base text-black mr-2">{t("Audit and appraisal documents")}:</span>{" "}
+                {t("An audit and appraisal of an asset is conducted to verify its authenticity, viability and value.")}
+              </p>
+              <p>
+                <span className="text-base text-black mr-2">{t("Issuance description documents")}:</span>
+                {t("describe the assets, issuance rules, risk disclosure, etc., in detail to provide investors with comprehensive information.")}
+              </p>
+            </div>
+          </div>
+        </details>
 
-        <Divider />
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg font-bold font-whalebold">{t("Product standard")}:</span>
-          </p>
-          <p>{t("Including detailed provisions on product characteristics, investment strategies, risk factors, etc.")}</p>
-        </div>
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Size range")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>
+                <span className="text-base text-black mr-2">{t("Issue amount")}:</span> {t("limited to 15 million USDT.")}
+              </p>
+              <p>
+                <span className="text-base text-black mr-2">{t("Range of issuable assets")}:</span> {t("including marketable assets, financial and commodity assets.")}
+              </p>
+              <p>
+                <span className="text-base text-black mr-2">{t("Currency standard")}:</span> {t("USDT and corresponding value digital currency.")}
+              </p>
+            </div>
+          </div>
+        </details>
 
-        <Divider />
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg  font-bold font-whalebold">{t("Form of transaction")}:</span>
-          </p>
-          <p>{t("Open only to users in policy compliant regions, including retail and institutional users.")}</p>
-        </div>
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Subject standard")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>
+                <span className="text-base text-black mr-2">{t("Issuer")}:</span> {t("set up as SPV (special purpose entity) and meet local compliance requirements.")}
+              </p>
+              <p>
+                <span className="text-base text-black mr-2">{t("Delivery subject")}:</span> {t("the rights shall be confirmed by the local asset management subject.")}
+              </p>
+            </div>
+          </div>
+        </details>
 
-        <Divider />
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg  font-bold font-whalebold">{t("Appendix to the Agreement")}:</span>
-          </p>
-          <p>{t("Include relevant agreements, contracts, terms and other attached documents.")}</p>
-        </div>
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Product standard")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>{t("Including detailed provisions on product characteristics, investment strategies, risk factors, etc.")}</p>
+            </div>
+          </div>
+        </details>
 
-        <Divider />
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg  font-bold font-whalebold">{t("Fee standard")}:</span>
-          </p>
-          <p>{t("Including management fee, transaction fee, custodian fee and other fees.")}</p>
-        </div>
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Form of transaction")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>{t("Open only to users in policy compliant regions, including retail and institutional users.")}</p>
+            </div>
+          </div>
+        </details>
 
-        <Divider />
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg  font-bold font-whalebold">{t("Transaction cycle")}:</span>
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Issuance method")}:</span> {t("in the form of tokenized fund, the duration can be designed for 1-10 years.")}
-          </p>
-          <p>
-            <span className="text-base text-black mr-2">{t("Issuance period")}:</span> {t("controlled within 1-6 months, fund delivery is carried out gradually.")}
-          </p>
-        </div>
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Appendix to the Agreement")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>{t("Include relevant agreements, contracts, terms and other attached documents.")}</p>
+            </div>
+          </div>
+        </details>
 
-        <Divider />
-        <div className="flex flex-col gap-2">
-          <p>
-            <span className="text-lg  font-bold font-whalebold">{t("Liquidation exit")}:</span>
-          </p>
-          <p>{t("Upon maturity of the fund, liquidation and withdrawal shall be carried out according to the agreement of both parties.")}</p>
-        </div>
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Fee standard")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>{t("Including management fee, transaction fee, custodian fee and other fees.")}</p>
+            </div>
+          </div>
+        </details>
+
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Transaction cycle")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>
+                <span className="text-base text-black mr-2">{t("Issuance method")}:</span> {t("in the form of tokenized fund, the duration can be designed for 1-10 years.")}
+              </p>
+              <p>
+                <span className="text-base text-black mr-2">{t("Issuance period")}:</span> {t("controlled within 1-6 months, fund delivery is carried out gradually.")}
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <details className="collapse collapse-arrow bg-white text-black">
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Liquidation exit")}</summary>
+          <div className="collapse-content">
+            <div className="flex flex-col gap-2">
+              <p>{t("Upon maturity of the fund, liquidation and withdrawal shall be carried out according to the agreement of both parties.")}</p>
+            </div>
+          </div>
+        </details>
       </div>
 
       <h1 className="font-bold font-whalebold text-3xl mt-12">{t("Q&A")}</h1>
@@ -130,7 +144,7 @@ const Aguide = () => {
 
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">{t("What is tokenization?")}</summary>
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("What is tokenization?")}</summary>
           <div className="collapse-content">
             <p>
               {t(
@@ -167,7 +181,7 @@ const Aguide = () => {
         </details>
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">{t("Are tokenized assets compliant? What are the distribution cases?")}</summary>
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Are tokenized assets compliant? What are the distribution cases?")}</summary>
           <div className="collapse-content">
             <p>
               {t(
@@ -208,7 +222,7 @@ const Aguide = () => {
 
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">{t("What if the issuance doesn't work out")}?</summary>
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("What if the issuance doesn't work out")}?</summary>
           <div className="collapse-content">
             <p>
               {t(
@@ -225,7 +239,7 @@ const Aguide = () => {
 
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title">{t("Issuance cost of tokenized assets")}</summary>
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("Issuance cost of tokenized assets")}</summary>
           <div className="collapse-content">
             <p>
               {t(

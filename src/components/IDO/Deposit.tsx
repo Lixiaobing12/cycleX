@@ -216,7 +216,7 @@ const ItemParticipate = () => {
     {
       title: "",
       dataIndex: "ID",
-      render: (value, record, index) => index,
+      render: (value, record, index) => ++index,
       width: 30,
     },
     {
@@ -225,7 +225,7 @@ const ItemParticipate = () => {
       key: "CreatedAt",
       width: 130,
       render(value, record, index) {
-        return moment(value).format("YYYY-MM-DD HH:mm:ss");
+        return moment(record.Presale.CreatedAt).format("YYYY-MM-DD HH:mm:ss");
       },
     },
     {
@@ -234,7 +234,7 @@ const ItemParticipate = () => {
       key: "UsdAmount",
       width: 100,
       render(value, record, index) {
-        return value + " USDT";
+        return record.Presale.UsdAmount + " USDT";
       },
     },
     {
@@ -243,7 +243,7 @@ const ItemParticipate = () => {
       key: "TokenAmount",
       width: 100,
       render(value, record, index) {
-        return value + " WFC";
+        return record.Presale.TokenAmount + " WFC";
       },
     },
     {
@@ -252,7 +252,7 @@ const ItemParticipate = () => {
       key: "UnlockAt",
       width: 130,
       render(value, record, index) {
-        return moment(value).format("YYYY-MM-DD HH:mm:ss");
+        return moment(record.Presale.UnlockAt).format("YYYY-MM-DD HH:mm:ss");
       },
     },
   ];
@@ -285,7 +285,7 @@ const ItemParticipate = () => {
   return (
     <div className="flex-auto flex flex-col gap-4  text-greyblack font-bold font-whalebold">
       <div className="w-full relative flex flex-col">
-        <Table columns={columns} dataSource={records} className="w-full" pagination={false} scroll={{ x: 500, y: 500 }} rowKey="ID" />
+        <Table columns={columns} dataSource={records} className="w-full" pagination={false} scroll={{ x: 500, y: 500 }} rowKey="Presale.ID" />
         {records.length && (
           <div className="text-right">
             <Pagination simple total={page.total} onChange={handleChange} />

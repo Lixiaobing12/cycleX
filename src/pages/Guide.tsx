@@ -1,6 +1,7 @@
 import { Col, Drawer, Menu, MenuProps, Row } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 import WrapperImg from "../components/Common/Img";
 import Audit from "../components/Guides/Audit";
 import Book from "../components/Guides/Book";
@@ -12,9 +13,10 @@ import Rw from "../components/Guides/Rw";
 import Us from "../components/Guides/Us";
 
 const Guide = () => {
+  const location = useLocation();
+  const [selectedKeys, setSelectKey] = useState<string[]>(["us"]);
   const { t } = useTranslation();
   const [show, setModalShow] = useState(false);
-  const [active, setActiveItem] = useState("us");
   const items: MenuProps["items"] = [
     { icon: <img width={24} src="/assets/us.png" />, label: t("About us"), key: "us" },
     { icon: <img width={24} src="/assets/products.png" />, label: t("Product list"), key: "products" },
@@ -25,7 +27,12 @@ const Guide = () => {
     { icon: <img width={24} src="/assets/problem.png" />, label: t("Q&A"), key: "problem" },
     { icon: <img width={24} src="/assets/book.png" />, label: t("White paper"), key: "book" },
   ];
-
+  useEffect(() => {
+    console.log("location", location);
+    if (location.hash) {
+      setSelectKey((state) => [location.hash.replace("#", "")]);
+    }
+  }, [location]);
   return (
     <div>
       <div className="relative flex items-center justify-center">
@@ -42,25 +49,25 @@ const Guide = () => {
             </button>
           </div>
           <Col xs={0} md={6} lg={4}>
-            <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} onSelect={({ key }) => setActiveItem(key)} style={{ height: "100%" }} />
+            <Menu selectedKeys={selectedKeys} mode="inline" items={items} onSelect={({ key }) => setSelectKey([key])} style={{ height: "100%" }} />
           </Col>
           <Col xs={24} md={14} lg={16}>
             <div className="min-h-screen px-4">
-              {active === "us" ? (
+              {selectedKeys[0] === "us" ? (
                 <Us />
-              ) : active === "products" ? (
+              ) : selectedKeys[0] === "products" ? (
                 <Product />
-              ) : active === "kyc" ? (
+              ) : selectedKeys[0] === "kyc" ? (
                 <Kyc />
-              ) : active === "reward" ? (
+              ) : selectedKeys[0] === "reward" ? (
                 <Rw />
-              ) : active === "audit" ? (
+              ) : selectedKeys[0] === "audit" ? (
                 <Audit />
-              ) : active === "law" ? (
+              ) : selectedKeys[0] === "law" ? (
                 <Law />
-              ) : active === "problem" ? (
+              ) : selectedKeys[0] === "problem" ? (
                 <Problems />
-              ) : active === "book" ? (
+              ) : selectedKeys[0] === "book" ? (
                 <Book />
               ) : (
                 <></>
@@ -77,7 +84,7 @@ const Guide = () => {
               padding: 0,
             },
           }}>
-          <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} onSelect={({ key }) => setActiveItem(key)} />
+          <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} onSelect={({ key }) => setSelectKey([key])} />
         </Drawer>
       </div>
     </div>

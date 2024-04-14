@@ -1,3 +1,4 @@
+import { Statistic } from "antd";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
@@ -19,47 +20,54 @@ import { scientific } from "../utils/BigNumberToString";
 const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
 };
+
+const { Countdown } = Statistic;
+
 export default function Home() {
   const [users] = useAtom(userInfo_atom);
-  const [toast] = useAtom(messageContext)
+  const [toast] = useAtom(messageContext);
   const { t, i18n } = useTranslation();
   const [openNotice, setNotice] = useState(true);
   const [assets, setAssetsItems] = useAtom(products_atom);
   const { handleTranslate } = useTranslateLocalStorage();
   const navigate = useNavigate();
   useEffect(() => {
-    axios.post("/api/api/fundProduct/getList").then(async ({ data }: {
-      data: {
-        data: fundProductApiType[]
-      }
-    }) => {
-      let items = [];
-      if (data.data.length > 3) {
-        items = data.data.slice(0, 3);
-      } else {
-        items = data.data;
-      }
-      for (let i = 0; i < items.length; i++) {
-        items[i].labelsDcts = [];
-        for (let j = 0; j < items[i].labels.length; j++) {
-          const data = await handleTranslate(items[i].labels[j]);
-          items[i].labelsDcts?.push({
-            key: items[i].labels[j],
-            zh: items[i].labels[j],
-            en: data
-          })
+    axios.post("/api/api/fundProduct/getList").then(
+      async ({
+        data,
+      }: {
+        data: {
+          data: fundProductApiType[];
+        };
+      }) => {
+        let items = [];
+        if (data.data.length > 3) {
+          items = data.data.slice(0, 3);
+        } else {
+          items = data.data;
         }
+        for (let i = 0; i < items.length; i++) {
+          items[i].labelsDcts = [];
+          for (let j = 0; j < items[i].labels.length; j++) {
+            const data = await handleTranslate(items[i].labels[j]);
+            items[i].labelsDcts?.push({
+              key: items[i].labels[j],
+              zh: items[i].labels[j],
+              en: data,
+            });
+          }
+        }
+        setAssetsItems(items);
       }
-      setAssetsItems(items);
-    });
+    );
   }, []);
   return (
-    <div >
+    <div>
       <div className="relative text-white">
         {openNotice && (
           <div className="bg-[#1a1a1a] w-full absolute top-0 h-[50px] leading-[50px] text-center">
-            {t('Latest online RWA')}
-            <a className="ml-10 cursor-pointer">{t('learn more')}</a>
+            {t("Latest online RWA")}
+            <a className="ml-10 cursor-pointer">{t("learn more")}</a>
             <img src="/assets/x.png" className="absolute cursor-pointer top-[10px] right-10" width={25} onClick={() => setNotice(false)} />
           </div>
         )}
@@ -85,27 +93,34 @@ export default function Home() {
                 <div className="flex w-full flex-wrap gap-4 mb-10">
                   {item.labelsDcts?.map(({ zh, en }) => (
                     <div className="rounded-full px-4 py-1 bg-[#222] text-grey text-sm" key={en + v4()}>
-                      {i18n.language === 'en' ? en : zh}
+                      {i18n.language === "en" ? en : zh}
                     </div>
                   ))}
                 </div>
                 <div>
-                  <span className="text-3xl font-bold font-whalebold">{item.income2}</span>{t("Annual yield")}(APY)
+                  <span className="text-3xl font-bold font-whalebold">{item.income2}</span>
+                  {t("Annual yield")}(APY)
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex gap-4">
-                    <div><div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(item.market_value)} AUM</div></div>
+                    <div>
+                      <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(item.market_value)} AUM</div>
+                    </div>
                     <img src="/assets/eth.png" width={30} alt="" />
                   </div>
-                  <img src="/assets/right.png" width={30} className="cursor-pointer hover:scale-105" onClick={() => {
-                    if (users) {
-                      navigate(`/assets/${item.id}`)
-                    } else {
-                      toast?.info(t("please sign in"))
-                      navigate('/login?t=in')
-                    }
-                  }
-                  } />
+                  <img
+                    src="/assets/right.png"
+                    width={30}
+                    className="cursor-pointer hover:scale-105"
+                    onClick={() => {
+                      if (users) {
+                        navigate(`/assets/${item.id}`);
+                      } else {
+                        toast?.info(t("please sign in"));
+                        navigate("/login?t=in");
+                      }
+                    }}
+                  />
                 </div>
               </div>
             ))}
@@ -143,22 +158,54 @@ export default function Home() {
             <div className="flex flex-col gap-4 items-left text-black mt-12 text-sm">
               <h2 className="font-bold font-whalebold text-base">{t("Friendly reminder")}</h2>
               <p>
-                <span className="font-bold font-whalebold">*{t("Asset SPV")}</span> <span className="text-threePranentTransblack ml-4">{t("The underlying assets of the corresponding tokenized funds are anchored and audited to ensure the safety and transparency of the assets")}</span>
+                <span className="font-bold font-whalebold">{t("Asset SPV")}</span>{" "}
+                <span className="text-threePranentTransblack ml-4">
+                  {t("The underlying assets of the corresponding tokenized funds are anchored and audited to ensure the safety and transparency of the assets")}
+                </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">*{t("Distributionsphase")}</span> <span className="text-threePranentTransblack ml-4">{t("CycleX App issues this tokenized asset/fund and deploits it to the public chain, which currently only supports Ethereum and will be added in the future, please check the update tips at that time")}</span>
+                <span className="font-bold font-whalebold">{t("Distributionsphase")}</span>{" "}
+                <span className="text-threePranentTransblack ml-4">
+                  {t(
+                    "CycleX App issues this tokenized asset/fund and deploits it to the public chain, which currently only supports Ethereum and will be added in the future, please check the update tips at that time"
+                  )}
+                </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">*{t("Transaction platform")}</span> <span className="text-threePranentTransblack ml-4">{t("Users submit KYC review on the platform and invest in such assets, provide closed/open according to the asset class, and enjoy the corresponding returns after the purchase is completed")}</span>
+                <span className="font-bold font-whalebold">{t("Transaction platform")}</span>{" "}
+                <span className="text-threePranentTransblack ml-4">
+                  {t(
+                    "Users submit KYC review on the platform and invest in such assets, provide closed/open according to the asset class, and enjoy the corresponding returns after the purchase is completed"
+                  )}
+                </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">*{t("yield profit")}</span> <span className="text-threePranentTransblack ml-4">{t("Users to CycleX App select products according to the list of invested products to submit to the C2C trading floor transfer/different types of products can be redeemed automatically")}</span>
+                <span className="font-bold font-whalebold">{t("yield profit")}</span>{" "}
+                <span className="text-threePranentTransblack ml-4">
+                  {t(
+                    "Users to CycleX App select products according to the list of invested products to submit to the C2C trading floor transfer/different types of products can be redeemed automatically"
+                  )}
+                </span>
               </p>
             </div>
           </div>
 
           <div className="md:p-10 mt-14" id="download">
-            <div className="w-full rounded-box bg-[#19191A] flex justify-around px-4 md:px-10 flex-col md:flex-row pt-10">
+            <div className="w-full rounded-box bg-[#19191A] flex justify-around px-4 md:px-10 flex-col md:flex-row pt-10 relative">
+              <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+                <Countdown
+                  title={<div className="text-white font-bold font-whalebold text-3xl text-center">The date to open the app</div>}
+                  value={1718294400000}
+                  format="DD:HH:mm:ss"
+                  valueStyle={{
+                    color: "#fff",
+                    fontFamily: "Whale-bold",
+                    fontWeight: "bold",
+                    fontSize: "3em",
+                    textAlign: "center",
+                  }}
+                />
+              </div>
               <div className="flex-1 flex flex-col gap-6 md:mt-[8%] md:ml-[5%]">
                 <h2 className="text-2xl">{t("Download our products to invest")}</h2>
                 <h2 className="text-2xl">CycleX App</h2>
@@ -188,16 +235,40 @@ export default function Home() {
 
                   <h3 className="text-black text-base my-2">{t("Issuance process")}</h3>
                   <ul className="ml-4">
-                    <li>{t("Create an asset: Before issuing a tokenized asset, it needs to be created. This may involve the asset manager or issuer working with a partner, such as a technology service provider, to determine the characteristics, parameters, and compliance requirements of the asset.")}</li>
-                    <li>{t("Issue tokens: Once the asset is created, the tokens are issued onto the blockchain network via smart contracts. This includes determining the number of tokens, the mechanism for allocating the tokens, and the rules for issuing the tokens.")}</li>
-                    <li>{t("Distribute the tokens: Once the tokens have been issued, the tokens can be distributed to investors. This may include a private distribution to designated investors or an offering on the open market.")}</li>
+                    <li>
+                      {t(
+                        "Create an asset: Before issuing a tokenized asset, it needs to be created. This may involve the asset manager or issuer working with a partner, such as a technology service provider, to determine the characteristics, parameters, and compliance requirements of the asset."
+                      )}
+                    </li>
+                    <li>
+                      {t(
+                        "Issue tokens: Once the asset is created, the tokens are issued onto the blockchain network via smart contracts. This includes determining the number of tokens, the mechanism for allocating the tokens, and the rules for issuing the tokens."
+                      )}
+                    </li>
+                    <li>
+                      {t(
+                        "Distribute the tokens: Once the tokens have been issued, the tokens can be distributed to investors. This may include a private distribution to designated investors or an offering on the open market."
+                      )}
+                    </li>
                   </ul>
 
                   <h3 className="text-black text-base my-2">{t("Redemption process")}:</h3>
                   <ul className="ml-4">
-                    <li>{t("Investor Request for redemption: The investor decides to redeem the tokens held by him/her and makes a redemption request to the asset management company or relevant institution.")}</li>
-                    <li>{t("Redemption review: The asset management company or relevant institution reviews the redemption request to ensure that the request complies with relevant regulations and contract provisions.")}</li>
-                    <li>{t("Redemption of tokens: Once the redemption request is reviewed and approved, the asset management company or relevant institution will redeem the corresponding number of tokens and send the corresponding funds to the investors.")}</li>
+                    <li>
+                      {t(
+                        "Investor Request for redemption: The investor decides to redeem the tokens held by him/her and makes a redemption request to the asset management company or relevant institution."
+                      )}
+                    </li>
+                    <li>
+                      {t(
+                        "Redemption review: The asset management company or relevant institution reviews the redemption request to ensure that the request complies with relevant regulations and contract provisions."
+                      )}
+                    </li>
+                    <li>
+                      {t(
+                        "Redemption of tokens: Once the redemption request is reviewed and approved, the asset management company or relevant institution will redeem the corresponding number of tokens and send the corresponding funds to the investors."
+                      )}
+                    </li>
                   </ul>
                 </div>
               </details>
@@ -208,7 +279,9 @@ export default function Home() {
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The KYC authentication process for users usually includes the following steps")}:</h2>
                   <ul className="ml-4">
                     <li>{t("Submit information: Users submit personal or organizational information required for KYC certification on the CycleX website or App.")}</li>
-                    <li>{t("Audit: The asset management company or relevant organization reviews the submitted KYC information to ensure that it complies with regulations and compliance requirements.")}</li>
+                    <li>
+                      {t("Audit: The asset management company or relevant organization reviews the submitted KYC information to ensure that it complies with regulations and compliance requirements.")}
+                    </li>
                     <li>{t("Audit: After the audit is approved, the user will receive a confirmation notification that their KYC certification is complete.")}</li>
                   </ul>
                 </div>
@@ -217,7 +290,9 @@ export default function Home() {
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What is the structure and management of the asset lease?")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
-                  <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The composition and management of the asset subject matter involves the following main roles and components")}:</h2>
+                  <h2 className="text-black text-base  font-bold font-whalebold my-2">
+                    {t("The composition and management of the asset subject matter involves the following main roles and components")}:
+                  </h2>
 
                   <ul className="ml-4">
                     <li>{t("Asset management company: The general partner (GP) who directs the service provider and manages the fund.")}</li>

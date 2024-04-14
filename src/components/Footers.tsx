@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Modal, Statistic } from "antd";
 import axios from "axios";
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
@@ -9,25 +9,17 @@ import WrapperImg from "./Common/Img";
 import PrivitePolicy from "./Login/PrivitePolicy";
 import UserAgreement from "./Login/UserAgreement";
 
+const { Countdown } = Statistic;
 /** 用户协议弹窗 */
 const protocolModalStatus = atom(false);
-const protocolType = atom<'agreement' | 'privite'>('agreement');
+const protocolType = atom<"agreement" | "privite">("agreement");
 const AgreementProtocol = () => {
   const [show, setShow] = useAtom(protocolModalStatus);
   const [type] = useAtom(protocolType);
 
   return (
-    <Modal
-      open={show}
-      onCancel={() => setShow(false)}
-      centered
-      footer={null}>
-      <div className="w-full rounded-md bg-white text-black relative pointer-events-auto overflow-auto">
-        {
-          type === 'agreement' ? <UserAgreement /> : <PrivitePolicy />
-        }
-
-      </div>
+    <Modal open={show} onCancel={() => setShow(false)} centered footer={null}>
+      <div className="w-full rounded-md bg-white text-black relative pointer-events-auto overflow-auto">{type === "agreement" ? <UserAgreement /> : <PrivitePolicy />}</div>
     </Modal>
   );
 };
@@ -46,7 +38,7 @@ const Footers = () => {
   }, []);
   return (
     <div className="w-full p-4 md:p-20 flex flex-col bg-black" id="footer">
-      <div className="flex justify-between items-end text-white md:w-[80%] m-auto flex-col md:flex-row">
+      <div className="flex justify-between items-end text-white md:w-[81%] m-auto flex-col md:flex-row">
         <div className="flex flex-col gap-4 w-full">
           <div className="flex items-center">
             <img src="/assets/icon.png" className="w-8" alt="" />
@@ -63,21 +55,58 @@ const Footers = () => {
             </div>
             <div className="flex flex-col gap-4">
               <div>{t("Corporation")}</div>
-              <div>{t('About us')}</div>
-              <div>{t("Law and privacy")}</div>
+              <div onClick={() => navigate("/guide#us")} className="cursor-pointer">
+                {t("About us")}
+              </div>
+              <div onClick={() => navigate("/guide#law")} className="cursor-pointer">
+                {t("Law and privacy")}
+              </div>
             </div>
             <div className="flex flex-col gap-4">
-              <div>{t('Support')}</div>
-              <div>{t("Contact us")}</div>
+              <div>{t("Support")}</div>
+              <div onClick={() => navigate("/guide#us")} className="cursor-pointer">
+                {t("Contact us")}
+              </div>
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-4 md:items-end mt-10 md:mt-0">
           <div>{t("Mobile application")}</div>
-          <a href="https://mp-cd080341-1a5f-41e1-a2ff-373ad4347341.cdn.bspapp.com/cyclex/cyclex_latest.apk" className="w-2/6 md:w-44 cursor-pointer">
+          {/* <a href="https://mp-cd080341-1a5f-41e1-a2ff-373ad4347341.cdn.bspapp.com/cyclex/cyclex_latest.apk" className="w-2/6 md:w-44 cursor-pointer"> */}
+          <a className="w-2/6 md:w-44 cursor-pointer relative">
+            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+              <Countdown
+                title=""
+                value={1718294400000}
+                format="DD:HH:mm:ss"
+                valueStyle={{
+                  color: "#fff",
+                  fontFamily: "Whale-bold",
+                  fontWeight: "bold",
+                  fontSize: "0.9em",
+                  textAlign: "center",
+                }}
+              />
+            </div>
             <img src="/assets/download-en.png" alt="" />
           </a>
-          <img src="/assets/download-appstore.png" className="w-2/6 md:w-44 cursor-pointer" onClick={() => window.open("https://apps.apple.com/us/app/cyclex/id6464595733")} alt="" />
+          <a className="w-2/6 md:w-44 cursor-pointer relative">
+            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+              <Countdown
+                title=""
+                value={1718294400000}
+                format="DD:HH:mm:ss"
+                valueStyle={{
+                  color: "#fff",
+                  fontFamily: "Whale-bold",
+                  fontWeight: "bold",
+                  fontSize: "0.9em",
+                  textAlign: "center",
+                }}
+              />
+            </div>
+            <img src="/assets/download-appstore.png" alt="" />
+          </a>
         </div>
       </div>
       <div className="text-white my-10">
@@ -88,14 +117,22 @@ const Footers = () => {
 
       <div className="w-full flex justify-between items-center text-white mt-6 md:w-[82%] m-auto">
         <div className="flex gap-4 md:gap-10">
-          <span className="cursor-pointer" onClick={() => {
-            setModalShow(true);
-            setType("agreement");
-          }}>{t("Service agreement")}</span>
-          <span className="cursor-pointer" onClick={() => {
-            setModalShow(true);
-            setType("privite");
-          }}>{t("Privacy Policy")}</span>
+          <span
+            className="cursor-pointer"
+            onClick={() => {
+              setModalShow(true);
+              setType("agreement");
+            }}>
+            {t("Service agreement")}
+          </span>
+          <span
+            className="cursor-pointer"
+            onClick={() => {
+              setModalShow(true);
+              setType("privite");
+            }}>
+            {t("Privacy Policy")}
+          </span>
         </div>
 
         <div className="text-sm hidden md:flex">© 2023 WhaleFlow Group. All rights reserved.</div>

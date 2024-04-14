@@ -322,16 +322,20 @@ const IDO = () => {
           <div className="text-center text-2xl  font-bold font-whalebold">{t("Contact us")}</div>
 
           <div className="flex items-center justify-center mt-14 gap-6">
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <span className="text-black font-bold font-whalebold">{t("Telegram community")}</span>
-              <img src="/assets/telegram-drak.png" width={25} alt="" />
+              <div>
+                <img src="/assets/telegram-drak.png" width={35} alt="" />
+              </div>
             </div>
             <Divider type="vertical" />
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <span className="text-black font-bold font-whalebold">
                 X - twitter <span className="ml-6">Team</span>
               </span>
-              <img src="/assets/twitter-dark.png" width={25} alt="" />
+              <div>
+                <img src="/assets/twitter-dark.png" width={35} alt="" />
+              </div>
             </div>
           </div>
         </div>
