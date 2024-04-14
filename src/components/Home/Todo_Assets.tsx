@@ -27,15 +27,15 @@ const TodoListAssets = () => {
       title: t("Name"),
       dataIndex: "name",
       key: "name",
-      width: 100,
+      width: 150,
       render: (value, row) => (
         <a className="text-black flex items-center gap-2" onClick={() => navigate(`/assets/${row.id}`)}>
           <div>
             <img src="/assets/assets_dollor.png" width={25} alt="" />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg  font-bold font-whalebold">{value}</span>
-            <span className="text-threePranentTransblack ">{t("Tokenized funds")}</span>
+            <span className="text-md font-bold font-whalebold">{value}</span>
+            <span className="text-threePranentTransblack text-sm">{t("Tokenized funds")}</span>
           </div>
         </a>
       ),
@@ -50,14 +50,14 @@ const TodoListAssets = () => {
       title: t("AUM /Asset Under Management"),
       dataIndex: "market_value",
       key: "market_value",
-      width: 100,
+      width: 180,
       render: (value) => "$" + scientific(value),
     },
     {
       title: t("Net value per unit /NAV"),
       key: "net_worth",
       dataIndex: "net_worth",
-      width: 100,
+      width: 180,
       render: (value) => "$" + value,
     },
     {
@@ -94,7 +94,7 @@ const TodoListAssets = () => {
           <WrapperImg src="/assets/reflush.png" width={14} />
         </div>
       </div>
-      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey={(record) => record.id} />
+      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 800 }} rowKey={(record) => record.id} />
     </div>
   );
 };

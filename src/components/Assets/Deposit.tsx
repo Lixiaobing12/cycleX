@@ -158,7 +158,7 @@ const ItemDeposit = () => {
         {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span>{t("Contact support@cyclex.com to gain access")}</span>
+        <span>{t("Contact support@cyclex.cc to gain access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} />
           <WrapperImg src="/assets/transparent_telegram.png" width={18} />
@@ -202,7 +202,7 @@ const ItemWithDraw = () => {
         {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span>{t("Contact support@cyclex.com to gain access")}</span>
+        <span>{t("Contact support@cyclex.cc to gain access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} />
           <WrapperImg src="/assets/transparent_telegram.png" width={18} />

@@ -2,16 +2,16 @@ import { Drawer, Dropdown, Menu, MenuProps, Space } from "antd";
 import { useAtom } from "jotai";
 import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { modalContext } from "../App";
 import { DrawerShow } from "../atom/menu";
 import { userInfo_atom } from "../atom/userInfo";
 import useLocalStorage from "../hooks/localStorage";
-import { utilAnchor } from "../utils/anchor";
 import { request } from "../utils/request";
 import WrapperImg from "./Common/Img";
 
 const HeaderComponent = () => {
+  const location = useLocation();
   const accessToken = useLocalStorage();
   const navigate = useNavigate();
   const [users, setUsersInfo] = useAtom(userInfo_atom);
@@ -78,7 +78,7 @@ const HeaderComponent = () => {
             },
           },
         ];
-  }, [users,t]);
+  }, [users, t]);
 
   const MobileRouterItems: MenuProps["items"] = [
     {
@@ -93,7 +93,7 @@ const HeaderComponent = () => {
       label: t("Fund"),
       key: "fund",
       onClick: () => {
-        anchor();
+        navigate("/#fund");
         setOpenMenu(false);
       },
     },
@@ -138,8 +138,7 @@ const HeaderComponent = () => {
       icon: <WrapperImg src="/assets/download-light.png" />,
       onClick: () => {
         setOpenMenu(false);
-        navigate("/");
-        anchor("download");
+        navigate("/#download");
       },
     },
     {
@@ -148,8 +147,7 @@ const HeaderComponent = () => {
       icon: <WrapperImg src="/assets/phone-light.png" />,
       onClick: () => {
         setOpenMenu(false);
-        navigate("/");
-        anchor("footer");
+        navigate("/#footer");
       },
     },
     {
@@ -158,8 +156,7 @@ const HeaderComponent = () => {
       icon: <WrapperImg src="/assets/email-light.png" />,
       onClick: () => {
         setOpenMenu(false);
-        navigate("/");
-        anchor("footer");
+        navigate("/#footer");
       },
     },
     {
@@ -183,7 +180,6 @@ const HeaderComponent = () => {
             },
           },
           { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
-          // { label: t("Security"), icon: <WrapperImg src="/assets/setting.png" />, key: "Security", onClick: () => navigate("/setting") },
         ]
       : [
           {
@@ -213,13 +209,8 @@ const HeaderComponent = () => {
               invite();
             },
           },
-          // { label: t("Security"), icon: <WrapperImg src="/assets/setting.png" />, key: "Security", onClick: () => navigate("/setting") },
         ];
   }, [users, t]);
-  const anchor = (id: string = "fund") => {
-    navigate("/");
-    utilAnchor(id);
-  };
 
   const invite = async () => {
     const context: any = modal?.info({
@@ -254,6 +245,15 @@ const HeaderComponent = () => {
       });
     }
   }, [accessToken]);
+
+  useEffect(() => {
+    if (location.hash) {
+      const anchorElement = document.querySelector(location.hash);
+      if (anchorElement) {
+        anchorElement.scrollIntoView({ block: "start", behavior: "smooth" });
+      }
+    }
+  }, [location]);
   return (
     <>
       <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack md:px-[10%] pt-6">
@@ -262,7 +262,7 @@ const HeaderComponent = () => {
         </div>
         <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20">
           <Space size="large">
-            <div className="cursor-pointer hover:scale-105" onClick={() => anchor()}>
+            <div className="cursor-pointer hover:scale-105" onClick={() => navigate("/#fund")}>
               {t("Fund")}
             </div>
             <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/guide")}>
@@ -287,9 +287,6 @@ const HeaderComponent = () => {
                   {users.avatar && <img src={users.avatar} width={32} className="mr-2 rounded-full" alt="" />}
                   {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
                   <div className="mt-1 ml-1">
-                    {/* <Icon size={12}>
-                      <DownOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-                    </Icon> */}
                     <img src="/assets/down.png" width={15} alt="" />
                   </div>
                 </a>
@@ -308,9 +305,9 @@ const HeaderComponent = () => {
         </div>
         <div className="hidden md:flex">
           <div className="rounded-full border border-transblack p-2 px-4 h-[37px] w-fit flex gap-4">
-            <WrapperImg src="/assets/download.png" onClick={() => anchor("download")} />
-            <WrapperImg src="/assets/phone.png" onClick={() => anchor("footer")} />
-            <WrapperImg src="/assets/email.png" onClick={() => anchor("footer")} />
+            <WrapperImg src="/assets/download.png" onClick={() => navigate("/#download")} />
+            <WrapperImg src="/assets/phone.png" onClick={() => navigate("/#footer")} />
+            <WrapperImg src="/assets/email.png" onClick={() => navigate("/#footer")} />
             <Dropdown menu={{ items }}>
               <div onClick={(e) => e.preventDefault()}>
                 <WrapperImg src="/assets/lang.png" />

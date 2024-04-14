@@ -12,7 +12,7 @@ const IDO = () => {
     <div>
       <div className="relative flex items-center justify-center">
         <img src="/assets/ido-bg.png" className="w-full h-[80vh]" alt="" />
-        <p className="text-white text-4xl text-center absolute  font-bold font-whalebold max-w-[800px]">
+        <p className="text-white text-2xl text-center absolute  font-bold font-whalebold max-w-[800px]">
           {t("Opening up opportunities for hundred-fold growth in the RWA world and reshaping the value of the industry")}
         </p>
       </div>
@@ -108,8 +108,8 @@ const IDO = () => {
               "Token information: The name of the token is WhaleFlow Coin (WFC), which adopts the ERC20 standard, with a total amount of 100 billion, and has the functions of payment, voting and pledge."
             )}
           </p>
-          <div className="overflow-x-auto">
-            <table className="table">
+          <div className="overflow-x-auto text-left">
+            <table className="table" id="c-table">
               <thead>
                 <tr>
                   <th>{t("Elements")}</th>
@@ -323,20 +323,20 @@ const IDO = () => {
 
           <div className="flex items-center justify-center mt-14 gap-6">
             <div className="flex gap-2 items-center">
-              <span className="text-black font-bold font-whalebold">
+              <span className="text-black font-bold font-whalebold  text-sm">
                 <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
                   {t("Telegram community")}
                 </a>
               </span>
-              <div>
+              <div className="flex-1">
                 <img src="/assets/telegram-drak.png" width={35} alt="" />
               </div>
             </div>
             <Divider type="vertical" />
             <div className="flex gap-2 items-center">
-              <span className="text-black font-bold font-whalebold">
-                X -{" "}
-                <a href="https://twitter.com/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
+              <span className="text-black font-bold font-whalebold text-sm flex">
+                X
+                <a href="https://twitter.com/CycleXTeam" target="_blank" className="ml-1 hover:text-[#636363]">
                   @CycleXTeam
                 </a>
               </span>

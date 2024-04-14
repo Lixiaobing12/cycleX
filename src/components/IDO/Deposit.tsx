@@ -158,7 +158,7 @@ const ItemDeposit = () => {
         {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span>{t("Contact support@cyclex.com to gain access")}</span>
+        <span>{t("Contact support@cyclex.cc to gain access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} />
           <WrapperImg src="/assets/transparent_telegram.png" width={18} />
@@ -193,7 +193,7 @@ const ItemWithDraw = () => {
         {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span>{t("Contact support@cyclex.com to gain access")}</span>
+        <span>{t("Contact support@cyclex.cc to gain access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} />
           <WrapperImg src="/assets/transparent_telegram.png" width={18} />
@@ -293,7 +293,7 @@ const ItemParticipate = () => {
         )}
       </div>
       <div className="flex items-center justify-center gap-1">
-        <span>{t("Contact support@cyclex.com to gain access")}</span>
+        <span>{t("Contact support@cyclex.cc to gain access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} />
           <WrapperImg src="/assets/transparent_telegram.png" width={18} />
@@ -399,17 +399,17 @@ const Deposit = () => {
           <span className="text-greyblack">
             {t("WFC token has the characteristics of currency-stock linkage, combining the dual income characteristics of traditional financial markets and crypto markets.")}
           </span>
-          <div className="text-greyblack flex items-center gap-2 md:gap-10">
+          <div className="text-greyblack flex items-center gap-2 md:gap-10 my-2 text-sm">
             <div className="flex gap-2">
               <span>{t("IDO briefing")}</span>
               <div>
-                <WrapperImg src="/assets/goto.png" width={18} onClick={() => navigate("/issus")} />
+                <WrapperImg src="/assets/goto.png" width={14} onClick={() => navigate("/issus")} />
               </div>
             </div>
             <div className="flex gap-2">
               <span>{t("Release summary")}</span>
               <div>
-                <WrapperImg src="/assets/goto.png" width={18} onClick={() => navigate("/guide")} />
+                <WrapperImg src="/assets/goto.png" width={14} onClick={() => navigate("/guide")} />
               </div>
             </div>
             <div className="flex gap-2">
@@ -435,7 +435,7 @@ const Deposit = () => {
               </div>
             ))}
           </div>
-          <div className="bg-[#FAFAFC] rounded-box md:p-4">
+          <div className="bg-[#FAFAFC] rounded-box md:p-4 text-sm">
             <div className="join join-vertical w-full">
               <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
                 <div className="flex gap-2">
@@ -445,7 +445,7 @@ const Deposit = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  WFC Report <WrapperImg src="/assets/goto.png" width={15} />
+                  WFC Report <WrapperImg src="/assets/goto.png" width={14} />
                 </div>
               </div>
 

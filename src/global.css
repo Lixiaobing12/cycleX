@@ -32,6 +32,9 @@ body {
   user-select: none;
 }
 
+#c-table :where(th, td){
+  padding-left: 0;
+}
 ul li {
   list-style-type: disc;
   margin-left: 2em;

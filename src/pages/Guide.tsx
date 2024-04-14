@@ -52,7 +52,7 @@ const Guide = () => {
             <Menu selectedKeys={selectedKeys} mode="inline" items={items} onSelect={({ key }) => setSelectKey([key])} style={{ height: "100%" }} />
           </Col>
           <Col xs={24} md={14} lg={16}>
-            <div className="min-h-screen px-4">
+            <div className="min-h-screen px-4" id="law">
               {selectedKeys[0] === "us" ? (
                 <Us />
               ) : selectedKeys[0] === "products" ? (

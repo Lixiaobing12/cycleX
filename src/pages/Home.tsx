@@ -64,18 +64,18 @@ export default function Home() {
   return (
     <div>
       <div className="relative text-white">
-        {openNotice && (
+        {/* {openNotice && (
           <div className="bg-[#1a1a1a] w-full absolute top-0 h-[50px] leading-[50px] text-center">
             {t("Latest online RWA")}
             <a className="ml-10 cursor-pointer">{t("learn more")}</a>
             <img src="/assets/x.png" className="absolute cursor-pointer top-[10px] right-10" width={25} onClick={() => setNotice(false)} />
           </div>
-        )}
+        )} */}
         <div className="relative flex items-center justify-center">
           <img src="/assets/home_content.png" className="w-full h-screen md:h-[80vh]" alt="" />
           <div className="absolute flex flex-col items-center mt-[-120px] w-[94%] m-auto text-center">
-            <p className="tracking-widest	text-4xl font-bold font-whalebold mb-10">{t("The tokenized fund is online")}</p>
-            <p className="text-grey text-center tracking-widest leading-relaxed">
+            <p className="tracking-widest	text-2xl md:text-4xl mb-10">{t("The tokenized fund is online")}</p>
+            <p className="text-sm md:text-lg text-grey text-center tracking-widest leading-relaxed">
               {t("CycleX is committed to creating a transparent and secure tokenized asset trading platform, no matter in the world")}
               <br />
               {t("Anywhere, make it easier for users to hold high-quality assets around the world")}
@@ -192,16 +192,16 @@ export default function Home() {
 
           <div className="md:p-10 mt-14" id="download">
             <div className="w-full rounded-box bg-[#19191A] flex justify-around px-4 md:px-10 flex-col md:flex-row pt-10 relative">
-              <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+              <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.55)] flex items-center justify-center">
                 <Countdown
-                  title={<div className="text-white font-bold font-whalebold text-3xl text-center">The date to open the app</div>}
+                  title={<div className="text-white font-bold font-whalebold text-lg text-center">The date to open the app</div>}
                   value={1718294400000}
                   format="DD:HH:mm:ss"
                   valueStyle={{
                     color: "#fff",
                     fontFamily: "Whale-bold",
                     fontWeight: "bold",
-                    fontSize: "3em",
+                    fontSize: "1.5em",
                     textAlign: "center",
                   }}
                 />
@@ -229,7 +229,7 @@ export default function Home() {
             </div>
             <div className="w-full rounded-box border border-transblack py-6">
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the issuance and redemption processes for assets?")}</summary>
+                <summary className="collapse-title text-md">{t("What are the issuance and redemption processes for assets?")}</summary>
                 <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold">{t("The issuance and redemption process for an asset usually involves the following steps")}:</h2>
 
@@ -274,7 +274,7 @@ export default function Home() {
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">{t("How do users go through the KYC authentication process?")}</summary>
+                <summary className="collapse-title text-md">{t("How do users go through the KYC authentication process?")}</summary>
                 <div className="collapse-content text-sm text-black-800">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The KYC authentication process for users usually includes the following steps")}:</h2>
                   <ul className="ml-4">
@@ -288,7 +288,7 @@ export default function Home() {
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">{t("What is the structure and management of the asset lease?")}</summary>
+                <summary className="collapse-title text-md">{t("What is the structure and management of the asset lease?")}</summary>
                 <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">
                     {t("The composition and management of the asset subject matter involves the following main roles and components")}:
@@ -306,7 +306,7 @@ export default function Home() {
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the fees?")}</summary>
+                <summary className="collapse-title text-md">{t("What are the fees?")}</summary>
                 <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The fees charged usually include")}:</h2>
 

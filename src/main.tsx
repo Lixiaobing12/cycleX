@@ -44,6 +44,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             controlOutlineWidth: 1,
           },
           components: {
+            Table: {
+              cellFontSizeMD: 12,
+              cellFontSizeSM: 12,
+              cellFontSize: 12,
+              cellPaddingBlock: 12,
+              cellPaddingInline: 12,
+            },
             Menu: {
               itemSelectedBg: "rgba(0, 0, 0, 0.06)",
               darkItemSelectedBg: "transparent",

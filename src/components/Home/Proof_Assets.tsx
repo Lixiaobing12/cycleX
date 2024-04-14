@@ -27,11 +27,11 @@ const Table = () => {
       dataIndex: "Name",
       key: "Name",
       render: (value, row) => (
-        <div className="flex items-center gap-2">
-          <span>{i18n.language === "en" ? row.NameDct?.en : row.NameDct?.zh}</span>
-          <a href={row.Url} target="_blank">
-            <WrapperImg src="/assets/pdf.png" width={25} />
-          </a>
+        <div className="flex items-center">
+          <span className="flex-1">{i18n.language === "en" ? row.NameDct?.en : row.NameDct?.zh}</span>
+          <div className="w-6 h-6">
+            <img src="/assets/pdf.png" className="w-[20px] h-[20px] absolute" />
+          </div>
         </div>
       ),
     },

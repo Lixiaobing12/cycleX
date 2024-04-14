@@ -32,11 +32,11 @@ const Footers = () => {
             <img src="/assets/icon.png" className="w-8" alt="" />
             <span className="ml-4 text-2xl">CycleX App</span>
           </div>
-          <div className="flex gap-10 w-full my-4">
+          <div className="flex gap-10 w-full my-4 text-md">
             <div className="flex flex-col gap-4">
               <div>{t("Products")}</div>
               {assets.map((item, index) => (
-                <div key={index} onClick={() => navigate(`/assets/${item.id}`)} className="cursor-pointer hover:scale-105">
+                <div key={index} onClick={() => navigate(`/assets/${item.id}`)} className="cursor-pointer hover:scale-105 text-md">
                   {item.name}
                 </div>
               ))}
@@ -60,9 +60,8 @@ const Footers = () => {
         </div>
         <div className="flex flex-col gap-4 md:items-end mt-10 md:mt-0">
           <div>{t("Mobile application")}</div>
-          {/* <a href="https://mp-cd080341-1a5f-41e1-a2ff-373ad4347341.cdn.bspapp.com/cyclex/cyclex_latest.apk" className="w-2/6 md:w-44 cursor-pointer"> */}
           <a className="w-2/6 md:w-44 cursor-pointer relative">
-            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.55)] flex items-center justify-center">
               <Countdown
                 title=""
                 value={1718294400000}
@@ -79,7 +78,7 @@ const Footers = () => {
             <img src="/assets/download-en.png" alt="" />
           </a>
           <a className="w-2/6 md:w-44 cursor-pointer relative">
-            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.55)] flex items-center justify-center">
               <Countdown
                 title=""
                 value={1718294400000}
@@ -104,7 +103,7 @@ const Footers = () => {
       <div className="w-full divider md:w-[82%] m-auto"></div>
 
       <div className="w-full flex justify-between items-center text-white mt-6 md:w-[82%] m-auto">
-        <div className="flex gap-4 md:gap-10">
+        <div className="flex gap-4 md:gap-10 text-sm">
           <span
             className="cursor-pointer"
             onClick={() => {
@@ -121,9 +120,9 @@ const Footers = () => {
           </span>
         </div>
 
-        <div className="text-sm hidden md:flex">© 2023 WhaleFlow Group. All rights reserved.</div>
+        <div className="text-xs hidden md:flex">© 2024 WhaleFlow Group. All rights reserved.</div>
 
-        <div className="flex gap-10">
+        <div className="flex gap-4 md:gap-10">
           <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
             <WrapperImg src="/assets/twitter.png" width={40} />
           </a>
@@ -133,7 +132,7 @@ const Footers = () => {
         </div>
       </div>
 
-      <div className="text-sm md:hidden text-white m-auto my-8">© 2023 WhaleFlow Group. All rights reserved.</div>
+      <div className="text-xs md:hidden text-white m-auto my-8">© 2023 WhaleFlow Group. All rights reserved.</div>
     </div>
   );
 };
