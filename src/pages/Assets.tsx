@@ -22,17 +22,17 @@ export default function Assets() {
   useEffect(() => {
     request.post("/api/api/fundProduct/getDetail", { id: params.id }).then(async ({ data }: { data: AxiosResponse<fundProductApiType> }) => {
       data.data.descDcts = {
-        key: '',
+        key: "",
         zh: data.data.desc,
-        en: await handleTranslate(data.data.desc)
-      }
+        en: await handleTranslate(data.data.desc),
+      };
       for (let j = 0; j < data.data.labels.length; j++) {
         const text = await handleTranslate(data.data.labels[j]);
         data.data.labelsDcts?.push({
           key: data.data.labels[j],
           zh: data.data.labels[j],
-          en: text
-        })
+          en: text,
+        });
       }
       setProductInfo(data.data);
     });
@@ -42,12 +42,14 @@ export default function Assets() {
       <div className="relative text-white">
         <div className="relative flex items-center justify-center">
           <img src="/assets/assets_bg.png" className="w-full h-[80vh]" alt="" />
-          <div className="absolute flex flex-col left-4 top-[10%] md:top-[20%] md:left-[20%] ">
+          <div className="absolute flex flex-col left-4 top-[10%] md:top-[20%] md:left-[20%]">
             <p className="tracking-widest	text-4xl font-bold font-whalebold mb-8 flex items-center gap-4">
               <img src="/assets/assets_dollor.png" className="w-14" alt="" />
               <span>{product?.name}</span>
             </p>
-            <p className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:w-8/12 max-h-48 overflow-auto" dangerouslySetInnerHTML={{ __html: product ? (i18n.language === 'en' ? product?.descDcts?.en! : product?.descDcts?.zh!) : "" }}></p>
+            <p
+              className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:w-8/12 max-h-48 overflow-auto"
+              dangerouslySetInnerHTML={{ __html: product ? (i18n.language === "en" ? product?.descDcts?.en! : product?.descDcts?.zh!) : "" }}></p>
             <div className="flex gap-10 items-end mt-14 mb-10">
               <div className="text-3xl">
                 $<CountUp end={Number(product?.net_worth ?? 0)} start={0} duration={4} />

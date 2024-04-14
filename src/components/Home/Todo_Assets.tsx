@@ -89,9 +89,9 @@ const TodoListAssets = () => {
           </WrapperButton>
         </div>
 
-        <div className="self-end md:self-auto flex items-center text-greyblack">
+        <div className="self-end md:self-auto flex items-center text-greyblack text-sm">
           <span className="mr-2">{t("Until January /20, 2024")}</span>
-          <WrapperImg src="/assets/reflush.png" width={18} />
+          <WrapperImg src="/assets/reflush.png" width={14} />
         </div>
       </div>
       <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey={(record) => record.id} />

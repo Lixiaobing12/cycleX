@@ -87,14 +87,14 @@ const ProofAssets = () => {
               <span style={{ width: item.Rate + "%", background: item.color }} className="h-full" key={item.ID}></span>
             ))}
           </div>
-          <div className="text-greyblack mt-4">{t("(For real world assets) including public companies, Treasury bonds, money market funds, repo and alternative investments")}</div>
+          <div className="text-greyblack text-sm mt-4">{t("(For real world assets) including public companies, Treasury bonds, money market funds, repo and alternative investments")}</div>
         </div>
         <div className="w-full grid grid-cols-2 gap-8">
           {proofs.map((item, index) => (
             <div className="w-full flex items-center" key={item.Name}>
               <div style={{ background: item.color }} className="w-6 h-6 rounded-md"></div>
               <span className="mx-4">{item.Rate}%</span>
-              <span>{i18n.language === "en" ? item.NameDct?.en : item.NameDct?.zh}</span>
+              <span className="text-sm">{i18n.language === "en" ? item.NameDct?.en : item.NameDct?.zh}</span>
             </div>
           ))}
         </div>

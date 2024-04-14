@@ -156,9 +156,21 @@ const Reassets = () => {
   const { t } = useTranslation();
   const lines = [
     { icon: "/assets/reicon1.png", title: t("Quality assets and managers"), description: t("The fund specializes in investing with the world's leading highly liquid assets") },
-    { icon: "/assets/reicon2.png", title: t("Regulated and service provider provided"), description: t("Our funds are held in an independent third-party depository, subject to periodic daily NAV accounting and subject to annual audits") },
-    { icon: "/assets/reicon3.png", title: t("Third party audit security"), description: t("Implement the best security policies and practices, and all key smart contracts are audited and certified") },
-    { icon: "/assets/reicon4.png", title: t("Experienced management team"), description: t("The executive team draws from leading asset managers and extensive management experience in the crypto space") },
+    {
+      icon: "/assets/reicon2.png",
+      title: t("Regulated and service provider provided"),
+      description: t("Our funds are held in an independent third-party depository, subject to periodic daily NAV accounting and subject to annual audits"),
+    },
+    {
+      icon: "/assets/reicon3.png",
+      title: t("Third party audit security"),
+      description: t("Implement the best security policies and practices, and all key smart contracts are audited and certified"),
+    },
+    {
+      icon: "/assets/reicon4.png",
+      title: t("Experienced management team"),
+      description: t("The executive team draws from leading asset managers and extensive management experience in the crypto space"),
+    },
   ];
   return (
     <div className="flex flex-col md:flex-row w-full items-center gap-10">
@@ -168,10 +180,10 @@ const Reassets = () => {
       <div className="flex-1 flex flex-col gap-8">
         {lines.map((item, index) => (
           <div key={index} className="flex items-center gap-8">
-            <img src={item.icon} className="w-16 h-16" />
+            <img src={item.icon} className="w-12 md:w-16 h-12 md:h-16" />
             <div className="flex flex-col">
-              <div className="text-xl text-black font-bold font-whalebold opacity-85">{item.title}</div>
-              <div className="text-greyblack text-md">{item.description}</div>
+              <div className="text-lg text-black font-bold font-whalebold opacity-85">{item.title}</div>
+              <div className="text-greyblack text-sm">{item.description}</div>
             </div>
           </div>
         ))}

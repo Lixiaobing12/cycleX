@@ -300,7 +300,7 @@ const Deposit = () => {
           </div>
         </div>
 
-        <div className="rounded-box border border-light p-4 flex flex-col gap-4">
+        <div className="rounded-box border border-light p-4 flex flex-col gap-4  text-sm">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-4">
             {assetsData.map((item, index) => (
               <div key={item.name} className="flex items-center relative flex-1">

@@ -25,7 +25,7 @@ const News = () => {
     });
   }, []);
   return (
-    <div className="w-full flex flex-col md:flex-row items-center overflow-auto text-black justify-center gap-6 flex-wrap">
+    <div className="w-full flex flex-col md:flex-row items-center overflow-auto text-black justify-center gap-16 flex-wrap">
       {news.map((item, index) => (
         <div className="flex flex-col gap-4 self-start" key={index}>
           <img src={item.img_url} alt="" className="rounded-box w-full md:w-80 h-56 cursor-pointer" onClick={() => navigate("/new/" + item.id)} />

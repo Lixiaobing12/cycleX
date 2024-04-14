@@ -133,7 +133,7 @@ export default function Home() {
             <Reassets />
           </div>
 
-          <div className="md:p-10 mt-14 md:mt-0">
+          <div className="md:p-10 mt-28 md:mt-20">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Information Asset List")}</h1>
               <p className="text-greyblack  font-bold font-whalebold">{t("The most reliable real assets, standard institutional financial products through tokenization")}</p>
@@ -141,7 +141,7 @@ export default function Home() {
             <TodoListAssets />
           </div>
 
-          <div className="md:p-10 mt-14 md:mt-0">
+          <div className="md:p-10 mt-28 md:mt-20">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Certificate of Asset Reserve (POR)")}</h1>
               <p className="text-greyblack  font-bold font-whalebold">{t("New/locked real assets are updated/updated monthly and disclosed through authoritative auditing institutions")}</p>
@@ -149,10 +149,10 @@ export default function Home() {
             <ProofAssets />
           </div>
 
-          <div className="md:p-10 mt-14 md:mt-0">
+          <div className="md:p-10 mt-28 md:mt-20">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Transaction flow")}</h1>
-              <p className="text-greyblack  font-bold font-whalebold">{t("The easiest way to buy tokenized assets without having to deal with cumbersome transaction processes")}</p>
+              <p className="text-greyblack  font-bold font-whalebold text-sm">{t("The easiest way to buy tokenized assets without having to deal with cumbersome transaction processes")}</p>
             </div>
             <Process />
             <div className="flex flex-col gap-4 items-left text-black mt-12 text-sm">
