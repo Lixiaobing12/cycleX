@@ -219,10 +219,10 @@ const Card = () => {
     {
       key: "1",
       label: (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 items-center">
           <span className="text-base">{t("invest")}</span>
           <div>
-            <img src={active === "1" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
+            <img src={active === "1" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={16} />
           </div>
         </div>
       ),
@@ -281,17 +281,17 @@ const Deposit = () => {
         <div className="flex flex-col gap-4">
           <span className="text-2xl mr-4">{t("Fairly audited over-collateralization tokenization for seamless access to real-world assets")}</span>
           <span className="text-greyblack">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
-          <div className="text-greyblack flex items-center gap-2 md:gap-10">
+          <div className="text-greyblack flex items-center gap-2 md:gap-10 my-2 text-sm">
             <div className="flex gap-2">
               <span>{t("Disclaimer")}</span>
               <div>
-                <WrapperImg src="/assets/goto.png" width={18} onClick={() => navigate("/issus")} />
+                <WrapperImg src="/assets/goto.png" width={14} onClick={() => navigate("/issus")} />
               </div>
             </div>
             <div className="flex gap-2">
               <span>{t("Release summary")}</span>
               <div>
-                <WrapperImg src="/assets/goto.png" width={18} onClick={() => navigate("/guide")} />
+                <WrapperImg src="/assets/goto.png" width={14} onClick={() => navigate("/guide")} />
               </div>
             </div>
             <div className="flex gap-2">

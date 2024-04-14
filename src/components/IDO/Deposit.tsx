@@ -310,10 +310,10 @@ const Card = () => {
     {
       key: "1",
       label: (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 items-center">
           <span className="text-base">Donate</span>
           <div>
-            <img src={active === "1" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
+            <img src={active === "1" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={16} />
           </div>
         </div>
       ),
@@ -325,7 +325,7 @@ const Card = () => {
     //     <div className="flex gap-1">
     //       <span className="text-base">{t("redemption")}</span>
     //       <div>
-    //         <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
+    //         <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={16} />
     //       </div>
     //     </div>
     //   ),
@@ -334,10 +334,10 @@ const Card = () => {
     {
       key: "3",
       label: (
-        <div className="flex gap-1">
+        <div className="flex gap-1 items-center">
           <span className="text-base">{t("Participating")}</span>
           <div>
-            <img src={active === "3" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
+            <img src={active === "3" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={16} />
           </div>
         </div>
       ),

@@ -88,7 +88,7 @@ export default function Home() {
               <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col justify-evenly ${getAssetsBgImg(ind++)} w-full lg:w-[30%] min-h-80 bg-100`}>
                 <div className="flex items-center my-4">
                   <img src="/assets/dollor_r.png" width={30} alt="" />
-                  <span className="text-3xl font-bold font-whalebold ml-2">{item.name}</span>
+                  <span className="text-2xl font-bold font-whalebold ml-2">{item.name}</span>
                 </div>
                 <div className="flex w-full flex-wrap gap-4 mb-10">
                   {item.labelsDcts?.map(({ zh, en }) => (
@@ -98,7 +98,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div>
-                  <span className="text-3xl font-bold font-whalebold">{item.income2}</span>
+                  <span className="text-2xl font-bold font-whalebold">{item.income2}</span>
                   {t("Annual yield")}(APY)
                 </div>
                 <div className="flex items-center justify-between mt-4">
@@ -229,7 +229,7 @@ export default function Home() {
             </div>
             <div className="w-full rounded-box border border-transblack py-6">
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-md">{t("What are the issuance and redemption processes for assets?")}</summary>
+                <summary className="collapse-title text-md font-normal">{t("What are the issuance and redemption processes for assets?")}</summary>
                 <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold">{t("The issuance and redemption process for an asset usually involves the following steps")}:</h2>
 
@@ -274,7 +274,7 @@ export default function Home() {
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-md">{t("How do users go through the KYC authentication process?")}</summary>
+                <summary className="collapse-title text-md font-normal">{t("How do users go through the KYC authentication process?")}</summary>
                 <div className="collapse-content text-sm text-black-800">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The KYC authentication process for users usually includes the following steps")}:</h2>
                   <ul className="ml-4">
@@ -288,7 +288,7 @@ export default function Home() {
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-md">{t("What is the structure and management of the asset lease?")}</summary>
+                <summary className="collapse-title text-md font-normal">{t("What is the structure and management of the asset lease?")}</summary>
                 <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">
                     {t("The composition and management of the asset subject matter involves the following main roles and components")}:
@@ -306,7 +306,7 @@ export default function Home() {
               </details>
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-md">{t("What are the fees?")}</summary>
+                <summary className="collapse-title text-md font-normal">{t("What are the fees?")}</summary>
                 <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The fees charged usually include")}:</h2>
 

@@ -38,7 +38,7 @@ const Guide = () => {
       <div className="relative flex items-center justify-center">
         <img src="/assets/guide-banner.png" className="w-full min-h-[120px]" alt="" />
         <div className="absolute flex w-[94%] m-auto">
-          <p className="tracking-widest	text-4xl font-bold font-whalebold text-white text-center m-auto">{t("Newbie Guide")}</p>
+          <p className="tracking-widest	text-2xl font-bold font-whalebold text-white text-center m-auto">{t("Newbie Guide")}</p>
         </div>
       </div>
       <div className="py-6 relative">

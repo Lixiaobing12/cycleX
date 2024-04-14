@@ -10,7 +10,7 @@ const Law = () => {
 
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("User service agreement")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("User service agreement")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}</h2>
             <p>{t("Last Updated: Apr. 2024")}</p>
@@ -854,7 +854,7 @@ const Law = () => {
         </details>
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Risk warning")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Risk warning")}</summary>
           <div className="collapse-content">
             {i18n.language === "en" ? (
               <p>
@@ -880,7 +880,7 @@ const Law = () => {
         </details>
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Disclaimer")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Disclaimer")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}:</h2>
             <p className="mb-4">{t("Last Updated: Apr. 2024")}</p>
@@ -939,7 +939,7 @@ const Law = () => {
         </details>
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Restricted Countries")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Restricted Countries")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("We do not open access to the following countries and regions")}:</h2>
             <p>{t("Macau, Russia, Cuba, Iran, North Korea, Syria.")}</p>

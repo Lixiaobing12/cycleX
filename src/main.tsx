@@ -42,6 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           token: {
             colorPrimary: "#000",
             controlOutlineWidth: 1,
+            fontFamily: "nomal-font",
           },
           components: {
             Table: {

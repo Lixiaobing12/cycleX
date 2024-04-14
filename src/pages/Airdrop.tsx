@@ -265,7 +265,7 @@ const Airdrop = () => {
               <ul className="ml-6">
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Introduction of the project</summary>
+                    <summary className="collapse-title text-md font-normal">Introduction of the project</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -282,7 +282,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Product features</summary>
+                    <summary className="collapse-title text-md font-normal">Product features</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -315,7 +315,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base"> Market impact and potential</summary>
+                    <summary className="collapse-title text-md font-normal"> Market impact and potential</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <p>
                         The CycleX platform builds a new bridge between traditional asset holders and global investors. It makes high-value assets that are usually inaccessible easier to invest in and
@@ -327,7 +327,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Compliance</summary>
+                    <summary className="collapse-title text-md font-normal">Compliance</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <p>
                         All CycleX products are distributed through the foundation in Singapore. Comply with local laws and regulations in Singapore and have legal opinions issued by local law firms.
@@ -340,7 +340,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Operation process of platform products</summary>
+                    <summary className="collapse-title text-md font-normal">Operation process of platform products</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -362,7 +362,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Token Fund smart contract</summary>
+                    <summary className="collapse-title text-md font-normal">Token Fund smart contract</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -528,7 +528,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Token information (Platform governance tokens)</summary>
+                    <summary className="collapse-title text-md font-normal">Token information (Platform governance tokens)</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <p className="my-2">Issuer: WHALEFLOW FUND PTE. LTD.</p>
                       <p className="my-2">Token Name: WhaleFlow Coin</p>
@@ -548,7 +548,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Token features</summary>
+                    <summary className="collapse-title text-md font-normal">Token features</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>8.1 Payments</li>
@@ -560,7 +560,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Road Map (2024)</summary>
+                    <summary className="collapse-title text-md font-normal">Road Map (2024)</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -618,7 +618,7 @@ const Airdrop = () => {
 
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Platform ecosystem</summary>
+                    <summary className="collapse-title text-md font-normal">Platform ecosystem</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>10.1 Asset Issuance Various real assets are issued on the platform through tokenization and operated through smart contracts.</li>
@@ -639,7 +639,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Conclusion</summary>
+                    <summary className="collapse-title text-md font-normal">Conclusion</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <p className="my-2">
                         Rich types of assets, through off-chain due diligence and guarantee credit enhancement measures, make assets more secure and traceable, to ensure the safety of customers'
@@ -657,7 +657,7 @@ const Airdrop = () => {
               <ul className="ml-6">
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">项目介绍</summary>
+                    <summary className="collapse-title text-md font-normal">项目介绍</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -672,7 +672,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">产品特征</summary>
+                    <summary className="collapse-title text-md font-normal">产品特征</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>2.1产品多样性: CycleX致力于实现资产的广泛代币化，覆盖应收账款、REITS、票据及等多种产品。这种丰富多样的资产选择使投资者得以分散风险，优化投资组合。</li>
@@ -687,7 +687,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">市场影响与潜力</summary>
+                    <summary className="collapse-title text-md font-normal">市场影响与潜力</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <p>
                         CycleX平台为传统资产持有者和全球投资者搭建了新的桥梁。它使得通常不易接触的高价值资产更容易投资和流转，不仅提升资产价值，还为资产持有者开辟更广阔的资本市场。平台产品投资组合多样化，使用便利丝滑，开放二级市场，增加市场流动性。
@@ -697,7 +697,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">合规性</summary>
+                    <summary className="collapse-title text-md font-normal">合规性</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <p>
                         CycleX的所有产品，通过新加坡的基金会发行产品。遵守新加坡当地的法律规范，并由当地律所出具合法的法律意见书。Token Fund是根据ERC
@@ -709,7 +709,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">平台产品运行流程</summary>
+                    <summary className="collapse-title text-md font-normal">平台产品运行流程</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -735,7 +735,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">Token Fund智能合约</summary>
+                    <summary className="collapse-title text-md font-normal">Token Fund智能合约</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -869,7 +869,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">代币信息（平台治理代币）</summary>
+                    <summary className="collapse-title text-md font-normal">代币信息（平台治理代币）</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <p className="my-2">发行主体：WHALEFLOW FUND PTE. LTD.</p>
                       <p className="my-2">代币名称：WhaleFlow Coin</p>
@@ -889,7 +889,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">代币功能</summary>
+                    <summary className="collapse-title text-md font-normal">代币功能</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>8.1 支付</li>
@@ -901,7 +901,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">路线图（2024）</summary>
+                    <summary className="collapse-title text-md font-normal">路线图（2024）</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>
@@ -937,7 +937,7 @@ const Airdrop = () => {
 
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">平台生态体系</summary>
+                    <summary className="collapse-title text-md font-normal">平台生态体系</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <ol className="ml-2">
                         <li>10.1 资产发行 平台已经发行的代币产品在平台二级市场流通转让。</li>
@@ -952,7 +952,7 @@ const Airdrop = () => {
                 </li>
                 <li>
                   <details className="collapse collapse-arrow bg-white text-black">
-                    <summary className="collapse-title text-base">结论</summary>
+                    <summary className="collapse-title text-md font-normal">结论</summary>
                     <div className="collapse-content text-sm text-black-800">
                       <p className="my-2">资产种类丰富、通过链下的尽调以及担保增信措施，让资产更加具备安全性和可溯性，以保证客户投资资金的安全。</p>
                       <p className="my-2">

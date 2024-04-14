@@ -24,7 +24,7 @@ const Aguide = () => {
 
       <div className="rounded-box border border-light">
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Review criteria")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Review criteria")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2 ml-2">
               <p>
@@ -49,7 +49,7 @@ const Aguide = () => {
         </details>
 
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Size range")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Size range")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2">
               <p>
@@ -66,7 +66,7 @@ const Aguide = () => {
         </details>
 
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Subject standard")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Subject standard")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2">
               <p>
@@ -80,7 +80,7 @@ const Aguide = () => {
         </details>
 
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Product standard")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Product standard")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2">
               <p>{t("Including detailed provisions on product characteristics, investment strategies, risk factors, etc.")}</p>
@@ -89,7 +89,7 @@ const Aguide = () => {
         </details>
 
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Form of transaction")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Form of transaction")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2">
               <p>{t("Open only to users in policy compliant regions, including retail and institutional users.")}</p>
@@ -98,7 +98,7 @@ const Aguide = () => {
         </details>
 
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Appendix to the Agreement")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Appendix to the Agreement")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2">
               <p>{t("Include relevant agreements, contracts, terms and other attached documents.")}</p>
@@ -107,7 +107,7 @@ const Aguide = () => {
         </details>
 
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Fee standard")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Fee standard")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2">
               <p>{t("Including management fee, transaction fee, custodian fee and other fees.")}</p>
@@ -116,7 +116,7 @@ const Aguide = () => {
         </details>
 
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Transaction cycle")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Transaction cycle")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2">
               <p>
@@ -130,7 +130,7 @@ const Aguide = () => {
         </details>
 
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Liquidation exit")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Liquidation exit")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <div className="flex flex-col gap-2 ml-2">
               <p>{t("Upon maturity of the fund, liquidation and withdrawal shall be carried out according to the agreement of both parties.")}</p>
@@ -144,7 +144,7 @@ const Aguide = () => {
 
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("What is tokenization?")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("What is tokenization?")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <p>
               {t(
@@ -181,7 +181,7 @@ const Aguide = () => {
         </details>
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Are tokenized assets compliant? What are the distribution cases?")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Are tokenized assets compliant? What are the distribution cases?")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <p>
               {t(
@@ -222,7 +222,7 @@ const Aguide = () => {
 
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("What if the issuance doesn't work out")}?</summary>
+          <summary className="collapse-title text-md font-normal">{t("What if the issuance doesn't work out")}?</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <p>
               {t(
@@ -239,7 +239,7 @@ const Aguide = () => {
 
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-base font-bold font-whalebold">{t("Issuance cost of tokenized assets")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Issuance cost of tokenized assets")}</summary>
           <div className="collapse-content text-sm text-black-800 leading-6">
             <p>
               {t(

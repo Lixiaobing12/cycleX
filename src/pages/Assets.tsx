@@ -43,12 +43,12 @@ export default function Assets() {
         <div className="relative flex items-center justify-center">
           <img src="/assets/assets_bg.png" className="w-full h-[80vh]" alt="" />
           <div className="absolute flex flex-col left-4 top-[10%] md:top-[20%] md:left-[20%]">
-            <p className="tracking-widest	text-4xl font-bold font-whalebold mb-8 flex items-center gap-4">
-              <img src="/assets/assets_dollor.png" className="w-14" alt="" />
+            <p className="tracking-widest	text-2xl font-bold font-whalebold mb-8 flex items-center gap-4">
+              <img src="/assets/assets_dollor.png" className="w-12" alt="" />
               <span>{product?.name}</span>
             </p>
             <p
-              className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:w-8/12 max-h-48 overflow-auto"
+              className="text-grey text-center tracking-widest leading-relaxed text-xl w-full md:w-8/12 max-h-48 overflow-auto text-sm"
               dangerouslySetInnerHTML={{ __html: product ? (i18n.language === "en" ? product?.descDcts?.en! : product?.descDcts?.zh!) : "" }}></p>
             <div className="flex gap-10 items-end mt-14 mb-10">
               <div className="text-3xl">
@@ -94,7 +94,7 @@ export default function Assets() {
             </div>
             <div className="w-full rounded-box border border-light p-6">
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">{t("Issuance and redemption process for assets")}</summary>
+                <summary className="collapse-title text-base font-normal">{t("Issuance and redemption process for assets")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <p>
                     {t(
@@ -106,7 +106,7 @@ export default function Assets() {
 
               <div className="divider my-0"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">{t("The user goes through the KYC authentication process")}</summary>
+                <summary className="collapse-title text-base font-normal">{t("The user goes through the KYC authentication process")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <p>
                     {t(
@@ -117,7 +117,7 @@ export default function Assets() {
               </details>
               <div className="divider my-0"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">{t("Composition and management of asset subject matter")}</summary>
+                <summary className="collapse-title text-base font-normal">{t("Composition and management of asset subject matter")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <p>
                     {t(
@@ -129,7 +129,7 @@ export default function Assets() {
 
               <div className="divider my-0"></div>
               <details className="collapse collapse-arrow bg-white text-black">
-                <summary className="collapse-title text-base font-bold font-whalebold">{t("Fees charged")}</summary>
+                <summary className="collapse-title text-base font-normal">{t("Fees charged")}</summary>
                 <div className="collapse-content text-sm text-threePranentTransblack leading-6">
                   <p>
                     {t(
