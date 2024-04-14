@@ -1,4 +1,4 @@
-import { Modal, Statistic } from "antd";
+import { Statistic } from "antd";
 import axios from "axios";
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
@@ -6,23 +6,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { fundProductApiType } from "../types/fundProduct";
 import WrapperImg from "./Common/Img";
-import PrivitePolicy from "./Login/PrivitePolicy";
-import UserAgreement from "./Login/UserAgreement";
 
 const { Countdown } = Statistic;
 /** 用户协议弹窗 */
 const protocolModalStatus = atom(false);
 const protocolType = atom<"agreement" | "privite">("agreement");
-const AgreementProtocol = () => {
-  const [show, setShow] = useAtom(protocolModalStatus);
-  const [type] = useAtom(protocolType);
-
-  return (
-    <Modal open={show} onCancel={() => setShow(false)} centered footer={null}>
-      <div className="w-full rounded-md bg-white text-black relative pointer-events-auto overflow-auto">{type === "agreement" ? <UserAgreement /> : <PrivitePolicy />}</div>
-    </Modal>
-  );
-};
 
 const Footers = () => {
   const { t } = useTranslation();
@@ -120,16 +108,14 @@ const Footers = () => {
           <span
             className="cursor-pointer"
             onClick={() => {
-              setModalShow(true);
-              setType("agreement");
+              navigate("/guide#law");
             }}>
             {t("Service agreement")}
           </span>
           <span
             className="cursor-pointer"
             onClick={() => {
-              setModalShow(true);
-              setType("privite");
+              navigate("/guide#law");
             }}>
             {t("Privacy Policy")}
           </span>
@@ -138,13 +124,16 @@ const Footers = () => {
         <div className="text-sm hidden md:flex">© 2023 WhaleFlow Group. All rights reserved.</div>
 
         <div className="flex gap-10">
-          <WrapperImg src="/assets/twitter.png" width={40} />
-          <WrapperImg src="/assets/telegram.png" width={40} />
+          <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
+            <WrapperImg src="/assets/twitter.png" width={40} />
+          </a>
+          <a href="https://twitter.com/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
+            <WrapperImg src="/assets/telegram.png" width={40} />
+          </a>
         </div>
       </div>
 
       <div className="text-sm md:hidden text-white m-auto my-8">© 2023 WhaleFlow Group. All rights reserved.</div>
-      <AgreementProtocol />
     </div>
   );
 };

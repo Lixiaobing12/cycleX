@@ -15,7 +15,7 @@ const Product = () => {
       title: t("Name"),
       dataIndex: "name",
       key: "name",
-      width: 100,
+      width: 200,
       render: (value, row) => (
         <a className="text-black flex items-center gap-2" onClick={() => navigate(`/assets/${row.id}`)}>
           <div>
@@ -38,14 +38,14 @@ const Product = () => {
       title: t("AUM /Asset Under Management"),
       dataIndex: "market_value",
       key: "market_value",
-      width: 100,
+      width: 200,
       render: (value) => "$" + scientific(value),
     },
     {
       title: t("Net value per unit /NAV"),
       key: "net_worth",
       dataIndex: "net_worth",
-      width: 100,
+      width: 150,
       render: (value) => "$" + value,
     },
     {
@@ -64,9 +64,9 @@ const Product = () => {
   }, []);
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Product List")}</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Product list")}</h1>
       <Divider />
-      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey="name"/>
+      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 750 }} rowKey="name"/>
     </div>
   );
 };

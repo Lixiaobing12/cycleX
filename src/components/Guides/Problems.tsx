@@ -11,7 +11,7 @@ const Problems = () => {
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base">{t("Operational process")}</summary>
-          <div className="collapse-content text-sm text-threePranentTransblack">
+          <div className="collapse-content text-sm text-black-800">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("In terms of technical execution, CycleX combines the automated execution at the online contract level with the offline real asset circulation. The specific implementation process is as follows")}:</h2>
 
             <h3 className="text-black text-base my-2">{t("Off-chain process")}:</h3>
@@ -27,7 +27,7 @@ const Problems = () => {
         <Divider className="my-1" />
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base">{t("Compliance and Regulation")}</summary>
-          <div className="collapse-content text-sm text-threePranentTransblack">
+          <div className="collapse-content text-sm text-black-800">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("CycleX has made the following preparations in terms of regulatory compliance")}:</h2>
 
             <h3 className="text-black text-base my-2">{t("Holding licenses")}:</h3>
@@ -50,7 +50,7 @@ const Problems = () => {
         <Divider className="my-1" />
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base">{t("Asset management and review")}</summary>
-          <div className="collapse-content text-sm text-threePranentTransblack">
+          <div className="collapse-content text-sm text-black-800">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("CycleX has taken strict security measures to ensure the authenticity of offline assets and the flow of online assets")}:</h2>
 
             <h3 className="text-black text-base my-2">{t("Security measures for offline asset verification")}:</h3>
@@ -63,7 +63,7 @@ const Problems = () => {
         <Divider className="my-1" />
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base">{t("Multiple preparations and security corroboration")}</summary>
-          <div className="collapse-content text-sm text-threePranentTransblack">
+          <div className="collapse-content text-sm text-black-800">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Regulatory authority approval")}:</h2>
             <p>{t("CycleX's offline assets have been reviewed and recognized by regulatory authorities and obtained relevant assurance certificates certifying the authenticity and compliance of the assets. These supporting documents form an important basis for compliance documents. Asset preservation Services provided by insurance institutions: CycleX plans to work with insurance institutions to provide proof of asset preservation services to ensure the safety of assets. This further strengthens investors' confidence in the safety of assets.")}</p>
           </div>
@@ -72,7 +72,7 @@ const Problems = () => {
         <Divider className="my-1" />
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base">{t("Underlying product composition")}</summary>
-          <div className="collapse-content text-sm text-threePranentTransblack">
+          <div className="collapse-content text-sm text-black-800">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The current composition and structure of CycleX's main products are as follows")}:</h2>
             <div className="overflow-x-auto">
               <table className="table">

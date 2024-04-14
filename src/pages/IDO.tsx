@@ -323,7 +323,11 @@ const IDO = () => {
 
           <div className="flex items-center justify-center mt-14 gap-6">
             <div className="flex gap-2 items-center">
-              <span className="text-black font-bold font-whalebold">{t("Telegram community")}</span>
+              <span className="text-black font-bold font-whalebold">
+                <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
+                  {t("Telegram community")}
+                </a>
+              </span>
               <div>
                 <img src="/assets/telegram-drak.png" width={35} alt="" />
               </div>
@@ -331,7 +335,10 @@ const IDO = () => {
             <Divider type="vertical" />
             <div className="flex gap-2 items-center">
               <span className="text-black font-bold font-whalebold">
-                X - twitter <span className="ml-6">Team</span>
+                X -{" "}
+                <a href="https://twitter.com/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
+                  @CycleXTeam
+                </a>
               </span>
               <div>
                 <img src="/assets/twitter-dark.png" width={35} alt="" />

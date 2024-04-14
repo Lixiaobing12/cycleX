@@ -5,12 +5,12 @@ const Law = () => {
   const { t, i18n } = useTranslation();
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">{t('law')}</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("law")}</h1>
       <Divider />
 
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
-        <summary className="collapse-title text-base font-bold font-whalebold">{t("User service agreement")}</summary>
+          <summary className="collapse-title text-base font-bold font-whalebold">{t("User service agreement")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}</h2>
             <p>{t("Last Updated: Apr. 2024")}</p>

@@ -43,7 +43,6 @@ const HeaderComponent = () => {
       ? [
           { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
           { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-          // { label: t("Security"), icon: <img src="/assets/setting.png" width={12} />, key: "Security", onClick: () => navigate("/setting") },
           {
             label: t("Logout"),
             icon: <img src="/assets/exit.png" width={12} />,
@@ -68,7 +67,6 @@ const HeaderComponent = () => {
           },
           { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
           { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-          // { label: t("Security"), icon: <img src="/assets/setting.png" width={12} />, key: "Security", onClick: () => navigate("/setting") },
           {
             label: t("Logout"),
             icon: <img src="/assets/exit.png" width={12} />,
@@ -80,7 +78,7 @@ const HeaderComponent = () => {
             },
           },
         ];
-  }, [users]);
+  }, [users,t]);
 
   const MobileRouterItems: MenuProps["items"] = [
     {
@@ -217,7 +215,7 @@ const HeaderComponent = () => {
           },
           // { label: t("Security"), icon: <WrapperImg src="/assets/setting.png" />, key: "Security", onClick: () => navigate("/setting") },
         ];
-  }, [users]);
+  }, [users, t]);
   const anchor = (id: string = "fund") => {
     navigate("/");
     utilAnchor(id);
