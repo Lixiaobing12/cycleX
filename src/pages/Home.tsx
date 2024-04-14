@@ -230,7 +230,7 @@ export default function Home() {
             <div className="w-full rounded-box border border-transblack py-6">
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the issuance and redemption processes for assets?")}</summary>
-                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
+                <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold">{t("The issuance and redemption process for an asset usually involves the following steps")}:</h2>
 
                   <h3 className="text-black text-base my-2">{t("Issuance process")}</h3>
@@ -275,7 +275,7 @@ export default function Home() {
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("How do users go through the KYC authentication process?")}</summary>
-                <div className="collapse-content text-sm text-threePranentTransblack">
+                <div className="collapse-content text-sm text-black-800">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The KYC authentication process for users usually includes the following steps")}:</h2>
                   <ul className="ml-4">
                     <li>{t("Submit information: Users submit personal or organizational information required for KYC certification on the CycleX website or App.")}</li>
@@ -289,7 +289,7 @@ export default function Home() {
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What is the structure and management of the asset lease?")}</summary>
-                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
+                <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">
                     {t("The composition and management of the asset subject matter involves the following main roles and components")}:
                   </h2>
@@ -307,7 +307,7 @@ export default function Home() {
               <div className="w-[98%] bg-transblack h-[1px] m-auto"></div>
               <details className="collapse collapse-arrow bg-white text-black">
                 <summary className="collapse-title text-base font-bold font-whalebold">{t("What are the fees?")}</summary>
-                <div className="collapse-content text-sm text-threePranentTransblack leading-6">
+                <div className="collapse-content text-sm text-black-800 leading-6">
                   <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("The fees charged usually include")}:</h2>
 
                   <ul className="ml-4">

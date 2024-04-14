@@ -18,10 +18,11 @@ module.exports = {
       whalebold: ["Alliance-bold", "Whale-bold"],
     },
     colors: {
-      "blue": "rgb(59 130 246)",
+      blue: "rgb(59 130 246)",
       lightgrey: "#ececec",
       transblack: "rgba(0,0,0,0.1)",
       threePranentTransblack: "rgba(0,0,0,0.38)",
+      "black-800": "rgba(0,0,0,0.8)",
       light: "#d6d6d6",
       greyblack: "rgba(0,0,0,0.6)",
       black: "#000",

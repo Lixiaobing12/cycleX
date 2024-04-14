@@ -25,8 +25,8 @@ const Aguide = () => {
       <div className="rounded-box border border-light">
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Review criteria")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2 ml-2">
               <p>
                 <span className="text-base text-black mr-2">{t("KYC information")}:</span> {t("Strictly implement KYC (Know your Customer) policies to ensure that investors are true and compliant.")}
               </p>
@@ -50,8 +50,8 @@ const Aguide = () => {
 
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Size range")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2">
               <p>
                 <span className="text-base text-black mr-2">{t("Issue amount")}:</span> {t("limited to 15 million USDT.")}
               </p>
@@ -67,8 +67,8 @@ const Aguide = () => {
 
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Subject standard")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2">
               <p>
                 <span className="text-base text-black mr-2">{t("Issuer")}:</span> {t("set up as SPV (special purpose entity) and meet local compliance requirements.")}
               </p>
@@ -81,8 +81,8 @@ const Aguide = () => {
 
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Product standard")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2">
               <p>{t("Including detailed provisions on product characteristics, investment strategies, risk factors, etc.")}</p>
             </div>
           </div>
@@ -90,8 +90,8 @@ const Aguide = () => {
 
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Form of transaction")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2">
               <p>{t("Open only to users in policy compliant regions, including retail and institutional users.")}</p>
             </div>
           </div>
@@ -99,8 +99,8 @@ const Aguide = () => {
 
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Appendix to the Agreement")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2">
               <p>{t("Include relevant agreements, contracts, terms and other attached documents.")}</p>
             </div>
           </div>
@@ -108,8 +108,8 @@ const Aguide = () => {
 
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Fee standard")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2">
               <p>{t("Including management fee, transaction fee, custodian fee and other fees.")}</p>
             </div>
           </div>
@@ -117,8 +117,8 @@ const Aguide = () => {
 
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Transaction cycle")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2">
               <p>
                 <span className="text-base text-black mr-2">{t("Issuance method")}:</span> {t("in the form of tokenized fund, the duration can be designed for 1-10 years.")}
               </p>
@@ -131,8 +131,8 @@ const Aguide = () => {
 
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Liquidation exit")}</summary>
-          <div className="collapse-content">
-            <div className="flex flex-col gap-2">
+          <div className="collapse-content text-sm text-black-800 leading-6">
+            <div className="flex flex-col gap-2 ml-2">
               <p>{t("Upon maturity of the fund, liquidation and withdrawal shall be carried out according to the agreement of both parties.")}</p>
             </div>
           </div>
@@ -145,7 +145,7 @@ const Aguide = () => {
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("What is tokenization?")}</summary>
-          <div className="collapse-content">
+          <div className="collapse-content text-sm text-black-800 leading-6">
             <p>
               {t(
                 "Tokenized assets are the process of using blockchain technology to digitize physical assets or equity interests in the real world and issue, circulate and trade them on the blockchain in the form of tokens. These tokens can represent the ownership, equity, or value of the actual asset and are transacted securely and transparently through the blockchain network."
@@ -182,7 +182,7 @@ const Aguide = () => {
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Are tokenized assets compliant? What are the distribution cases?")}</summary>
-          <div className="collapse-content">
+          <div className="collapse-content text-sm text-black-800 leading-6">
             <p>
               {t(
                 "Compliance with tokenized assets depends on the legal and regulatory requirements of the location. In some countries and regions, governments have started to formulate relevant regulations to regulate the issuance and trading of tokenized assets. Compliance typically involves procedures such as KYC (Know your Customer) and AML (anti-money laundering), as well as meeting the requirements of securities laws or other financial regulatory regulations."
@@ -223,7 +223,7 @@ const Aguide = () => {
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("What if the issuance doesn't work out")}?</summary>
-          <div className="collapse-content">
+          <div className="collapse-content text-sm text-black-800 leading-6">
             <p>
               {t(
                 "Theoretically, if the tokenized assets are issued in strict accordance with the standard issuance process of other overseas countries, and have passed procedures such as legal opinions, audit reports, issuance instructions and code review, there should be no problem of unsuccessful issuance in the issuance process. These steps ensure the compliance and credibility of the issuance plan, and improve investors' confidence and recognition of the project."
@@ -240,7 +240,7 @@ const Aguide = () => {
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
           <summary className="collapse-title text-base font-bold font-whalebold">{t("Issuance cost of tokenized assets")}</summary>
-          <div className="collapse-content">
+          <div className="collapse-content text-sm text-black-800 leading-6">
             <p>
               {t(
                 "The cost of issuing tokenized assets depends on a variety of factors, including the complexity of the project, local legal and regulatory requirements, market demand, technical requirements, and more. Here are some of the factors that may affect the cost of issuing tokenized assets"
