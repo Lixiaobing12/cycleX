@@ -321,28 +321,24 @@ const IDO = () => {
         <div className="mt-28">
           <div className="text-center text-2xl  font-bold font-whalebold">{t("Contact us")}</div>
 
-          <div className="flex items-center justify-center mt-14 gap-6">
+          <div className="flex items-center justify-center mt-14 gap-2">
             <div className="flex gap-2 items-center">
-              <span className="text-black font-bold font-whalebold  text-sm">
+              <img src="/assets/telegram-drak.png" width={28} height={28} alt="" />
+              <span className="text-black font-bold font-whalebold  text-xs">
                 <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
                   {t("Telegram community")}
                 </a>
               </span>
-              <div className="flex-1">
-                <img src="/assets/telegram-drak.png" width={35} alt="" />
-              </div>
             </div>
-            <Divider type="vertical" />
-            <div className="flex gap-2 items-center">
-              <span className="text-black font-bold font-whalebold text-sm flex">
+            <Divider type="vertical" className="mx-0" />
+            <div className=" flex gap-2 items-center">
+              <img src="/assets/twitter-dark.png" width={28} height={28} alt="" />
+              <span className="text-black font-bold font-whalebold text-xs flex">
                 X
                 <a href="https://twitter.com/CycleXTeam" target="_blank" className="ml-1 hover:text-[#636363]">
                   @CycleXTeam
                 </a>
               </span>
-              <div>
-                <img src="/assets/twitter-dark.png" width={35} alt="" />
-              </div>
             </div>
           </div>
         </div>

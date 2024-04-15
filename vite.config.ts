@@ -21,7 +21,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/sapi": {
-        target: "http://cycle.quliantechnology.com",
+        target: "https://cyclex.cc",
         changeOrigin: true,
       },
       "/images": {

@@ -138,7 +138,7 @@ const ItemDeposit = () => {
             setDisabled(false);
             setAmount(Number(e.target.value));
           }}
-          placeholder={`${t("Minimum purchase quantity")} 100`}
+          placeholder={`${t("Min Purchase")} 100`}
         />
         <div className="absolute flex items-center right-4 gap-2">
           <div>

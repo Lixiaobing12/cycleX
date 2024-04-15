@@ -9,17 +9,21 @@ const Process = () => {
     { avant: "/assets/process4.png", name: t("Users"), desc: t("Gain income"), id: 3 },
   ];
   return (
-    <div className="pl-[102%] sm:pl-[20%] md:pl-0 w-full flex items-center overflow-auto text-black justify-center gap-6 hidden-scroll">
-      {cards.map((item, index) => (
-        <div key={index} className="flex items-center relative min-w-[180px]">
-          <div className="flex flex-col p-10 border rounded-box items-center gap-4 border-transblack">
-            <img src={item.avant} width={150} />
-            <div className="rounded border px-6 py-1  border-transblack">{item.name}</div>
-            <h2 className="text-lg  font-bold font-whalebold">{item.desc}</h2>
+    <div className="w-full overflow-auto text-black">
+      <div className="min-w-[800px] flex items-center justify-center gap-6">
+        {cards.map((item, index) => (
+          <div key={index} className="flex items-center relative min-w-[180px] h-[250px]">
+            <div className="flex flex-col border rounded-box items-center gap-4 border-transblack w-full h-full justify-around py-4">
+              <img src={item.avant} width={100} />
+              <div className="flex flex-col gap-4 items-center">
+                <div className="rounded border py-1 px-2 border-transblack text-md w-fit">{item.name}</div>
+                <h2 className="text-base  font-bold font-whalebold">{item.desc}</h2>
+              </div>
+            </div>
+            {index < 3 && <img src="/assets/process_right.png" className="w-10 right-[-18%] absolute md:right-[-17%] z-10" />}
           </div>
-          {index < 3 && <img src="/assets/process_right.png" className="w-10 right-[-20%] absolute md:right-[-15%] z-10" />}
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

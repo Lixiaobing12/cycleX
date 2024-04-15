@@ -127,7 +127,7 @@ export default function Home() {
           </div>
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Mass asset realization")}</h1>
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Mass asset realization")}</h1>
               <p className="text-greyblack  font-bold font-whalebold">{t("Tokenization of fairly audited excess collateral for seamless access to real assets")}</p>
             </div>
             <Reassets />
@@ -135,7 +135,7 @@ export default function Home() {
 
           <div className="md:p-10 mt-28 md:mt-20">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Information Asset List")}</h1>
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Information Asset List")}</h1>
               <p className="text-greyblack  font-bold font-whalebold">{t("The most reliable real assets, standard institutional financial products through tokenization")}</p>
             </div>
             <TodoListAssets />
@@ -143,7 +143,7 @@ export default function Home() {
 
           <div className="md:p-10 mt-28 md:mt-20">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Certificate of Asset Reserve (POR)")}</h1>
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Certificate of Asset Reserve (POR)")}</h1>
               <p className="text-greyblack  font-bold font-whalebold">{t("New/locked real assets are updated/updated monthly and disclosed through authoritative auditing institutions")}</p>
             </div>
             <ProofAssets />
@@ -151,20 +151,20 @@ export default function Home() {
 
           <div className="md:p-10 mt-28 md:mt-20">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6 font-bold text-whalebold">{t("Transaction flow")}</h1>
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Transaction flow")}</h1>
               <p className="text-greyblack  font-bold font-whalebold text-sm">{t("The easiest way to buy tokenized assets without having to deal with cumbersome transaction processes")}</p>
             </div>
             <Process />
             <div className="flex flex-col gap-4 items-left text-black mt-12 text-sm">
               <h2 className="font-bold font-whalebold text-base">{t("Friendly reminder")}</h2>
               <p>
-                <span className="font-bold font-whalebold">{t("Asset SPV")}</span>{" "}
+                <span className="font-bold font-whalebold">{t("Asset SPV")}</span>
                 <span className="text-threePranentTransblack ml-4">
                   {t("The underlying assets of the corresponding tokenized funds are anchored and audited to ensure the safety and transparency of the assets")}
                 </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">{t("Distributionsphase")}</span>{" "}
+                <span className="font-bold font-whalebold">{t("Distributionsphase")}</span>
                 <span className="text-threePranentTransblack ml-4">
                   {t(
                     "CycleX App issues this tokenized asset/fund and deploits it to the public chain, which currently only supports Ethereum and will be added in the future, please check the update tips at that time"
@@ -172,7 +172,7 @@ export default function Home() {
                 </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">{t("Transaction platform")}</span>{" "}
+                <span className="font-bold font-whalebold">{t("Transaction platform")}</span>
                 <span className="text-threePranentTransblack ml-4">
                   {t(
                     "Users submit KYC review on the platform and invest in such assets, provide closed/open according to the asset class, and enjoy the corresponding returns after the purchase is completed"
@@ -180,7 +180,7 @@ export default function Home() {
                 </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">{t("yield profit")}</span>{" "}
+                <span className="font-bold font-whalebold">{t("yield profit")}</span>
                 <span className="text-threePranentTransblack ml-4">
                   {t(
                     "Users to CycleX App select products according to the list of invested products to submit to the C2C trading floor transfer/different types of products can be redeemed automatically"
@@ -225,7 +225,7 @@ export default function Home() {
 
           <div className="md:p-10 mt-14 md:mt-0">
             <div className="w-full text-center mb-8">
-              <h1 className="text-black text-3xl font-bold text-whalebold">{t("Q&A")}</h1>
+              <h1 className="text-black text-2xl font-bold text-whalebold">{t("Q&A")}</h1>
             </div>
             <div className="w-full rounded-box border border-transblack py-6">
               <details className="collapse collapse-arrow bg-white text-black">
@@ -322,7 +322,7 @@ export default function Home() {
         </div>
         <div className="w-[92%] m-auto md:p-10 mt-14 md:mt-0">
           <div className="w-full text-center mb-14 md:mb-20">
-            <h1 className="text-black text-3xl mb-6">{t("News and insights")}</h1>
+            <h1 className="text-black text-2xl mb-6">{t("News and insights")}</h1>
           </div>
           <div className="w-full lg:w-5/6 m-auto">
             <News />

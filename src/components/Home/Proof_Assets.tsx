@@ -76,10 +76,12 @@ const ProofAssets = () => {
   return (
     <div className="flex flex-col md:flex-row w-full items-center gap-10 text-black">
       <div className="flex-1 flex flex-col">
-        <div className="flex items-end">
+        <div className="flex items-end ">
           <span className="text-2xl mr-4">{t("Reserve detail")}</span>
-          <span className="mr-2">{t("Until January /20, 2024")}</span>
-          <WrapperImg src="/assets/reflush.png" width={18} />
+          <div className="flex items-center">
+            <span className="mr-2 text-sm">{t("Until January /20, 2024")}</span>
+            <WrapperImg src="/assets/reflush.png" width={14} />
+          </div>
         </div>
         <div className=" w-full flex flex-col my-10">
           <div className="flex w-full rounded-full h-6 overflow-hidden">
