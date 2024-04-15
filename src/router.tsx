@@ -1,4 +1,6 @@
+import { ConfigProvider } from "antd";
 import { Route, Routes } from "react-router-dom";
+import { useWindowSize } from "usehooks-ts";
 import Airdrop from "./pages/Airdrop";
 import Issus from "./pages/AssestIssus";
 import Assets from "./pages/Assets";
@@ -11,26 +13,56 @@ import Platform from "./pages/Platform";
 import Verify from "./pages/Verify";
 import Wallet from "./pages/wallet";
 
-const router = [
-  { path: "/", element: <Home /> },
-  { path: "/assets/:id", element: <Assets /> },
-  { path: "/login", element: <Login /> },
-  { path: "/verify", element: <Verify /> },
-  { path: "/wallet", element: <Wallet /> },
-  { path: "/platform", element: <Platform /> },
-  { path: "/guide", element: <Guide /> },
-  { path: "/issus", element: <Issus /> },
-  { path: "/airdrop", element: <Airdrop /> },
-  { path: "/ido", element: <IDO /> },
-  { path: "/new/:id", element: <NewsDetails /> },
-  // { path: "/setting", element: <Setting /> },
-];
 function RouterProviders() {
+  const size = useWindowSize();
   return (
     <Routes>
-      {router.map((item) => (
-        <Route path={item.path} element={item.element} key={item.path} />
-      ))}
+      <Route path="/" element={<Home />} />
+      <Route path="/assets/:id" element={<Assets />} />
+      <Route path="/verify" element={<Verify />} />
+      <Route path="/wallet" element={<Wallet />} />
+      <Route path="/platform" element={<Platform />} />
+      <Route path="/guide" element={<Guide />} />
+      <Route path="/issus" element={<Issus />} />
+      <Route path="/airdrop" element={<Airdrop />} />
+      <Route path="/ido" element={<IDO />} />
+      <Route path="/new/:id" element={<NewsDetails />} />
+      <Route
+        path="/login"
+        element={
+          <>
+            {size.width < 600 ? (
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: "#000",
+                    controlOutlineWidth: 1,
+                    fontFamily: "nomal-font",
+                  },
+                  components: {
+                    Select: {
+                      optionSelectedColor: "#fff",
+                    },
+                    Tabs: {
+                      inkBarColor: "#fff",
+                      itemActiveColor: "#fff",
+                      itemHoverColor: "#fff",
+                      itemColor: "#9d9d9d",
+                      itemSelectedColor: "#fff",
+                    },
+                    Form: {
+                      labelColor: "#fff",
+                    },
+                  },
+                }}>
+                <Login />
+              </ConfigProvider>
+            ) : (
+              <Login />
+            )}
+          </>
+        }
+      />
     </Routes>
   );
 }

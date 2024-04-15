@@ -174,7 +174,7 @@ const SafetyInput: React.FC<{
     <div>
       <Form form={form} layout="vertical" autoComplete="off">
         <Form.Item label={t("Account")}>
-          <Input type="text" readOnly size="large" value={nickname} />
+          <Input className="placeholder:text-sm placeholder:text-greyblack" type="text" readOnly size="large" value={nickname} />
         </Form.Item>
         <Form.Item label={t("Verification code")} validateStatus={codeItemStatus as any}>
           <Input
@@ -202,13 +202,20 @@ const SafetyInput: React.FC<{
           />
         </Form.Item>
         <Form.Item label={t("Payment password")}>
-          <Input type="password" autoComplete="new-password" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
+          <Input
+            className="placeholder:text-sm placeholder:text-greyblack"
+            type="password"
+            autoComplete="new-password"
+            onChange={(e) => setNewPassword(e.target.value)}
+            size="large"
+            placeholder={t("Please enter a new password")}
+          />
         </Form.Item>
         <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-          <Input type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+          <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
         </Form.Item>
         <Form.Item>
-          <button className="btn btn-block m-auto mt-4 disabled:text-threePranentTransblack" onClick={checkSecurity}>
+          <button className="btn btn-block m-auto mt-4 disabled:text-black-800" onClick={checkSecurity}>
             <Loader spinning={loading} />
             {t("confirm")}
           </button>
@@ -282,18 +289,29 @@ const In = () => {
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
           <Form.Item label={t("Username")}>
-            <Input onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Please enter your email or mobile phone number")} />
+            <Input
+              className="placeholder:text-sm placeholder:text-greyblack"
+              onChange={(e) => setNickName(e.target.value)}
+              size="large"
+              placeholder={t("Please enter your email or mobile phone number")}
+            />
           </Form.Item>
           <Form.Item noStyle>
             <div className="flex w-full flex-col mb-10">
               <div className="flex justify-between items-center w-full mb-1">
-                <span>{t("Password")}</span>
+                <span className="text-white md:text-current">{t("Password")}</span>
                 <a className="text-[#193CF6]" onClick={() => setType("Forgot")}>
                   {t("Forget")}
                 </a>
               </div>
               <div className="relative items-center flex">
-                <Input type={visible ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please enter password")} />
+                <Input
+                  className="placeholder:text-sm placeholder:text-greyblack"
+                  type={visible ? "text" : "password"}
+                  onChange={(e) => setPassword(e.target.value)}
+                  size="large"
+                  placeholder={t("Please enter password")}
+                />
                 <div className="absolute right-2">
                   {visible ? <WrapperImg src="/assets/watch.png" width={20} onClick={() => setVisible(false)} /> : <WrapperImg src="/assets/miss.png" width={20} onClick={() => setVisible(true)} />}
                 </div>
@@ -302,7 +320,7 @@ const In = () => {
           </Form.Item>
           <Form.Item>
             <button
-              className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-threePranentTransblack"
+              className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-black-800"
               disabled={!nickname || !password || loading}
               onClick={confirm}>
               <Loader spinning={loading} />
@@ -311,7 +329,7 @@ const In = () => {
           </Form.Item>
           <Form.Item>
             <div className="text-center">
-              <span>{t("No account yet")}?</span>
+              <span className="text-white md:text-current	">{t("No account yet")}?</span>
               <a className="ml-2 text-[#193CF6]" onClick={() => navigate("/login?t=up")}>
                 {t("Sign up")}
               </a>
@@ -540,7 +558,7 @@ const Up = () => {
                     setStatus("validating");
                     setChange(1);
                   }}
-                  className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 1 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
+                  className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 1 ? "bg-[#F1F3F5] text-black" : "bg-white text-greyblack"}`}>
                   {t("Email")}
                 </button>
                 <button
@@ -548,7 +566,7 @@ const Up = () => {
                     setStatus("validating");
                     setChange(2);
                   }}
-                  className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 2 ? "bg-[#F1F3F5] text-black" : "bg-white text-threePranentTransblack"}`}>
+                  className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 2 ? "bg-[#F1F3F5] text-black" : "bg-white text-greyblack"}`}>
                   {t("Phone number")}
                 </button>
               </div>
@@ -556,6 +574,7 @@ const Up = () => {
             {emailOrPhone === 1 ? (
               <Form.Item label={t("Email")} validateStatus={validateStatus as any}>
                 <Input
+                  className="placeholder:text-sm placeholder:text-greyblack"
                   key="email"
                   onChange={(e) => {
                     setStatus("validating");
@@ -568,11 +587,12 @@ const Up = () => {
             ) : (
               <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
                 <Input
+                  className="placeholder:text-sm placeholder:text-greyblack"
                   key="phone"
                   addonBefore={
                     <div className="min-w-10">
                       <Dropdown menu={{ items: selectOptions as MenuProps["items"] }}>
-                        <a onClick={(e) => e.preventDefault()}>
+                        <a onClick={(e) => e.preventDefault()} className="text-white md:text-current">
                           <Space>+{phonePrefix}</Space>
                         </a>
                       </Dropdown>
@@ -589,6 +609,7 @@ const Up = () => {
             )}
             <Form.Item label={t("Verification code")}>
               <Input
+                className="placeholder:text-sm placeholder:text-greyblack"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
                 placeholder={t("please enter verification code")}
@@ -613,15 +634,15 @@ const Up = () => {
               />
             </Form.Item>
             <Form.Item label={t("Password")}>
-              <Input onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
+              <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
             </Form.Item>
             <Form.Item label={t("Referral code (optional)")}>
-              <Input onChange={(e) => setInviteCode(e.target.value)} size="large" placeholder={t("Referral code")} />
+              <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setInviteCode(e.target.value)} size="large" placeholder={t("Referral code")} />
             </Form.Item>
           </Col>
           <Form.Item>
             <button
-              className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-transblack"
+              className="btn btn-block border-0 bg-black text-white hover:bg-[#303030] disabled:bg-[#DFE0E4] disabled:text-black-800"
               disabled={!password || !code || !isAgree}
               onClick={register}>
               <Loader spinning={loading} />
@@ -630,8 +651,11 @@ const Up = () => {
           </Form.Item>
           <Form.Item>
             <div className="text-center">
-              <Checkbox onChange={(e) => setAgree(e.target.checked)}>
-                {t("I have read, agreed and understood")}
+              <Checkbox
+                onChange={(e) => {
+                  setAgree(e.target.checked);
+                }}>
+                <span className="text-white md:text-current">{t("I have read, agreed and understood")}</span>
                 <a
                   className="text-[#193CF6]"
                   onClick={(e) => {
@@ -659,7 +683,6 @@ const Up = () => {
     </Form>
   );
 };
-
 /** 忘记密码 - 邮箱 */
 const ForgotEmail = () => {
   const { t, i18n } = useTranslation();
@@ -793,6 +816,7 @@ const ForgotEmail = () => {
           <Col className={`${loading && "opacity-30	pointer-events-none"}`}>
             <Form.Item label={t("Email")} validateStatus={validateStatus as any}>
               <Input
+                className="placeholder:text-sm placeholder:text-greyblack"
                 onChange={(e) => {
                   setStatus("validating");
                   setNEmail(e.target.value);
@@ -804,6 +828,7 @@ const ForgotEmail = () => {
 
             <Form.Item label={t("Verification code")}>
               <Input
+                className="placeholder:text-sm placeholder:text-greyblack"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
                 placeholder={t("please enter verification code")}
@@ -828,14 +853,21 @@ const ForgotEmail = () => {
               />
             </Form.Item>
             <Form.Item label={t("New Password")}>
-              <Input type="password" autoComplete="new-password" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
+              <Input
+                className="placeholder:text-sm placeholder:text-greyblack"
+                type="password"
+                autoComplete="new-password"
+                onChange={(e) => setNewPassword(e.target.value)}
+                size="large"
+                placeholder={t("Please enter a new password")}
+              />
             </Form.Item>
             <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-              <Input type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
             </Form.Item>
           </Col>
           <Form.Item>
-            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!email || !code || loading} onClick={confirm}>
+            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!email || !code || loading} onClick={confirm}>
               <Loader spinning={loading} />
               {t("Confirm modification")}
             </button>
@@ -995,11 +1027,12 @@ const ForgotPhone = () => {
           <Col className={`${loading && "opacity-30	pointer-events-none"}`}>
             <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
               <Input
+                className="placeholder:text-sm placeholder:text-greyblack"
                 key="phone"
                 addonBefore={
                   <div className="min-w-10">
                     <Dropdown menu={{ items: selectOptions as MenuProps["items"] }}>
-                      <a onClick={(e) => e.preventDefault()}>
+                      <a onClick={(e) => e.preventDefault()} className="text-white md:text-current">
                         <Space>+{phonePrefix}</Space>
                       </a>
                     </Dropdown>
@@ -1015,6 +1048,7 @@ const ForgotPhone = () => {
             </Form.Item>
             <Form.Item label={t("Verification code")}>
               <Input
+                className="placeholder:text-sm placeholder:text-greyblack"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
                 placeholder={t("please enter verification code")}
@@ -1039,15 +1073,22 @@ const ForgotPhone = () => {
               />
             </Form.Item>
             <Form.Item label={t("New Password")}>
-              <Input type="password" autoComplete="new-password" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
+              <Input
+                className="placeholder:text-sm placeholder:text-greyblack"
+                type="password"
+                autoComplete="new-password"
+                onChange={(e) => setNewPassword(e.target.value)}
+                size="large"
+                placeholder={t("Please enter a new password")}
+              />
             </Form.Item>
             <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-              <Input type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
             </Form.Item>
           </Col>
 
           <Form.Item>
-            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!phoneNumber || !code} onClick={confirm}>
+            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!phoneNumber || !code} onClick={confirm}>
               {t("Confirm modification")}
             </button>
           </Form.Item>
@@ -1098,7 +1139,7 @@ const Sign = () => {
         <Tabs items={items} activeKey={activeKey} onChange={(e) => setKey(e)}></Tabs>
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-4 text-threePranentTransblack text-xs">
+      <div className="flex flex-col items-center justify-center gap-4 text-white md:text-threePranentTransblack text-xs">
         <div>ALL RIGHTS RESERVED ©2024 CycleX</div>
         <div className="flex gap-4">
           <a
@@ -1179,16 +1220,16 @@ const Revise = () => {
         <Row align="middle" justify="center">
           <Col xs={{ span: 22 }} md={{ span: 12 }}>
             <Form.Item label={t("Old Password")}>
-              <Input onChange={(e) => setOldPassword(e.target.value)} size="large" placeholder={t("Please enter old password")} />
+              <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setOldPassword(e.target.value)} size="large" placeholder={t("Please enter old password")} />
             </Form.Item>
             <Form.Item label={t("New Password")}>
-              <Input.Password onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
+              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
             </Form.Item>
             <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "error" : "success"}>
-              <Input.Password onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
             </Form.Item>
             <Form.Item>
-              <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-transblack" disabled={!vilid} onClick={confirm}>
+              <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!vilid} onClick={confirm}>
                 {t("Confirm modification")}
               </button>
             </Form.Item>
@@ -1213,11 +1254,25 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex text-black">
+    <div className="flex text-black h-screen">
       <div className="hidden md:flex flex-1 md:h-screen bg-login_mene bg-100 flex justify-center items-center">
         <img src="/assets/login_logo.png" width={300} alt="" />
       </div>
-      <div className="flex-1 overflow-auto">
+      {/* mobile */}
+      <div className="block md:hidden flex-1 overflow-auto relative bg-login_mene bg-100 p-4">
+        <div className="p-4 flex flex-col">
+          <div className="flex justify-center items-center relative">
+            <div className="flex items-center gap-2 cursor-pointer w-fit text-white absolute left-0" onClick={back}>
+              <img src="/assets/back-white.png" width={16} />
+              <span>{t("Back")}</span>
+            </div>
+            <img src="/assets/login_logo.png" width={120} alt="" />
+          </div>
+          <div className="pb-20">{type === "Sign" ? <Sign /> : type === "Forgot" ? <Forget /> : <Revise />}</div>
+        </div>
+      </div>
+      {/* pc */}
+      <div className="hidden md:block flex-1 overflow-auto relative">
         <div className="p-6 md:p-20 flex flex-col h-screen">
           <div className="flex items-center gap-2 cursor-pointer w-fit btn btn-sm bg-white border-transblack text-black active:text-white" onClick={back}>
             <img src="/assets/arrowLeft.png" width={16} />

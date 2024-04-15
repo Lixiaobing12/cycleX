@@ -32,13 +32,18 @@ body {
   user-select: none;
 }
 
-#c-table :where(th, td){
+#c-table :where(th, td) {
   padding-left: 0;
 }
 ul li {
   list-style-type: disc;
   margin-left: 2em;
   margin: 12px 0;
+}
+
+.mobile-login-background {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/assets/login_background.png");
+  background-blend-mode: multiply;
 }
 .rotating-image {
   width: 2rem;
@@ -111,7 +116,7 @@ summary {
   display: none;
 }
 
-.ant-modal-confirm-paragraph{
+.ant-modal-confirm-paragraph {
   max-width: 100% !important;
 }
 @media screen and (max-width: 600px) {
