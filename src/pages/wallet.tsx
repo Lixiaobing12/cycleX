@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import CountUp from "react-countup";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useCopyToClipboard } from "usehooks-ts";
+import { useCopyToClipboard, useWindowSize } from "usehooks-ts";
 import { messageContext, modalContext } from "../App";
 import WrapperImg from "../components/Common/Img";
 import { useTranslateLocalStorage } from "../hooks/localStorage";
@@ -15,22 +15,23 @@ import { RechargeType } from "../types/Recharge";
 import { request } from "../utils/request";
 
 const Wallet = () => {
+  const size = useWindowSize();
   const [toast] = useAtom(messageContext);
   const [, copy] = useCopyToClipboard();
   const { t, i18n } = useTranslation();
-  const defaultPage = {
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState({
     page: 1,
-    size: 10,
+    size: 8,
     total: 0,
-  };
-  const [page, setPage] = useState(defaultPage);
-
+  });
   const [rechargeInfo, setRechargeInfo] = useState<RechargeType>();
   const navigate = useNavigate();
   const [modal] = useAtom(modalContext);
   const { handleTranslate } = useTranslateLocalStorage();
-  const [isSign, user, walletInfo] = useAccounts();
+  const [, user, walletInfo] = useAccounts();
   const [records, setRecords] = useState<any[]>([]);
+
   const total_assets = useMemo(() => {
     let total = Number(
       Number(walletInfo?.balance || 0) + Number(walletInfo?.freeze || 0) + Number(walletInfo?.current_amount || 0) + Number(walletInfo?.regular_amount || 0) + Number(walletInfo?.fund_amount || 0)
@@ -141,6 +142,7 @@ const Wallet = () => {
   };
   const fetch = () => {
     if (user) {
+      setLoading(true);
       request
         .post("/sapi/walletAccountAssetChange/list", {
           UserId: user?.id,
@@ -158,11 +160,14 @@ const Wallet = () => {
             }
             setRecords(data.data);
           }
-          setPage({
+          setPage((state) => ({
+            ...state,
             page: data.page.currentPage,
-            size: 10,
             total: data.page.count,
-          });
+          }));
+        })
+        .finally(() => {
+          setLoading(false);
         });
       request.post("/api/api/asset/getDetail", { id: 3 }).then(async ({ data }: any) => {
         data.data.deposit_account_dct = {
@@ -174,7 +179,15 @@ const Wallet = () => {
       });
     }
   };
-  useEffect(fetch, [user]);
+
+  useEffect(() => {
+    if (size.width < 600) {
+      setPage((state) => ({ ...state, size: 5 }));
+    } else {
+      setPage((state) => ({ ...state, size: 8 }));
+    }
+    fetch();
+  }, [user?.id, size]);
   return (
     <div className="w-full p-4 py-10 min-h-11/12">
       <Row justify="center">
@@ -209,7 +222,7 @@ const Wallet = () => {
                 <div className="text-white text-md">{t("wallet")}</div>
                 <div className="text-grey text-md flex gap-2 items-center">
                   <div>
-                    {window.innerWidth < 600
+                    {size.width < 600
                       ? (walletInfo?.wallet_account_address ?? ethers.constants.AddressZero).replace(/^(.{6}).*(.{6})$/, "$1...$2")
                       : walletInfo?.wallet_account_address ?? ethers.constants.AddressZero}
                   </div>
@@ -219,10 +232,23 @@ const Wallet = () => {
             </div>
           </div>
           <div className="my-14">
-            <Table columns={columns} dataSource={records} className="w-full" pagination={false} scroll={{ x: 500, y: 500 }} rowKey="Id" rootClassName="pretter-scroll" rowClassName="pretter-scroll" />
-            {records.length && (
+            <Table
+              loading={{
+                indicator: <img src="/assets/loader.png" className="rotating-image" />,
+                spinning: loading,
+              }}
+              columns={columns}
+              dataSource={records}
+              className="w-full"
+              pagination={false}
+              scroll={{ x: 500, y: 500 }}
+              rowKey="Id"
+              rootClassName="pretter-scroll"
+              rowClassName="pretter-scroll"
+            />
+            {records.length > 0 && (
               <div className="text-right">
-                <Pagination simple total={page.total} onChange={handleChange} />
+                <Pagination simple total={page.total} pageSize={page.size} onChange={handleChange} />
               </div>
             )}
           </div>

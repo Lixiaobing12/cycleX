@@ -1,4 +1,4 @@
-import { Modal, notification } from "antd";
+import { Layout, Modal, notification } from "antd";
 import { HookAPI } from "antd/es/modal/useModal";
 import { NotificationInstance } from "antd/es/notification/interface";
 import { atom, useAtom } from "jotai";
@@ -12,6 +12,7 @@ import RouterProviders from "./router";
 
 export const messageContext = atom<NotificationInstance | null>(null);
 export const modalContext = atom<HookAPI | null>(null);
+const { Header, Content, Footer } = Layout;
 
 function App() {
   const router = useLocation();
@@ -42,15 +43,36 @@ function App() {
   }, [router, accessToken]);
   return (
     <div>
-      <div style={{ display: router.pathname === "/login" ? "none" : "inherit" }}>
-        <HeaderComponent />
-      </div>
-      <RouterProviders />
-      <div style={{ display: router.pathname === "/login" ? "none" : "inherit" }} className="mt-10">
-        <Footers />
-      </div>
       {contextHolder}
       {modalContextHolder}
+      <Layout>
+        <Header
+          style={{
+            position: "sticky",
+            top: 0,
+            zIndex: 1,
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            background: "#fff",
+            padding: "0",
+            height: "auto",
+          }}>
+          {router.pathname !== "/login" && <HeaderComponent />}
+        </Header>
+        <Content
+          style={{
+            background: "#fff",
+          }}>
+          <RouterProviders />
+        </Content>
+        <Footer
+          style={{
+            padding: 0,
+          }}>
+          {router.pathname !== "/login" && <Footers />}
+        </Footer>
+      </Layout>
     </div>
   );
 }
