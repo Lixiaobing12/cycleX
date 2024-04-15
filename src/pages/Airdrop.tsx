@@ -114,7 +114,7 @@ const Airdrop = () => {
             <>
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Active Loans Value")}
@@ -123,7 +123,7 @@ const Airdrop = () => {
               />
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Total Loans Value")}
@@ -132,7 +132,7 @@ const Airdrop = () => {
               />
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Current Avg. APR")}
@@ -145,7 +145,7 @@ const Airdrop = () => {
             <>
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Market Cap")}
@@ -154,7 +154,7 @@ const Airdrop = () => {
               />
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Weekly Transfer Volume")}
@@ -163,7 +163,7 @@ const Airdrop = () => {
               />
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Total Active Addresses")}
@@ -175,7 +175,7 @@ const Airdrop = () => {
             <>
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Total Value")}
@@ -184,7 +184,7 @@ const Airdrop = () => {
               />
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Weighted Average Maturity")}
@@ -193,7 +193,7 @@ const Airdrop = () => {
               />
               <Statistic
                 valueStyle={{
-                  fontSize: "2.2em",
+                  fontSize: "1.5em",
                   fontWeight: "bold",
                 }}
                 title={t("Weighted Average Maturity")}
@@ -214,15 +214,6 @@ const Airdrop = () => {
         ) : activeItem === 1 ? (
           <p className="text-xl  font-bold font-whalebold my-20 text-center">
             {t("View tokenized US treasuries, bonds, and cash-equivalents and understand the nuances between them. Read our deep dive research report on tokenized treasuries on the")}
-            <a
-              href="https://rwa.xyz/blog"
-              className="text-blue hover:text-blue underline underline-offset-4"
-              target="_blank"
-              rel="noopener"
-              referrerPolicy="origin-when-cross-origin"
-              draggable="false">
-              RWA.xyz Research Blog
-            </a>
           </p>
         ) : (
           <p className="text-xl  font-bold font-whalebold my-20 text-center">

@@ -124,10 +124,10 @@ const Footers = () => {
 
         <div className="flex gap-4 md:gap-10">
           <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
-            <WrapperImg src="/assets/twitter.png" width={40} />
+            <WrapperImg src="/assets/telegram.png" width={40} />
           </a>
           <a href="https://twitter.com/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
-            <WrapperImg src="/assets/telegram.png" width={40} />
+            <WrapperImg src="/assets/twitter.png" width={40} />
           </a>
         </div>
       </div>

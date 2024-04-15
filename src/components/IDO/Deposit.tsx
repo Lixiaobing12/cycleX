@@ -133,7 +133,7 @@ const ItemDeposit = () => {
       <div className="w-full relative items-center flex">
         <input
           type="number"
-          className="w-full input bg-[#F7F8FA] rounded-md border-0 placeholder:text-sm"
+          className="w-full input bg-[#F7F8FA] rounded-md border-0 placeholder:text-xs"
           onChange={(e) => {
             setDisabled(false);
             setAmount(Number(e.target.value));
@@ -413,7 +413,7 @@ const Deposit = () => {
               </div>
             </div>
             <div className="flex gap-2">
-              <span>ERC1400</span>
+              <span>ERC20</span>
             </div>
           </div>
         </div>
