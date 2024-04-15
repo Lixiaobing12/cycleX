@@ -17,10 +17,10 @@ function App() {
   const router = useLocation();
   const accessToken = useLocalStorage();
   const navigator = useNavigate();
-  notification.config({
+
+  const [api, contextHolder] = notification.useNotification({
     duration: 1.5,
   });
-  const [api, contextHolder] = notification.useNotification();
   // const [messageApi, contextHolder] = imessage.useMessage();
   const [modal, modalContextHolder] = Modal.useModal();
   const [toast, setMessage] = useAtom(messageContext);

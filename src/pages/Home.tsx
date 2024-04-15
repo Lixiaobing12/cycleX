@@ -1,19 +1,19 @@
 import { Statistic } from "antd";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
 import { messageContext } from "../App";
 import { products_atom } from "../atom/fundProducts";
-import { userInfo_atom } from "../atom/userInfo";
 import News from "../components/Home/News";
 import Process from "../components/Home/Process";
 import ProofAssets from "../components/Home/Proof_Assets";
 import Reassets from "../components/Home/Re_Assets";
 import TodoListAssets from "../components/Home/Todo_Assets";
 import { useTranslateLocalStorage } from "../hooks/localStorage";
+import useAccounts from "../hooks/user";
 import { fundProductApiType } from "../types/fundProduct";
 import { scientific } from "../utils/BigNumberToString";
 
@@ -24,10 +24,9 @@ const getAssetsBgImg = (ind = 1) => {
 const { Countdown } = Statistic;
 
 export default function Home() {
-  const [users] = useAtom(userInfo_atom);
+  const [, users] = useAccounts();
   const [toast] = useAtom(messageContext);
   const { t, i18n } = useTranslation();
-  const [openNotice, setNotice] = useState(true);
   const [assets, setAssetsItems] = useAtom(products_atom);
   const { handleTranslate } = useTranslateLocalStorage();
   const navigate = useNavigate();
@@ -114,12 +113,15 @@ export default function Home() {
                     className="cursor-pointer hover:scale-105"
                     onClick={() => {
                       if (users) {
-                        navigate(`/assets/${item.id}`);
+                        navigate(`/assets/${item.id}#main`);
                       } else {
                         toast?.warning({
                           message: t("please sign in"),
+                          icon: <img src="/assets/error.png" width={30} />,
+                          onClose() {
+                            navigate("/login?t=in");
+                          },
                         });
-                        navigate("/login?t=in");
                       }
                     }}
                   />

@@ -1,24 +1,24 @@
 import { Statistic } from "antd";
 import axios from "axios";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { messageContext } from "../App";
+import useLocalStorage from "../hooks/localStorage";
 import { fundProductApiType } from "../types/fundProduct";
 import WrapperImg from "./Common/Img";
 
 const { Countdown } = Statistic;
 /** 用户协议弹窗 */
-const protocolModalStatus = atom(false);
-const protocolType = atom<"agreement" | "privite">("agreement");
 
 const Footers = () => {
   const { t } = useTranslation();
+  const [toast] = useAtom(messageContext);
   const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
   const navigate = useNavigate();
+  const accessToken = useLocalStorage();
 
-  const [, setModalShow] = useAtom(protocolModalStatus);
-  const [, setType] = useAtom(protocolType);
   useEffect(() => {
     axios.post("/api/api/fundProduct/getList").then(({ data }) => {
       setAssetsItems(data.data);
@@ -36,7 +36,22 @@ const Footers = () => {
             <div className="flex flex-col gap-4">
               <div>{t("Products")}</div>
               {assets.map((item, index) => (
-                <div key={index} onClick={() => navigate(`/assets/${item.id}`)} className="cursor-pointer hover:scale-105 text-md">
+                <div
+                  key={index}
+                  onClick={() => {
+                    if (accessToken) {
+                      navigate(`/assets/${item.id}#main`);
+                    } else {
+                      toast?.warning({
+                        message: t("please sign in"),
+                        icon: <img src="/assets/error.png" width={30} />,
+                        onClose() {
+                          navigate("/login?t=in");
+                        },
+                      });
+                    }
+                  }}
+                  className="cursor-pointer hover:scale-105 text-md">
                   {item.name}
                 </div>
               ))}

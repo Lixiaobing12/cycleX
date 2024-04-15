@@ -1,7 +1,10 @@
 import { Table, TableProps } from "antd";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { messageContext } from "../../App";
+import useAccounts from "../../hooks/user";
 import { fundProductApiType } from "../../types/fundProduct";
 import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
@@ -17,6 +20,8 @@ interface DataType {
 }
 
 const TodoListAssets = () => {
+  const [toast] = useAtom(messageContext);
+  const [, users] = useAccounts();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [activeItem, setItem] = useState(1);
@@ -29,7 +34,21 @@ const TodoListAssets = () => {
       key: "name",
       width: 150,
       render: (value, row) => (
-        <a className="text-black flex items-center gap-2" onClick={() => navigate(`/assets/${row.id}`)}>
+        <a
+          className="text-black flex items-center gap-2"
+          onClick={() => {
+            if (users) {
+              navigate(`/assets/${row.id}#main`);
+            } else {
+              toast?.warning({
+                message: t("please sign in"),
+                icon: <img src="/assets/error.png" width={30} />,
+                onClose() {
+                  navigate("/login?t=in");
+                },
+              });
+            }
+          }}>
           <div>
             <img src="/assets/assets_dollor.png" width={25} alt="" />
           </div>

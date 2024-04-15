@@ -39,7 +39,7 @@ export default function Assets() {
   }, [params]);
   return (
     <>
-      <div className="relative text-white">
+      <div className="relative text-white" id="main">
         <div className="relative flex items-center justify-center">
           <img src="/assets/assets_bg.png" className="w-full h-[80vh]" alt="" />
           <div className="absolute flex flex-col left-4 top-[10%] md:top-[20%] md:left-[20%]">
