@@ -116,7 +116,9 @@ export default function Home() {
                       if (users) {
                         navigate(`/assets/${item.id}`);
                       } else {
-                        toast?.info(t("please sign in"));
+                        toast?.warning({
+                          message: t("please sign in"),
+                        });
                         navigate("/login?t=in");
                       }
                     }}

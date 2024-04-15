@@ -59,7 +59,10 @@ const Verify = () => {
       if (status === "done") {
         setBackImg(info.file.response.data);
       } else if (status === "error") {
-        toast?.error(`file upload failed`);
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: `file upload failed`,
+        });
       }
     },
     onDrop(e) {
@@ -80,7 +83,10 @@ const Verify = () => {
       if (status === "done") {
         setFrontImg(info.file.response.data);
       } else if (status === "error") {
-        toast?.error(`${info.file.name} file upload failed.`);
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: `${info.file.name} file upload failed.`,
+        });
       }
     },
     onDrop(e) {
@@ -101,13 +107,24 @@ const Verify = () => {
       })
       .then(async ({ data }) => {
         if (data.res_code !== 0) {
-          if (i18n.language === "en") toast?.error(await handleTranslate(data.res_msg));
-          else toast?.error(data.res_msg);
+          if (i18n.language === "en")
+            toast?.error({
+              icon: <img src="/assets/error.png" width={30} />,
+              message: await handleTranslate(data.res_msg),
+            });
+          else
+            toast?.error({
+              icon: <img src="/assets/error.png" width={30} />,
+              message: data.res_msg,
+            });
           setLoading(false);
         } else {
           fetch();
           setLoading(false);
-          toast?.success(t("Sent successfully"));
+          toast?.success({
+            icon: <img src="/assets/success.png" width={30} />,
+            message: t("Sent successfully"),
+          });
         }
       });
   };

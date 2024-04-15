@@ -9,8 +9,6 @@ const useAccounts = () => {
   const [isSign, setSign] = useState(false);
   const [walletsInfo, setWalletsInfo] = useState<WalletInfoType>();
 
-
-
   useEffect(() => {
     const todo = () => {
       if (accessToken) {

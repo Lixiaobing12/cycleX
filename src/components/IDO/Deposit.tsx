@@ -60,13 +60,22 @@ const ItemDeposit = () => {
 
       if (data.code !== 0) {
         if (i18n.language === "en") {
-          toast?.warning(await handleTranslate(data.msg));
+          toast?.warning({
+            message: await handleTranslate(data.msg),
+            icon: <img src="/assets/error.png" width={30} />,
+          });
         } else {
-          toast?.warning(data.msg);
+          toast?.warning({
+            message: data.msg,
+            icon: <img src="/assets/error.png" width={30} />,
+          });
         }
         return Promise.reject();
       } else {
-        toast?.success(t("Congratulations on your successful participation!"));
+        toast?.success({
+          icon: <img src="/assets/success.png" width={30} />,
+          message: t("Congratulations on your successful participation!"),
+        });
       }
       setTimeout(() => {
         setLoading(false);
@@ -74,23 +83,35 @@ const ItemDeposit = () => {
     } catch (err) {
       console.log(err);
       setLoading(false);
-      toast?.warning(t("Something went wrong, try again later"));
+      toast?.warning({
+        message: t("Something went wrong, try again later"),
+        icon: <img src="/assets/error.png" width={30} />,
+      });
       return Promise.reject();
     }
   };
   const handlerClick = () => {
     if (!isSign) {
-      toast?.warning(t("please sign in"));
+      toast?.warning({
+        message: t("please sign in"),
+        icon: <img src="/assets/error.png" width={30} />,
+      });
     } else {
       const min = 100;
       const balance = walletInfo?.balance;
       if (amount < Number(min)) {
         setDisabled(true);
-        return toast?.warning(t("Less than minimum purchase quantity"));
+        return toast?.warning({
+          message: t("Less than minimum purchase quantity"),
+          icon: <img src="/assets/error.png" width={30} />,
+        });
       }
       if (amount > Number(balance)) {
         setDisabled(true);
-        return toast?.warning(t("Insufficient balance"));
+        return toast?.warning({
+          message: t("Insufficient balance"),
+          icon: <img src="/assets/error.png" width={30} />,
+        });
       }
 
       const context: any = modal?.info({

@@ -1005,7 +1005,10 @@ const Airdrop = () => {
           <button
             className="btn btn-wide bg-black text-white"
             onClick={() => {
-              toast?.warning(t("Coming soon"));
+              toast?.warning({
+                message: t("Coming soon"),
+                icon: <img src="/assets/error.png" width={30} />,
+              });
             }}>
             {t("Receive airdrop")}
           </button>
@@ -1023,7 +1026,7 @@ const Airdrop = () => {
                 </a>
               </span>
             </div>
-            <Divider type="vertical" className="mx-0"/>
+            <Divider type="vertical" className="mx-0" />
             <div className=" flex gap-2 items-center">
               <img src="/assets/twitter-dark.png" width={28} height={28} alt="" />
               <span className="text-black font-bold font-whalebold text-xs flex">

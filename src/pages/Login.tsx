@@ -58,18 +58,30 @@ const SafetyInput: React.FC<{
 
         if (data.res_code !== 0) {
           if (i18n.language === "en") {
-            toast?.warning(await handleTranslate(data.res_msg));
+            toast?.warning({
+              message: await handleTranslate(data.res_msg),
+              icon: <img src="/assets/error.png" width={30} />,
+            });
           } else {
-            toast?.warning(data.res_msg);
+            toast?.warning({
+              message: data.res_msg,
+              icon: <img src="/assets/error.png" width={30} />,
+            });
           }
         } else {
           setCountDownShow(true);
         }
       } catch (err: any) {
         if (i18n.language === "en") {
-          toast?.error(err.response.data.message);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err.response.data.message,
+          });
         } else {
-          toast?.error(err.response.data.res_msg);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err.response.data.message,
+          });
         }
       }
     };
@@ -116,20 +128,35 @@ const SafetyInput: React.FC<{
 
         if (data.res_code !== 0) {
           if (i18n.language === "en") {
-            toast?.warning(await handleTranslate(data.res_msg));
+            toast?.warning({
+              message: await handleTranslate(data.res_msg),
+              icon: <img src="/assets/error.png" width={30} />,
+            });
           } else {
-            toast?.warning(data.res_msg);
+            toast?.warning({
+              message: data.res_msg,
+              icon: <img src="/assets/error.png" width={30} />,
+            });
           }
         } else {
-          toast?.success(t("registration success"));
+          toast?.success({
+            icon: <img src="/assets/success.png" width={30} />,
+            message: t("registration success"),
+          });
           onComplate();
         }
       } catch (err: any) {
         setLoading(false);
         if (i18n.language === "en") {
-          toast?.error(err?.response.data?.message);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err?.response.data?.message,
+          });
         } else {
-          toast?.error(err?.response.data?.res_msg);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err?.response.data?.message,
+          });
         }
       }
     }
@@ -243,7 +270,10 @@ const In = () => {
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        toast?.error(t("Incorrect username or password"));
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: t("Incorrect username or password"),
+        });
       });
   };
 
@@ -350,9 +380,15 @@ const Up = () => {
     if (data.res_code !== 0) {
       setLoading(false);
       if (i18n.language == "en") {
-        toast?.error(await handleTranslate(data.res_msg));
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: await handleTranslate(data.res_msg),
+        });
       } else {
-        toast?.error(data.res_msg);
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: data.res_msg,
+        });
       }
     } else {
       setLoading(false);
@@ -418,9 +454,15 @@ const Up = () => {
 
         if (data.res_code !== 0) {
           if (i18n.language === "en") {
-            toast?.warning(await handleTranslate(data.res_msg));
+            toast?.warning({
+              message: await handleTranslate(data.res_msg),
+              icon: <img src="/assets/error.png" width={30} />,
+            });
           } else {
-            toast?.warning(data.res_msg);
+            toast?.warning({
+              message: data.res_msg,
+              icon: <img src="/assets/error.png" width={30} />,
+            });
           }
         } else {
           setCountDownShow(true);
@@ -428,9 +470,15 @@ const Up = () => {
       } catch (err: any) {
         setSending(false);
         if (i18n.language === "en") {
-          toast?.error(err.response.data.message);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err.response.data.message,
+          });
         } else {
-          toast?.error(err.response.data.res_msg);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err.response.data.res_msg,
+          });
         }
       }
     };
@@ -439,7 +487,10 @@ const Up = () => {
       let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
       status = reg.test(emailNumber);
       if (!status) {
-        toast?.error(t("Please enter the correct email number"));
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: t("Please enter the correct email number"),
+        });
         setStatus("warning");
       } else {
         await registerCode();
@@ -646,22 +697,37 @@ const ForgotEmail = () => {
       if (data.res_code !== 0) {
         setLoading(false);
         if (i18n.language === "en") {
-          toast?.warning(await handleTranslate(data.res_msg));
+          toast?.warning({
+            message: await handleTranslate(data.res_msg),
+            icon: <img src="/assets/error.png" width={30} />,
+          });
         } else {
-          toast?.warning(data.res_msg);
+          toast?.warning({
+            message: data.res_msg,
+            icon: <img src="/assets/error.png" width={30} />,
+          });
         }
       } else {
         setLoading(false);
-        toast?.success(t("Password reset"));
+        toast?.success({
+          icon: <img src="/assets/success.png" width={30} />,
+          message: t("Password reset"),
+        });
         setTimeout(() => {
           setType("Sign");
         }, 500);
       }
     } catch (err: any) {
       if (i18n.language === "en") {
-        toast?.error(err.response.data.message);
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: err.response.data.message,
+        });
       } else {
-        toast?.error(err.response.data.res_msg);
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: err.response.data.res_msg,
+        });
       }
     }
   };
@@ -682,16 +748,28 @@ const ForgotEmail = () => {
           setLoading(false);
           setCountDownShow(false);
           if (i18n.language === "en") {
-            toast?.error(await handleTranslate(data.res_msg));
+            toast?.error({
+              icon: <img src="/assets/error.png" width={30} />,
+              message: await handleTranslate(data.res_msg),
+            });
           } else {
-            toast?.warning(data.res_msg);
+            toast?.warning({
+              message: data.res_msg,
+              icon: <img src="/assets/error.png" width={30} />,
+            });
           }
         }
       } catch (err: any) {
         if (i18n.language === "en") {
-          toast?.error(err.response.data.message);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err.response.data.message,
+          });
         } else {
-          toast?.error(err.response.data.res_msg);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err.response.data.res_msg,
+          });
         }
       }
     };
@@ -699,7 +777,10 @@ const ForgotEmail = () => {
     let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
     status = reg.test(email);
     if (!status) {
-      toast?.error(t("Please enter the correct email number"));
+      toast?.error({
+        icon: <img src="/assets/error.png" width={30} />,
+        message: t("Please enter the correct email number"),
+      });
       setStatus("warning");
     } else {
       await registerCode();
@@ -800,22 +881,37 @@ const ForgotPhone = () => {
       if (data.res_code !== 0) {
         setLoading(false);
         if (i18n.language === "en") {
-          toast?.error(await handleTranslate(data.res_msg));
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: await handleTranslate(data.res_msg),
+          });
         } else {
-          toast?.error(data.res_msg);
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: data.res_msg,
+          });
         }
       } else {
         setLoading(false);
-        toast?.success(t("Password reset"));
+        toast?.success({
+          icon: <img src="/assets/success.png" width={30} />,
+          message: t("Password reset"),
+        });
         setTimeout(() => {
           setType("Sign");
         }, 500);
       }
     } catch (err: any) {
       if (i18n.language === "en") {
-        toast?.error(err.response.data.message);
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: err.response.data.message,
+        });
       } else {
-        toast?.error(err.response.data.res_msg);
+        toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: err.response.data.res_msg,
+        });
       }
     }
   };
@@ -837,15 +933,29 @@ const ForgotPhone = () => {
           username: phoneNumber,
         });
         if (data.res_code !== 0) {
-          if (i18n.language === "en") toast?.error(await handleTranslate(data.res_msg));
-          else toast?.error(data.res_msg);
+          if (i18n.language === "en")
+            toast?.error({
+              icon: <img src="/assets/error.png" width={30} />,
+              message: await handleTranslate(data.res_msg),
+            });
+          else
+            toast?.error({
+              icon: <img src="/assets/error.png" width={30} />,
+              message: data.res_msg,
+            });
           setCountDownShow(false);
         }
       } catch (err: any) {
         if (i18n.language === "en") {
-          toast?.error(err.response.data.message);
+          toast?.error({
+            message: err.response.data.message,
+            icon: <img src="/assets/error.png" width={30} />,
+          });
         } else {
-          toast?.error(err.response.data.res_msg);
+          toast?.error({
+            message: err.response.data.res_msg,
+            icon: <img src="/assets/error.png" width={30} />,
+          });
         }
       }
     };
@@ -949,7 +1059,6 @@ const ForgotPhone = () => {
 /** 登录注册页面 */
 const Sign = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [activeKey, setKey] = useState("1");
   const [, setModalShow] = useAtom(protocolModalStatus);
   const [, setType] = useAtom(protocolType);
@@ -977,8 +1086,10 @@ const Sign = () => {
   ];
 
   useEffect(() => {
-    const isSignIn = /\=in/.test(location.search);
-    setKey(isSignIn ? "1" : "2");
+    if (location.search) {
+      const isSignIn = /\=in/.test(location.search);
+      setKey(isSignIn ? "1" : "2");
+    }
   }, [location]);
 
   return (

@@ -62,28 +62,46 @@ const ItemDeposit = () => {
 
     if (data.res_code !== 0) {
       if (i18n.language === "en") {
-        toast?.warning(await handleTranslate(data.res_msg));
+        toast?.warning({
+          message: await handleTranslate(data.res_msg),
+          icon: <img src="/assets/error.png" width={30} />,
+        });
       } else {
-        toast?.warning(data.res_msg);
+        toast?.warning({
+          message: data.res_msg,
+          icon: <img src="/assets/error.png" width={30} />,
+        });
       }
       return Promise.reject();
     } else {
-      toast?.success(t("Congratulations on your successful subscription!"));
+      toast?.success({
+        icon: <img src="/assets/success.png" width={30} />,
+        message: t("Congratulations on your successful subscription!"),
+      });
     }
   };
   const handlerClick = () => {
     if (!isSign) {
-      toast?.warning(t("please sign in"));
+      toast?.warning({
+        icon: <img src="/assets/error.png" width={30} />,
+        message: t("please sign in"),
+      });
     } else {
       const min = product?.min_pay;
       const balance = walletInfo?.balance;
       if (amount < Number(min)) {
         setDisabled(true);
-        return toast?.warning(t("Less than minimum purchase quantity"));
+        return toast?.warning({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: t("Less than minimum purchase quantity"),
+        });
       }
       if (amount > Number(balance)) {
         setDisabled(true);
-        return toast?.warning(t("Insufficient balance"));
+        return toast?.warning({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: t("Insufficient balance"),
+        });
       }
       const context: any = modal?.info({
         closable: true,
@@ -269,7 +287,10 @@ const Deposit = () => {
   const handleCopy = (text: string) => {
     copy(text)
       .then(() => {
-        toast?.success("Copied!");
+        toast?.success({
+          icon: <img src="/assets/success.png" width={30} />,
+          message: "Copied!",
+        });
       })
       .catch((error) => {
         console.error("Failed to copy!", error);

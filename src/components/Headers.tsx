@@ -51,6 +51,9 @@ const HeaderComponent = () => {
               window.localStorage.removeItem("token");
               const setItemEvent = new Event("localstorage_save");
               window.dispatchEvent(setItemEvent);
+              setTimeout(() => {
+                navigate("/login");
+              }, 200);
             },
           },
         ]
@@ -75,6 +78,9 @@ const HeaderComponent = () => {
               window.localStorage.removeItem("token");
               const setItemEvent = new Event("localstorage_save");
               window.dispatchEvent(setItemEvent);
+              setTimeout(() => {
+                navigate("/login");
+              }, 200);
             },
           },
         ];
@@ -364,6 +370,9 @@ const HeaderComponent = () => {
                       window.localStorage.removeItem("token");
                       const setItemEvent = new Event("localstorage_save");
                       window.dispatchEvent(setItemEvent);
+                      setTimeout(() => {
+                        navigate("/login");
+                      }, 200);
                     }}>
                     {t("Logout")}
                   </button>

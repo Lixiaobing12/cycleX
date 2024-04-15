@@ -70,7 +70,10 @@ const Wallet = () => {
   const handleCopy = (text: string) => {
     copy(text)
       .then(() => {
-        toast?.success("Copied!");
+        toast?.success({
+          icon: <img src="/assets/success.png" width={30} />,
+          message: "Copied!",
+        });
       })
       .catch((error) => {
         console.error("Failed to copy!", error);
