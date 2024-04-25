@@ -387,7 +387,7 @@ const Deposit = () => {
     { value: "$3M", name: t("Total assets") },
     { value: "100B", name: t("TotalSupply") },
     { value: "$ 0.001", name: t("IDO Price") },
-    { value: "6 months", name: t("lock-in") },
+    { value: "6 mo", name: t("lock-in") },
   ];
   const defaultIDOInfo = {
     TvlPresaleUsdAmount: 0,
@@ -450,7 +450,7 @@ const Deposit = () => {
                       <WrapperImg src="/assets/question.png" width={16} />
                     </div>
                   </div>
-                  <div className="text-black text-2xl font-bold font-whalebold">{item.value}</div>
+                  <div className="text-black text-xl font-bold font-whalebold">{item.value}</div>
                 </div>
                 <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>
               </div>

@@ -262,7 +262,7 @@ const HeaderComponent = () => {
   }, [location]);
   return (
     <>
-      <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack md:px-[10%] pt-6">
+      <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack md:px-[4%] 2xl:px-[10%] pt-6">
         <div className="flex md:justify-end md:items-center">
           <img src="/assets/avant.png" className="cursor-pointer w-28 md:w-36" alt="" onClick={() => navigate("/")} />
         </div>

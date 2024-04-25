@@ -332,7 +332,7 @@ const Deposit = () => {
                       <WrapperImg src="/assets/question.png" width={16} />
                     </div>
                   </div>
-                  <div className="text-black text-2xl font-bold font-whalebold">{item.value}</div>
+                  <div className="text-black text-xl font-bold font-whalebold">{item.value}</div>
                 </div>
                 <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>
               </div>
