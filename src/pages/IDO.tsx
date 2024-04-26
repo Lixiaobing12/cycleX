@@ -150,7 +150,7 @@ const IDO = () => {
                 </tr>
                 <tr>
                   <td>{t("Total price of private placement")}</td>
-                  <td>USD30,000,000</td>
+                  <td>USD5,000,000</td>
                 </tr>
 
                 <tr>
@@ -188,7 +188,7 @@ const IDO = () => {
                       <p>{t("Private placement users will release 30% of the total amount of tokens within 6 months.")}</p>
                       <p className="mt-4">{t("Locking mechanism")}:</p>
                       <p>{t("Team lock-in period: 6-24 months.")}</p>
-                      <p>{t("Lock-up period for private placement and airdrop users: 6 months.")}</p>
+                      <p>{t("Lock-up period for private placement and airdrop users: 3 months.")}</p>
                     </div>
                   </td>
                 </tr>
