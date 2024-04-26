@@ -413,7 +413,7 @@ const Deposit = () => {
     }
   }, [user]);
   return (
-    <div className="flex flex-col md:flex-row w-full items-center gap-10 text-black">
+    <div className="flex flex-col xl:flex-row w-full items-center gap-10 text-black">
       <div className="flex-1 flex flex-col">
         <div className="flex flex-col gap-4">
           <span className="text-2xl mr-4">WFC | Whale Flow Coin</span>
