@@ -1,10 +1,10 @@
 import { Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useCopyToClipboard } from "usehooks-ts";
+import { useCopyToClipboard, useEventListener } from "usehooks-ts";
 import { messageContext, modalContext } from "../../App";
 import { product_info } from "../../atom/product";
 import { useTranslateLocalStorage } from "../../hooks/localStorage";
@@ -14,23 +14,47 @@ import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 import Loader from "../Loader";
 
+
 const SafetyInput: React.FC<{
   onSave: Function;
 }> = ({ onSave }) => {
-  const inputs = useRef([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }]);
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>, key: number) => {
-    inputs.current[key].value = e.target.value;
-    if (key < inputs.current.length - 1) {
+  const [words, setWords] = useState([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }])
+  const passwords = useRef('');
+
+  const handleInput = ({ key, e }: { key: number; e: React.ChangeEvent<HTMLInputElement> }) => {
+    setWords(state => {
+      state[key].value = '*';
+      return [...state];
+    })
+    passwords.current += e.target.value;
+    if (key < 5) {
       (document.querySelector(`#dinput${key + 1}`) as any)?.focus();
     } else {
       (document.querySelector(`#dinput${key}`) as any)?.blur();
-      onSave(inputs.current.map((i) => i.value).join(""));
-    }
+      onSave(passwords.current);
+    };
   };
+  useEventListener("keydown", (evnet) => {
+    if (evnet.key === 'Delete' || evnet.key === 'Backspace') {
+      for (let i = 5; i > -1; i--) {
+        if (!!words[i].value) {
+          setWords(state => {
+            state[i].value = '';
+            return [...state];
+          });
+          (document.querySelector(`#dinput${i}`) as any)?.focus();
+          break;
+        }
+      }
+    }
+  })
+  useEffect(() => {
+    (document.querySelector(`#dinput0`) as any)?.focus();
+  }, [])
   return (
     <div className="flex items-center gap-2 w-full justify-center">
-      {inputs.current.map((item, key) => (
-        <input type="password" className="input  border-black w-12 bg-white" onChange={(e) => handleInput(e, key)} key={key} id={`dinput${key}`} autoComplete="new-password" />
+      {words.map((item, key) => (
+        <input type="text" className="input border-black w-12 bg-white" value={words[key].value} onChange={(e) => handleInput({ e, key })} key={key} id={`dinput${key}`} autoComplete="off" />
       ))}
     </div>
   );
@@ -46,9 +70,23 @@ const ItemDeposit = () => {
   const secrityKey = useRef<string>();
   const [loading, setLoading] = useState(false);
   const { handleTranslate } = useTranslateLocalStorage();
+  const [, copy] = useCopyToClipboard();
+
+  const handleCopy = (text: string) => {
+    copy(text)
+      .then(() => {
+        toast?.success({
+          icon: <img src="/assets/success.png" width={30} />,
+          message: "Copied!",
+        });
+      })
+      .catch((error) => {
+        console.error("Failed to copy!", error);
+      });
+  };
 
   const checkSecurity = async () => {
-    if (!secrityKey.current) return;
+    if (!secrityKey.current) return Promise.reject();
     if (loading) return;
     setLoading(true);
     const { data } = await request.post("/api/api/fundOrder/create", {
@@ -89,6 +127,7 @@ const ItemDeposit = () => {
     } else {
       const min = product?.min_pay;
       const balance = walletInfo?.balance;
+      secrityKey.current = '';
       if (amount < Number(min)) {
         setDisabled(true);
         return toast?.warning({
@@ -118,7 +157,7 @@ const ItemDeposit = () => {
         centered: true,
         footer: () => (
           <button
-            className="btn btn-block m-auto mt-4 disabled:text-threePranentTransblack"
+            className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
             onClick={() => {
               checkSecurity().then(() => {
                 context.destroy();
@@ -159,12 +198,12 @@ const ItemDeposit = () => {
         />
         <div className="absolute flex items-center right-4 gap-2">
           <div>
-            <img src="/assets/usdt.png" width={20} />
+            <img src="/assets/usdt.png" width={16} />
           </div>
           <span className="text-black font-bold font-whalebold">USDT</span>
         </div>
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 text-xs">
         <div>
           {t("Minimum amount")}: {product?.min_pay} USDT
         </div>
@@ -176,54 +215,12 @@ const ItemDeposit = () => {
         {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span>{t("Contact support@cyclex.cc to gain access")}</span>
+        <span className="text-xs">{t("Contact services@whaleflow.co to gain access")}</span>
         <div className="flex items-center gap-1">
-          <WrapperImg src="/assets/transparent_copy.png" width={18} />
-          <WrapperImg src="/assets/transparent_telegram.png" width={18} />
-        </div>
-      </div>
-    </div>
-  );
-};
-const ItemWithDraw = () => {
-  const { t } = useTranslation();
-  const [product] = useAtom(product_info);
-  const [btnDisabled, setDisabled] = useState(false);
-  const [isSign, user, walletInfo] = useAccounts();
-
-  const handlerClick = () => {};
-  return (
-    <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
-      <div className="flex justify-between items-center">
-        <span>{t("settlement period")}</span>
-        <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
-          T+{product?.sell_t_n}
-          <div>
-            <img src="/assets/countdowm_notactive.png" width={16} alt="" />
-          </div>
-        </div>
-      </div>
-      <div className="w-full relative items-center flex">
-        <input type="text" className="w-full input bg-[#F7F8FA] rounded-md border-0" />
-        <div className="absolute flex items-center right-4 gap-2">
-          <div>
-            <img src="/assets/usdt.png" width={20} />
-          </div>
-          <span className="text-black font-bold font-whalebold">USDT</span>
-        </div>
-      </div>
-      <div className="flex flex-col gap-1">
-        <div>{t("Minimum amount")}：100,000 USDT</div>
-        <div>1 CRFS =1000 USD</div>
-      </div>
-      <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
-        {!isSign ? t("please sign in") : t("Confirm purchase")}
-      </button>
-      <div className="flex items-center justify-center gap-1">
-        <span>{t("Contact support@cyclex.cc to gain access")}</span>
-        <div className="flex items-center gap-1">
-          <WrapperImg src="/assets/transparent_copy.png" width={18} />
-          <WrapperImg src="/assets/transparent_telegram.png" width={18} />
+          <WrapperImg src="/assets/transparent_copy.png" width={18} onClick={() => handleCopy("services@whaleflow.co")} />
+          <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363] w-8">
+            <WrapperImg src="/assets/transparent_telegram.png" width={18} />
+          </a>
         </div>
       </div>
     </div>
@@ -303,16 +300,16 @@ const Deposit = () => {
           <span className="text-2xl mr-4">{t("Fairly audited over-collateralization tokenization for seamless access to real-world assets")}</span>
           <span className="text-greyblack">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
           <div className="text-greyblack flex items-center gap-2 md:gap-10 my-2 text-sm">
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <span>{t("Disclaimer")}</span>
-              <div>
-                <WrapperImg src="/assets/goto.png" width={14} onClick={() => navigate("/issus")} />
+              <div className="ml-1">
+                <WrapperImg src="/assets/goto.png" width={12} onClick={() => navigate("/issus")} />
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <span>{t("Release summary")}</span>
-              <div>
-                <WrapperImg src="/assets/goto.png" width={14} onClick={() => navigate("/guide")} />
+              <div className="ml-1">
+                <WrapperImg src="/assets/goto.png" width={12} onClick={() => navigate("/guide")} />
               </div>
             </div>
             <div className="flex gap-2">
@@ -339,7 +336,7 @@ const Deposit = () => {
             ))}
           </div>
           <div className="bg-[#FAFAFC] rounded-box md:p-4">
-            <div className="join join-vertical w-full">
+            <div className="join join-vertical w-full text-xs">
               <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
                 <div className="flex gap-2">
                   <span>{t("Audit Report")}</span>
@@ -367,9 +364,9 @@ const Deposit = () => {
                 <div className="flex gap-2">
                   <div className="flex items-center gap-1">
                     <span>{product?.contract_address.replace(/^(.{6}).*(.{4})$/, "$1...$2")}</span>
-                    <WrapperImg src="/assets/copy.png" width={15} onClick={() => handleCopy(product?.contract_address ?? "")} />
+                    <WrapperImg src="/assets/copy.png" width={14} onClick={() => handleCopy(product?.contract_address ?? "")} />
                     <a href={`https://etherscan.io/address/${product?.contract_address}`} target="_blank">
-                      <WrapperImg src="/assets/goto.png" width={15} />
+                      <WrapperImg src="/assets/goto.png" width={12} />
                     </a>
                   </div>
                 </div>

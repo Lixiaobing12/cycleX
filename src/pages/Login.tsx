@@ -30,6 +30,7 @@ const SafetyInput: React.FC<{
   const [toast] = useAtom(messageContext);
 
   const [newPassword, setNewPassword] = useState("");
+  const [inputsAreCorrect, setCorrent] = useState(false);
   const [vilid, setVilid] = useState(false);
   const { handleTranslate } = useTranslateLocalStorage();
   const [sending, setSending] = useState(false);
@@ -201,15 +202,31 @@ const SafetyInput: React.FC<{
             }
           />
         </Form.Item>
-        <Form.Item label={t("Payment password")}>
+
+        <Form.Item label={t("Payment password")}
+          help={
+            <div className={`ml-4 ${!inputsAreCorrect ? 'text-threePranentTransblack' : 'text-green'}`}>
+              <ul>
+                <li>6 digits</li>
+              </ul>
+            </div>
+          }>
           <Input
             className="placeholder:text-sm placeholder:text-greyblack"
             type="password"
             autoComplete="new-password"
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length === 6 && Number(e.target.value)) {
+                setCorrent(true)
+              } else {
+                setCorrent(false)
+              }
+              setNewPassword(e.target.value)
+            }}
             size="large"
             placeholder={t("Please enter a new password")}
           />
+
         </Form.Item>
         <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
           <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
@@ -521,27 +538,31 @@ const Up = () => {
       }
     }
   };
+
+  useEffect(() => {
+    open();
+  }, [])
   useEffect(() => {
     request.get("/api/msgProvideCountry/getList").then(({ data }: any) => {
       setOptions(
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en === "Chain" ? "China" : item.name_en,
-                title: item.name_en === "Chain" ? "China" : item.name_en,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name_en === "Chain" ? "China" : item.name_en,
+              title: item.name_en === "Chain" ? "China" : item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
             : {
-                label: item.name,
-                title: item.name,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
         )
       );
     });
@@ -1001,21 +1022,21 @@ const ForgotPhone = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en === "Chain" ? "China" : item.name_en,
-                title: item.name_en === "Chain" ? "China" : item.name_en,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name_en === "Chain" ? "China" : item.name_en,
+              title: item.name_en === "Chain" ? "China" : item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
             : {
-                label: item.name,
-                title: item.name,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
         )
       );
     });
@@ -1212,7 +1233,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => {};
+  const confirm = () => { };
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>

@@ -18,6 +18,7 @@ module.exports = {
       whalebold: ["Alliance-bold", "Whale-bold"],
     },
     colors: {
+      green: "green",
       blue: "rgb(59 130 246)",
       lightgrey: "#ececec",
       transblack: "rgba(0,0,0,0.1)",
