@@ -540,9 +540,6 @@ const Up = () => {
   };
 
   useEffect(() => {
-    open();
-  }, [])
-  useEffect(() => {
     request.get("/api/msgProvideCountry/getList").then(({ data }: any) => {
       setOptions(
         data.data.map((item: any) =>
