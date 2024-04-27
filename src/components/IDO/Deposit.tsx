@@ -447,7 +447,7 @@ const Deposit = () => {
                   <div className="text-greyblack flex items-center">
                     <span className="text-sm">{item.name}</span>
                     <div>
-                      <WrapperImg src="/assets/question.png" width={16} />
+                      <WrapperImg src="/assets/question.png" width={12} />
                     </div>
                   </div>
                   <div className="text-black text-xl font-bold font-whalebold">{item.value}</div>
@@ -462,7 +462,7 @@ const Deposit = () => {
                 <div className="flex gap-2">
                   <span>{t("Audit Report")}</span>
                   <div>
-                    <WrapperImg src="/assets/question.png" width={15} />
+                    <WrapperImg src="/assets/question.png" width={12} />
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
@@ -474,7 +474,7 @@ const Deposit = () => {
                 <div className="flex gap-2">
                   <span>{t("Pre-sold")} USDT</span>
                   <div>
-                    <WrapperImg src="/assets/question.png" width={15} />
+                    <WrapperImg src="/assets/question.png" width={12} />
                   </div>
                 </div>
                 <div className="flex items-center gap-1 items-black">{idoInfo.TvlPresaleUsdAmount}</div>
@@ -484,7 +484,7 @@ const Deposit = () => {
                 <div className="flex gap-2">
                   <span>{t("Pre-sold")} WFC</span>
                   <div>
-                    <WrapperImg src="/assets/question.png" width={15} />
+                    <WrapperImg src="/assets/question.png" width={12} />
                   </div>
                 </div>
                 <div className="flex items-center gap-1 items-black">{idoInfo.TvlPresaleTokenAmount}</div>
@@ -493,7 +493,7 @@ const Deposit = () => {
                 <div className="flex gap-2">
                   <span>{t("fluidity")}</span>
                   <div>
-                    <WrapperImg src="/assets/question.png" width={15} />
+                    <WrapperImg src="/assets/question.png" width={12} />
                   </div>
                 </div>
                 <div>{t("Not applicable yet")}</div>

@@ -329,7 +329,7 @@ const Deposit = () => {
                   <div className="text-greyblack flex items-center">
                     <span>{item.name}</span>
                     <div>
-                      <WrapperImg src="/assets/question.png" width={16} />
+                      <WrapperImg src="/assets/question.png" width={12} />
                     </div>
                   </div>
                   <div className="text-black text-xl font-bold font-whalebold">{item.value}</div>
@@ -344,7 +344,7 @@ const Deposit = () => {
                 <div className="flex gap-2">
                   <span>{t("Audit Report")}</span>
                   <div>
-                    <WrapperImg src="/assets/question.png" width={15} />
+                    <WrapperImg src="/assets/question.png" width={12} />
                   </div>
                 </div>
               </div>
@@ -352,7 +352,7 @@ const Deposit = () => {
                 <div className="flex gap-2">
                   <span>{t("fluidity")}</span>
                   <div>
-                    <WrapperImg src="/assets/question.png" width={15} />
+                    <WrapperImg src="/assets/question.png" width={12} />
                   </div>
                 </div>
                 <div>{t("Daily trading volume reaches $25 million")}</div>
@@ -361,7 +361,7 @@ const Deposit = () => {
                 <div className="flex gap-2">
                   <span>{t("On-chain address")}</span>
                   <div>
-                    <WrapperImg src="/assets/question.png" width={15} />
+                    <WrapperImg src="/assets/question.png" width={12} />
                   </div>
                 </div>
                 <div className="flex gap-2">
