@@ -69,6 +69,7 @@ const Wallet = () => {
   ];
 
   const handleCopy = (text: string) => {
+    console.log(text)
     copy(text)
       .then(() => {
         toast?.success({
@@ -226,7 +227,7 @@ const Wallet = () => {
                       ? (walletInfo?.wallet_account_address ?? ethers.constants.AddressZero).replace(/^(.{6}).*(.{6})$/, "$1...$2")
                       : walletInfo?.wallet_account_address ?? ethers.constants.AddressZero}
                   </div>
-                  <WrapperImg src="/assets/copy.png" width={16} />
+                  <WrapperImg src="/assets/copy.png" width={16}  onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
                 </div>
               </div>
             </div>
