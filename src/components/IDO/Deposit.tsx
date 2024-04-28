@@ -404,7 +404,7 @@ const Deposit = () => {
   const [, user] = useAccounts();
 
   const assetsData = [
-    { value: "$5M", name: t("Total assets") },
+    { value: "$10M", name: t("Total assets") },
     { value: "100B", name: t("TotalSupply") },
     { value: "$ 0.001", name: t("IDO Price") },
     { value: "3 mo", name: t("lock-in") },

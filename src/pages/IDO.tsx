@@ -150,7 +150,7 @@ const IDO = () => {
                 </tr>
                 <tr>
                   <td>{t("Total price of private placement")}</td>
-                  <td>USD5,000,000</td>
+                  <td>USD10,000,000</td>
                 </tr>
 
                 <tr>
