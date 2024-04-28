@@ -322,10 +322,10 @@ const ItemParticipate = () => {
   };
   useEffect(fetch, [user]);
   return (
-    <div className="flex-auto flex flex-col gap-4  text-greyblack font-bold font-whalebold">
-      <div className="w-full relative flex flex-col">
+    <div className="flex-auto flex flex-col gap-4  text-greyblack">
+      <div className="w-full relative flex flex-col text-xs">
         <Table columns={columns} dataSource={records} className="w-full" pagination={false} scroll={{ x: 500, y: 500 }} rowKey="Presale.ID" />
-        {records.length && (
+        {records.length>0 && (
           <div className="text-right">
             <Pagination simple total={page.total} onChange={handleChange} />
           </div>
