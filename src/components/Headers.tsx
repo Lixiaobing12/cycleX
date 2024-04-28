@@ -229,7 +229,7 @@ const HeaderComponent = () => {
       title: null,
       modalRender: () => (
         <div className="w-full flex flex-col items-center pointer-events-auto">
-          <button className="btn btn-circle mb-2" onClick={() => context.destroy()}>
+          <button className="btn btn-circle mb-2 bg-black border-0 btn-sm hover:bg-black hover:scale-105" onClick={() => context.destroy()}>
             <img src="/assets/x.png" width={26} alt="" />
           </button>
           <img src={invite_img.current} alt="" className="w-[320px] md:w-[380px]" />
