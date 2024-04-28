@@ -3,7 +3,6 @@ import { useAtom } from "jotai";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { fundProofs_atom } from "../../atom/fundProof";
-import WrapperImg from "../Common/Img";
 
 const Audit = () => {
   const { t, i18n } = useTranslation();
@@ -26,9 +25,9 @@ const Audit = () => {
               <span>${item.MarketValue}</span>
               <div className="flex gap-2">
                 <span>{moment(item?.UpdatedAt ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}</span>
-                <a href={item.Url} target="_blank">
+                {/* <a href={item.Url} target="_blank">
                   <WrapperImg src="/assets/pdf.png" width={25} />
-                </a>
+                </a> */}
               </div>
             </div>
             <Divider />

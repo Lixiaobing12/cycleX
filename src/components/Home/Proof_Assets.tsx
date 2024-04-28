@@ -29,9 +29,9 @@ const Table = () => {
       render: (value, row) => (
         <div className="flex items-center">
           <span className="flex-1">{i18n.language === "en" ? row.NameDct?.en : row.NameDct?.zh}</span>
-          <div className="w-6 h-6">
+          {/* <div className="w-6 h-6">
             <img src="/assets/pdf.png" className="w-[20px] h-[20px] absolute" />
-          </div>
+          </div> */}
         </div>
       ),
     },

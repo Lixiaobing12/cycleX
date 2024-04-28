@@ -381,7 +381,7 @@ const Up = () => {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [inviteCode, setInviteCode] = useState("");
-  const [phonePrefix, setPhonePrefix] = useState("0");
+  const [phonePrefix, setPhonePrefix] = useState("1");
   const [isAgree, setAgree] = useState(false);
   const [validateStatus, setStatus] = useState("validating");
   const [sendAndCountDown, setCountDownShow] = useState(false);
@@ -905,7 +905,7 @@ const ForgotPhone = () => {
   const [newPassword, setNewPassword] = useState("");
   const [validateStatus, setStatus] = useState("validating");
   const [vilid, setVilid] = useState(false);
-  const [phonePrefix, setPhonePrefix] = useState("0");
+  const [phonePrefix, setPhonePrefix] = useState("1");
   const [sendAndCountDown, setCountDownShow] = useState(false);
   const [toast] = useAtom(messageContext);
   const { handleTranslate } = useTranslateLocalStorage();

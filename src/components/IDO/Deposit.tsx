@@ -486,7 +486,8 @@ const Deposit = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  WFC Report <WrapperImg src="/assets/goto.png" width={12} />
+                  WFC Report 
+                  {/* <WrapperImg src="/assets/goto.png" width={12} /> */}
                 </div>
               </div>
 

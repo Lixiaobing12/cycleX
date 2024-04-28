@@ -284,9 +284,9 @@ const HeaderComponent = () => {
             <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/airdrop")}>
               {t("Airdrop")}
             </div>
-            <div className="cursor-pointer  hover:scale-105 relative" onClick={() => navigate("/ido")}>
+            <div className="cursor-pointer  hover:scale-105 flex items-center gap-1" onClick={() => navigate("/ido")}>
               IDO
-              <img src="/assets/hot.png" width={15} className="absolute top-1 right-[-10px]" alt="" />
+              <img src="/assets/hot.png" width={15} alt="" />
             </div>
           </Space>
         </div>
