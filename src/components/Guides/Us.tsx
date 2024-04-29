@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 const Us = () => {
   const {t} = useTranslation()
   return (
-    <div className="w-full text-black md:p-8">
+    <div className="w-full text-black md:p-8" id="us">
       <h1 className="font-bold font-whalebold text-3xl mb-2">{t("Welcome to CycleX")}</h1>
       <p className="py-4">{t("CycleX is committed to creating a transparent and secure tokenized asset trading platform, allowing users to hold global high-quality assets more conveniently no matter where they are in the world.")}</p>
       <p className="py-4">

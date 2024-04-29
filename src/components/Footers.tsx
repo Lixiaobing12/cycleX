@@ -67,9 +67,9 @@ const Footers = () => {
             </div>
             <div className="flex flex-col gap-4">
               <div>{t("Support")}</div>
-              <div onClick={() => navigate("/guide#us")} className="cursor-pointer">
+              {/* <div onClick={() => navigate("/guide#us")} className="cursor-pointer">
                 {t("Contact us")}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

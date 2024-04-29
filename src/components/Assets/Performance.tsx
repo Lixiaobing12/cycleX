@@ -135,7 +135,7 @@ const KLine = () => {
   }, [activeItem]);
   return (
     <div className="w-full pt-10 h-full" id="pv">
-      <div className="flex gap-6 w-full">
+      <div className="flex gap-6 w-full flex-wrap">
         <WrapperButton click={() => setItem(40)} isActive={activeItem === 40}>
           {t("All")}
         </WrapperButton>

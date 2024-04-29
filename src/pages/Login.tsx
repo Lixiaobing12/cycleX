@@ -30,6 +30,7 @@ const SafetyInput: React.FC<{
   const [toast] = useAtom(messageContext);
 
   const [newPassword, setNewPassword] = useState("");
+  const [inputsAreCorrect, setCorrent] = useState(false);
   const [vilid, setVilid] = useState(false);
   const { handleTranslate } = useTranslateLocalStorage();
   const [sending, setSending] = useState(false);
@@ -201,15 +202,31 @@ const SafetyInput: React.FC<{
             }
           />
         </Form.Item>
-        <Form.Item label={t("Payment password")}>
+
+        <Form.Item label={t("Payment password")}
+          help={
+            <div className={`ml-4 ${!inputsAreCorrect ? 'text-threePranentTransblack' : 'text-green'}`}>
+              <ul>
+                <li>6 digits</li>
+              </ul>
+            </div>
+          }>
           <Input
             className="placeholder:text-sm placeholder:text-greyblack"
             type="password"
             autoComplete="new-password"
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length === 6 && Number(e.target.value)) {
+                setCorrent(true)
+              } else {
+                setCorrent(false)
+              }
+              setNewPassword(e.target.value)
+            }}
             size="large"
             placeholder={t("Please enter a new password")}
           />
+
         </Form.Item>
         <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
           <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
@@ -364,7 +381,7 @@ const Up = () => {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [inviteCode, setInviteCode] = useState("");
-  const [phonePrefix, setPhonePrefix] = useState("0");
+  const [phonePrefix, setPhonePrefix] = useState("1");
   const [isAgree, setAgree] = useState(false);
   const [validateStatus, setStatus] = useState("validating");
   const [sendAndCountDown, setCountDownShow] = useState(false);
@@ -521,27 +538,28 @@ const Up = () => {
       }
     }
   };
+
   useEffect(() => {
     request.get("/api/msgProvideCountry/getList").then(({ data }: any) => {
       setOptions(
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en === "Chain" ? "China" : item.name_en,
-                title: item.name_en === "Chain" ? "China" : item.name_en,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name_en === "Chain" ? "China" : item.name_en,
+              title: item.name_en === "Chain" ? "China" : item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
             : {
-                label: item.name,
-                title: item.name,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
         )
       );
     });
@@ -867,7 +885,7 @@ const ForgotEmail = () => {
             </Form.Item>
           </Col>
           <Form.Item>
-            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!email || !code || loading} onClick={confirm}>
+            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!email || !code || loading || !vilid} onClick={confirm}>
               <Loader spinning={loading} />
               {t("Confirm modification")}
             </button>
@@ -887,7 +905,7 @@ const ForgotPhone = () => {
   const [newPassword, setNewPassword] = useState("");
   const [validateStatus, setStatus] = useState("validating");
   const [vilid, setVilid] = useState(false);
-  const [phonePrefix, setPhonePrefix] = useState("0");
+  const [phonePrefix, setPhonePrefix] = useState("1");
   const [sendAndCountDown, setCountDownShow] = useState(false);
   const [toast] = useAtom(messageContext);
   const { handleTranslate } = useTranslateLocalStorage();
@@ -1001,21 +1019,21 @@ const ForgotPhone = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en === "Chain" ? "China" : item.name_en,
-                title: item.name_en === "Chain" ? "China" : item.name_en,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name_en === "Chain" ? "China" : item.name_en,
+              title: item.name_en === "Chain" ? "China" : item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
             : {
-                label: item.name,
-                title: item.name,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
         )
       );
     });
@@ -1088,7 +1106,7 @@ const ForgotPhone = () => {
           </Col>
 
           <Form.Item>
-            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!phoneNumber || !code} onClick={confirm}>
+            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!phoneNumber || !code || !vilid} onClick={confirm}>
               {t("Confirm modification")}
             </button>
           </Form.Item>
@@ -1212,7 +1230,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => {};
+  const confirm = () => { };
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>

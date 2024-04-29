@@ -47,6 +47,7 @@ function App() {
       {modalContextHolder}
       <Layout>
         <Header
+          className="glass"
           style={{
             position: "sticky",
             top: 0,
@@ -54,7 +55,6 @@ function App() {
             width: "100%",
             display: "flex",
             alignItems: "center",
-            background: "#fff",
             padding: "0",
             height: "auto",
           }}>

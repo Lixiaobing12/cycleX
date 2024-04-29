@@ -38,7 +38,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/next/, ""),
       },
       "/translate": {
-        target: "http://cycle.quliantechnology.com",
+        target: "https://cyclex.cc",
         changeOrigin: true,
       },
     },
