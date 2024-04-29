@@ -185,10 +185,10 @@ const IDO = () => {
                       <p>{t("Airdrop users will release 20% of the total amount of tokens within 6 months.")}</p>
                       <p>{t("The release plan is divided into three stages: 5%, 10% and 5% of the tokens are released respectively.")}</p>
                       <p className="mt-4">{t("Private placement user release")}:</p>
-                      <p>{t("Private placement users will release 30% of the total amount of tokens within 6 months.")}</p>
+                      <p>{t("Private placement users will release 30% of the total amount of tokens within 3 months.")}</p>
                       <p className="mt-4">{t("Locking mechanism")}:</p>
                       <p>{t("Team lock-in period: 6-24 months.")}</p>
-                      <p>{t("Lock-up period for private placement and airdrop users: 6 months.")}</p>
+                      <p>{t("Lock-up period for private placement and airdrop users: 3-6 months.")}</p>
                     </div>
                   </td>
                 </tr>

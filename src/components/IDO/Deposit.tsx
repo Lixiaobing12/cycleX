@@ -97,7 +97,7 @@ const ItemDeposit = () => {
         icon: <img src="/assets/error.png" width={30} />,
       });
     } else {
-      const min = 1000;
+      const min = 100;
       const balance = walletInfo?.balance;
       if (amount < Number(min)) {
         setDisabled(true);
@@ -159,7 +159,7 @@ const ItemDeposit = () => {
             setDisabled(false);
             setAmount(Number(e.target.value));
           }}
-          placeholder={`${t("Min Purchase")} 1000`}
+          placeholder={`${t("Min Purchase")} 100`}
         />
         <div className="absolute flex items-center right-4 gap-2">
           <div>
@@ -169,7 +169,7 @@ const ItemDeposit = () => {
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <div>{t("Minimum amount")}: 1000 USDT</div>
+        <div>{t("Minimum amount")}: 100 USDT</div>
         <div>1 USDT = 1000 WFC</div>
         <div>
           {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
