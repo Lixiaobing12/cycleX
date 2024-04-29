@@ -325,9 +325,9 @@ const Deposit = () => {
                 <div className="flex flex-col">
                   <div className="text-greyblack flex items-center">
                     <span>{item.name}</span>
-                    <div>
+                    {/* <div>
                       <WrapperImg src="/assets/question.png" width={12} />
-                    </div>
+                    </div> */}
                   </div>
                   <div className="text-black text-xl font-bold font-whalebold">{item.value}</div>
                 </div>
@@ -340,34 +340,34 @@ const Deposit = () => {
               <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
                 <div className="flex gap-2">
                   <span>{t("Audit Report")}</span>
-                  <div>
+                  {/* <div>
                     <WrapperImg src="/assets/question.png" width={12} />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="join-item flex justify-between p-2 text-greyblack border-b border-transblack">
                 <div className="flex gap-2">
                   <span>{t("fluidity")}</span>
-                  <div>
+                  {/* <div>
                     <WrapperImg src="/assets/question.png" width={12} />
-                  </div>
+                  </div> */}
                 </div>
                 <div>{t("Daily trading volume reaches $25 million")}</div>
               </div>
               <div className="join-item flex justify-between p-2 text-greyblack">
                 <div className="flex gap-2">
                   <span>{t("On-chain address")}</span>
-                  <div>
+                  {/* <div>
                     <WrapperImg src="/assets/question.png" width={12} />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex gap-2">
                   <div className="flex items-center gap-1">
                     <span>{product?.contract_address.replace(/^(.{6}).*(.{4})$/, "$1...$2")}</span>
-                    <WrapperImg src="/assets/copy.png" width={14} onClick={() => handleCopy(product?.contract_address ?? "")} />
-                    <a href={`https://etherscan.io/address/${product?.contract_address}`} target="_blank">
+                    {/* <WrapperImg src="/assets/copy.png" width={14} onClick={() => handleCopy(product?.contract_address ?? "")} /> */}
+                    {/* <a href={`https://etherscan.io/address/${product?.contract_address}`} target="_blank">
                       <WrapperImg src="/assets/goto.png" width={12} />
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
