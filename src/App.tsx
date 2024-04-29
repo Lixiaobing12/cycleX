@@ -47,7 +47,7 @@ function App() {
       {modalContextHolder}
       <Layout>
         <Header
-          className="glass"
+          className="iglass"
           style={{
             position: "sticky",
             top: 0,

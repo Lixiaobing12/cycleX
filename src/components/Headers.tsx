@@ -128,7 +128,7 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: <div className="flex gap-2">
+      label: <div className="flex gap-2 items-center">
         IDO
         <div><img src="/assets/hot.png" width={20} alt="" /></div>
       </div>,
@@ -267,7 +267,7 @@ const HeaderComponent = () => {
     <>
       <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack md:px-[4%] 2xl:px-[10%] pt-6">
         <div className="inline-flex md:justify-end md:items-center cursor-pointer gap-1" onClick={() => navigate("/")}>
-          <img src="/assets/loader.png" className="" width={30} alt="" />
+          <div><img src="/assets/loader.png" className="" width={30} height={30} alt="" /></div>
           <span className="font-bold text-2xl font-whalebold">CycleX</span>
         </div>
         <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20">

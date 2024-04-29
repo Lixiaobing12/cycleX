@@ -77,6 +77,10 @@ ul li {
   user-select: none;
 }
 
+.iglass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+}
 .head-item-pc {
   opacity: 0;
   visibility: hidden;
