@@ -15,28 +15,28 @@ import Loader from "../Loader";
 const SafetyInput: React.FC<{
   onSave: Function;
 }> = ({ onSave }) => {
-  const [words, setWords] = useState([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }])
-  const passwords = useRef('');
+  const [words, setWords] = useState([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }]);
+  const passwords = useRef("");
 
   const handleInput = ({ key, e }: { key: number; e: React.ChangeEvent<HTMLInputElement> }) => {
-    setWords(state => {
-      state[key].value = '*';
+    setWords((state) => {
+      state[key].value = "*";
       return [...state];
-    })
+    });
     passwords.current += e.target.value;
     if (key < 5) {
       (document.querySelector(`#dinput${key + 1}`) as any)?.focus();
     } else {
       (document.querySelector(`#dinput${key}`) as any)?.blur();
       onSave(passwords.current);
-    };
+    }
   };
   useEventListener("keydown", (evnet) => {
-    if (evnet.key === 'Delete' || evnet.key === 'Backspace') {
+    if (evnet.key === "Delete" || evnet.key === "Backspace") {
       for (let i = 5; i > -1; i--) {
         if (!!words[i].value) {
-          setWords(state => {
-            state[i].value = '';
+          setWords((state) => {
+            state[i].value = "";
             return [...state];
           });
           (document.querySelector(`#dinput${i}`) as any)?.focus();
@@ -44,10 +44,10 @@ const SafetyInput: React.FC<{
         }
       }
     }
-  })
+  });
   useEffect(() => {
     (document.querySelector(`#dinput0`) as any)?.focus();
-  }, [])
+  }, []);
   return (
     <div className="flex items-center gap-2 w-full justify-center">
       {words.map((item, key) => (
@@ -171,7 +171,7 @@ const ItemDeposit = () => {
                 .then(() => {
                   context.destroy();
                 })
-                .catch(() => { });
+                .catch(() => {});
             }}>
             <Loader spinning={loading} />
             {t("confirm")}
@@ -206,7 +206,14 @@ const ItemDeposit = () => {
       </div>
       <div className="flex flex-col gap-1">
         <div>{t("Minimum amount")}: 100 USDT</div>
-        <div>1 USDT = 1000 WFC</div>
+        {amount > 0 ? (
+          <div>
+            {amount} USDT = {(amount * 1000).toFixed(2)} WFC
+          </div>
+        ) : (
+          <div>1 USDT = 1000 WFC</div>
+        )}
+
         <div>
           {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
         </div>
@@ -325,7 +332,7 @@ const ItemParticipate = () => {
     <div className="flex-auto flex flex-col gap-4  text-greyblack">
       <div className="w-full relative flex flex-col text-xs">
         <Table columns={columns} dataSource={records} className="w-full" pagination={false} scroll={{ x: 500, y: 500 }} rowKey="Presale.ID" />
-        {records.length>0 && (
+        {records.length > 0 && (
           <div className="text-right">
             <Pagination simple total={page.total} onChange={handleChange} />
           </div>
@@ -486,7 +493,7 @@ const Deposit = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  WFC Report 
+                  WFC Report
                   {/* <WrapperImg src="/assets/goto.png" width={12} /> */}
                 </div>
               </div>
