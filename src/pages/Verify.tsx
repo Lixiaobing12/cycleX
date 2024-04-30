@@ -95,6 +95,10 @@ const Verify = () => {
   };
 
   const confirm = () => {
+    if(loading) return;
+    if(!info.real_name) return;
+    if(!info.certificate) return;
+    if(!info.cardnumber) return ;
     setLoading(true);
     request
       .post("/api/api/usercertification/createPerson", {
@@ -138,6 +142,7 @@ const Verify = () => {
         action({ type: "cardnumber", value: data.data.cardnumber });
         action({ type: "nationality", value: data.data.nationality });
         action({ type: "status", value: data.data.status });
+        console.log('status', data.data.status)
       }
     });
   };
@@ -256,7 +261,7 @@ const Verify = () => {
           <Col xs={{ span: 24 }} md={{ span: 10 }}>
             <Form.Item>
               <div className="flex justify-center">
-                <button className="btn btn-wide border-o text-white disabled:text-white" disabled={info.status === 1 || info.status === 2 || info.status === 2} onClick={confirm}>
+                <button className="btn btn-wide border-o text-white bg-black disabled:text-white" disabled={info.status === 1 || info.status === 2} onClick={confirm}>
                   {info.status === 1 ? t("Under review") : info.status === 2 ? t("Certification successful") : info.status === 3 ? t("Resubmit") : t("submit")}
                 </button>
               </div>
