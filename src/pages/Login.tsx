@@ -204,9 +204,10 @@ const SafetyInput: React.FC<{
           />
         </Form.Item>
 
-        <Form.Item label={t("Payment password")}
+        <Form.Item
+          label={t("Payment password")}
           help={
-            <div className={`ml-4 ${!inputsAreCorrect ? 'text-threePranentTransblack' : 'text-green'}`}>
+            <div className={`ml-4 ${!inputsAreCorrect ? "text-threePranentTransblack" : "text-green"}`}>
               <ul>
                 <li>6 digits</li>
               </ul>
@@ -218,22 +219,21 @@ const SafetyInput: React.FC<{
             autoComplete="new-password"
             onChange={(e) => {
               if (e.target.value.length === 6 && Number(e.target.value)) {
-                setCorrent(true)
+                setCorrent(true);
               } else {
-                setCorrent(false)
+                setCorrent(false);
               }
-              setNewPassword(e.target.value)
+              setNewPassword(e.target.value);
             }}
             size="large"
             placeholder={t("New password")}
           />
-
         </Form.Item>
         <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
           <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
         </Form.Item>
         <Form.Item>
-          <button className="btn btn-block m-auto mt-4 disabled:text-black-800" onClick={checkSecurity}>
+          <button className="btn btn-block m-auto mt-4 disabled:text-black-800" disabled={!vilid || !inputsAreCorrect} onClick={checkSecurity}>
             <Loader spinning={loading} />
             {t("confirm")}
           </button>
@@ -307,12 +307,7 @@ const In = () => {
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
           <Form.Item label={t("Username")}>
-            <Input
-              className="placeholder:text-sm placeholder:text-greyblack"
-              onChange={(e) => setNickName(e.target.value)}
-              size="large"
-              placeholder={t("Email or Mobile phone number")}
-            />
+            <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Email or Mobile phone number")} />
           </Form.Item>
           <Form.Item noStyle>
             <div className="flex w-full flex-col mb-10">
@@ -546,21 +541,21 @@ const Up = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-              label: item.name_en === "Chain" ? "China" : item.name_en,
-              title: item.name_en === "Chain" ? "China" : item.name_en,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name_en === "Chain" ? "China" : item.name_en,
+                title: item.name_en === "Chain" ? "China" : item.name_en,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
             : {
-              label: item.name,
-              title: item.name,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name,
+                title: item.name,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
         )
       );
     });
@@ -888,7 +883,10 @@ const ForgotEmail = () => {
             </Form.Item>
           </Col>
           <Form.Item>
-            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!email || !code || loading || !vilid} onClick={confirm}>
+            <button
+              className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800"
+              disabled={!email || !code || loading || !vilid}
+              onClick={confirm}>
               <Loader spinning={loading} />
               {t("Confirm modification")}
             </button>
@@ -1022,21 +1020,21 @@ const ForgotPhone = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-              label: item.name_en === "Chain" ? "China" : item.name_en,
-              title: item.name_en === "Chain" ? "China" : item.name_en,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name_en === "Chain" ? "China" : item.name_en,
+                title: item.name_en === "Chain" ? "China" : item.name_en,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
             : {
-              label: item.name,
-              title: item.name,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name,
+                title: item.name,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
         )
       );
     });
@@ -1111,7 +1109,10 @@ const ForgotPhone = () => {
           </Col>
 
           <Form.Item>
-            <button className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!phoneNumber || !code || !vilid} onClick={confirm}>
+            <button
+              className="btn btn-block border-0 hover:bg-[#303030] bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800"
+              disabled={!phoneNumber || !code || !vilid}
+              onClick={confirm}>
               {t("Confirm modification")}
             </button>
           </Form.Item>
@@ -1235,7 +1236,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => { };
+  const confirm = () => {};
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>

@@ -87,6 +87,7 @@ const SettingKey: React.FC<{
   };
 
   const checkSecurity = async () => {
+    if (!vilid) return;
     if (!code) {
       setCodeItemStatus("warning");
       return;
@@ -212,7 +213,7 @@ const SettingKey: React.FC<{
           <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
         </Form.Item>
         <Form.Item>
-          <button className="btn btn-block m-auto mt-4 disabled:text-black-800" onClick={checkSecurity}>
+          <button className="btn btn-block m-auto mt-4 disabled:text-black-800" disabled={!vilid || !inputsAreCorrect} onClick={checkSecurity}>
             <Loader spinning={loading} />
             {t("confirm")}
           </button>
