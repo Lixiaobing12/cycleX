@@ -13,8 +13,15 @@ function isTaiwanPhone(phone: string) {
   return regex.test(phone);
 }
 
+function isNorthAmericanPhone(phone: string) {
+  const regex = /^[2-9][0-9]{2}[2-9][0-9]{2}[0-9]{4}$/;
+  return regex.test(phone);
+}
+
 export const validPhoneNumber = (code: number, phone: string): boolean => {
   switch (code) {
+    case 1:
+      return isNorthAmericanPhone(phone);
     case 86:
       return isChinaMobilePhone(phone);
     case 852:
