@@ -12,6 +12,7 @@ import UserAgreement from "../components/Login/UserAgreement";
 import useLocalStorage, { useTranslateLocalStorage } from "../hooks/localStorage";
 import useAccounts from "../hooks/user";
 import { request } from "../utils/request";
+import { validPhoneNumber } from "../utils/validMobildPhone";
 
 const tabTypes = atom<"Sign" | "Forgot" | "Revise">("Sign");
 
@@ -181,7 +182,7 @@ const SafetyInput: React.FC<{
           <Input
             onChange={(e) => setCode(e.target.value)}
             size="large"
-            placeholder={t("please enter verification code")}
+            placeholder={t("Verification Code")}
             suffix={
               sendAndCountDown ? (
                 <Countdown
@@ -224,12 +225,12 @@ const SafetyInput: React.FC<{
               setNewPassword(e.target.value)
             }}
             size="large"
-            placeholder={t("Please enter a new password")}
+            placeholder={t("New password")}
           />
 
         </Form.Item>
         <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-          <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+          <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
         </Form.Item>
         <Form.Item>
           <button className="btn btn-block m-auto mt-4 disabled:text-black-800" onClick={checkSecurity}>
@@ -310,7 +311,7 @@ const In = () => {
               className="placeholder:text-sm placeholder:text-greyblack"
               onChange={(e) => setNickName(e.target.value)}
               size="large"
-              placeholder={t("Please enter your email or mobile phone number")}
+              placeholder={t("Email or Mobile phone number")}
             />
           </Form.Item>
           <Form.Item noStyle>
@@ -605,7 +606,7 @@ const Up = () => {
             ) : (
               <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
                 <Input
-                  className="placeholder:text-sm placeholder:text-greyblack"
+                  className="placeholder:text-sm placeholder:text-greyblack text-sm"
                   key="phone"
                   addonBefore={
                     <div className="min-w-10">
@@ -617,20 +618,22 @@ const Up = () => {
                     </div>
                   }
                   onChange={(e) => {
-                    setStatus("validating");
                     setPhoneNumber(e.target.value);
+                    const correct = validPhoneNumber(+phonePrefix, e.target.value);
+                    if (!correct) setStatus("warning");
+                    else setStatus("validating");
                   }}
                   size="large"
-                  placeholder={t("Please enter phone number")}
+                  placeholder={t("Phone Number")}
                 />
               </Form.Item>
             )}
             <Form.Item label={t("Verification code")}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack"
+                className="placeholder:text-sm placeholder:text-greyblack text-sm"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
-                placeholder={t("please enter verification code")}
+                placeholder={t("Verification Code")}
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
@@ -846,10 +849,10 @@ const ForgotEmail = () => {
 
             <Form.Item label={t("Verification code")}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack"
+                className="placeholder:text-sm placeholder:text-greyblack text-sm"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
-                placeholder={t("please enter verification code")}
+                placeholder={t("Verification Code")}
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
@@ -877,11 +880,11 @@ const ForgotEmail = () => {
                 autoComplete="new-password"
                 onChange={(e) => setNewPassword(e.target.value)}
                 size="large"
-                placeholder={t("Please enter a new password")}
+                placeholder={t("New password")}
               />
             </Form.Item>
             <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
             </Form.Item>
           </Col>
           <Form.Item>
@@ -1045,7 +1048,7 @@ const ForgotPhone = () => {
           <Col className={`${loading && "opacity-30	pointer-events-none"}`}>
             <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack"
+                className="placeholder:text-sm placeholder:text-greyblack text-sm"
                 key="phone"
                 addonBefore={
                   <div className="min-w-10">
@@ -1057,19 +1060,21 @@ const ForgotPhone = () => {
                   </div>
                 }
                 onChange={(e) => {
-                  setStatus("validating");
                   setPhoneNumber(e.target.value);
+                  const correct = validPhoneNumber(+phonePrefix, e.target.value);
+                  if (!correct) setStatus("warning");
+                  else setStatus("validating");
                 }}
                 size="large"
-                placeholder={t("Please enter phone number")}
+                placeholder={t("Phone Number")}
               />
             </Form.Item>
             <Form.Item label={t("Verification code")}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack"
+                className="placeholder:text-sm placeholder:text-greyblack text-sm"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
-                placeholder={t("please enter verification code")}
+                placeholder={t("Verification Code")}
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
@@ -1097,11 +1102,11 @@ const ForgotPhone = () => {
                 autoComplete="new-password"
                 onChange={(e) => setNewPassword(e.target.value)}
                 size="large"
-                placeholder={t("Please enter a new password")}
+                placeholder={t("New password")}
               />
             </Form.Item>
             <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
             </Form.Item>
           </Col>
 
@@ -1241,10 +1246,10 @@ const Revise = () => {
               <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setOldPassword(e.target.value)} size="large" placeholder={t("Please enter old password")} />
             </Form.Item>
             <Form.Item label={t("New Password")}>
-              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("Please enter a new password")} />
+              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("New password")} />
             </Form.Item>
             <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "error" : "success"}>
-              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={onVilid} size="large" placeholder={t("Please enter new password again")} />
+              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
             </Form.Item>
             <Form.Item>
               <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!vilid} onClick={confirm}>
