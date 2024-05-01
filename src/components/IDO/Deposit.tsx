@@ -1,4 +1,5 @@
-import { Pagination, Table, TableProps, Tabs } from "antd";
+import { Form, Input, Pagination, Table, TableProps, Tabs } from "antd";
+import Countdown from "antd/es/statistic/Countdown";
 import { useAtom } from "jotai";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
@@ -12,12 +13,244 @@ import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 import Loader from "../Loader";
 
+const SettingKey: React.FC<{
+  onComplate: () => void;
+}> = ({ onComplate }) => {
+  const [, userInfo] = useAccounts();
+  /** 1:email
+   * 2:phone
+   */
+  const [emailOrPhone, setAccountType] = useState(1);
+  const [nickname, setNickName] = useState("");
+  const { t, i18n } = useTranslation();
+  const [form] = Form.useForm();
+  const [toast] = useAtom(messageContext);
+
+  const [newPassword, setNewPassword] = useState("");
+  const [inputsAreCorrect, setCorrent] = useState(false);
+  const [vilid, setVilid] = useState(false);
+  const { handleTranslate } = useTranslateLocalStorage();
+  const [sending, setSending] = useState(false);
+  const [code, setCode] = useState("");
+  const [sendAndCountDown, setCountDownShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [codeItemStatus, setCodeItemStatus] = useState("validating");
+
+  const onVilid = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === newPassword) {
+      setVilid(true);
+    } else {
+      setVilid(false);
+    }
+  };
+  const sendCode = async () => {
+    /** 验证码 */
+    const registerCode = async () => {
+      try {
+        setSending(true);
+        const { data } = await request.post("/api/api/msgSms/securityCode", {
+          type: emailOrPhone === 1 ? "email" : "mobile",
+          username: nickname,
+        });
+        setSending(false);
+
+        if (data.res_code !== 0) {
+          if (i18n.language === "en") {
+            toast?.warning({
+              message: await handleTranslate(data.res_msg),
+              icon: <img src="/assets/error.png" width={30} />,
+            });
+          } else {
+            toast?.warning({
+              message: data.res_msg,
+              icon: <img src="/assets/error.png" width={30} />,
+            });
+          }
+        } else {
+          setCountDownShow(true);
+        }
+      } catch (err: any) {
+        if (i18n.language === "en") {
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err.response.data.message,
+          });
+        } else {
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err.response.data.message,
+          });
+        }
+      }
+    };
+    await registerCode();
+  };
+
+  const checkSecurity = async () => {
+    if (!code) {
+      setCodeItemStatus("warning");
+      return;
+    } else {
+      setCodeItemStatus("validating");
+      if (loading) return;
+      setLoading(true);
+      try {
+        const { data } = await request.post("/api/api/my/changeSecurityPassword", {
+          type: emailOrPhone === 1 ? "email" : "mobile",
+          username: nickname,
+          security_password: newPassword,
+          security_password_confirmation: newPassword,
+          verify_code: code,
+        });
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+
+        if (data.res_code !== 0) {
+          if (i18n.language === "en") {
+            toast?.warning({
+              message: await handleTranslate(data.res_msg),
+              icon: <img src="/assets/error.png" width={30} />,
+            });
+          } else {
+            toast?.warning({
+              message: data.res_msg,
+              icon: <img src="/assets/error.png" width={30} />,
+            });
+          }
+        } else {
+          toast?.success({
+            icon: <img src="/assets/success.png" width={30} />,
+            message: t("registration success"),
+          });
+          onComplate();
+        }
+      } catch (err: any) {
+        setLoading(false);
+        if (i18n.language === "en") {
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err?.response.data?.message,
+          });
+        } else {
+          toast?.error({
+            icon: <img src="/assets/error.png" width={30} />,
+            message: err?.response.data?.message,
+          });
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    if (userInfo?.email) {
+      setAccountType(1);
+      setNickName(userInfo.email);
+    } else if (userInfo?.mobile) {
+      setAccountType(2);
+      setNickName(userInfo.mobile);
+    }
+  }, [userInfo]);
+  return (
+    <div>
+      <Form form={form} layout="vertical" autoComplete="off">
+        <Form.Item label={t("Account")}>
+          <Input className="placeholder:text-sm placeholder:text-greyblack" type="text" readOnly size="large" value={nickname} />
+        </Form.Item>
+        <Form.Item label={t("Verification code")} validateStatus={codeItemStatus as any}>
+          <Input
+            onChange={(e) => setCode(e.target.value)}
+            size="large"
+            placeholder={t("Verification Code")}
+            suffix={
+              sendAndCountDown ? (
+                <Countdown
+                  value={Date.now() + 60 * 1000}
+                  format="ss"
+                  suffix="s"
+                  valueStyle={{
+                    fontSize: "14px",
+                    color: "#193CF6",
+                  }}
+                  onFinish={() => setCountDownShow(false)}
+                />
+              ) : (
+                <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                  {sending ? <Loader spinning={sending} /> : t("Send")}
+                </a>
+              )
+            }
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={t("Payment password")}
+          help={
+            <div className={`ml-4 ${!inputsAreCorrect ? "text-threePranentTransblack" : "text-green"}`}>
+              <ul>
+                <li>6 digits</li>
+              </ul>
+            </div>
+          }>
+          <Input
+            className="placeholder:text-sm placeholder:text-greyblack"
+            type="password"
+            autoComplete="new-password"
+            onChange={(e) => {
+              if (e.target.value.length === 6 && Number(e.target.value)) {
+                setCorrent(true);
+              } else {
+                setCorrent(false);
+              }
+              setNewPassword(e.target.value);
+            }}
+            size="large"
+            placeholder={t("New password")}
+          />
+        </Form.Item>
+        <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
+          <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
+        </Form.Item>
+        <Form.Item>
+          <button className="btn btn-block m-auto mt-4 disabled:text-black-800" onClick={checkSecurity}>
+            <Loader spinning={loading} />
+            {t("confirm")}
+          </button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
 const SafetyInput: React.FC<{
   onSave: Function;
 }> = ({ onSave }) => {
   const [words, setWords] = useState([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }]);
   const passwords = useRef("");
+  const { t } = useTranslation();
+  const [modal] = useAtom(modalContext);
 
+  const open = () => {
+    const context: any = modal?.info({
+      closable: true,
+      icon: <></>,
+      onCancel: () => context.destroy(),
+      title: <h1 className="w-full py-2 text-center text-lg">{t("Payment password settings")}</h1>,
+      content: (
+        <SettingKey
+          onComplate={() => {
+            context.destroy();
+          }}
+        />
+      ),
+      centered: true,
+      footer: null,
+      styles: {
+        body: {
+          width: "100%",
+        },
+      },
+    });
+  };
   const handleInput = ({ key, e }: { key: number; e: React.ChangeEvent<HTMLInputElement> }) => {
     setWords((state) => {
       state[key].value = "*";
@@ -49,10 +282,17 @@ const SafetyInput: React.FC<{
     (document.querySelector(`#dinput0`) as any)?.focus();
   }, []);
   return (
-    <div className="flex items-center gap-2 w-full justify-center">
-      {words.map((item, key) => (
-        <input type="text" className="input border-black w-12 bg-white" value={words[key].value} onChange={(e) => handleInput({ e, key })} key={key} id={`dinput${key}`} autoComplete="off" />
-      ))}
+    <div>
+      <div className="flex items-center gap-2 w-full justify-center">
+        {words.map((item, key) => (
+          <input type="text" className="input border-black w-12 bg-white" value={words[key].value} onChange={(e) => handleInput({ e, key })} key={key} id={`dinput${key}`} autoComplete="off" />
+        ))}
+      </div>
+      <div className="my-1 text-right">
+        <a className="text-[#193CF6]" onClick={open}>
+          {t("Forget")}
+        </a>
+      </div>
     </div>
   );
 };
@@ -94,22 +334,51 @@ const ItemDeposit = () => {
       });
 
       if (data.code !== 0) {
+        let msg = data.msg;
         if (i18n.language === "en") {
-          toast?.warning({
-            message: await handleTranslate(data.msg),
-            icon: <img src="/assets/error.png" width={30} />,
-          });
-        } else {
-          toast?.warning({
-            message: data.msg,
-            icon: <img src="/assets/error.png" width={30} />,
-          });
+          msg = await handleTranslate(data.msg);
         }
+        const context: any = modal?.info({
+          closable: true,
+          icon: <img src="/assets/error.png" width={30} />,
+          onCancel: () => context.destroy(),
+          title: <div className="ml-2 text-lg">{t("Warning")}</div>,
+          content: <div className="my-6 text-lg text-center">{msg}</div>,
+          centered: true,
+          footer: () => (
+            <div className="text-center">
+              <button className="btn btn-sm btn-wide bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack" onClick={context.destroy}>
+                {t("confirm")}
+              </button>
+            </div>
+          ),
+          styles: {
+            body: {
+              width: "100%",
+            },
+          },
+        });
         return Promise.reject();
       } else {
-        toast?.success({
+        const context: any = modal?.info({
+          closable: true,
           icon: <img src="/assets/success.png" width={30} />,
-          message: t("Congratulations on your successful participation!"),
+          onCancel: () => context.destroy(),
+          title: <div className="ml-2 text-lg">{t("Success")}</div>,
+          content: <div className="my-6 text-lg text-center">{t("Congratulations on your successful participation!")}</div>,
+          centered: true,
+          footer: () => (
+            <div className="text-center">
+              <button className="btn btn-sm btn-wide bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack" onClick={context.destroy}>
+                {t("confirm")}
+              </button>
+            </div>
+          ),
+          styles: {
+            body: {
+              width: "100%",
+            },
+          },
         });
       }
       setTimeout(() => {
