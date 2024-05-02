@@ -105,7 +105,7 @@ const Wallet = () => {
             <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">USDT-ERC20</div>
 
             <div className="mt-4">{t("Recharge address")}</div>
-            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 truncate">
+            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 text-sm overflow-auto pointer-events-auto">
               <WrapperImg src="/assets/copy-active.png" width={18} onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
               {walletInfo?.wallet_account_address}
             </div>
