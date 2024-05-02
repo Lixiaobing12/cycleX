@@ -97,7 +97,7 @@ const Wallet = () => {
 
           <div className="w-full p-2 flex flex-col gap-2 mt-4">
             <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">
-              <img src="/assets/usdt.png" width={22} alt="" />
+              <img src="/assets/usdt.png" width={16} alt="" />
               <span>USDT</span>
             </div>
 
@@ -125,7 +125,7 @@ const Wallet = () => {
             </div>
 
             <div className="mt-4 text-center">
-              <button className="btn btn-widt" onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")}>
+              <button className="btn btn-widt text-xs btn-sm" onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")}>
                 {t("Copy address")}
               </button>
             </div>
