@@ -422,7 +422,7 @@
   "Recharge network": "充值网络",
   "Recharge address": "充值地址",
   "Minimum recharge amount": "最小充值额度",
-  "Number of block confirmations": "区块确认数",
+  "Block Confirmations": "区块确认数",
   "You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.": "您只能向此地址充入USDT-ERC20，充入其他资产将无法找回",
   "Copy address": "复制地址",
   "my assets": "我的资产",

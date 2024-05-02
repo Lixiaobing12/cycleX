@@ -90,10 +90,10 @@ const Wallet = () => {
       width: 600,
       maskClosable: true,
       content: (
-        <div className="w-full flex flex-col items-center pointer-events-auto relative">
+        <div className="w-full flex flex-col items-center pointer-events-auto relative text-xs">
           <img src="/assets/close.png" className="absolute cursor-pointer top-0 right-0" width={25} onClick={() => context.destroy()} />
 
-          <strong className="text-2xl">Recharge</strong>
+          <strong className="text-xl">Recharge</strong>
 
           <div className="w-full p-2 flex flex-col gap-2 mt-4">
             <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">
@@ -116,7 +116,7 @@ const Wallet = () => {
                 <span>{Number(rechargeInfo?.deposit_min).toFixed(2)} USDT</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-threePranentTransblack">{t("Number of block confirmations")}</span>
+                <span className="text-threePranentTransblack">{t("Block Confirmations")}</span>
                 <span>{i18n.language === "en" ? rechargeInfo?.deposit_account_dct?.en : rechargeInfo?.deposit_account_dct?.zh}</span>
               </div>
             </div>
