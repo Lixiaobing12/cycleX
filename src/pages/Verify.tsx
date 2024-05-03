@@ -18,7 +18,7 @@ const Verify = () => {
     /** 国家 */
     nationality: 1,
     /** 证件类型 */
-    certificate: "",
+    certificate: "ID",
     /** 证件号码 */
     cardnumber: "",
     /** 审核状态 */
@@ -95,10 +95,11 @@ const Verify = () => {
   };
 
   const confirm = () => {
-    if(loading) return;
-    if(!info.real_name) return;
-    if(!info.certificate) return;
-    if(!info.cardnumber) return ;
+    console.log(info.real_name, info.certificate, info.cardnumber)
+    if (loading) return;
+    if (!info.real_name) return;
+    if (!info.certificate) return;
+    if (!info.cardnumber) return;
     setLoading(true);
     request
       .post("/api/api/usercertification/createPerson", {
@@ -142,7 +143,6 @@ const Verify = () => {
         action({ type: "cardnumber", value: data.data.cardnumber });
         action({ type: "nationality", value: data.data.nationality });
         action({ type: "status", value: data.data.status });
-        console.log('status', data.data.status)
       }
     });
   };
@@ -192,7 +192,8 @@ const Verify = () => {
             <Form.Item label={t("type of certificate")}>
               <Select
                 disabled={info.status === 1 || info.status === 2}
-                defaultValue="ID"
+                value={info.certificate}
+                onChange={e => action({ type: "certificate", value: e })}
                 options={[
                   { value: "ID", label: t("ID card") },
                   { value: "PO", label: t("passport") },
@@ -217,7 +218,7 @@ const Verify = () => {
                   <Dragger {...BackProps}>
                     {idBackImg ? (
                       <div>
-                        <img src={idBackImg} alt="" />
+                        <img src={idBackImg} alt="" className="w-full h-44" />
                       </div>
                     ) : (
                       <div className="flex flex-col items-center">
@@ -241,7 +242,7 @@ const Verify = () => {
                   <Dragger {...FrontProps}>
                     {idFrontImg ? (
                       <div>
-                        <img src={idFrontImg} className="h-[200px]" alt="" />
+                        <img src={idFrontImg} alt="" className="w-full h-44" />
                       </div>
                     ) : (
                       <div className="flex flex-col items-center">
