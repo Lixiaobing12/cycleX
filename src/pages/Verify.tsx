@@ -1,4 +1,4 @@
-import { Col, Form, Input, Row, Select, Upload, UploadProps } from "antd";
+import { Col, Form, Input, Row, Select, Spin, Upload, UploadProps } from "antd";
 import { useAtom } from "jotai";
 import { useEffect, useReducer, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,8 @@ const Verify = () => {
   const { t, i18n } = useTranslation();
   const { handleTranslate } = useTranslateLocalStorage();
   const [loading, setLoading] = useState(false);
+  const [frontLoading, setFrontLoading] = useState(false);
+  const [backLoading, setBackLoading] = useState(false);
   const defaultInfo = {
     /** 真实姓名 */
     real_name: "",
@@ -52,13 +54,27 @@ const Verify = () => {
     action: "/api/api/upload",
     itemRender: () => <div></div>,
     onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+      const { status, size } = info.file;
+      const mb = (size || 0) / 1024 / 1024;
+
+      if (mb >= 10) {
+        return toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: `over-size`,
+        });
       }
-      if (status === "done") {
+
+      if (status === 'uploading') {
+        setBackLoading(true);
+      }
+
+      if (status === "done" && mb < 10) {
+        setBackLoading(false);
         setBackImg(info.file.response.data);
-      } else if (status === "error") {
+      }
+
+      if (status === "error") {
+        setBackLoading(false);
         toast?.error({
           icon: <img src="/assets/error.png" width={30} />,
           message: `file upload failed`,
@@ -76,16 +92,30 @@ const Verify = () => {
     action: "/api/api/upload",
     itemRender: () => <div></div>,
     onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+      const { status, size } = info.file;
+      const mb = (size || 0) / 1024 / 1024;
+
+      if (mb >= 10) {
+        return toast?.error({
+          icon: <img src="/assets/error.png" width={30} />,
+          message: `over-size`,
+        });
       }
-      if (status === "done") {
+
+      if (status === 'uploading') {
+        setFrontLoading(true);
+      }
+
+      if (status === "done" && mb < 10) {
+        setFrontLoading(false);
         setFrontImg(info.file.response.data);
-      } else if (status === "error") {
+      }
+
+      if (status === "error") {
+        setFrontLoading(false);
         toast?.error({
           icon: <img src="/assets/error.png" width={30} />,
-          message: `${info.file.name} file upload failed.`,
+          message: `file upload failed`,
         });
       }
     },
@@ -221,13 +251,15 @@ const Verify = () => {
                         <img src={idBackImg} alt="" className="w-full h-44" />
                       </div>
                     ) : (
-                      <div className="flex flex-col items-center">
-                        <p className="ant-upload-drag-icon">
-                          <img src="/assets/upload.png" width={38} />
-                        </p>
-                        <p className="ant-upload-text">{t("Click to upload the national emblem")}</p>
-                        <p className="ant-upload-hint">{t("Please make sure the information in the photo is clear and there are no missing borders")}</p>
-                      </div>
+                      <Spin spinning={backLoading} indicator={<img src="/assets/loader.png" className="rotating-image" />}>
+                        <div className="flex flex-col items-center">
+                          <p className="ant-upload-drag-icon">
+                            <img src="/assets/upload.png" width={38} />
+                          </p>
+                          <p className="ant-upload-text">{t("Click to upload the national emblem")}</p>
+                          <p className="ant-upload-hint">{t("Please make sure the information in the photo is clear and there are no missing borders")}</p>
+                        </div>
+                      </Spin>
                     )}
                   </Dragger>
                 </div>
@@ -245,13 +277,15 @@ const Verify = () => {
                         <img src={idFrontImg} alt="" className="w-full h-44" />
                       </div>
                     ) : (
-                      <div className="flex flex-col items-center">
-                        <p className="ant-upload-drag-icon">
-                          <img src="/assets/upload.png" width={38} />
-                        </p>
-                        <p className="ant-upload-text">{t("Click to upload portrait")}</p>
-                        <p className="ant-upload-hint">{t("Please make sure the information in the photo is clear and there are no missing borders")}</p>
-                      </div>
+                      <Spin spinning={frontLoading} indicator={<img src="/assets/loader.png" className="rotating-image" />}>
+                        <div className="flex flex-col items-center">
+                          <p className="ant-upload-drag-icon">
+                            <img src="/assets/upload.png" width={38} />
+                          </p>
+                          <p className="ant-upload-text">{t("Click to upload portrait")}</p>
+                          <p className="ant-upload-hint">{t("Please make sure the information in the photo is clear and there are no missing borders")}</p>
+                        </div>
+                      </Spin>
                     )}
                   </Dragger>
                 </div>

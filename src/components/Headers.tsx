@@ -58,16 +58,16 @@ const HeaderComponent = () => {
         },
       ]
       : [
-        {
-          label: t("Certification"),
-          icon: (
-            <div className="flex items-center">
-              <img src="/assets/risk.png" width={15} alt="" />
-            </div>
-          ),
-          key: "realName",
-          onClick: () => navigate("/verify"),
-        },
+        // {
+        //   label: t("Certification"),
+        //   icon: (
+        //     <div className="flex items-center">
+        //       <img src="/assets/risk.png" width={15} alt="" />
+        //     </div>
+        //   ),
+        //   key: "realName",
+        //   onClick: () => navigate("/verify"),
+        // },
         { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
         { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
         {
@@ -191,15 +191,15 @@ const HeaderComponent = () => {
         { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
       ]
       : [
-        {
-          label: t("Certification"),
-          icon: <WrapperImg src="/assets/warning-light.png" />,
-          key: "realName",
-          onClick: () => {
-            setOpenMenu(false);
-            navigate("/verify");
-          },
-        },
+        // {
+        //   label: t("Certification"),
+        //   icon: <WrapperImg src="/assets/warning-light.png" />,
+        //   key: "realName",
+        //   onClick: () => {
+        //     setOpenMenu(false);
+        //     navigate("/verify");
+        //   },
+        // },
         {
           label: t("wallet"),
           icon: <WrapperImg src="/assets/wallet-light.png" />,
