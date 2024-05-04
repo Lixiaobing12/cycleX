@@ -30,7 +30,7 @@ const Footers = () => {
         <div className="flex flex-col gap-4 w-full">
           <div className="flex items-center">
             <img src="/assets/icon.png" className="w-8" alt="" />
-            <span className="ml-4 text-2xl">CycleX App</span>
+            <span className="ml-4 text-2xl">CycleX</span>
           </div>
           <div className="flex gap-10 w-full my-4 text-md">
             <div className="flex flex-col gap-4">
