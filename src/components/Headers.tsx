@@ -127,17 +127,17 @@ const HeaderComponent = () => {
         setOpenMenu(false);
       },
     },
-    {
-      label: <div className="flex gap-2 items-center">
-        IDO
-        <div><img src="/assets/hot.png" width={20} alt="" /></div>
-      </div>,
-      key: "IDO",
-      onClick: () => {
-        navigate("/ido");
-        setOpenMenu(false);
-      },
-    },
+    // {
+    //   label: <div className="flex gap-2 items-center">
+    //     IDO
+    //     <div><img src="/assets/hot.png" width={20} alt="" /></div>
+    //   </div>,
+    //   key: "IDO",
+    //   onClick: () => {
+    //     navigate("/ido");
+    //     setOpenMenu(false);
+    //   },
+    // },
   ];
 
   const MobileActiveItems: MenuProps["items"] = [
@@ -284,10 +284,10 @@ const HeaderComponent = () => {
             <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/airdrop")}>
               {t("Airdrop")}
             </div>
-            <div className="cursor-pointer  hover:scale-105 flex items-center gap-1" onClick={() => navigate("/ido")}>
+            {/* <div className="cursor-pointer  hover:scale-105 flex items-center gap-1" onClick={() => navigate("/ido")}>
               IDO
               <img src="/assets/hot.png" width={15} alt="" />
-            </div>
+            </div> */}
           </Space>
         </div>
         <div className="hidden md:flex text-right mr-10">
