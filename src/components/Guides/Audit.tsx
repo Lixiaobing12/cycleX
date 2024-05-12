@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { fundProofs_atom } from "../../atom/fundProof";
+import { scientific } from "../../utils/BigNumberToString";
 
 const Audit = () => {
   const { t, i18n } = useTranslation();
@@ -20,9 +21,9 @@ const Audit = () => {
         {proofs.map((item, index) => (
           <div key={index}>
             <div className="flex gap-10 items-center" key={index}>
-              <span className="font-bold font-whalebold">{i18n.language === 'en' ? item.NameDct?.en : item.NameDct?.zh}</span>
-              <span>{i18n.language === 'en' ? item.TypeSortDct?.en : item.TypeSortDct?.zh}</span>
-              <span>${item.MarketValue}</span>
+              <span className="font-bold font-whalebold">{i18n.language === "en" ? item.NameDct?.en : item.NameDct?.zh}</span>
+              <span>{i18n.language === "en" ? item.TypeSortDct?.en : item.TypeSortDct?.zh}</span>
+              <span>${scientific(item.MarketValue)}</span>
               <div className="flex gap-2">
                 <span>{moment(item?.UpdatedAt ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}</span>
                 {/* <a href={item.Url} target="_blank">

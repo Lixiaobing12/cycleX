@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FundProofType, fundProofs_atom } from "../../atom/fundProof";
 import { useTranslateLocalStorage } from "../../hooks/localStorage";
+import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 
@@ -15,6 +16,7 @@ const Table = () => {
       title: t("Current assets/size"),
       dataIndex: "MarketValue",
       key: "MarketValue",
+      render: (value) => "$" + scientific(value),
     },
     {
       title: t("Category/type"),

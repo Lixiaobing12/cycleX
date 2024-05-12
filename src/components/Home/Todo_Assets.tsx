@@ -77,7 +77,7 @@ const TodoListAssets = () => {
       key: "net_worth",
       dataIndex: "net_worth",
       width: 180,
-      render: (value) => "$" + value,
+      render: (value) => "$" + scientific(value),
     },
     {
       title: t("Expected yield /APY"),
