@@ -65,7 +65,7 @@ const Product = () => {
       key: "net_worth",
       dataIndex: "net_worth",
       width: 150,
-      render: (value) => "$" + scientific(value),
+      render: (value) => (Number(value) ? value + "U" : value),
     },
     {
       title: t("Expected yield /APY"),

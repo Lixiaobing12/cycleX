@@ -74,10 +74,10 @@ const TodoListAssets = () => {
     },
     {
       title: t("Net value per unit /NAV"),
-      key: "net_worth",
-      dataIndex: "net_worth",
+      key: "unit",
+      dataIndex: "unit",
       width: 180,
-      render: (value) => "$" + scientific(value),
+      render: (value) => (Number(value) ? value + "U" : value),
     },
     {
       title: t("Expected yield /APY"),
