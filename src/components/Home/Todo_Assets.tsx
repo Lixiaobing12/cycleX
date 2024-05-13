@@ -84,7 +84,7 @@ const TodoListAssets = () => {
       key: "income",
       dataIndex: "income",
       width: 100,
-      render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">+{value}%</span> : <span className="text-[#FF6838]">-{value}%</span>}</div>,
+      render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">+{parseInt(value)}%</span> : <span className="text-[#FF6838]">-{parseInt(value)}%</span>}</div>,
     },
   ];
 
