@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -132,6 +133,10 @@ summary {
     visibility: visible;
     position: static;
     margin-left: 20px;
+  }
+
+  .inner-img img{
+    max-width: 84vw !important;
   }
 }
 

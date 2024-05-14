@@ -33,7 +33,7 @@ const NewsDetails = () => {
     });
   }, [id]);
   return (
-    <div className="w-[92%] md:w-2/3 m-auto md:p-20 mt-14 md:mt-0">
+    <div className="w-[92%] md:w-2/3 m-auto md:p-20 mt-14 md:mt-0 overflow-hidden" id="news-detail">
       <div className="text-black font-bold text-3xl max-w-[800px]">{news?.title}</div>
       <p className="text-threePranentTransblack my-4 flex gap-2 items-center">
         <img src="/assets/icon.png" width={42} alt="" />
@@ -42,16 +42,16 @@ const NewsDetails = () => {
       <Divider />
       <div className="flex gap-10 flex-col md:flex-row">
         <div>
-          <div>{news?.img_url && <img src={"https://api.whaleflow.co/storage/" + news?.img_url} alt="" />}</div>
-          <div dangerouslySetInnerHTML={{ __html: news?.content ?? "" }}></div>
+          <div className="">{news?.img_url && <img src={"https://api.whaleflow.co/storage/" + news?.img_url} alt="" />}</div>
+          <div dangerouslySetInnerHTML={{ __html: news?.content ?? "" }} className="inner-img"></div>
         </div>
-        <Divider className="md:hidden"/>
+        <Divider className="md:hidden" />
         <div>
           {newslist.map((item, index) => (
             <div className="flex flex-col gap-4 self-start" key={index}>
-              <img src={item.img_url} alt="" className="rounded-box w-full md:w-60 h-56 cursor-pointer" onClick={() => navigate("/new/" + item.id)} />
+              <img src={item.img_url} alt="" className="rounded-box w-full md:w-60 h-56 cursor-pointer" onClick={() => navigate("/new/" + item.id + "#news-detail")} />
               <div className="text-greyblack">{item.created_at}</div>
-              <div className="w-full md:w-60 cursor-pointer" onClick={() => navigate("/new/" + item.id)}>
+              <div className="w-full md:w-60 cursor-pointer" onClick={() => navigate("/new/" + item.id + "#news-detail")}>
                 {item.title}
               </div>
             </div>
