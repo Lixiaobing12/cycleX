@@ -199,7 +199,7 @@ export default function Home() {
               <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.55)] flex items-center justify-center">
                 <Countdown
                   title={<div className="text-white font-bold font-whalebold text-lg text-center">The date to open the app</div>}
-                  value={1719158400000}
+                  value={1720886400000}
                   format="DD:HH:mm:ss"
                   valueStyle={{
                     color: "#fff",
