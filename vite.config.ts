@@ -32,10 +32,9 @@ export default defineConfig({
         target: "http://127.0.0.1:8080",
         changeOrigin: true,
       },
-      "/next": {
-        target: "https://app.rwa.xyz/_next",
+      "/rwa": {
+        target: "https://cyclex.cc",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/next/, ""),
       },
       "/translate": {
         target: "https://cyclex.cc",

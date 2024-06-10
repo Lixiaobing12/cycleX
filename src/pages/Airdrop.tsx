@@ -1,11 +1,11 @@
 import { Divider, Statistic } from "antd";
 import { useAtom } from "jotai";
-import { useReducer, useState } from "react";
-import CountUp from "react-countup";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { messageContext } from "../App";
 import WrapperButton from "../components/Common/Button";
 import WrapperImg from "../components/Common/Img";
+import { request } from "../utils/request";
 
 type GlobalAggregates = {
   /**活跃贷款价值 */
@@ -30,62 +30,26 @@ type GlobalAggregates = {
   weightedAverageMaturity: string;
 };
 const Airdrop = () => {
+  const [reset, setReset] = useState(false);
   const [toast] = useAtom(messageContext);
   const { t, i18n } = useTranslation();
   const [activeItem, setItem] = useState(0);
-  const defaultValue = {
-    active_originated_amount_sum: 617330042.8889341,
-    total_originated_amount_sum: 4459662347.924616,
-    total_yield_avg: 0.09794504915989004,
-    updated_at: "",
-    marketCapSum: 114031920434.13742,
-    weeklyTransferVolume: 365598574544.781,
-    totalActiveAddresses: 762735,
-    treasuriesTotalValue: 630983906.889,
-    AvgYieldMaturity: 0.00507,
-    weightedAverageMaturity: "0.095 yrs",
-  };
-  const reducerAction = (state: GlobalAggregates, { type, value }: { type: string; value: any }) => {
-    switch (type) {
-      case "active_originated_amount_sum":
-        return { ...state, active_originated_amount_sum: value };
-      case "total_originated_amount_sum":
-        return { ...state, total_originated_amount_sum: value };
-      case "total_yield_avg":
-        return { ...state, total_yield_avg: value };
-      case "updated_at":
-        return { ...state, updated_at: value };
-      case "marketCapSum":
-        return { ...state, marketCapSum: value };
-      case "weeklyTransferVolume":
-        return { ...state, weeklyTransferVolume: value };
-      case "totalActiveAddresses":
-        return { ...state, totalActiveAddresses: value };
-      default:
-        return { ...state };
-    }
-  };
-  const [globalAggregates, setGlobalAggregates] = useReducer(reducerAction, defaultValue);
+  const [tokenizedes, setTokenizedes] = useState<Array<Object>>([]);
+  const [ustreasury, setUStreasury] = useState<Array<Object>>([]);
+  const [stablecoins, setStablecoins] = useState<Array<Object>>([]);
 
-  // useEffect(() => {
-  //   if (activeItem === 0) {
-  //     request.get("/next/data/HQ50hhSBSC9hYQ7hQt7z5/index.json").then(({ data }) => {
-  //       setGlobalAggregates({ type: "active_originated_amount_sum", value: data.pageProps.initialState.globalAggregates.active_originated_amount_sum });
-  //       setGlobalAggregates({ type: "total_originated_amount_sum", value: data.pageProps.initialState.globalAggregates.total_originated_amount_sum });
-  //       setGlobalAggregates({ type: "total_yield_avg", value: data.pageProps.initialState.globalAggregates.total_yield_avg });
-  //       setGlobalAggregates({ type: "updated_at", value: data.pageProps.initialState.globalAggregates.updated_at });
-  //     });
-  //     request.get("/next/data/HQ50hhSBSC9hYQ7hQt7z5/stablecoins.json").then(({ data }) => {
-  //       setGlobalAggregates({ type: "marketCapSum", value: data.pageProps.aggregates.marketCapSum });
-  //       setGlobalAggregates({ type: "weeklyTransferVolume", value: data.pageProps.aggregates.totalTransferVolume });
-  //       setGlobalAggregates({ type: "totalActiveAddresses", value: data.pageProps.aggregates.totalActiveAddresses });
-  //     });
-  //   }
-  // }, [activeItem]);
+  useEffect(() => {
+    if (activeItem === 0 || reset) {
+      request.get("/rwa/getdata?url=https://app.rwa.xyz/").then(({ data }) => setTokenizedes(data));
+      request.get("/rwa/getdata?url=https://app.rwa.xyz/treasuries").then(({ data }) => setUStreasury(data));
+      request.get("/rwa/getdata?url=https://app.rwa.xyz/stablecoins").then(({ data }) => setStablecoins(data));
+      setReset(false);
+    }
+  }, [activeItem, reset]);
   return (
     <div>
       <div className="relative flex items-center justify-center">
-        <img src="/assets/airdrop-bg.png" className="w-full h-[80vh]" alt="" />
+        <img src="/assets/airdrop-bg.png" className="w-full h-[60vh]" alt="" />
         <p className="text-white text-2xl text-center absolute  font-bold font-whalebold">{t("Leading world-class RWA trading platform")}</p>
       </div>
       <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto py-14">
@@ -103,104 +67,48 @@ const Airdrop = () => {
           </div>
           <div className="flex gap-2 items-center self-end text-greyblack text-sm">
             {t("Last Updated: Apr. 2024")}
-            <a>
+            <a onClick={() => setReset(true)}>
               <WrapperImg src="/assets/reflush.png" width={18} />
             </a>
           </div>
         </div>
 
         <div className="flex items-start md:items-center md:justify-between my-10 flex-col md:flex-row gap-4">
-          {activeItem === 0 ? (
-            <>
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Active Loans Value")}
-                value={globalAggregates.active_originated_amount_sum}
-                formatter={(value) => <CountUp end={value as number} separator="," decimal="." decimals={2} prefix="$" />}
-              />
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Total Loans Value")}
-                value={globalAggregates.total_originated_amount_sum}
-                formatter={(value) => <CountUp end={value as number} separator="," decimal="." decimals={2} prefix="$" />}
-              />
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Current Avg. APR")}
-                value={globalAggregates.total_yield_avg * 100}
-                precision={2}
-                suffix="%"
-              />
-            </>
-          ) : activeItem === 1 ? (
-            <>
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Market Cap")}
-                value={globalAggregates.marketCapSum}
-                formatter={(value) => <CountUp end={value as number} separator="," decimal="." decimals={2} prefix="$" />}
-              />
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Weekly Transfer Volume")}
-                value={globalAggregates.weeklyTransferVolume}
-                formatter={(value) => <CountUp end={value as number} separator="," decimal="." decimals={2} prefix="$" />}
-              />
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Total Active Addresses")}
-                value={globalAggregates.totalActiveAddresses}
-                formatter={(value) => <CountUp end={value as number} separator="," />}
-              />
-            </>
-          ) : (
-            <>
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Total Value")}
-                value={globalAggregates.treasuriesTotalValue}
-                formatter={(value) => <CountUp end={value as number} separator="," decimal="." decimals={2} prefix="$" />}
-              />
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Weighted Average Maturity")}
-                value={globalAggregates.AvgYieldMaturity}
-                suffix="%"
-              />
-              <Statistic
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={t("Weighted Average Maturity")}
-                value={globalAggregates.weightedAverageMaturity}
-              />
-            </>
-          )}
+          {activeItem === 0
+            ? tokenizedes.map((items, key) => (
+                <Statistic
+                  key={key}
+                  valueStyle={{
+                    fontSize: "1.5em",
+                    fontWeight: "bold",
+                  }}
+                  title={Object.keys(items)[0]}
+                  value={Object.values(items)[0]}
+                />
+              ))
+            : activeItem === 1
+            ? ustreasury.map((items, key) => (
+                <Statistic
+                  key={key}
+                  valueStyle={{
+                    fontSize: "1.5em",
+                    fontWeight: "bold",
+                  }}
+                  title={Object.keys(items)[0]}
+                  value={Object.values(items)[0]}
+                />
+              ))
+            : stablecoins.map((items, key) => (
+                <Statistic
+                  key={key}
+                  valueStyle={{
+                    fontSize: "1.5em",
+                    fontWeight: "bold",
+                  }}
+                  title={Object.keys(items)[0]}
+                  value={Object.values(items)[0]}
+                />
+              ))}
         </div>
 
         <Divider />
