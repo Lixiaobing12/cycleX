@@ -1,6 +1,7 @@
 import { Divider, Statistic } from "antd";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import CountUp from "react-countup";
 import { useTranslation } from "react-i18next";
 import { messageContext } from "../App";
 import WrapperButton from "../components/Common/Button";
@@ -84,6 +85,33 @@ const Airdrop = () => {
                   }}
                   title={Object.keys(items)[0]}
                   value={Object.values(items)[0]}
+                  formatter={(value) =>
+                    value.toString().endsWith("B") ? (
+                      <CountUp
+                        end={Number(
+                          value
+                            .toString()
+                            .replace(/B|\$|,/g, "")
+                            .trim()
+                        )}
+                        separator=","
+                        decimal="."
+                        decimals={2}
+                        suffix="B"
+                        prefix="$"
+                      />
+                    ) : value.toString().startsWith("$") ? (
+                      <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
+                    ) : value.toString().endsWith("%") ? (
+                      <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
+                    ) : value.toString().endsWith("M") ? (
+                      <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
+                    ) : Number(value.toString().replace(/,/g, "")) ? (
+                      <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
+                    ) : (
+                      value.toString()
+                    )
+                  }
                 />
               ))
             : activeItem === 1
@@ -96,6 +124,33 @@ const Airdrop = () => {
                   }}
                   title={Object.keys(items)[0]}
                   value={Object.values(items)[0]}
+                  formatter={(value) =>
+                    value.toString().endsWith("B") ? (
+                      <CountUp
+                        end={Number(
+                          value
+                            .toString()
+                            .replace(/B|\$|,/g, "")
+                            .trim()
+                        )}
+                        separator=","
+                        decimal="."
+                        decimals={2}
+                        suffix="B"
+                        prefix="$"
+                      />
+                    ) : value.toString().startsWith("$") ? (
+                      <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
+                    ) : value.toString().endsWith("%") ? (
+                      <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
+                    ) : value.toString().endsWith("M") ? (
+                      <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
+                    ) : Number(value.toString().replace(/,/g, "")) ? (
+                      <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
+                    ) : (
+                      value.toString()
+                    )
+                  }
                 />
               ))
             : stablecoins.map((items, key) => (
@@ -107,6 +162,33 @@ const Airdrop = () => {
                   }}
                   title={Object.keys(items)[0]}
                   value={Object.values(items)[0]}
+                  formatter={(value) =>
+                    value.toString().endsWith("B") ? (
+                      <CountUp
+                        end={Number(
+                          value
+                            .toString()
+                            .replace(/B|\$|,/g, "")
+                            .trim()
+                        )}
+                        separator=","
+                        decimal="."
+                        decimals={2}
+                        suffix="B"
+                        prefix="$"
+                      />
+                    ) : value.toString().startsWith("$") ? (
+                      <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
+                    ) : value.toString().endsWith("%") ? (
+                      <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
+                    ) : value.toString().endsWith("M") ? (
+                      <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
+                    ) : Number(value.toString().replace(/,/g, "")) ? (
+                      <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
+                    ) : (
+                      value.toString()
+                    )
+                  }
                 />
               ))}
         </div>
