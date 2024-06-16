@@ -77,45 +77,45 @@ const Airdrop = () => {
         <div className="flex items-start md:items-center md:justify-between my-10 flex-col md:flex-row gap-4">
           {activeItem === 0
             ? tokenizedes.map((items, key) => (
-                <Statistic
-                  key={key}
-                  valueStyle={{
-                    fontSize: "1.5em",
-                    fontWeight: "bold",
-                  }}
-                  title={Object.keys(items)[0]}
-                  value={Object.values(items)[0]}
-                  formatter={(value) =>
-                    value.toString().endsWith("B") ? (
-                      <CountUp
-                        end={Number(
-                          value
-                            .toString()
-                            .replace(/B|\$|,/g, "")
-                            .trim()
-                        )}
-                        separator=","
-                        decimal="."
-                        decimals={2}
-                        suffix="B"
-                        prefix="$"
-                      />
-                    ) : value.toString().startsWith("$") ? (
-                      <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
-                    ) : value.toString().endsWith("%") ? (
-                      <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
-                    ) : value.toString().endsWith("M") ? (
-                      <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
-                    ) : Number(value.toString().replace(/,/g, "")) ? (
-                      <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
-                    ) : (
-                      value.toString()
-                    )
-                  }
-                />
-              ))
+              <Statistic
+                key={key}
+                valueStyle={{
+                  fontSize: "1.5em",
+                  fontWeight: "bold",
+                }}
+                title={Object.keys(items)[0]}
+                value={Object.values(items)[0]}
+                formatter={(value) =>
+                  value.toString().endsWith("B") ? (
+                    <CountUp
+                      end={Number(
+                        value
+                          .toString()
+                          .replace(/B|\$|,/g, "")
+                          .trim()
+                      )}
+                      separator=","
+                      decimal="."
+                      decimals={2}
+                      suffix="B"
+                      prefix="$"
+                    />
+                  ) : value.toString().startsWith("$") ? (
+                    <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
+                  ) : value.toString().endsWith("%") ? (
+                    <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
+                  ) : value.toString().endsWith("M") ? (
+                    <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
+                  ) : Number(value.toString().replace(/,/g, "")) ? (
+                    <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
+                  ) : (
+                    value.toString()
+                  )
+                }
+              />
+            ))
             : activeItem === 1
-            ? ustreasury.map((items, key) => (
+              ? ustreasury.map((items, key) => (
                 <Statistic
                   key={key}
                   valueStyle={{
@@ -153,7 +153,7 @@ const Airdrop = () => {
                   }
                 />
               ))
-            : stablecoins.map((items, key) => (
+              : stablecoins.map((items, key) => (
                 <Statistic
                   key={key}
                   valueStyle={{
@@ -163,31 +163,46 @@ const Airdrop = () => {
                   title={Object.keys(items)[0]}
                   value={Object.values(items)[0]}
                   formatter={(value) =>
-                    value.toString().endsWith("B") ? (
+                    value.toString().match(/T$/) ? (
                       <CountUp
                         end={Number(
                           value
                             .toString()
-                            .replace(/B|\$|,/g, "")
+                            .replace(/T|\$|,/g, "")
                             .trim()
                         )}
                         separator=","
                         decimal="."
                         decimals={2}
-                        suffix="B"
+                        suffix="T"
                         prefix="$"
                       />
-                    ) : value.toString().startsWith("$") ? (
-                      <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
-                    ) : value.toString().endsWith("%") ? (
-                      <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
-                    ) : value.toString().endsWith("M") ? (
-                      <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
-                    ) : Number(value.toString().replace(/,/g, "")) ? (
-                      <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
-                    ) : (
-                      value.toString()
-                    )
+                    ) :
+                      value.toString().match(/B$/) ? (
+                        <CountUp
+                          end={Number(
+                            value
+                              .toString()
+                              .replace(/B|\$|,/g, "")
+                              .trim()
+                          )}
+                          separator=","
+                          decimal="."
+                          decimals={2}
+                          suffix="B"
+                          prefix="$"
+                        />
+                      ) : value.toString().startsWith("$") ? (
+                        <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
+                      ) : value.toString().endsWith("%") ? (
+                        <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
+                      ) : value.toString().endsWith("M") ? (
+                        <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
+                      ) : Number(value.toString().replace(/,/g, "")) ? (
+                        <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
+                      ) : (
+                        value.toString()
+                      )
                   }
                 />
               ))}
