@@ -240,7 +240,9 @@ const BlindBox = () => {
             <img src="/assets/box-shine.png" width={300} alt="" className="my-10" />
             <div className="relative flex-center-col inline-flex">
               <div className="bg-blindboxpopbg bg-100 px-4 w-fit py-1 self-end mb-1">+{lotteryInfo.LotteryNum} times</div>
-              <WrapperImg src="/assets/blindbox-btn-open.png" width={160} onClick={handleOpen} />
+              <a style={lotteryInfo.LotteryNum === 0 ? { pointerEvents: "none", filter: "brightness(0.5)" } : {}}>
+                <WrapperImg src="/assets/blindbox-btn-open.png" width={160} onClick={handleOpen} />
+              </a>
               <div className="absolute right-[-110px] bottom-0 flex-center inline-flex" onClick={handleList}>
                 <WrapperImg src="/assets/blindbox-coin.png" width={20} />
                 <div className="flex flex-col justify-center items-start ml-2">
