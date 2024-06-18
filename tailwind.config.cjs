@@ -13,6 +13,8 @@ module.exports = {
         login_mene: "url('/assets/login_background.png')",
         wallet: "url('/assets/ido-bg.png')",
         blindboxbg: "url('/assets/blind-box-bg.png')",
+        blindboxbgh5: "url('/assets/blindbox-bg-h5.png')",
+        blindboxpopbg: "url('/assets/blindbox-btn-pop.png')"
       },
     },
     fontFamily: {
