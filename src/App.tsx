@@ -4,6 +4,7 @@ import { NotificationInstance } from "antd/es/notification/interface";
 import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import DrawerGetBlindBox from "./components/BlindBox/DrawerGetBlindBox";
 import Footers from "./components/Footers";
 import HeaderComponent from "./components/Headers";
 import Loader from "./components/Loader";
@@ -73,6 +74,7 @@ function App() {
           {router.pathname !== "/login" && <Footers />}
         </Footer>
       </Layout>
+      <DrawerGetBlindBox />
     </div>
   );
 }

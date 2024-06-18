@@ -4,6 +4,7 @@ import { useWindowSize } from "usehooks-ts";
 import Airdrop from "./pages/Airdrop";
 import Issus from "./pages/AssestIssus";
 import Assets from "./pages/Assets";
+import BlindBox from "./pages/BlindBox";
 import Guide from "./pages/Guide";
 import Home from "./pages/Home";
 import IDO from "./pages/IDO";
@@ -27,6 +28,7 @@ function RouterProviders() {
       <Route path="/airdrop" element={<Airdrop />} />
       <Route path="/ido" element={<IDO />} />
       <Route path="/new/:id" element={<NewsDetails />} />
+      <Route path='/blindbox' element={<BlindBox />}></Route>
       <Route
         path="/login"
         element={

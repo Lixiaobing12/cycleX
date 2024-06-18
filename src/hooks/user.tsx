@@ -19,6 +19,8 @@ const useAccounts = () => {
           setWalletsInfo(data.data);
         });
         setSign(true);
+      } else {
+        setSign(false)
       }
     };
     todo();

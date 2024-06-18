@@ -1,6 +1,7 @@
 import { connectorsForWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { injectedWallet, metaMaskWallet, rainbowWallet, tokenPocketWallet, walletConnectWallet } from "@rainbow-me/rainbowkit/wallets";
+import 'animate.css';
 import { ConfigProvider } from "antd";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
