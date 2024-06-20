@@ -222,11 +222,12 @@ const BlindBox = () => {
     }
   }, [account]);
   useEffect(() => {
-    screenRef.current = new BulletJs("#danmu-screen", {});
+    screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
   }, []);
   return (
     <div className="bg-black">
-      <div className="bg-blindboxbgh5 bg-100 xl:bg-blindboxbg gap-10 py-10 flex-center-col" id="danmu-screen">
+      <div className="bg-blindboxbgh5 bg-100 xl:bg-blindboxbg gap-10 py-10 flex-center-col">
+        <div id="danmu-screen" className="w-full h-[100px]"></div>
         {openStatus ? (
           <div className="relative flex-center-col">
             <div className="absolute top-0">
@@ -237,14 +238,14 @@ const BlindBox = () => {
         ) : (
           <>
             <img src="/assets/WonWFC.png" alt="" width={350} className="max-w-[80vw]" />
-            <img src="/assets/box-shine.png" width={300} alt="" className="my-10" />
+            <img src="/assets/box-shine.png" width={500} alt="" className="my-10" />
             <div className="relative flex-center-col inline-flex">
-              <div className="bg-blindboxpopbg bg-100 px-4 w-fit py-1 self-end mb-1">+{lotteryInfo.LotteryNum} times</div>
+              <div className="bg-blindboxpopbg bg-100 px-4 w-fit py-1 self-end mb-1 flex pb-[8px]">+{lotteryInfo.LotteryNum} times</div>
               <a style={lotteryInfo.LotteryNum === 0 ? { pointerEvents: "none", filter: "brightness(0.5)" } : {}}>
                 <WrapperImg src="/assets/blindbox-btn-open.png" width={160} onClick={handleOpen} />
               </a>
-              <div className="absolute right-[-110px] bottom-0 flex-center inline-flex" onClick={handleList}>
-                <WrapperImg src="/assets/blindbox-coin.png" width={20} />
+              <div className="absolute right-[-120px] bottom-0 flex-center inline-flex bg-[rgb(33,31,33)] p-1 rounded-md" onClick={handleList}>
+                <WrapperImg src="/assets/blindbox-coin.png" width={16} />
                 <div className="flex flex-col justify-center items-start ml-2">
                   <span className="text-white">{lotteryInfo.Amount}</span>
                   <span className="text-grey text-xs">Earned WFC</span>
