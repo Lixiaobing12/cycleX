@@ -99,10 +99,13 @@ const Wallet = () => {
             <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">
               <img src="/assets/usdt.png" width={16} alt="" />
               <span>USDT</span>
-            </div>
+              <span>、</span>
+              <img src="/assets/eth.png" width={20} alt="" />
+              <span>ETH</span>
+              </div>
 
             <div className="mt-4">{t("Recharge network")}</div>
-            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">USDT-ERC20</div>
+            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">USDT-ERC20、ETH-ERC20</div>
 
             <div className="mt-4">{t("Recharge address")}</div>
             <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 text-sm overflow-auto pointer-events-auto">
@@ -114,6 +117,10 @@ const Wallet = () => {
               <div className="flex justify-between items-center">
                 <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
                 <span>{Number(rechargeInfo?.deposit_min).toFixed(2)} USDT</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
+                <span>0.003 ETH</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-threePranentTransblack">{t("Block Confirmations")}</span>
