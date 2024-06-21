@@ -202,7 +202,7 @@ const BlindBox = () => {
         if (data.data.length) {
           data.data.forEach((item: any) => {
             screenRef.current.push(`
-                <div class="flex gap-2 items-center text-white bg-grey px-4 rounded-full py-1">
+                <div class="flex gap-2 items-center text-white bg-[rgba(255,255,255,0.2)] px-4 rounded-full py-1">
                     <img src="${item.Avatar}" width="25" class="rounded-full"/>
                     <span>${item.Email.replace(/^(.{3}.*(.{6})$)/, "$1***$2")}</span>won<span class="text-[#61f6ff]">${item.Amount}</span> WFC
                 </div>`);
@@ -224,7 +224,7 @@ const BlindBox = () => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
   }, []);
   return (
-    <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center items-center py-20 gap-10 lg:py-28">
+    <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center items-center py-20 gap-10 lg:py-20">
       <div className="relative">
         {openStatus && (
           <div className="flex-center-col absolute">
@@ -237,7 +237,7 @@ const BlindBox = () => {
         )}
         <div className={`gap-10 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""}`}>
           <img src="/assets/WonWFC.png" alt="" width={350} className="max-w-[80vw]" />
-          <div id="danmu-screen" className="w-full h-[100px]"></div>
+          <div id="danmu-screen" className="w-full lg:w-[130%] h-[100px] lg:right-[100px]"></div>
           <img src="/assets/box-shine.png" width={500} alt="" className="my-[-50px]" />
           <div className={`relative flex-center gap-4 w-full`}>
             <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={handleList}>
@@ -258,7 +258,7 @@ const BlindBox = () => {
       </div>
       <div className="p-4 lg:py-10">
         <div className="w-full m-auto">
-          <div className="bg-[transparent] text-white border border-white text-center py-2 rounded-lg text-lg">Lucky Tasks</div>
+          <div className="bg-[transparent] text-white border border-[#555555] text-center py-2 rounded-lg text-lg">Lucky Tasks</div>
           <div>
             <List
               itemLayout="horizontal"
@@ -289,7 +289,7 @@ const BlindBox = () => {
               )}
             />
           </div>
-          <div className="border border-white rounded-box p-6 my-10">
+          <div className="border border-[#555555] rounded-box p-6 my-10">
             <h3 className="text-white text-lg">Rules</h3>
             <p className="my-2 text-grey">1.CycleX limited time lottery activity, participating in the activity can earn rare WFC</p>
             <p className="my-2 text-grey">2.Users will receive one lucky draw opportunity for daily login and forwarding</p>
