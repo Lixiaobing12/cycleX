@@ -202,10 +202,9 @@ const BlindBox = () => {
         if (data.data.length) {
           data.data.forEach((item: any) => {
             screenRef.current.push(`
-                <div class="flex gap-2 items-center text-white">
+                <div class="flex gap-2 items-center text-white bg-grey px-4 rounded-full py-1">
                     <img src="${item.Avatar}" width="25" class="rounded-full"/>
-                    <span>${item.Email.replace(/^(.{3}.*(.{6})$)/, "$1***$2")}</span>
-                    won <span>${item.Amount}</span> WFC
+                    <span>${item.Email.replace(/^(.{3}.*(.{6})$)/, "$1***$2")}</span>won<span class="text-[#61f6ff]">${item.Amount}</span> WFC
                 </div>`);
           });
           if (data.data.length < 8) {
@@ -225,41 +224,41 @@ const BlindBox = () => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
   }, []);
   return (
-    <div className="bg-black">
-      <div className="bg-blindboxbgh5 bg-100 xl:bg-blindboxbg gap-10 pb-10 flex-center-col">
-        <div id="danmu-screen" className="w-full h-[100px]"></div>
-        {openStatus ? (
-          <div className="relative flex-center-col">
+    <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center items-center py-20 gap-10 lg:py-28">
+      <div className="relative">
+        {openStatus && (
+          <div className="flex-center-col absolute">
             <div className="absolute top-0">
               <Loader />
             </div>
-            <img src="/assets/comp.gif" alt="" className="mt-10" />
+            <div className="w-full h-[100px]"></div>
+            <img src="/assets/comp.gif" alt="" width={500} />
           </div>
-        ) : (
-          <>
-            <img src="/assets/WonWFC.png" alt="" width={350} className="max-w-[80vw]" />
-            <img src="/assets/box-shine.png" width={500} alt="" className="my-[-50px]" />
-            <div className="relative flex-center-col inline-flex">
-              <div className="bg-blindboxpopbg bg-100 px-4 w-fit py-1 self-end mb-1 flex pb-[8px]">+{lotteryInfo.LotteryNum} times</div>
-              <a style={lotteryInfo.LotteryNum === 0 ? { pointerEvents: "none", filter: "brightness(0.5)" } : {}}>
-                <WrapperImg src="/assets/blindbox-btn-open.png" width={160} onClick={handleOpen} />
-              </a>
-              <div className="absolute right-[-120px] bottom-0 flex-center inline-flex bg-[rgb(33,31,33)] p-1 rounded-md" onClick={handleList}>
-                <WrapperImg src="/assets/blindbox-coin.png" width={16} />
-                <div className="flex flex-col justify-center items-start ml-2">
-                  <span className="text-white">{lotteryInfo.Amount}</span>
-                  <span className="text-grey text-xs">Earned WFC</span>
-                </div>
+        )}
+        <div className={`gap-10 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""}`}>
+          <img src="/assets/WonWFC.png" alt="" width={350} className="max-w-[80vw]" />
+          <div id="danmu-screen" className="w-full h-[100px]"></div>
+          <img src="/assets/box-shine.png" width={500} alt="" className="my-[-50px]" />
+          <div className={`relative flex-center gap-4 w-full`}>
+            <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={handleList}>
+              <WrapperImg src="/assets/blindbox-coin.png" width={16} />
+              <div className="flex flex-col justify-center items-start ml-2">
+                <span className="text-white">{lotteryInfo.Amount}</span>
+                <span className="text-grey text-xs">Earned WFC</span>
               </div>
             </div>
-          </>
-        )}
+            <div className="flex-center-col w-fit">
+              <div className="bg-blindboxpopbg bg-100 px-4 py-1 self-end mb-1 flex pb-2">+{lotteryInfo.LotteryNum} times</div>
+              <a style={lotteryInfo.LotteryNum === 0 ? { pointerEvents: "none", filter: "brightness(0.5)" } : {}}>
+                <WrapperImg src="/assets/blindbox-btn-open.png" className="h-[50px]" width={200} onClick={handleOpen} />
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="rounded-t-box bg-white p-4 py-10">
-        <div className="w-full lg:w-1/3 m-auto">
-          <button className="btn btn-block disabled:bg-black disabled:text-white" disabled>
-            Lucky Tasks
-          </button>
+      <div className="p-4 lg:py-10">
+        <div className="w-full m-auto">
+          <div className="bg-[transparent] text-white border border-white text-center py-2 rounded-lg text-lg">Lucky Tasks</div>
           <div>
             <List
               itemLayout="horizontal"
@@ -281,16 +280,20 @@ const BlindBox = () => {
                       </button>
                     )
                   }>
-                  <List.Item.Meta avatar={<Avatar src={item.avatar} size={60} shape="square" />} title={item.title} description={item.content} />
+                  <List.Item.Meta
+                    avatar={<Avatar src={item.avatar} size={60} shape="square" />}
+                    title={<span className="text-white text-md">{item.title}</span>}
+                    description={<span className="text-grey">{item.content}</span>}
+                  />
                 </List.Item>
               )}
             />
           </div>
-          <div className="bg-[#f5f7fa] rounded-box p-6 my-10">
-            <h3 className="text-black text-lg">Rules</h3>
-            <p className="my-2 text-black-800">1.CycleX limited time lottery activity, participating in the activity can earn rare WFC</p>
-            <p className="my-2 text-black-800">2.Users will receive one lucky draw opportunity for daily login and forwarding</p>
-            <p className="my-2 text-black-800">3.The sole right of interpretation belongs to xxx</p>
+          <div className="border border-white rounded-box p-6 my-10">
+            <h3 className="text-white text-lg">Rules</h3>
+            <p className="my-2 text-grey">1.CycleX limited time lottery activity, participating in the activity can earn rare WFC</p>
+            <p className="my-2 text-grey">2.Users will receive one lucky draw opportunity for daily login and forwarding</p>
+            <p className="my-2 text-grey">3.The sole right of interpretation belongs to xxx</p>
           </div>
         </div>
       </div>
