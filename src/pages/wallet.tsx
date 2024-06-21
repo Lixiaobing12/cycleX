@@ -1,4 +1,4 @@
-import { Col, Pagination, Row, Table, TableProps } from "antd";
+import { Col, Pagination, Row, Select, Table, TableProps } from "antd";
 import { ethers } from "ethers";
 import { useAtom } from "jotai";
 import moment from "moment";
@@ -31,7 +31,6 @@ const Wallet = () => {
   const { handleTranslate } = useTranslateLocalStorage();
   const [, user, walletInfo] = useAccounts();
   const [records, setRecords] = useState<any[]>([]);
-
   const total_assets = useMemo(() => {
     let total = Number(
       Number(walletInfo?.balance || 0) + Number(walletInfo?.freeze || 0) + Number(walletInfo?.current_amount || 0) + Number(walletInfo?.regular_amount || 0) + Number(walletInfo?.fund_amount || 0)
@@ -69,7 +68,7 @@ const Wallet = () => {
   ];
 
   const handleCopy = (text: string) => {
-    console.log(text)
+    console.log(text);
     copy(text)
       .then(() => {
         toast?.success({
@@ -82,6 +81,11 @@ const Wallet = () => {
       });
   };
   const Recharge = async () => {
+    let coin = "USDT";
+    function handleChangeCoin(value: string) {
+      coin = value;
+      context.update();
+    }
     const context: any = modal?.info({
       closable: false,
       icon: <></>,
@@ -96,16 +100,16 @@ const Wallet = () => {
           <strong className="text-xl">Recharge</strong>
 
           <div className="w-full p-2 flex flex-col gap-2 mt-4">
-            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">
-              <img src="/assets/usdt.png" width={16} alt="" />
-              <span>USDT</span>
-              <span>、</span>
-              <img src="/assets/eth.png" width={20} alt="" />
-              <span>ETH</span>
-              </div>
-
+            <Select
+              defaultValue={coin}
+              onChange={handleChangeCoin}
+              options={[
+                { value: "USDT", label: "USDT" },
+                { value: "ETH", label: "ETH" },
+              ]}
+            />
             <div className="mt-4">{t("Recharge network")}</div>
-            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">USDT-ERC20、ETH-ERC20</div>
+            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">Ethereum Mainnet</div>
 
             <div className="mt-4">{t("Recharge address")}</div>
             <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 text-sm overflow-auto pointer-events-auto">
@@ -234,7 +238,7 @@ const Wallet = () => {
                       ? (walletInfo?.wallet_account_address ?? ethers.constants.AddressZero).replace(/^(.{6}).*(.{6})$/, "$1...$2")
                       : walletInfo?.wallet_account_address ?? ethers.constants.AddressZero}
                   </div>
-                  <WrapperImg src="/assets/copy.png" width={16}  onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
+                  <WrapperImg src="/assets/copy.png" width={16} onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
                 </div>
               </div>
             </div>

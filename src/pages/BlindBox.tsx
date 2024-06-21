@@ -226,7 +226,7 @@ const BlindBox = () => {
   }, []);
   return (
     <div className="bg-black">
-      <div className="bg-blindboxbgh5 bg-100 xl:bg-blindboxbg gap-10 py-10 flex-center-col">
+      <div className="bg-blindboxbgh5 bg-100 xl:bg-blindboxbg gap-10 pb-10 flex-center-col">
         <div id="danmu-screen" className="w-full h-[100px]"></div>
         {openStatus ? (
           <div className="relative flex-center-col">
@@ -238,7 +238,7 @@ const BlindBox = () => {
         ) : (
           <>
             <img src="/assets/WonWFC.png" alt="" width={350} className="max-w-[80vw]" />
-            <img src="/assets/box-shine.png" width={500} alt="" className="my-10" />
+            <img src="/assets/box-shine.png" width={500} alt="" className="my-[-50px]" />
             <div className="relative flex-center-col inline-flex">
               <div className="bg-blindboxpopbg bg-100 px-4 w-fit py-1 self-end mb-1 flex pb-[8px]">+{lotteryInfo.LotteryNum} times</div>
               <a style={lotteryInfo.LotteryNum === 0 ? { pointerEvents: "none", filter: "brightness(0.5)" } : {}}>
