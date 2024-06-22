@@ -58,7 +58,7 @@ const DrawerGetBlindBox = () => {
   };
   useEffect(() => {
     if (isSign) {
-      // open();
+      open();
     }
   }, [isSign, modal]);
 

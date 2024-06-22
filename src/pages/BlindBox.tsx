@@ -220,11 +220,17 @@ const BlindBox = () => {
       init();
     }
   }, [account]);
+
+
   useEffect(() => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
+    const img = new Image();
+    img.src = "/assets/comp.gif";
+
   }, []);
+  
   return (
-    <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center items-center py-20 gap-10 lg:py-20">
+    <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center  items-center lg:items-start py-20 gap-10 lg:py-20">
       <div className="relative">
         {openStatus && (
           <div className="flex-center-col absolute">
@@ -232,13 +238,13 @@ const BlindBox = () => {
               <Loader />
             </div>
             <div className="w-full h-[100px]"></div>
-            <img src="/assets/comp.gif" alt="" width={500} />
+            <img src="/assets/comp.gif" alt="" width={400} />
           </div>
         )}
-        <div className={`gap-10 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""}`}>
+        <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
           <img src="/assets/WonWFC.png" alt="" width={350} className="max-w-[80vw]" />
           <div id="danmu-screen" className="w-full lg:w-[130%] h-[100px] lg:right-[100px]"></div>
-          <img src="/assets/box-shine.png" width={500} alt="" className="my-[-50px]" />
+          <img src="/assets/box-shine.png" width={400} alt="" className="my-[-50px]" />
           <div className={`relative flex-center gap-4 w-full`}>
             <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={handleList}>
               <WrapperImg src="/assets/blindbox-coin.png" width={16} />
@@ -256,7 +262,7 @@ const BlindBox = () => {
           </div>
         </div>
       </div>
-      <div className="p-4 lg:py-10">
+      <div className="p-4 lg:pt-0">
         <div className="w-full m-auto">
           <div className="bg-[transparent] text-white border border-[#555555] text-center py-2 rounded-lg text-lg">Lucky Tasks</div>
           <div>
@@ -289,11 +295,11 @@ const BlindBox = () => {
               )}
             />
           </div>
-          <div className="border border-[#555555] rounded-box p-6 my-10">
-            <h3 className="text-white text-lg">Rules</h3>
-            <p className="my-2 text-grey">1.CycleX limited time lottery activity, participating in the activity can earn rare WFC</p>
-            <p className="my-2 text-grey">2.Users will receive one lucky draw opportunity for daily login and forwarding</p>
-            <p className="my-2 text-grey">3.The sole right of interpretation belongs to xxx</p>
+          <div className="border border-[#555555] rounded-box p-6 px-4 my-6">
+            <h3 className="text-white text-base">Rules</h3>
+            <p className="my-2 text-grey text-xs">1.CycleX limited time lottery activity, participating in the activity can earn rare WFC</p>
+            <p className="my-2 text-grey text-xs">2.Users will receive one lucky draw opportunity for daily login and forwarding</p>
+            <p className="my-2 text-grey text-xs">3.The sole right of interpretation belongs to xxx</p>
           </div>
         </div>
       </div>
