@@ -152,7 +152,7 @@ const BlindBox = () => {
             footer: null,
             width: "375px",
           });
-        }, 3000);
+        }, 4000);
       });
   };
 
@@ -226,9 +226,11 @@ const BlindBox = () => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
     const img = new Image();
     img.src = "/assets/comp.gif";
+    const img2 = new Image();
+    img2.src = '/assets/loading1.png'
 
   }, []);
-  
+
   return (
     <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center  items-center lg:items-start py-20 gap-10 lg:py-20">
       <div className="relative">
@@ -237,7 +239,7 @@ const BlindBox = () => {
             <div className="absolute top-0">
               <Loader />
             </div>
-            <div className="w-full h-[100px]"></div>
+            <div className="w-full h-[60px]"></div>
             <img src="/assets/comp.gif" alt="" width={400} />
           </div>
         )}
