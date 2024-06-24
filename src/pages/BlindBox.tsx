@@ -202,9 +202,9 @@ const BlindBox = () => {
         if (data.data.length) {
           data.data.forEach((item: any) => {
             screenRef.current.push(`
-                <div class="flex gap-2 items-center text-white bg-[rgba(255,255,255,0.2)] px-4 rounded-full py-1">
+                <div class="flex gap-2 items-center text-white bg-[rgba(255,255,255,0.1)] px-4 rounded-full py-1">
                     <img src="${item.Avatar}" width="25" class="rounded-full"/>
-                    <span>${item.Email.replace(/^(.{3}.*(.{6})$)/, "$1***$2")}</span>won<span class="text-[#61f6ff]">${item.Amount}</span> WFC
+                    <span>${item.Email.replace(/^(.{3}).*(.{2}@.*\.com)$/, "$1***$2")}</span>won<span class="text-[#61f6ff]">${item.Amount}</span> WFC
                 </div>`);
           });
           if (data.data.length < 8) {
@@ -232,7 +232,7 @@ const BlindBox = () => {
   }, []);
 
   return (
-    <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center  items-center lg:items-start py-20 gap-10 lg:py-20">
+    <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center items-center lg:items-start py-20 gap-14 lg:py-20">
       <div className="relative">
         {openStatus && (
           <div className="flex-center-col absolute">
@@ -244,9 +244,9 @@ const BlindBox = () => {
           </div>
         )}
         <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
-          <img src="/assets/WonWFC.png" alt="" width={350} className="max-w-[80vw]" />
-          <div id="danmu-screen" className="w-full lg:w-[130%] h-[100px] lg:right-[100px]"></div>
-          <img src="/assets/box-shine.png" width={400} alt="" className="my-[-50px]" />
+          <img src="/assets/WonWFC.png" alt="" width={400} className="max-w-[80vw]" />
+          <div id="danmu-screen" className="w-full lg:w-[130%] h-[100px] "></div>
+          <img src="/assets/box-shine.png" width={480} alt="" className="my-[-87px]" />
           <div className={`relative flex-center gap-4 w-full`}>
             <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={handleList}>
               <WrapperImg src="/assets/blindbox-coin.png" width={16} />
