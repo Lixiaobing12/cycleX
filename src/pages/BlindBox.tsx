@@ -6,6 +6,7 @@ import BulletJs from "js-bullets";
 import moment from "moment";
 import VirtualList from "rc-virtual-list";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCopyToClipboard } from "usehooks-ts";
 import { messageContext, modalContext } from "../App";
 import WrapperImg from "../components/Common/Img";
@@ -82,6 +83,7 @@ const AppendLotteryUserRecordComponent = () => {
   );
 };
 const BlindBox = () => {
+  const navigate = useNavigate();
   const [, account] = useAccounts();
   const [, copy] = useCopyToClipboard();
   const accessToken = useLocalStorage();
@@ -280,6 +282,8 @@ const BlindBox = () => {
                         onClick={() => {
                           if (index === 1) {
                             handleCopy();
+                          } else if (index === 2) {
+                            navigate("/#fund");
                           }
                         }}>
                         +{item.times}
