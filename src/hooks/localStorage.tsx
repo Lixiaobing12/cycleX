@@ -49,7 +49,9 @@ export const useTranslateLocalStorage = () => {
       return data;
     },
     set: async (str: string) => {
-      const { data } = await axios.get("/translate?p=" + str);
+      const { data } = await axios.post("/translate/ts",{
+        p:str
+      });
       if (data.code === 200) {
         const tls = window.localStorage.getItem("translate") as string;
         const dcts = JSON.parse(tls) as dctT[] ?? [];

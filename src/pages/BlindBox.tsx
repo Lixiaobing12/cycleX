@@ -46,7 +46,8 @@ const AppendLotteryUserRecordComponent = () => {
         Size: 8,
       })
       .then(({ data }) => {
-        setUserLotteryList(data.data.concat(userLotteryList));
+        const newdata = new Set<any>(data.data.concat(userLotteryList));
+        setUserLotteryList(Array.from(newdata));
       });
   };
   const onScroll = (e: React.UIEvent<HTMLElement, UIEvent>) => {
@@ -170,10 +171,9 @@ const BlindBox = () => {
       title: (
         <div className="text-center">
           <h1 className="w-full py-2 text-center text-xl">Records</h1>
-          <AppendLotteryUserRecordComponent />
         </div>
       ),
-      content: <div className="bg-white rounded-box flex flex-col justify-center items-center"></div>,
+      content: <AppendLotteryUserRecordComponent />,
       centered: true,
       footer: null,
       width: "375px",
@@ -221,14 +221,12 @@ const BlindBox = () => {
     }
   }, [account]);
 
-
   useEffect(() => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
     const img = new Image();
     img.src = "/assets/comp.gif";
     const img2 = new Image();
-    img2.src = '/assets/loading1.png'
-
+    img2.src = "/assets/loading1.png";
   }, []);
 
   return (

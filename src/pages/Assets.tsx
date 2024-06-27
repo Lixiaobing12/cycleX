@@ -21,10 +21,12 @@ export default function Assets() {
 
   useEffect(() => {
     request.post("/api/api/fundProduct/getDetail", { id: params.id }).then(async ({ data }: { data: AxiosResponse<fundProductApiType> }) => {
+      const p = document.createElement("p");
+      p.innerHTML = data.data.desc;
       data.data.descDcts = {
         key: "",
         zh: data.data.desc,
-        en: await handleTranslate(data.data.desc),
+        en: await handleTranslate(p.textContent!),
       };
       for (let j = 0; j < data.data.labels.length; j++) {
         const text = await handleTranslate(data.data.labels[j]);
@@ -67,6 +69,7 @@ export default function Assets() {
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(product?.market_value || 0)} AUM</div>
               <img src="/assets/eth_white.png" width={30} alt="" />
             </div>
+            {/* {product?.img_url && <img src={product.img_url} className="w-full h-" alt="" />} */}
           </div>
         </div>
         <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto py-10">
