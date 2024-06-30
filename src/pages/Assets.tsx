@@ -36,6 +36,12 @@ export default function Assets() {
           en: text,
         });
       }
+      const lock_en = await handleTranslate(data.data.lock);
+      data.data.lockDct = {
+        key: data.data.lock,  
+        zh: data.data.lock,
+        en: lock_en,
+      };
       setProductInfo(data.data);
     });
   }, [params]);

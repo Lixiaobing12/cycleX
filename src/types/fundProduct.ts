@@ -4,11 +4,17 @@ export type fundProductApiType = {
     en: string;
     zh: string;
   }[];
+  fund_annex: any[]
   descDcts?: {
     key: string;
     en: string;
     zh: string;
   };
+  lockDct?: {
+    key: string;
+    en: string;
+    zh: string;
+  },
   id: number;
   simple_name: string;
   name: string;

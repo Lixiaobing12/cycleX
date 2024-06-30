@@ -14,32 +14,31 @@ import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 import Loader from "../Loader";
 
-
 const SafetyInput: React.FC<{
   onSave: Function;
 }> = ({ onSave }) => {
-  const [words, setWords] = useState([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }])
-  const passwords = useRef('');
+  const [words, setWords] = useState([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }]);
+  const passwords = useRef("");
 
   const handleInput = ({ key, e }: { key: number; e: React.ChangeEvent<HTMLInputElement> }) => {
-    setWords(state => {
-      state[key].value = '*';
+    setWords((state) => {
+      state[key].value = "*";
       return [...state];
-    })
+    });
     passwords.current += e.target.value;
     if (key < 5) {
       (document.querySelector(`#dinput${key + 1}`) as any)?.focus();
     } else {
       (document.querySelector(`#dinput${key}`) as any)?.blur();
       onSave(passwords.current);
-    };
+    }
   };
   useEventListener("keydown", (evnet) => {
-    if (evnet.key === 'Delete' || evnet.key === 'Backspace') {
+    if (evnet.key === "Delete" || evnet.key === "Backspace") {
       for (let i = 5; i > -1; i--) {
         if (!!words[i].value) {
-          setWords(state => {
-            state[i].value = '';
+          setWords((state) => {
+            state[i].value = "";
             return [...state];
           });
           (document.querySelector(`#dinput${i}`) as any)?.focus();
@@ -47,10 +46,10 @@ const SafetyInput: React.FC<{
         }
       }
     }
-  })
+  });
   useEffect(() => {
     (document.querySelector(`#dinput0`) as any)?.focus();
-  }, [])
+  }, []);
   return (
     <div className="flex items-center gap-2 w-full justify-center">
       {words.map((item, key) => (
@@ -127,7 +126,7 @@ const ItemDeposit = () => {
     } else {
       const min = product?.min_pay;
       const balance = walletInfo?.balance;
-      secrityKey.current = '';
+      secrityKey.current = "";
       if (amount < Number(min)) {
         setDisabled(true);
         return toast?.warning({
@@ -276,10 +275,10 @@ const Deposit = () => {
   const [product] = useAtom(product_info);
   const [, copy] = useCopyToClipboard();
   const assetsData = [
-    { value: "$ " + scientific(product?.market_value ?? 0), name: t("Total assets") },
-    { value: product?.rate ?? "0%", name: t("MG fee") },
-    { value: "150%", name: t("OC rate") },
-    { value: product?.income2 ?? "5%", name: t("Rate Fee") },
+    { value: "$ " + scientific(product?.market_value ?? 0), name: "TVL" },
+    { value: product?.lockDct?.en ?? "0", name: "Lock" },
+    { value: 1/(Number(product?.unit)) +'U', name: 'Price' },
+    { value: product?.income2 ?? "5%", name: "APY" },
   ];
   const handleCopy = (text: string) => {
     copy(text)
@@ -303,13 +302,13 @@ const Deposit = () => {
             <div className="flex gap-2 items-center">
               <span>{t("Disclaimer")}</span>
               <div className="ml-1">
-                <WrapperImg src="/assets/goto.png" width={12} onClick={() => navigate("/issus")} />
+                <WrapperImg src="/assets/goto.png" width={12} onClick={() => navigate("/guide#law")} />
               </div>
             </div>
             <div className="flex gap-2 items-center">
               <span>{t("Release summary")}</span>
               <div className="ml-1">
-                <WrapperImg src="/assets/goto.png" width={12} onClick={() => navigate("/guide")} />
+                <WrapperImg src="/assets/goto.png" width={12} onClick={() => product?.fund_annex?.[0].annex && window.open(product?.fund_annex?.[0].annex, "blank")} />
               </div>
             </div>
             <div className="flex gap-2">
