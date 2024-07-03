@@ -83,7 +83,6 @@ const AppendLotteryUserRecordComponent = () => {
   );
 };
 const BlindBox = () => {
-  const navigate = useNavigate();
   const [, account] = useAccounts();
   const [, copy] = useCopyToClipboard();
   const accessToken = useLocalStorage();

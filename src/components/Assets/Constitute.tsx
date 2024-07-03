@@ -21,7 +21,7 @@ const Constitute = () => {
       render: (value, row) => (
         <div className="flex items-center gap-2">
           <img src="/assets/assets1.png" width={20} alt="" />
-          <span>{row.NameDct ? (i18n.language === 'en' ? row.NameDct.en : row.NameDct.zh) : ''}</span>
+          <span>{row.NameDct ? (i18n.language === "en" ? row.NameDct.en : row.NameDct.zh) : ""}</span>
         </div>
       ),
     },
@@ -43,8 +43,7 @@ const Constitute = () => {
       key: "Labels",
       dataIndex: "Labels",
       width: 200,
-      render: (value, row) => <>
-        {row.labelsDcts ? (i18n.language === 'en' ? row.labelsDcts.en : row.labelsDcts.zh) : ''}</>
+      render: (value, row) => <>{row.labelsDcts ? (i18n.language === "en" ? row.labelsDcts.en : row.labelsDcts.zh) : ""}</>,
     },
   ];
   useEffect(() => {
@@ -60,20 +59,20 @@ const Constitute = () => {
           items[i].labelsDcts = {
             key: items[i].Labels,
             zh: items[i].Labels,
-            en: await handleTranslate(items[i].Labels)
-          }
+            en: await handleTranslate(items[i].Labels),
+          };
           items[i].NameDct = {
             key: items[i].Name,
             zh: items[i].Name,
-            en: await handleTranslate(items[i].Name)
-          }
+            en: await handleTranslate(items[i].Name),
+          };
         }
         setAssets(items);
       });
   }, []);
   return (
     <div className="flex flex-col w-full items-center gap-10">
-      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey="Name"/>
+      <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 500 }} rowKey="Name" />
     </div>
   );
 };

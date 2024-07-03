@@ -38,7 +38,7 @@ export default function Assets() {
       }
       const lock_en = await handleTranslate(data.data.lock);
       data.data.lockDct = {
-        key: data.data.lock,  
+        key: data.data.lock,
         zh: data.data.lock,
         en: lock_en,
       };
@@ -89,6 +89,29 @@ export default function Assets() {
             </div>
             <Constitute />
           </div>
+          {product?.id === 8 && (
+            <>
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
+                </div>
+                <img src="/assets/CFOF/overview.png" />
+              </div>
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">Fund Process</h1>
+                </div>
+                <img src="/assets/CFOF/process.png" />
+              </div>
+
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">Product Analysis</h1>
+                </div>
+                <img src="/assets/CFOF/analysis.png" />
+              </div>
+            </>
+          )}
 
           <div className="mt-14">
             <div className="w-full text-center mb-14 md:mb-20">
