@@ -72,7 +72,7 @@ export default function Assets() {
             </div>
             <div className="flex gap-6 items-center">
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">{product?.income2} APY</div>
-              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(product?.market_value || 0)} AUM</div>
+              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(product?.market_value) + 300000)} TVL</div>
               <img src="/assets/eth_white.png" width={30} alt="" />
             </div>
             {/* {product?.img_url && <img src={product.img_url} className="w-full h-" alt="" />} */}

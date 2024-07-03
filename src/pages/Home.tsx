@@ -103,7 +103,7 @@ export default function Home() {
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex gap-4">
                     <div>
-                      <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(item.market_value)} AUM</div>
+                      <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(item.market_value) + 300000)} TVL</div>
                     </div>
                     <img src="/assets/eth.png" width={30} alt="" />
                   </div>
@@ -199,7 +199,7 @@ export default function Home() {
               <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.55)] flex items-center justify-center">
                 <Countdown
                   title={<div className="text-white font-bold font-whalebold text-lg text-center">The date to open the app</div>}
-                  value={1720886400000}
+                  value={1722614400000}
                   format="DD:HH:mm:ss"
                   valueStyle={{
                     color: "#fff",

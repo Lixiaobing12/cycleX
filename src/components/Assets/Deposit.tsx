@@ -275,9 +275,9 @@ const Deposit = () => {
   const [product] = useAtom(product_info);
   const [, copy] = useCopyToClipboard();
   const assetsData = [
-    { value: "$ " + scientific(Number(product?.market_value)  + 100000), name: "TVL" },
+    { value: "$ " + scientific(Number(product?.market_value) + 300000), name: "TVL" },
     { value: product?.lockDct?.en ?? "0", name: "Lock" },
-    { value: 1/(Number(product?.unit)) +'U', name: 'Price' },
+    { value: 1000, name: "NAV" },
     { value: product?.income2 ?? "5%", name: "APY" },
   ];
   const handleCopy = (text: string) => {
@@ -344,15 +344,13 @@ const Deposit = () => {
                   </div> */}
                 </div>
               </div>
-              <div className="join-item flex justify-between p-2 text-greyblack border-b border-transblack">
+              {/* <div className="join-item flex justify-between p-2 text-greyblack border-b border-transblack">
                 <div className="flex gap-2">
                   <span>{t("fluidity")}</span>
-                  {/* <div>
-                    <WrapperImg src="/assets/question.png" width={12} />
-                  </div> */}
+                 
                 </div>
                 <div>{t("Daily trading volume reaches $25 million")}</div>
-              </div>
+              </div> */}
               <div className="join-item flex justify-between p-2 text-greyblack">
                 <div className="flex gap-2">
                   <span>{t("On-chain address")}</span>

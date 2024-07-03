@@ -139,12 +139,12 @@ const KLine = () => {
         <WrapperButton click={() => setItem(40)} isActive={activeItem === 40}>
           {t("All")}
         </WrapperButton>
-        <WrapperButton click={() => setItem(7)} isActive={activeItem === 7}>
+        {/* <WrapperButton click={() => setItem(7)} isActive={activeItem === 7}>
           {t("7 APY")}
         </WrapperButton>
         <WrapperButton click={() => setItem(14)} isActive={activeItem === 14}>
           {t("Accumulated interest paid")}
-        </WrapperButton>
+        </WrapperButton> */}
       </div>
       <div id="ichart" className="w-full min-h-[260px]"></div>
     </div>
