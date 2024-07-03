@@ -1,10 +1,10 @@
 export const scientific = (num: string | number) => {
   const num_b = Number(num);
-  const toM = num_b / 1e7;
+  const toM = num_b / 1e6;
   if (toM >= 1) {
     return toM.toFixed(1) + "M";
   }
-  const toK = num_b / 1e4;
+  const toK = num_b / 1e3;
   if (toK > 0) {
     return parseInt(toK.toString()) + "K";
   }
