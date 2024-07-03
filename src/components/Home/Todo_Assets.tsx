@@ -100,12 +100,12 @@ const TodoListAssets = () => {
           <WrapperButton click={() => setItem(1)} isActive={activeItem === 1}>
             {t("All")}
           </WrapperButton>
-          <WrapperButton click={() => setItem(2)} isActive={activeItem === 2}>
+          {/* <WrapperButton click={() => setItem(2)} isActive={activeItem === 2}>
             Fixed income
           </WrapperButton>
           <WrapperButton click={() => setItem(3)} isActive={activeItem === 3}>
             RWA Funds
-          </WrapperButton>
+          </WrapperButton> */}
         </div>
 
         <div className="self-end md:self-auto flex items-center text-greyblack text-sm">
