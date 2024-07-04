@@ -106,6 +106,7 @@ export default function Home() {
                       <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(item.market_value) + 300000)} TVL</div>
                     </div>
                     <img src="/assets/eth.png" width={30} alt="" />
+                    <img src="/assets/usdt.png" width={30} alt="" />
                   </div>
                   <img
                     src="/assets/right.png"
