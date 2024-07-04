@@ -81,7 +81,7 @@ const ProofAssets = () => {
         <div className="flex items-end ">
           <span className="text-2xl mr-4">{t("Reserve detail")}</span>
           <div className="flex items-center">
-            <span className="mr-2 text-sm">{t("Until January /20, 2024")}</span>
+            <span className="mr-2 text-sm">{t('Until July/1, 2024')}</span>
             <WrapperImg src="/assets/reflush.png" width={14} />
           </div>
         </div>
