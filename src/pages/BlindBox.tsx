@@ -37,25 +37,18 @@ const Loader = () => {
 const AppendLotteryUserRecordComponent = () => {
   const [userLotteryList, setUserLotteryList] = useState<any[]>([]);
   const [, account] = useAccounts();
-  const [page, setPage] = useState(1);
   const getData = () => {
     request
       .post("/sapi/lottery/list", {
         UserId: account?.id,
         unlock: false,
-        Page: page,
-        Size: 8,
+        Page: 1,
+        Size: 9999,
       })
       .then(({ data }) => {
         const newdata = new Set<any>(data.data.concat(userLotteryList));
         setUserLotteryList(Array.from(newdata));
       });
-  };
-  const onScroll = (e: React.UIEvent<HTMLElement, UIEvent>) => {
-    if (Math.abs(e.currentTarget.scrollHeight - e.currentTarget.scrollTop - 400) <= 1) {
-      setPage((page) => page + 1);
-      getData();
-    }
   };
   useEffect(() => {
     if (account) {
@@ -65,7 +58,7 @@ const AppendLotteryUserRecordComponent = () => {
 
   return (
     <List>
-      <VirtualList data={userLotteryList} height={400} itemHeight={47} itemKey="email" onScroll={onScroll}>
+      <VirtualList data={userLotteryList} height={400} itemHeight={47} itemKey="email">
         {(item) => (
           <List.Item extra={<span>{moment(item.CreatedAt).format("YYYY-MM-DD HH:mm:ss")}</span>}>
             <List.Item.Meta
