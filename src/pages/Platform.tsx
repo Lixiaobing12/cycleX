@@ -80,9 +80,9 @@ const Platform = () => {
       <Row justify="center">
         <Col xs={24} md={22} lg={18}>
           <div className="rounded-box bg-black flex flex-col p-8 gap-4 relative  bg-wallet bg-100">
-            <div className="absolute right-4 top-4 btn btn-sm border-grey text-white hover:text-black hover:bg-white" onClick={() => navigate("/wallet")}>
+            <button className=" btn btn-sm border-light bg-black text-white hover:text-black hover:bg-white" onClick={() => navigate("/wallet")}>
               {t("my assets")}
-            </div>
+            </button>
             <div className="text-grey">{t("Total assets")} WFC</div>
             <div className="text-white text-2xl">
               <CountUp end={tokenInfo.OwnerTvlTokenAmount} separator="," decimal="." decimals={2} />

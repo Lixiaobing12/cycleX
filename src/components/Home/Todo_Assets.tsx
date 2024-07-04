@@ -77,7 +77,7 @@ const TodoListAssets = () => {
       key: "unit",
       dataIndex: "unit",
       width: 180,
-      render: (value) => '$1000',
+      render: (value) => "$1000",
     },
     {
       title: t("Expected yield /APY"),
@@ -109,7 +109,7 @@ const TodoListAssets = () => {
         </div>
 
         <div className="self-end md:self-auto flex items-center text-greyblack text-sm">
-          <span className="mr-2">{t('Until July/1, 2024')}</span>
+          <span className="mr-2">{t("Until July/1, 2024")}</span>
           <WrapperImg src="/assets/reflush.png" width={14} />
         </div>
       </div>
