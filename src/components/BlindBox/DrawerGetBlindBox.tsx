@@ -63,7 +63,6 @@ const DrawerGetBlindBox = () => {
           UserId: account?.id,
         })
         .then((res) => {
-          console.log(res.data.data);
           if (!res.data.data.Login) {
             open();
           }
