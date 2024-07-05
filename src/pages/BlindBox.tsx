@@ -327,8 +327,8 @@ const BlindBox = () => {
               <p className="my-2 text-grey text-xs">1.{t("Cyclex limited-time blind box lottery event, participants can get rare $WFC")}</p>
               <p className="my-2 text-grey text-xs">2.{t("Users can get 2 lottery opportunities for daily login")}</p>
               <p className="my-2 text-grey text-xs">3.{t("Users can get 1 lottery opportunity for daily forwarding")}</p>
-              <p className="my-2 text-grey text-xs">3.{t("Users can get 5 lottery opportunities for each investment of no less than 100u")}</p>
-              <p className="my-2 text-grey text-xs">3.{t("Cyclex has the sole right of interpretation for this event")}</p>
+              <p className="my-2 text-grey text-xs">4.{t("Users can get 5 lottery opportunities for each investment of no less than 100u")}</p>
+              <p className="my-2 text-grey text-xs">5.{t("Cyclex has the sole right of interpretation for this event")}</p>
             </div>
           </div>
         </div>
