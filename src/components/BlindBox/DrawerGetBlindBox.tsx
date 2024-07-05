@@ -11,7 +11,7 @@ import { request } from "../../utils/request";
 
 let CloseCircleOutlineds = CloseCircleOutlined as any;
 const DrawerGetBlindBox = () => {
-  const [isSign] = useAccounts();
+  const [isSign, account] = useAccounts();
   const [modal] = useAtom(modalContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -57,10 +57,19 @@ const DrawerGetBlindBox = () => {
     });
   };
   useEffect(() => {
-    if (isSign) {
-      open();
+    if (isSign && account) {
+      request
+        .post("/sapi/lottery/info", {
+          UserId: account?.id,
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          if (!res.data.data.Login) {
+            open();
+          }
+        });
     }
-  }, [isSign, modal]);
+  }, [isSign, modal, account]);
 
   return <></>;
 };

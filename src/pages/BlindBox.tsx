@@ -13,6 +13,7 @@ import WrapperImg from "../components/Common/Img";
 import useLocalStorage from "../hooks/localStorage";
 import useAccounts from "../hooks/user";
 import { request } from "../utils/request";
+import { useTranslation } from "react-i18next";
 
 let CloseCircleOutlineds = CloseCircleOutlined as any;
 let page = 1;
@@ -83,6 +84,8 @@ const BlindBox = () => {
   const [openStatus, setOpenStatus] = useState(false);
   const [modal] = useAtom(modalContext);
   const screenRef = useRef<any>();
+  const { t } = useTranslation();
+  const invite_img = useRef("");
   const [lotteryInfo, setLotteryInfo] = useState({
     LotteryNum: 0,
     Amount: 0,
@@ -90,26 +93,50 @@ const BlindBox = () => {
     Share: false,
   });
   const [data, setData] = useState([
-    { title: "Login", content: "Daily login rewards 3 times", avatar: "/assets/blindbox-tasks-1.png", done: true, times: 3 },
-    { title: "Share To Friends", content: "Successful sharing rewards 1 time", avatar: "/assets/blindbox-tasks-2.png", done: false, times: 1 },
-    { title: "Invest in Products", content: "Invest more than 100u and rewards 5 times", avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
+    { title: "Login", content: t("Daily login rewards 2 times"), avatar: "/assets/blindbox-tasks-1.png", done: true, times: 2 },
+    { title: "Share To Friends", content: t("Successful sharing rewards 1 time"), avatar: "/assets/blindbox-tasks-2.png", done: false, times: 1 },
+    { title: "Invest in Products", content: t("Invest more than 100u and rewards 5 times"), avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
   ]);
 
+  const invite = async () => {
+    const context: any = modal?.info({
+      closable: false,
+      icon: <></>,
+      onCancel: () => context.destroy(),
+      title: null,
+      modalRender: () => (
+        <div className="w-full flex flex-col items-center pointer-events-auto">
+          <button className="btn btn-circle mb-2 bg-black border-0 btn-sm hover:bg-black hover:scale-105" onClick={() => context.destroy()}>
+            <img src="/assets/x.png" width={26} alt="" />
+          </button>
+          <img src={invite_img.current} alt="" className="w-[320px] md:w-[380px]" />
+
+          <a href={invite_img.current} download target="_blank">
+            <button className="btn btn-wide  mt-2">{t("Download")}</button>
+          </a>
+        </div>
+      ),
+      centered: true,
+      footer: null,
+    });
+  };
   const handleCopy = () => {
-    copy("https://cyclex.cc")
-      .then(() => {
-        toast?.success({
-          icon: <img src="/assets/success.png" width={30} />,
-          message: "Copied!",
-        });
-        request.post("/sapi/lottery/addNum", {
-          BearerToken: "Bearer " + accessToken?.token,
-          Type: "Share",
-        });
-      })
-      .catch((error) => {
-        console.error("Failed to copy!", error);
-      });
+    invite();
+    request.post("/sapi/lottery/addNum", {
+      BearerToken: "Bearer " + accessToken?.token,
+      Type: "Share",
+    });
+    // copy("https://cyclex.cc")
+    //   .then(() => {
+    //     toast?.success({
+    //       icon: <img src="/assets/success.png" width={30} />,
+    //       message: "Copied!",
+    //     });
+
+    //   })
+    //   .catch((error) => {
+    //     console.error("Failed to copy!", error);
+    //   });
   };
 
   const handleOpen = () => {
@@ -221,6 +248,9 @@ const BlindBox = () => {
     img.src = "/assets/comp.gif";
     const img2 = new Image();
     img2.src = "/assets/loading1.png";
+    request.post("/api/api/my/getInvite").then(({ data }) => {
+      invite_img.current = data.data;
+    });
   }, []);
 
   return (
@@ -294,9 +324,11 @@ const BlindBox = () => {
             </div>
             <div className="border border-[#555555] rounded-box p-6 px-4 my-6">
               <h3 className="text-white text-base">Rules</h3>
-              <p className="my-2 text-grey text-xs">1.CycleX limited time lottery activity, participating in the activity can earn rare WFC</p>
-              <p className="my-2 text-grey text-xs">2.Users will receive one lucky draw opportunity for daily login and forwarding</p>
-              <p className="my-2 text-grey text-xs">3.The sole right of interpretation belongs to xxx</p>
+              <p className="my-2 text-grey text-xs">1.{t("Cyclex limited-time blind box lottery event, participants can get rare $WFC")}</p>
+              <p className="my-2 text-grey text-xs">2.{t("Users can get 2 lottery opportunities for daily login")}</p>
+              <p className="my-2 text-grey text-xs">3.{t("Users can get 1 lottery opportunity for daily forwarding")}</p>
+              <p className="my-2 text-grey text-xs">3.{t("Users can get 5 lottery opportunities for each investment of no less than 100u")}</p>
+              <p className="my-2 text-grey text-xs">3.{t("Cyclex has the sole right of interpretation for this event")}</p>
             </div>
           </div>
         </div>
