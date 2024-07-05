@@ -31,6 +31,7 @@ const SafetyInput: React.FC<{
     } else {
       (document.querySelector(`#dinput${key}`) as any)?.blur();
       onSave(passwords.current);
+      passwords.current = ''
     }
   };
   useEventListener("keydown", (evnet) => {
@@ -58,6 +59,7 @@ const SafetyInput: React.FC<{
     </div>
   );
 };
+
 const ItemDeposit = () => {
   const { t, i18n } = useTranslation();
   const [toast] = useAtom(messageContext);
@@ -277,7 +279,7 @@ const Deposit = () => {
   const assetsData = [
     { value: "$ " + scientific(Number(product?.market_value) + 300000), name: "TVL" },
     { value: product?.lockDct?.en ?? "0", name: "Lock" },
-    { value: '$1000', name: "NAV" },
+    { value: "$1000", name: "NAV" },
     { value: product?.income2 ?? "5%", name: "APY" },
   ];
   const handleCopy = (text: string) => {
