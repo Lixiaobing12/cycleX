@@ -452,6 +452,7 @@ const Up = () => {
       icon: <></>,
       onCancel: () => context.destroy(),
       title: <h1 className="w-full py-2 text-center text-lg">{t("Payment password settings")}</h1>,
+      zIndex: 1000,
       content: (
         <SafetyInput
           onComplate={() => {

@@ -3,14 +3,16 @@ import { Icon } from "@ricons/utils";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { modalContext } from "../../App";
 import useLocalStorage from "../../hooks/localStorage";
 import useAccounts from "../../hooks/user";
 import { request } from "../../utils/request";
 
+let opened = false;
 let CloseCircleOutlineds = CloseCircleOutlined as any;
 const DrawerGetBlindBox = () => {
+  const location = useLocation();
   const [isSign, account] = useAccounts();
   const [modal] = useAtom(modalContext);
   const { t } = useTranslation();
@@ -32,6 +34,7 @@ const DrawerGetBlindBox = () => {
       },
       icon: <></>,
       onCancel: () => context.destroy(),
+      zIndex: 100,
       title: (
         <div className="text-center">
           <h1 className="w-full py-2 text-center text-xl">{t("Congratulations！")}</h1>
@@ -57,18 +60,21 @@ const DrawerGetBlindBox = () => {
     });
   };
   useEffect(() => {
-    if (isSign && account) {
-      request
-        .post("/sapi/lottery/info", {
-          UserId: account?.id,
-        })
-        .then((res) => {
-          if (!res.data.data.Login) {
-            open();
-          }
-        });
+    if (isSign && account && !opened) {
+      if (location.pathname !== "/login") {
+        opened = true;
+        request
+          .post("/sapi/lottery/info", {
+            UserId: account?.id,
+          })
+          .then((res) => {
+            if (!res.data.data.Login) {
+              open();
+            }
+          });
+      }
     }
-  }, [isSign, modal, account]);
+  }, [isSign, modal, account, location]);
 
   return <></>;
 };

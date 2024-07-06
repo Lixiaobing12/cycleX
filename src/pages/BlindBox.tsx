@@ -124,7 +124,7 @@ const BlindBox = () => {
     invite();
     request.post("/sapi/lottery/addNum", {
       BearerToken: "Bearer " + accessToken?.token,
-      Type: "Share",
+      Type: "share",
     });
     // copy("https://cyclex.cc")
     //   .then(() => {
