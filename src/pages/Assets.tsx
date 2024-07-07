@@ -56,7 +56,7 @@ export default function Assets() {
               <span>{product?.name}</span>
             </p>
             <p
-              className="text-grey text-left tracking-widest leading-relaxed text-xl w-11/12 md:w-8/12 text-sm lg:text-xs"
+              className="text-grey text-left tracking-widest leading-relaxed text-sm w-11/12 md:w-8/12 lg:text-lg"
               dangerouslySetInnerHTML={{ __html: product ? (i18n.language === "en" ? product?.descDcts?.en! : product?.descDcts?.zh!) : "" }}></p>
             <div className="flex gap-10 items-end mt-14 mb-10">
               <div className="text-3xl">
