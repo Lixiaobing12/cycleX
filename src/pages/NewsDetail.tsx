@@ -33,7 +33,7 @@ const NewsDetails = () => {
     });
   }, [id]);
   return (
-    <div className="w-[92%] md:w-2/3 m-auto md:p-20 mt-14 md:mt-0 overflow-hidden" id="news-detail">
+    <div className="w-[92%] md:w-2/3 m-auto md:p-20 mt-14 md:mt-0 overflow-hidden pb-10" id="news-detail">
       <div className="text-black font-bold text-3xl max-w-[800px]">{news?.title}</div>
       <p className="text-threePranentTransblack my-4 flex gap-2 items-center">
         <img src="/assets/icon.png" width={42} alt="" />

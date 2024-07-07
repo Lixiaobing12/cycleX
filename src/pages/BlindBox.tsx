@@ -333,7 +333,7 @@ const BlindBox = () => {
           </div>
         </div>
       </div>
-      <div className="w-11/12 m-auto h-[1px] bg-[#aaa]"></div>
+      <div className=" m-auto h-[1px] bg-[#aaa] "></div>
     </>
   );
 };
