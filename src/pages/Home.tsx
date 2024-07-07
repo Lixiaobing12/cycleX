@@ -62,7 +62,7 @@ export default function Home() {
   }, []);
   return (
     <div>
-      <div className="relative text-white">
+      <div className="relative text-white pb-10">
         {/* {openNotice && (
           <div className="bg-[#1a1a1a] w-full absolute top-0 h-[50px] leading-[50px] text-center">
             {t("Latest online RWA")}
