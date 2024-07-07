@@ -14,8 +14,12 @@ module.exports = {
         wallet: "url('/assets/ido-bg.png')",
         blindboxbg: "url('/assets/blind-box-bg.png')",
         blindboxbgh5: "url('/assets/blindbox-bg-h5.png')",
-        blindboxpopbg: "url('/assets/blindbox-btn-pop.png')"
+        blindboxpopbg: "url('/assets/blindbox-btn-pop.png')",
+        assetsbg: "url('/assets/assets_bg.png')"
       },
+      backgroundSize: {
+        100: "100% 100%",
+      }
     },
     fontFamily: {
       whalebold: ["Alliance-bold", "Whale-bold"],

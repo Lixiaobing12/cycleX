@@ -48,9 +48,9 @@ export default function Assets() {
   return (
     <>
       <div className="relative text-white" id="main">
-        <div className="relative flex items-center justify-center">
-          <img src="/assets/assets_bg.png" className="w-full h-[80vh]" alt="" />
-          <div className="absolute flex flex-col left-4 top-[10%] md:top-[20%] md:left-[20%]">
+        <div className="relative flex items-center justify-center bg-assetsbg bg-100 py-10 pt-16 px-4 lg:h-[80vh]">
+          {/* <img src="/assets/assets_bg.png" className="w-full h-[80vh]" alt="" /> */}
+          <div className="inline-flex flex-col lg:w-1/2">
             <p className="tracking-widest	text-2xl font-bold font-whalebold mb-8 flex items-center gap-4">
               <img src="/assets/assets_dollor.png" className="w-12" alt="" />
               <span>{product?.name}</span>
@@ -79,7 +79,7 @@ export default function Assets() {
           </div>
         </div>
         <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto py-10">
-          <div className="mt-14">
+          <div className="lg:mt-6">
             <Deposit />
           </div>
 
