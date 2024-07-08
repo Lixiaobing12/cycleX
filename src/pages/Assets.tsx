@@ -53,7 +53,7 @@ export default function Assets() {
           <div className="inline-flex flex-col lg:w-1/2">
             <p className="tracking-widest	text-2xl font-bold font-whalebold mb-8 flex items-center gap-4">
               <img src="/assets/assets_dollor.png" className="w-12" alt="" />
-              <span>{product?.name}</span>
+              <span>{product?.simple_name}</span>
             </p>
             <p
               className="text-grey text-left tracking-widest leading-relaxed text-sm w-11/12 md:w-8/12 lg:text-lg"
@@ -85,7 +85,7 @@ export default function Assets() {
 
           <div className="mt-14">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6">{product?.name}</h1>
+              <h1 className="text-black text-3xl mb-6">{product?.simple_name}</h1>
             </div>
             <Constitute />
           </div>
