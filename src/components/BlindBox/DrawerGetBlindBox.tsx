@@ -47,6 +47,10 @@ const DrawerGetBlindBox = () => {
           <button
             className="btn btn-wide m-auto mt-4 bg-black text-white hover:bg-black hover:scale-105"
             onClick={() => {
+              if (!accessToken) {
+                context.destroy();
+                return navigate("/login");
+              }
               context.destroy();
               navigate("/blindBox");
             }}>
@@ -60,18 +64,24 @@ const DrawerGetBlindBox = () => {
     });
   };
   useEffect(() => {
-    if (isSign && account && !opened) {
-      if (location.pathname !== "/login") {
-        opened = true;
-        request
-          .post("/sapi/lottery/info", {
-            UserId: account?.id,
-          })
-          .then((res) => {
-            if (!res.data.data.Login) {
-              open();
-            }
-          });
+    const accessToken = localStorage.getItem("token");
+    if (!accessToken && !opened) {
+      opened = true;
+      open();
+    } else {
+      if (isSign && account) {
+        if (location.pathname !== "/login") {
+          opened = true;
+          request
+            .post("/sapi/lottery/info", {
+              UserId: account?.id,
+            })
+            .then((res) => {
+              if (!res.data.data.Login) {
+                open();
+              }
+            });
+        }
       }
     }
   }, [isSign, modal, account, location]);
