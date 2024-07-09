@@ -45,6 +45,7 @@ module.exports = {
       "bubble-gum": "#ff77e9",
       bermuda: "#78dcca",
       grey: "rgba(255,255,255,0.5)",
+      'grey-700': "rgba(255,255,255,0.7)",
       "card-bg": "#1C1A1B",
       ptheme: "#C5F971",
       lingergradebg: "linear-gradient(#978FF6,#B7B0FE)",

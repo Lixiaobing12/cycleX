@@ -101,30 +101,6 @@ const BlindBox = () => {
     { title: "Invest in Products", content: t("Invest more than 100u and rewards 5 times"), avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
   ]);
 
-  const Items: CollapseProps["items"] = [
-    {
-      key: "0",
-      label: "Rules",
-      children: (
-        <>
-          <p className="my-2 text-grey text-xs">1.{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
-          <p className="my-2 text-grey text-xs">2.{t("Users are given 2 lottery chances per day for logging in.")}</p>
-          <p className="my-2 text-grey text-xs">3.{t("Users are given 1 lottery chance per day for sharing.")}</p>
-          <p className="my-2 text-grey text-xs">
-            4.{t("Users who invest over 100 USDT will unlock more chances!")}
-            <ol className="indent-2">
-              <li className="my-1">{t("- Deposit between $10-100 - Giveaway 3 lottery draw chances")}</li>
-              <li className="my-1">{t("- Deposit between $100-1000 - Giveaway 6 lottery draw chances")}</li>
-              <li className="my-1">{t("- Deposit between $1000-$10,000 - Giveaway 15 lottery draw chances")}</li>
-              <li className="my-1">{t("- Deposit between $10,000-$100,000 - Giveaway 20 lottery draw chances")}</li>
-              <li className="my-1">{t("- Deposit more than $100,000- Giveaway 35 lottery draw chances.")}</li>
-            </ol>
-          </p>
-          <p className="my-2 text-grey text-xs">5.{t("The final interpretation rights of this event belong solely to CycleX.")}</p>
-        </>
-      ),
-    },
-  ];
   const invite = async () => {
     const context: any = modal?.info({
       closable: false,
@@ -351,18 +327,18 @@ const BlindBox = () => {
             </div>
             <div className="border border-[#555555] rounded-box p-6 px-4 my-6">
               <h3 className="text-white text-base lg:w-[600px]">Rules</h3>
-              <ul className="marker:text-[rgba(255,255,255,0.7)] ml-6">
+              <ul className="marker:text-grey-700 ml-6">
                 <li className="list-item">
-                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
+                  <p className="my-2 text-grey-700 text-xs">{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
                 </li>
                 <li>
-                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("Users are given 2 lottery chances per day for logging in.")}</p>
+                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 2 lottery chances per day for logging in.")}</p>
                 </li>
                 <li>
-                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("Users are given 1 lottery chance per day for sharing.")}</p>
+                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 1 lottery chance per day for sharing.")}</p>
                 </li>
                 <li>
-                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">
+                  <p className="my-2 text-grey-700 text-xs">
                     {t("Users who invest over 100 USDT will unlock more chances!")}
                     <ul className="ml-8 text-grey">
                       <li className="my-1">{t("Deposit between $10-100 - Giveaway 3 lottery draw chances")}</li>
@@ -374,7 +350,7 @@ const BlindBox = () => {
                   </p>
                 </li>
                 <li>
-                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("The final interpretation rights of this event belong solely to CycleX.")}</p>
+                  <p className="my-2 text-grey-700 text-xs">{t("The final interpretation rights of this event belong solely to CycleX.")}</p>
                 </li>
               </ul>
             </div>
