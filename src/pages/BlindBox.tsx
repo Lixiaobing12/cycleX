@@ -1,13 +1,13 @@
-import { CloseCircleOutlined } from "@ricons/antd";
+import { CaretRightOutlined, CloseCircleOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
-import { Avatar, Divider, List } from "antd";
+import { Avatar, Collapse, CollapseProps, Divider, List } from "antd";
 import { useAtom } from "jotai";
 import BulletJs from "js-bullets";
 import moment from "moment";
 import VirtualList from "rc-virtual-list";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCopyToClipboard } from "usehooks-ts";
+import { useCopyToClipboard, useWindowSize } from "usehooks-ts";
 import { messageContext, modalContext } from "../App";
 import WrapperImg from "../components/Common/Img";
 import useLocalStorage from "../hooks/localStorage";
@@ -76,7 +76,9 @@ const AppendLotteryUserRecordComponent = () => {
     </List>
   );
 };
+
 const BlindBox = () => {
+  const navigate = useNavigate();
   const [, account] = useAccounts();
   const [, copy] = useCopyToClipboard();
   const accessToken = useLocalStorage();
@@ -86,6 +88,7 @@ const BlindBox = () => {
   const screenRef = useRef<any>();
   const { t } = useTranslation();
   const invite_img = useRef("");
+  const {width} = useWindowSize();
   const [lotteryInfo, setLotteryInfo] = useState({
     LotteryNum: 0,
     Amount: 0,
@@ -98,6 +101,30 @@ const BlindBox = () => {
     { title: "Invest in Products", content: t("Invest more than 100u and rewards 5 times"), avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
   ]);
 
+  const Items: CollapseProps["items"] = [
+    {
+      key: "0",
+      label: "Rules",
+      children: (
+        <>
+          <p className="my-2 text-grey text-xs">1.{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
+          <p className="my-2 text-grey text-xs">2.{t("Users are given 2 lottery chances per day for logging in.")}</p>
+          <p className="my-2 text-grey text-xs">3.{t("Users are given 1 lottery chance per day for sharing.")}</p>
+          <p className="my-2 text-grey text-xs">
+            4.{t("Users who invest over 100 USDT will unlock more chances!")}
+            <ol className="indent-2">
+              <li className="my-1">{t("- Deposit between $10-100 - Giveaway 3 lottery draw chances")}</li>
+              <li className="my-1">{t("- Deposit between $100-1000 - Giveaway 6 lottery draw chances")}</li>
+              <li className="my-1">{t("- Deposit between $1000-$10,000 - Giveaway 15 lottery draw chances")}</li>
+              <li className="my-1">{t("- Deposit between $10,000-$100,000 - Giveaway 20 lottery draw chances")}</li>
+              <li className="my-1">{t("- Deposit more than $100,000- Giveaway 35 lottery draw chances.")}</li>
+            </ol>
+          </p>
+          <p className="my-2 text-grey text-xs">5.{t("The final interpretation rights of this event belong solely to CycleX.")}</p>
+        </>
+      ),
+    },
+  ];
   const invite = async () => {
     const context: any = modal?.info({
       closable: false,
@@ -263,13 +290,13 @@ const BlindBox = () => {
                 <Loader />
               </div>
               <div className="w-full h-[60px]"></div>
-              <img src="/assets/comp.gif" alt="" width={400} />
+              <img src="/assets/comp.gif" alt="" width={600} />
             </div>
           )}
           <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
-            <img src="/assets/WonWFC.png" alt="" width={400} className="max-w-[80vw]" />
+            <img src={width > 600 ? "/assets/titlepc.png" : "/assets/titlemb.png"} alt="" width={width > 600 ? 700 : 300} className="max-w-[80vw]" />
             <div id="danmu-screen" className="w-full lg:w-[130%] h-[100px] "></div>
-            <img src="/assets/box-shine.png" width={480} alt="" className="my-[-100px] lg:my-[-87px]" />
+            <img src="/assets/box-shine.png" width={580} alt="" className="lg:my-[-30px]" />
             <div className={`relative flex-center gap-4 w-full`}>
               <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={handleList}>
                 <WrapperImg src="/assets/blindbox-coin.png" width={16} />
@@ -323,17 +350,38 @@ const BlindBox = () => {
               />
             </div>
             <div className="border border-[#555555] rounded-box p-6 px-4 my-6">
-              <h3 className="text-white text-base">Rules</h3>
-              <p className="my-2 text-grey text-xs">1.{t("Cyclex limited-time blind box lottery event, participants can get rare $WFC")}</p>
-              <p className="my-2 text-grey text-xs">2.{t("Users can get 2 lottery opportunities for daily login")}</p>
-              <p className="my-2 text-grey text-xs">3.{t("Users can get 1 lottery opportunity for daily forwarding")}</p>
-              <p className="my-2 text-grey text-xs">4.{t("Users can get 5 lottery opportunities for each investment of no less than 100u")}</p>
-              <p className="my-2 text-grey text-xs">5.{t("Cyclex has the sole right of interpretation for this event")}</p>
+              <h3 className="text-white text-base lg:w-[600px]">Rules</h3>
+              <ul className="marker:text-[rgba(255,255,255,0.7)] ml-6">
+                <li className="list-item">
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
+                </li>
+                <li>
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("Users are given 2 lottery chances per day for logging in.")}</p>
+                </li>
+                <li>
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("Users are given 1 lottery chance per day for sharing.")}</p>
+                </li>
+                <li>
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">
+                    {t("Users who invest over 100 USDT will unlock more chances!")}
+                    <ul className="ml-8 text-grey">
+                      <li className="my-1">{t("Deposit between $10-100 - Giveaway 3 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit between $100-1000 - Giveaway 6 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit between $1000-$10,000 - Giveaway 15 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit between $10,000-$100,000 - Giveaway 20 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit more than $100,000- Giveaway 35 lottery draw chances.")}</li>
+                    </ul>
+                  </p>
+                </li>
+                <li>
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("The final interpretation rights of this event belong solely to CycleX.")}</p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-11/12 m-auto h-[1px] bg-[#aaa]"></div>
+      <div className=" m-auto h-[1px] bg-[#aaa] "></div>
     </>
   );
 };

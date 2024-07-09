@@ -87,7 +87,7 @@ export default function Home() {
               <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col justify-evenly ${getAssetsBgImg(ind++)} w-full lg:w-[30%] min-h-80 bg-100`}>
                 <div className="flex items-center my-4">
                   <img src="/assets/dollor_r.png" width={30} alt="" />
-                  <span className="text-2xl font-bold font-whalebold ml-2">{item.name}</span>
+                  <span className="text-2xl font-bold font-whalebold ml-2">{item.simple_name}</span>
                 </div>
                 <div className="flex w-full flex-wrap gap-4 mb-10">
                   {item.labelsDcts?.map(({ zh, en }) => (

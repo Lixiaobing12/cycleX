@@ -52,7 +52,7 @@ const Footers = () => {
                     }
                   }}
                   className="cursor-pointer hover:scale-105 text-md">
-                  {item.name}
+                  {item.simple_name}
                 </div>
               ))}
             </div>
