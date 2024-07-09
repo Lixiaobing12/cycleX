@@ -7,7 +7,7 @@ import moment from "moment";
 import VirtualList from "rc-virtual-list";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCopyToClipboard } from "usehooks-ts";
+import { useCopyToClipboard, useWindowSize } from "usehooks-ts";
 import { messageContext, modalContext } from "../App";
 import WrapperImg from "../components/Common/Img";
 import useLocalStorage from "../hooks/localStorage";
@@ -88,6 +88,7 @@ const BlindBox = () => {
   const screenRef = useRef<any>();
   const { t } = useTranslation();
   const invite_img = useRef("");
+  const {width} = useWindowSize();
   const [lotteryInfo, setLotteryInfo] = useState({
     LotteryNum: 0,
     Amount: 0,
@@ -293,9 +294,9 @@ const BlindBox = () => {
             </div>
           )}
           <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
-            <img src="/assets/WonWFC.png" alt="" width={400} className="max-w-[80vw]" />
+            <img src={width > 600 ? "/assets/titlepc.png" : "/assets/titlemb.png"} alt="" width={width > 600 ? 700 : 300} className="max-w-[80vw]" />
             <div id="danmu-screen" className="w-full lg:w-[130%] h-[100px] "></div>
-            <img src="/assets/box-shine.png" width={580} alt="" className="lg:my-[-53px]" />
+            <img src="/assets/box-shine.png" width={580} alt="" className="lg:my-[-30px]" />
             <div className={`relative flex-center gap-4 w-full`}>
               <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={handleList}>
                 <WrapperImg src="/assets/blindbox-coin.png" width={16} />
@@ -350,21 +351,32 @@ const BlindBox = () => {
             </div>
             <div className="border border-[#555555] rounded-box p-6 px-4 my-6">
               <h3 className="text-white text-base lg:w-[600px]">Rules</h3>
-              {/* <Collapse bordered={false} expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} color="#fff"/>} style={{color: "#fff"}} items={Items} /> */}
-              <p className="my-2 text-grey text-xs">1.{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
-              <p className="my-2 text-grey text-xs">2.{t("Users are given 2 lottery chances per day for logging in.")}</p>
-              <p className="my-2 text-grey text-xs">3.{t("Users are given 1 lottery chance per day for sharing.")}</p>
-              <p className="my-2 text-grey text-xs">
-                4.{t("Users who invest over 100 USDT will unlock more chances!")}
-                <ol className="indent-2">
-                  <li className="my-1">{t("- Deposit between $10-100 - Giveaway 3 lottery draw chances")}</li>
-                  <li className="my-1">{t("- Deposit between $100-1000 - Giveaway 6 lottery draw chances")}</li>
-                  <li className="my-1">{t("- Deposit between $1000-$10,000 - Giveaway 15 lottery draw chances")}</li>
-                  <li className="my-1">{t("- Deposit between $10,000-$100,000 - Giveaway 20 lottery draw chances")}</li>
-                  <li className="my-1">{t("- Deposit more than $100,000- Giveaway 35 lottery draw chances.")}</li>
-                </ol>
-              </p>
-              <p className="my-2 text-grey text-xs">5.{t("The final interpretation rights of this event belong solely to CycleX.")}</p>
+              <ul className="marker:text-[rgba(255,255,255,0.7)] ml-6">
+                <li className="list-item">
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
+                </li>
+                <li>
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("Users are given 2 lottery chances per day for logging in.")}</p>
+                </li>
+                <li>
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("Users are given 1 lottery chance per day for sharing.")}</p>
+                </li>
+                <li>
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">
+                    {t("Users who invest over 100 USDT will unlock more chances!")}
+                    <ul className="ml-8 text-grey">
+                      <li className="my-1">{t("Deposit between $10-100 - Giveaway 3 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit between $100-1000 - Giveaway 6 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit between $1000-$10,000 - Giveaway 15 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit between $10,000-$100,000 - Giveaway 20 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit more than $100,000- Giveaway 35 lottery draw chances.")}</li>
+                    </ul>
+                  </p>
+                </li>
+                <li>
+                  <p className="my-2 text-[rgba(255,255,255,0.7)] text-xs">{t("The final interpretation rights of this event belong solely to CycleX.")}</p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
