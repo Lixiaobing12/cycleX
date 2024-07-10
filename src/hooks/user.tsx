@@ -3,6 +3,7 @@ import { UserInfoType, WalletInfoType } from "../types/user";
 import { request } from "../utils/request";
 import useLocalStorage from "./localStorage";
 
+let interval: any;
 const useAccounts = () => {
   const accessToken = useLocalStorage();
   const [users, setUsersInfo] = useState<UserInfoType>();
@@ -20,15 +21,16 @@ const useAccounts = () => {
         });
         setSign(true);
       } else {
-        setSign(false)
+        setSign(false);
       }
     };
     todo();
-    const timer = setInterval(() => {
+    if (interval) clearInterval(interval);
+    interval = setInterval(() => {
       todo();
     }, 10000);
     return () => {
-      clearInterval(timer);
+      clearInterval(interval);
     };
   }, [accessToken]);
 

@@ -89,7 +89,6 @@ const BlindBox = () => {
   const { t } = useTranslation();
   const invite_img = useRef("");
   const { width } = useWindowSize();
-  const [png, setPng] = useState(`/assets/comp.webp?t${new Date().getTime()}`);
 
   const [lotteryInfo, setLotteryInfo] = useState({
     LotteryNum: 0,
@@ -146,16 +145,12 @@ const BlindBox = () => {
 
   const handleOpen = () => {
     setOpenStatus(true);
-    let interval = setInterval(() => {
-      setPng(`/assets/comp.webp?t${new Date().getTime()}`);
-    }, 2000);
     request
       .post("/sapi/lottery/open", {
         BearerToken: "Bearer " + accessToken?.token,
       })
       .then(({ data }) => {
         setTimeout(() => {
-          clearInterval(interval);
           setOpenStatus(false);
           const context: any = modal?.info({
             closable: {
@@ -183,7 +178,7 @@ const BlindBox = () => {
             footer: null,
             width: "375px",
           });
-        }, 4000);
+        }, 2000);
       });
   };
 
@@ -255,11 +250,11 @@ const BlindBox = () => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
     const img = new Image();
     img.src = "/assets/comp.gif";
-    const img2 = new Image();
-    img2.src = "/assets/loading1.png";
-    request.post("/api/api/my/getInvite").then(({ data }) => {
-      invite_img.current = data.data;
-    });
+    // const img2 = new Image();
+    // img2.src = "/assets/loading1.png";
+    // request.post("/api/api/my/getInvite").then(({ data }) => {
+    //   invite_img.current = data.data;
+    // });
   }, []);
 
   return (
@@ -272,7 +267,7 @@ const BlindBox = () => {
                 <Loader />
               </div>
               <div className="w-full h-[60px]"></div>
-              <img src={png} alt="" width={600} />;
+              <img src="/assets/comp.webp" alt="" width={600} />;
             </div>
           )}
           <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
@@ -344,7 +339,7 @@ const BlindBox = () => {
                   <p className="my-2 text-grey-700 text-xs">{t("Users are given 1 lottery chance per day for sharing.")}</p>
                 </li>
                 <li>
-                  <p className="my-2 text-grey-700 text-xs">
+                  <div className="my-2 text-grey-700 text-xs">
                     {t("Users who invest over 100 USDT will unlock more chances!")}
                     <ul className="ml-8 text-grey">
                       <li className="my-1">{t("Deposit between $10-100 - Giveaway 3 lottery draw chances")}</li>
@@ -353,7 +348,7 @@ const BlindBox = () => {
                       <li className="my-1">{t("Deposit between $10,000-$100,000 - Giveaway 20 lottery draw chances")}</li>
                       <li className="my-1">{t("Deposit more than $100,000- Giveaway 35 lottery draw chances.")}</li>
                     </ul>
-                  </p>
+                  </div>
                 </li>
                 <li>
                   <p className="my-2 text-grey-700 text-xs">{t("The final interpretation rights of this event belong solely to CycleX.")}</p>
