@@ -40,7 +40,7 @@ export default function Assets() {
       data.data.lockDct = {
         key: data.data.lock,
         zh: data.data.lock,
-        en: lock_en,
+        en: lock_en.replace('months','mos'),
       };
       setProductInfo(data.data);
     });
@@ -50,15 +50,15 @@ export default function Assets() {
       <div className="relative text-white" id="main">
         <div className="relative flex items-center justify-center bg-assetsbg bg-100 py-10 pt-16 px-4 lg:h-[80vh]">
           {/* <img src="/assets/assets_bg.png" className="w-full h-[80vh]" alt="" /> */}
-          <div className="inline-flex flex-col lg:w-1/2">
-            <p className="tracking-widest	text-2xl font-bold font-whalebold mb-8 flex items-center gap-4">
+          <div className="inline-flex flex-col w-fit lg:ml-10 xl:w-2/3">
+            <p className="tracking-widest	text-2xl font-bold font-whalebold mb-8 flex items-center gap-4 w-fit">
               <img src="/assets/assets_dollor.png" className="w-12" alt="" />
               <span>{product?.simple_name}</span>
             </p>
             <p
               className="text-grey text-left tracking-widest leading-relaxed text-sm w-11/12 md:w-8/12 lg:text-lg"
               dangerouslySetInnerHTML={{ __html: product ? (i18n.language === "en" ? product?.descDcts?.en! : product?.descDcts?.zh!) : "" }}></p>
-            <div className="flex gap-10 items-end mt-14 mb-10">
+            <div className="flex gap-10 items-end mt-14 mb-10 w-fit">
               <div className="text-3xl">
                 $<CountUp end={Number(product?.net_worth ?? 0)} start={0} duration={4} />
               </div>
@@ -70,7 +70,7 @@ export default function Assets() {
                 <img src="/assets/up.png" width={14} alt="" />
               </div>
             </div>
-            <div className="flex gap-6 items-center">
+            <div className="flex gap-6 items-center w-fit">
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">{product?.income2} APY</div>
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(product?.market_value) + 300000)} TVL</div>
               <img src="/assets/eth_white.png" width={30} alt="" />

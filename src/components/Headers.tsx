@@ -9,6 +9,7 @@ import { userInfo_atom } from "../atom/userInfo";
 import useLocalStorage from "../hooks/localStorage";
 import { request } from "../utils/request";
 import WrapperImg from "./Common/Img";
+import { useWindowSize } from "usehooks-ts";
 
 const HeaderComponent = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ const HeaderComponent = () => {
   // const { openConnectModal } = useConnectModal();
   // const { address, isConnected } = useAccount();
   const { t, i18n } = useTranslation();
+  const { width } = useWindowSize();
   const items: MenuProps["items"] = [
     {
       label: "中文",
@@ -41,49 +43,49 @@ const HeaderComponent = () => {
   const accountItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-          { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-          {
-            label: t("Logout"),
-            icon: <img src="/assets/exit.png" width={12} />,
-            key: "exit",
-            onClick: () => {
-              window.localStorage.removeItem("token");
-              const setItemEvent = new Event("localstorage_save");
-              window.dispatchEvent(setItemEvent);
-              setTimeout(() => {
-                navigate("/login");
-              }, 200);
-            },
+        { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+        {
+          label: t("Logout"),
+          icon: <img src="/assets/exit.png" width={12} />,
+          key: "exit",
+          onClick: () => {
+            window.localStorage.removeItem("token");
+            const setItemEvent = new Event("localstorage_save");
+            window.dispatchEvent(setItemEvent);
+            setTimeout(() => {
+              navigate("/login");
+            }, 200);
           },
-        ]
+        },
+      ]
       : [
-          // {
-          //   label: t("Certification"),
-          //   icon: (
-          //     <div className="flex items-center">
-          //       <img src="/assets/risk.png" width={15} alt="" />
-          //     </div>
-          //   ),
-          //   key: "realName",
-          //   onClick: () => navigate("/verify"),
-          // },
-          { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-          {
-            label: t("Logout"),
-            icon: <img src="/assets/exit.png" width={12} />,
-            key: "exit",
-            onClick: () => {
-              window.localStorage.removeItem("token");
-              const setItemEvent = new Event("localstorage_save");
-              window.dispatchEvent(setItemEvent);
-              setTimeout(() => {
-                navigate("/login");
-              }, 200);
-            },
+        // {
+        //   label: t("Certification"),
+        //   icon: (
+        //     <div className="flex items-center">
+        //       <img src="/assets/risk.png" width={15} alt="" />
+        //     </div>
+        //   ),
+        //   key: "realName",
+        //   onClick: () => navigate("/verify"),
+        // },
+        { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+        {
+          label: t("Logout"),
+          icon: <img src="/assets/exit.png" width={12} />,
+          key: "exit",
+          onClick: () => {
+            window.localStorage.removeItem("token");
+            const setItemEvent = new Event("localstorage_save");
+            window.dispatchEvent(setItemEvent);
+            setTimeout(() => {
+              navigate("/login");
+            }, 200);
           },
-        ];
+        },
+      ];
   }, [users, t]);
 
   const MobileRouterItems: MenuProps["items"] = [
@@ -183,46 +185,46 @@ const HeaderComponent = () => {
   const MobileAccountActiveItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-          {
-            label: t("wallet"),
-            icon: <WrapperImg src="/assets/wallet-light.png" />,
-            key: "wallet",
-            onClick: () => {
-              setOpenMenu(false);
-              navigate("/wallet");
-            },
+        {
+          label: t("wallet"),
+          icon: <WrapperImg src="/assets/wallet-light.png" />,
+          key: "wallet",
+          onClick: () => {
+            setOpenMenu(false);
+            navigate("/wallet");
           },
-          { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
-        ]
+        },
+        { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
+      ]
       : [
-          // {
-          //   label: t("Certification"),
-          //   icon: <WrapperImg src="/assets/warning-light.png" />,
-          //   key: "realName",
-          //   onClick: () => {
-          //     setOpenMenu(false);
-          //     navigate("/verify");
-          //   },
-          // },
-          {
-            label: t("wallet"),
-            icon: <WrapperImg src="/assets/wallet-light.png" />,
-            key: "wallet",
-            onClick: () => {
-              setOpenMenu(false);
-              navigate("/wallet");
-            },
+        // {
+        //   label: t("Certification"),
+        //   icon: <WrapperImg src="/assets/warning-light.png" />,
+        //   key: "realName",
+        //   onClick: () => {
+        //     setOpenMenu(false);
+        //     navigate("/verify");
+        //   },
+        // },
+        {
+          label: t("wallet"),
+          icon: <WrapperImg src="/assets/wallet-light.png" />,
+          key: "wallet",
+          onClick: () => {
+            setOpenMenu(false);
+            navigate("/wallet");
           },
-          {
-            label: t("Invite"),
-            icon: <WrapperImg src="/assets/invite-light.png" />,
-            key: "users",
-            onClick: () => {
-              setOpenMenu(false);
-              invite();
-            },
+        },
+        {
+          label: t("Invite"),
+          icon: <WrapperImg src="/assets/invite-light.png" />,
+          key: "users",
+          onClick: () => {
+            setOpenMenu(false);
+            invite();
           },
-        ];
+        },
+      ];
   }, [users, t]);
 
   const invite = async () => {
@@ -277,20 +279,20 @@ const HeaderComponent = () => {
           <span className="font-bold text-2xl font-whalebold">CycleX</span>
         </div>
         <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20">
-          <Space size="large">
-            <div className="cursor-pointer hover:scale-105" onClick={() => navigate("/#fund")}>
+          <Space size='large'>
+            <div className="cursor-pointer hover:scale-105 leading-normal" onClick={() => navigate("/#fund")}>
               {t("Fund")}
             </div>
-            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/guide")}>
+            <div className="cursor-pointer  hover:scale-105 leading-normal w-min xl:w-fit" onClick={() => navigate("/guide")}>
               {t("Newbie Guide")}
             </div>
-            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/issus")}>
+            <div className="cursor-pointer  hover:scale-105 leading-normal w-min xl:w-fit" onClick={() => navigate("/issus")}>
               {t("Asset Backed Securities")}
             </div>
-            <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/airdrop")}>
+            <div className="cursor-pointer  hover:scale-105 leading-normal w-min" onClick={() => navigate("/airdrop")}>
               {t("Airdrop")}
             </div>
-            <div className="cursor-pointer  hover:scale-105 flex items-center gap-1" onClick={() => navigate("/blindbox")}>
+            <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center w-min xl:w-fit" onClick={() => navigate("/blindbox")}>
               Mystery Box
               <img src="/assets/hot.png" width={15} alt="" />
             </div>
