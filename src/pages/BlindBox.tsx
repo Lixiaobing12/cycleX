@@ -88,7 +88,9 @@ const BlindBox = () => {
   const screenRef = useRef<any>();
   const { t } = useTranslation();
   const invite_img = useRef("");
-  const {width} = useWindowSize();
+  const { width } = useWindowSize();
+  const [png, setPng] = useState(`/assets/comp.webp?t${new Date().getTime()}`);
+
   const [lotteryInfo, setLotteryInfo] = useState({
     LotteryNum: 0,
     Amount: 0,
@@ -168,12 +170,16 @@ const BlindBox = () => {
 
   const handleOpen = () => {
     setOpenStatus(true);
+    let interval = setInterval(() => {
+      setPng(`/assets/comp.webp?t${new Date().getTime()}`);
+    }, 2000);
     request
       .post("/sapi/lottery/open", {
         BearerToken: "Bearer " + accessToken?.token,
       })
       .then(({ data }) => {
         setTimeout(() => {
+          clearInterval(interval);
           setOpenStatus(false);
           const context: any = modal?.info({
             closable: {
@@ -290,7 +296,7 @@ const BlindBox = () => {
                 <Loader />
               </div>
               <div className="w-full h-[60px]"></div>
-              <img src="/assets/comp.gif" alt="" width={600} />
+              <img src={png} alt="" width={600} />;
             </div>
           )}
           <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
