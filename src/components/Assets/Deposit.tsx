@@ -60,7 +60,9 @@ const SafetyInput: React.FC<{
   );
 };
 
-const ItemDeposit = () => {
+const ItemDeposit: React.FC<{
+  network: string
+}> = ({ network }) => {
   const { t, i18n } = useTranslation();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
@@ -90,24 +92,25 @@ const ItemDeposit = () => {
     if (!secrityKey.current) return Promise.reject();
     if (loading) return;
     setLoading(true);
-    const { data } = await request.post("/api/api/fundOrder/create", {
-      amount: amount.toString(),
-      product_id: String(product?.id),
-      security_password: secrityKey.current,
+    const { data } = await request.post("/sapi/fundOrder/create", {
+      Amount: amount.toString(),
+      ProductId: String(product?.id),
+      SecurityPassword: secrityKey.current,
+      ChainId: network === 'Ethereum' ? 1 : 11501
     });
     setTimeout(() => {
       setLoading(false);
     }, 500);
 
-    if (data.res_code !== 0) {
+    if (data.code !== 0) {
       if (i18n.language === "en") {
         toast?.warning({
-          message: await handleTranslate(data.res_msg),
+          message: await handleTranslate(data.msg),
           icon: <img src="/assets/error.png" width={30} />,
         });
       } else {
         toast?.warning({
-          message: data.res_msg,
+          message: data.msg,
           icon: <img src="/assets/error.png" width={30} />,
         });
       }
@@ -249,7 +252,7 @@ const Card = () => {
           </div>
         </div>
       ),
-      children: <ItemDeposit />,
+      children: <ItemDeposit network={network} />,
     },
     // {
     //   key: "2",
