@@ -19,7 +19,17 @@ function RouterProviders() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/assets/:id" element={<Assets />} />
+      <Route path="/assets/:id" element={
+        <ConfigProvider
+          theme={{
+            components: {
+              Select: {
+                optionSelectedColor: "#fff",
+              },
+            },
+          }}>
+          <Assets />
+        </ConfigProvider>} />
       <Route path="/verify" element={<Verify />} />
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/platform" element={<Platform />} />

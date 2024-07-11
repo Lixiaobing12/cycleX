@@ -18,8 +18,8 @@ const Product = () => {
   const columns: TableProps<fundProductApiType>["columns"] = [
     {
       title: t("Name"),
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "simple_name",
+      key: "simpleName",
       width: 200,
       render: (value, row) => (
         <a
@@ -58,14 +58,14 @@ const Product = () => {
       dataIndex: "market_value",
       key: "market_value",
       width: 200,
-      render: (value) => "$" + scientific(value),
+      render: (value) => "$ 200M",
     },
     {
       title: t("Net value per unit /NAV"),
       key: "net_worth",
       dataIndex: "net_worth",
       width: 150,
-      render: (value) => (Number(value) ? value + "U" : value),
+      render: (value) => '$ 1000',
     },
     {
       title: t("Expected yield /APY"),

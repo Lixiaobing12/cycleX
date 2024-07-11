@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import { Select, Spin, Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
@@ -230,7 +230,14 @@ const ItemDeposit = () => {
 const Card = () => {
   const { t } = useTranslation();
   const [active, setActive] = useState("1");
+  const [network, set_network] = useState("Ethereum");
+  const [loading, setLoading] = useState(false);
 
+  const handleClick = (e: 'Ethereum' | 'BEVM') => {
+    setLoading(true);
+    set_network(e)
+    setTimeout(() => { setLoading(false) }, 500)
+  }
   const items = [
     {
       key: "1",
@@ -260,12 +267,24 @@ const Card = () => {
   return (
     <div className="p-4 flex flex-col">
       <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
-        <img src="/assets/eth.png" width={20} />
-        Ethereum
-        <img src="/assets/down.png" width={10} alt="" />
+        {
+          network === "Ethereum" ? <img src="/assets/eth.png" width={20} /> : <img src="/assets/bevm.webp" width={20} />
+        }
+        <Select
+          size="small"
+          defaultValue="Ethereum"
+          onChange={handleClick}
+          options={[
+            { value: "Ethereum", label: "Ethereum" },
+            { value: "BEVM", label: "BEVM" },
+          ]}
+        />
+
       </div>
       <div>
-        <Tabs items={items} onChange={setActive}></Tabs>
+        <Spin spinning={loading}>
+          <Tabs items={items} onChange={setActive}></Tabs>
+        </Spin>
       </div>
     </div>
   );

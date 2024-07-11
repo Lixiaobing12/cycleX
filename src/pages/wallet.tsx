@@ -1,4 +1,4 @@
-import { Col, Pagination, Row, Select, Table, TableProps } from "antd";
+import { Col, Modal, Pagination, Row, Select, Table, TableProps } from "antd";
 import { ethers } from "ethers";
 import { useAtom } from "jotai";
 import moment from "moment";
@@ -31,6 +31,10 @@ const Wallet = () => {
   const { handleTranslate } = useTranslateLocalStorage();
   const [, user, walletInfo] = useAccounts();
   const [records, setRecords] = useState<any[]>([]);
+  const [recharge_network, set_recharge_network] = useState("Ethereum");
+  const [recharge_coin, set_recharge_coin] = useState("USDT");
+  const [recharge_modal_visible, set_recharge_modal_visible] = useState(false);
+
   const total_assets = useMemo(() => {
     let total = Number(
       Number(walletInfo?.balance || 0) + Number(walletInfo?.freeze || 0) + Number(walletInfo?.current_amount || 0) + Number(walletInfo?.regular_amount || 0) + Number(walletInfo?.fund_amount || 0)
@@ -81,71 +85,77 @@ const Wallet = () => {
       });
   };
   const Recharge = async () => {
-    let coin = "USDT";
-    function handleChangeCoin(value: string) {
-      coin = value;
-      context.update();
-    }
-    const context: any = modal?.info({
-      closable: false,
-      icon: <></>,
-      onCancel: () => context.destroy(),
-      title: null,
-      width: 600,
-      maskClosable: true,
-      content: (
-        <div className="w-full flex flex-col items-center pointer-events-auto relative text-xs">
-          <img src="/assets/close.png" className="absolute cursor-pointer top-0 right-0" width={25} onClick={() => context.destroy()} />
+    set_recharge_modal_visible(true);
+    // const context: any = modal?.info({
+    //   closable: false,
+    //   icon: <></>,
+    //   onCancel: () => context.destroy(),
+    //   title: null,
+    //   width: 600,
+    //   maskClosable: true,
+    //   content: (
+    //     <div className="w-full flex flex-col items-center pointer-events-auto relative text-xs">
+    //       <img src="/assets/close.png" className="absolute cursor-pointer top-0 right-0" width={25} onClick={() => context.destroy()} />
 
-          <strong className="text-xl">Recharge</strong>
+    //       <strong className="text-xl">Recharge</strong>
 
-          <div className="w-full p-2 flex flex-col gap-2 mt-4">
-            <Select
-              defaultValue={coin}
-              onChange={handleChangeCoin}
-              options={[
-                { value: "USDT", label: "USDT" },
-                { value: "ETH", label: "ETH" },
-              ]}
-            />
-            <div className="mt-4">{t("Recharge network")}</div>
-            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2">Ethereum Mainnet</div>
+    //       <div className="w-full p-2 flex flex-col gap-2 mt-4">
 
-            <div className="mt-4">{t("Recharge address")}</div>
-            <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 text-sm overflow-auto pointer-events-auto">
-              <WrapperImg src="/assets/copy-active.png" width={18} onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
-              {walletInfo?.wallet_account_address}
-            </div>
+    //         <div className="mt-4">{t("Recharge network")}</div>
+    //         <Select
+    //           value={recharge_network}
+    //           onChange={set_recharge_network}
+    //           options={[
+    //             { value: "Ethereum", label: "Ethereum Mainnet" },
+    //             { value: "BEVM", label: "BEVM Mainnet" },
+    //           ]}
+    //         />
 
-            <div className="mt-4 bg-lightgrey rounded-md p-4 gap-4">
-              <div className="flex justify-between items-center">
-                <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
-                <span>{Number(rechargeInfo?.deposit_min).toFixed(2)} USDT</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
-                <span>0.003 ETH</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-threePranentTransblack">{t("Block Confirmations")}</span>
-                <span>{i18n.language === "en" ? rechargeInfo?.deposit_account_dct?.en : rechargeInfo?.deposit_account_dct?.zh}</span>
-              </div>
-            </div>
-            <div className="mt-2">
-              <p>{t("You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
-            </div>
+    //         <div className="mt-4">{t("Recharge network")}</div>
+    //         <Select
+    //           value={recharge_coin}
+    //           onChange={set_recharge_coin}
+    //           options={[
+    //             { value: "USDT", label: "USDT" },
+    //             { value: "ETH", label: "ETH" },
+    //           ]}
+    //         />
 
-            <div className="mt-4 text-center">
-              <button className="btn btn-widt text-xs btn-sm" onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")}>
-                {t("Copy address")}
-              </button>
-            </div>
-          </div>
-        </div>
-      ),
-      centered: true,
-      footer: null,
-    });
+    //         <div className="mt-4">{t("Recharge address")}</div>
+    //         <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 text-sm overflow-auto pointer-events-auto">
+    //           <WrapperImg src="/assets/copy-active.png" width={18} onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
+    //           {walletInfo?.wallet_account_address}
+    //         </div>
+
+    //         <div className="mt-4 bg-lightgrey rounded-md p-4 gap-4">
+    //           <div className="flex justify-between items-center">
+    //             <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
+    //             <span>{Number(rechargeInfo?.deposit_min).toFixed(2)} USDT</span>
+    //           </div>
+    //           <div className="flex justify-between items-center">
+    //             <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
+    //             <span>0.003 ETH</span>
+    //           </div>
+    //           <div className="flex justify-between items-center">
+    //             <span className="text-threePranentTransblack">{t("Block Confirmations")}</span>
+    //             <span>{i18n.language === "en" ? rechargeInfo?.deposit_account_dct?.en : rechargeInfo?.deposit_account_dct?.zh}</span>
+    //           </div>
+    //         </div>
+    //         <div className="mt-2">
+    //           <p>{t("You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+    //         </div>
+
+    //         <div className="mt-4 text-center">
+    //           <button className="btn btn-widt text-xs btn-sm" onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")}>
+    //             {t("Copy address")}
+    //           </button>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   ),
+    //   centered: true,
+    //   footer: null,
+    // });
   };
 
   const handleChange = (_page: number) => {
@@ -266,6 +276,79 @@ const Wallet = () => {
           </div>
         </Col>
       </Row>
+
+      <Modal open={recharge_modal_visible} modalRender={() => <div className="rounded-box p-6 bg-white w-full flex flex-col items-center pointer-events-auto relative text-xs">
+        <img src="/assets/close.png" className="absolute cursor-pointer top-4 right-4" width={25} onClick={() => set_recharge_modal_visible(false)} />
+
+        <strong className="text-xl">Recharge</strong>
+
+        <div className="w-full p-2 flex flex-col gap-2 mt-4">
+
+          <div className="mt-4">{t("Recharge network")}</div>
+          <Select
+            value={recharge_network}
+            onChange={e => {
+              set_recharge_network(e)
+              set_recharge_coin(e === 'BEVM' ? "BTC" : "USDT")
+            }}
+            options={[
+              { value: "Ethereum", label: "Ethereum Mainnet" },
+              { value: "BEVM", label: "BEVM Mainnet" },
+            ]}
+          />
+
+          <div className="mt-4">{t("Recharge network")}</div>
+          <Select
+            value={recharge_coin}
+            onChange={set_recharge_coin}
+            options={recharge_network === "BEVM" ? [
+              { value: "BTC", label: "BTC", }
+            ] : [
+              { value: "USDT", label: "USDT", },
+              { value: "ETH", label: "ETH" },
+            ]}
+          />
+
+          <div className="mt-4">{t("Recharge address")}</div>
+          <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 text-sm overflow-auto pointer-events-auto">
+            <WrapperImg src="/assets/copy-active.png" width={18} onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
+            {walletInfo?.wallet_account_address}
+          </div>
+
+          <div className="mt-4 bg-lightgrey rounded-md p-4 gap-4">
+            {
+              recharge_coin === "USDT" ?
+                <div className="flex justify-between items-center">
+                  <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
+                  <span>{Number(rechargeInfo?.deposit_min).toFixed(2)} USDT</span>
+                </div>
+                : recharge_coin === "ETH" ?
+                  <div className="flex justify-between items-center">
+                    <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
+                    <span>0.003 ETH</span>
+                  </div>
+                  : <div className="flex justify-between items-center">
+                    <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
+                    <span>0.0001 BTC</span>
+                  </div>
+            }
+
+            <div className="flex justify-between items-center">
+              <span className="text-threePranentTransblack">{t("Block Confirmations")}</span>
+              <span>{i18n.language === "en" ? rechargeInfo?.deposit_account_dct?.en : rechargeInfo?.deposit_account_dct?.zh}</span>
+            </div>
+          </div>
+          <div className="mt-2">
+            <p>{t("You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+          </div>
+
+          <div className="mt-4 text-center">
+            <button className="btn btn-widt text-xs btn-sm" onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")}>
+              {t("Copy address")}
+            </button>
+          </div>
+        </div>
+      </div>}></Modal>
     </div>
   );
 };

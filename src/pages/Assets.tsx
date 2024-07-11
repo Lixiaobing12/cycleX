@@ -40,7 +40,7 @@ export default function Assets() {
       data.data.lockDct = {
         key: data.data.lock,
         zh: data.data.lock,
-        en: lock_en.replace('months','mos'),
+        en: lock_en.replace('months', 'mos'),
       };
       setProductInfo(data.data);
     });
