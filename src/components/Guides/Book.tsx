@@ -9,7 +9,7 @@ const Book = () => {
       <Divider />
 
       <div>
-        <p>{t("Last Updated: Apr. 2024")}</p>
+        <p>{t("Last Updated: July. 2024")}</p>
         <p className="my-2">
           {t(
             "What's really powerful is not the reinvention of traditional finance, but the fact that people are using RWA as a new paradigm,And building things that would not have been possible without this technology."

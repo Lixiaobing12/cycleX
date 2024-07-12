@@ -289,10 +289,10 @@ const HeaderComponent = () => {
             <div className="cursor-pointer  hover:scale-105 leading-normal w-min xl:w-fit" onClick={() => navigate("/issus")}>
               {t("Asset Backed Securities")}
             </div>
-            <div className="cursor-pointer  hover:scale-105 leading-normal w-min" onClick={() => navigate("/airdrop")}>
+            <div className="cursor-pointer  hover:scale-105 leading-normal w-min xl:w-fit" onClick={() => navigate("/airdrop")}>
               {t("Airdrop")}
             </div>
-            <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center w-min xl:w-fit" onClick={() => navigate("/blindbox")}>
+            <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center w-min xl:w-fit gap-2" onClick={() => navigate("/blindbox")}>
               Mystery Box
               <img src="/assets/hot.png" width={15} alt="" />
             </div>

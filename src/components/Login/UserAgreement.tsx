@@ -5,7 +5,7 @@ const UserAgreement = () => {
   return (
     <div>
       <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}</h2>
-      <p>{t("Last Updated: Apr. 2024")}</p>
+      <p>{t("Last Updated: July. 2024")}</p>
       {i18n.language === "en" ? (
         <ol>
           <li>

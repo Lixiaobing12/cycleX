@@ -67,7 +67,7 @@ const Airdrop = () => {
             </WrapperButton>
           </div>
           <div className="flex gap-2 items-center self-end text-greyblack text-sm">
-            {t("Last Updated: Apr. 2024")}
+            {t("Last Updated: July. 2024")}
             <a onClick={() => setReset(true)}>
               <WrapperImg src="/assets/reflush.png" width={18} />
             </a>
@@ -246,7 +246,7 @@ const Airdrop = () => {
           <Divider />
 
           <div className="text-base">
-            <p className="text-threePranentTransblack font-xs">{t("Last Updated: Apr. 2024")}</p>
+            <p className="text-threePranentTransblack font-xs">{t("Last Updated: July. 2024")}</p>
             <p className="my-2">
               {t(
                 "What's really powerful is not the reinvention of traditional finance, but the fact that people are using RWA as a new paradigm,And building things that would not have been possible without this technology."
