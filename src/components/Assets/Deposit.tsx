@@ -271,7 +271,7 @@ const Card = () => {
     <div className="p-4 flex flex-col">
       <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
         {
-          network === "Ethereum" ? <img src="/assets/eth.png" width={20} /> : <img src="/assets/bevm.webp" width={20} />
+          network === "Ethereum" ? <img src="/assets/eth.png" width={20} /> : <img src="/assets/bevm.png" width={20} />
         }
         <Select
           size="small"

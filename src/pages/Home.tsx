@@ -107,6 +107,7 @@ export default function Home() {
                     </div>
                     <img src="/assets/eth.png" width={30} alt="" />
                     <img src="/assets/usdt.png" width={30} alt="" />
+                    <img src="/assets/bevm.png" width={30} alt="" />
                   </div>
                   <img
                     src="/assets/right.png"
