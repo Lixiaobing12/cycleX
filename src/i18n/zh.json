@@ -424,6 +424,8 @@
   "Minimum recharge amount": "最小充值额度",
   "Block Confirmations": "区块确认数",
   "You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.": "您只能向此地址充入USDT-ERC20，充入其他资产将无法找回",
+  "You can only deposit ETH-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.": "您只能向此地址充入ETH-ERC20，充入其他资产将无法找回",
+  "You can only deposit BTC-BEVM to this address. If you deposit other assets, you will not be able to retrieve them.": "您只能向此地址充入BTC-BEVM，充入其他资产将无法找回",
   "Copy address": "复制地址",
   "my assets": "我的资产",
   "Total Value": "总价值",

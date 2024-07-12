@@ -339,7 +339,14 @@ const Wallet = () => {
             </div>
           </div>
           <div className="mt-2">
-            <p>{t("You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+            {
+              recharge_coin === 'USDT' ?
+                <p>{t("You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+                : recharge_coin === 'ETH' ?
+                  <p>{t("You can only deposit ETH-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+                  : <p>{t("You can only deposit BTC-BEVM to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+            }
+
           </div>
 
           <div className="mt-4 text-center">
