@@ -31,7 +31,7 @@ const SafetyInput: React.FC<{
     } else {
       (document.querySelector(`#dinput${key}`) as any)?.blur();
       onSave(passwords.current);
-      passwords.current = ''
+      passwords.current = "";
     }
   };
   useEventListener("keydown", (evnet) => {
@@ -61,7 +61,7 @@ const SafetyInput: React.FC<{
 };
 
 const ItemDeposit: React.FC<{
-  network: string
+  network: string;
 }> = ({ network }) => {
   const { t, i18n } = useTranslation();
   const [toast] = useAtom(messageContext);
@@ -96,7 +96,7 @@ const ItemDeposit: React.FC<{
       Amount: amount.toString(),
       ProductId: String(product?.id),
       SecurityPassword: secrityKey.current,
-      ChainId: network === 'Ethereum' ? 1 : 11501
+      ChainId: network === "Ethereum" ? 1 : 11501,
     });
     setTimeout(() => {
       setLoading(false);
@@ -236,11 +236,13 @@ const Card = () => {
   const [network, set_network] = useState("Ethereum");
   const [loading, setLoading] = useState(false);
 
-  const handleClick = (e: 'Ethereum' | 'BEVM') => {
+  const handleClick = (e: "Ethereum" | "BEVM") => {
     setLoading(true);
-    set_network(e)
-    setTimeout(() => { setLoading(false) }, 500)
-  }
+    set_network(e);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  };
   const items = [
     {
       key: "1",
@@ -270,9 +272,7 @@ const Card = () => {
   return (
     <div className="p-4 flex flex-col">
       <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
-        {
-          network === "Ethereum" ? <img src="/assets/eth.png" width={20} /> : <img src="/assets/bevm.png" width={20} />
-        }
+        {network === "Ethereum" ? <img src="/assets/eth.png" width={20} /> : <img src="/assets/bevm.png" width={20} />}
         <Select
           size="small"
           defaultValue="Ethereum"
@@ -281,8 +281,8 @@ const Card = () => {
             { value: "Ethereum", label: "Ethereum" },
             { value: "BEVM", label: "BEVM" },
           ]}
+          style={{ fontSize: "12px" }}
         />
-
       </div>
       <div>
         <Spin spinning={loading}>

@@ -19,17 +19,23 @@ function RouterProviders() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/assets/:id" element={
-        <ConfigProvider
-          theme={{
-            components: {
-              Select: {
-                optionSelectedColor: "#fff",
+      <Route
+        path="/assets/:id"
+        element={
+          <ConfigProvider
+            theme={{
+              components: {
+                Select: {
+                  optionSelectedColor: "#fff",
+                  optionFontSize: 12,
+                  optionSelectedFontWeight: 400,
+                },
               },
-            },
-          }}>
-          <Assets />
-        </ConfigProvider>} />
+            }}>
+            <Assets />
+          </ConfigProvider>
+        }
+      />
       <Route path="/verify" element={<Verify />} />
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/platform" element={<Platform />} />
@@ -38,7 +44,7 @@ function RouterProviders() {
       <Route path="/airdrop" element={<Airdrop />} />
       <Route path="/ido" element={<IDO />} />
       <Route path="/new/:id" element={<NewsDetails />} />
-      <Route path='/blindbox' element={<BlindBox />}></Route>
+      <Route path="/blindbox" element={<BlindBox />}></Route>
       <Route
         path="/login"
         element={

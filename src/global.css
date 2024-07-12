@@ -157,3 +157,7 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   align-items: center;
 }
+
+.ant-select-selection-item {
+  font-size: 12px;
+}
