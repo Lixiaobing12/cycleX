@@ -186,8 +186,8 @@ const BlindBox = () => {
     const context: any = modal?.info({
       closable: {
         closeIcon: (
-          <Icon size={25}>
-            <CloseCircleOutlineds />
+          <Icon size={18}>
+            <img src="/assets/close_r.png" />
           </Icon>
         ),
       },
