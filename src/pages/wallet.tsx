@@ -62,8 +62,8 @@ const Wallet = () => {
     },
     {
       title: t("Update Time"),
-      dataIndex: "UpdatedAt",
-      key: "UpdatedAt",
+      dataIndex: "CreatedAt",
+      key: "CreatedAt",
       width: 100,
       render(value, record, index) {
         return moment(value).format("YYYY-MM-DD HH:mm:ss");

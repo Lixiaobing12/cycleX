@@ -252,9 +252,9 @@ const BlindBox = () => {
     img.src = "/assets/comp.gif";
     // const img2 = new Image();
     // img2.src = "/assets/loading1.png";
-    // request.post("/api/api/my/getInvite").then(({ data }) => {
-    //   invite_img.current = data.data;
-    // });
+    request.post("/api/api/my/getInvite").then(({ data }) => {
+      invite_img.current = data.data;
+    });
   }, []);
 
   return (
