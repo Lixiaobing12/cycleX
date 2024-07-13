@@ -57,7 +57,14 @@ const Wallet = () => {
       key: "BalanceChange",
       width: 100,
       render(value, record, index) {
-        return value + " USDT";
+        if (record.AssetId === 2) {
+          return value + " ETH";
+        } else if (record.AssetId === 3) {
+          return value + " USDT"
+        }
+        else {
+          return value + ' BTC'
+        }
       },
     },
     {
