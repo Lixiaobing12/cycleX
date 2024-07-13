@@ -278,25 +278,23 @@ const HeaderComponent = () => {
           </div>
           <span className="font-bold text-2xl font-whalebold">CycleX</span>
         </div>
-        <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20">
-          <Space size='large'>
-            <div className="cursor-pointer hover:scale-105 leading-normal" onClick={() => navigate("/#fund")}>
-              {t("Fund")}
-            </div>
-            <div className="cursor-pointer  hover:scale-105 leading-normal w-min xl:w-fit" onClick={() => navigate("/guide")}>
-              {t("Newbie Guide")}
-            </div>
-            <div className="cursor-pointer  hover:scale-105 leading-normal w-min xl:w-fit" onClick={() => navigate("/issus")}>
-              {t("Asset Backed Securities")}
-            </div>
-            <div className="cursor-pointer  hover:scale-105 leading-normal w-min xl:w-fit" onClick={() => navigate("/airdrop")}>
-              {t("Airdrop")}
-            </div>
-            <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center w-min xl:w-fit gap-2" onClick={() => navigate("/blindbox")}>
-              Mystery Box
-              <img src="/assets/hot.png" width={15} alt="" />
-            </div>
-          </Space>
+        <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20 gap-4">
+          <div className="cursor-pointer hover:scale-105 leading-normal" onClick={() => navigate("/#fund")}>
+            {t("Fund")}
+          </div>
+          <div className="cursor-pointer  hover:scale-105 leading-normal xl:w-fit" onClick={() => navigate("/guide")}>
+            {t("Newbie Guide")}
+          </div>
+          <div className="cursor-pointer  hover:scale-105 leading-normal xl:w-fit" onClick={() => navigate("/issus")}>
+            {t("Asset Backed Securities")}
+          </div>
+          <div className="cursor-pointer  hover:scale-105 leading-normal xl:w-fit" onClick={() => navigate("/airdrop")}>
+            {t("Airdrop")}
+          </div>
+          <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit gap-2" onClick={() => navigate("/blindbox")}>
+            Mystery Box
+            <img src="/assets/hot.png" width={15} alt="" />
+          </div>
         </div>
         <div className="hidden md:flex text-right mr-10">
           <Space size="large">
