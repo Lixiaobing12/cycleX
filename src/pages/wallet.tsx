@@ -58,12 +58,11 @@ const Wallet = () => {
       width: 100,
       render(value, record, index) {
         if (record.AssetId === 2) {
-          return value + " ETH";
+          return value + " ETH" + `(${t("receipt")} ${Number(record.TotalValue).toFixed(4)} USDT)`;
         } else if (record.AssetId === 3) {
-          return value + " USDT"
-        }
-        else {
-          return value + ' BTC'
+          return value + " USDT";
+        } else {
+          return value + " BTC" + `(${t("receipt")} ${Number(record.TotalValue).toFixed(4)} USDT)`;
         }
       },
     },
@@ -284,85 +283,89 @@ const Wallet = () => {
         </Col>
       </Row>
 
-      <Modal open={recharge_modal_visible} modalRender={() => <div className="rounded-box p-6 bg-white w-full flex flex-col items-center pointer-events-auto relative text-xs">
-        <img src="/assets/close.png" className="absolute cursor-pointer top-4 right-4" width={25} onClick={() => set_recharge_modal_visible(false)} />
+      <Modal
+        open={recharge_modal_visible}
+        modalRender={() => (
+          <div className="rounded-box p-6 bg-white w-full flex flex-col items-center pointer-events-auto relative text-xs">
+            <img src="/assets/close.png" className="absolute cursor-pointer top-4 right-4" width={25} onClick={() => set_recharge_modal_visible(false)} />
 
-        <strong className="text-xl">Recharge</strong>
+            <strong className="text-xl">Recharge</strong>
 
-        <div className="w-full p-2 flex flex-col gap-2 mt-4">
+            <div className="w-full p-2 flex flex-col gap-2 mt-4">
+              <div className="mt-4">{t("Recharge network")}</div>
+              <Select
+                value={recharge_network}
+                onChange={(e) => {
+                  set_recharge_network(e);
+                  set_recharge_coin(e === "BEVM" ? "BTC" : "USDT");
+                }}
+                options={[
+                  { value: "Ethereum", label: "Ethereum Mainnet" },
+                  { value: "BEVM", label: "BEVM Mainnet" },
+                ]}
+              />
 
-          <div className="mt-4">{t("Recharge network")}</div>
-          <Select
-            value={recharge_network}
-            onChange={e => {
-              set_recharge_network(e)
-              set_recharge_coin(e === 'BEVM' ? "BTC" : "USDT")
-            }}
-            options={[
-              { value: "Ethereum", label: "Ethereum Mainnet" },
-              { value: "BEVM", label: "BEVM Mainnet" },
-            ]}
-          />
+              <div className="mt-4">{t("Recharge network")}</div>
+              <Select
+                value={recharge_coin}
+                onChange={set_recharge_coin}
+                options={
+                  recharge_network === "BEVM"
+                    ? [{ value: "BTC", label: "BTC" }]
+                    : [
+                        { value: "USDT", label: "USDT" },
+                        { value: "ETH", label: "ETH" },
+                      ]
+                }
+              />
 
-          <div className="mt-4">{t("Recharge network")}</div>
-          <Select
-            value={recharge_coin}
-            onChange={set_recharge_coin}
-            options={recharge_network === "BEVM" ? [
-              { value: "BTC", label: "BTC", }
-            ] : [
-              { value: "USDT", label: "USDT", },
-              { value: "ETH", label: "ETH" },
-            ]}
-          />
+              <div className="mt-4">{t("Recharge address")}</div>
+              <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 text-sm overflow-auto pointer-events-auto">
+                <WrapperImg src="/assets/copy-active.png" width={18} onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
+                {walletInfo?.wallet_account_address}
+              </div>
 
-          <div className="mt-4">{t("Recharge address")}</div>
-          <div className="bg-lightgrey rounded-md p-2 flex items-center gap-2 text-sm overflow-auto pointer-events-auto">
-            <WrapperImg src="/assets/copy-active.png" width={18} onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")} />
-            {walletInfo?.wallet_account_address}
-          </div>
-
-          <div className="mt-4 bg-lightgrey rounded-md p-4 gap-4">
-            {
-              recharge_coin === "USDT" ?
-                <div className="flex justify-between items-center">
-                  <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
-                  <span>{Number(rechargeInfo?.deposit_min).toFixed(2)} USDT</span>
-                </div>
-                : recharge_coin === "ETH" ?
+              <div className="mt-4 bg-lightgrey rounded-md p-4 gap-4">
+                {recharge_coin === "USDT" ? (
+                  <div className="flex justify-between items-center">
+                    <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
+                    <span>{Number(rechargeInfo?.deposit_min).toFixed(2)} USDT</span>
+                  </div>
+                ) : recharge_coin === "ETH" ? (
                   <div className="flex justify-between items-center">
                     <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
                     <span>0.003 ETH</span>
                   </div>
-                  : <div className="flex justify-between items-center">
+                ) : (
+                  <div className="flex justify-between items-center">
                     <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
                     <span>0.0001 BTC</span>
                   </div>
-            }
+                )}
 
-            <div className="flex justify-between items-center">
-              <span className="text-threePranentTransblack">{t("Block Confirmations")}</span>
-              <span>{i18n.language === "en" ? rechargeInfo?.deposit_account_dct?.en : rechargeInfo?.deposit_account_dct?.zh}</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-threePranentTransblack">{t("Block Confirmations")}</span>
+                  <span>{i18n.language === "en" ? rechargeInfo?.deposit_account_dct?.en : rechargeInfo?.deposit_account_dct?.zh}</span>
+                </div>
+              </div>
+              <div className="mt-2">
+                {recharge_coin === "USDT" ? (
+                  <p>{t("You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+                ) : recharge_coin === "ETH" ? (
+                  <p>{t("You can only deposit ETH-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+                ) : (
+                  <p>{t("You can only deposit BTC-BEVM to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+                )}
+              </div>
+
+              <div className="mt-4 text-center">
+                <button className="btn btn-widt text-xs btn-sm" onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")}>
+                  {t("Copy address")}
+                </button>
+              </div>
             </div>
           </div>
-          <div className="mt-2">
-            {
-              recharge_coin === 'USDT' ?
-                <p>{t("You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
-                : recharge_coin === 'ETH' ?
-                  <p>{t("You can only deposit ETH-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
-                  : <p>{t("You can only deposit BTC-BEVM to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
-            }
-
-          </div>
-
-          <div className="mt-4 text-center">
-            <button className="btn btn-widt text-xs btn-sm" onClick={() => handleCopy(walletInfo?.wallet_account_address ?? "")}>
-              {t("Copy address")}
-            </button>
-          </div>
-        </div>
-      </div>}></Modal>
+        )}></Modal>
     </div>
   );
 };
