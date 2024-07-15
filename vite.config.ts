@@ -18,28 +18,27 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "https://monster-island.top",
+        target: "https://cyclex.cc/",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/sapi": {
-        target: "http://cyclex.monster-island.top",
+        target: "https://cyclex.cc/",
         changeOrigin: true,
       },
       "/images": {
-        target: "https://monster-island.top/uploads",
+        target: "https://cyclex.cc/uploads",
         changeOrigin: true,
       },
       "/static/file": {
-        target: "http://cyclex.monster-island.top",
+        target: "https://cyclex.cc/",
         changeOrigin: true,
       },
       "/rwa": {
-        target: "http://cyclex.monster-island.top",
+        target: "https://cyclex.cc/",
         changeOrigin: true,
       },
       "/translate": {
-        target: "http://cyclex.monster-island.top",
+        target: "https://cyclex.cc/",
         changeOrigin: true,
       },
     },
