@@ -248,8 +248,6 @@ const BlindBox = () => {
 
   useEffect(() => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
-    const img = new Image();
-    img.src = "/assets/comp.gif";
     request.post("/api/api/my/getInvite").then(({ data }) => {
       invite_img.current = data.data;
     });

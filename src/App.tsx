@@ -42,6 +42,11 @@ function App() {
       });
     }
   }, [router, accessToken]);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/assets/comp.gif";
+  }, []);
   return (
     <div>
       {contextHolder}
