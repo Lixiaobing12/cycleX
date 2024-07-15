@@ -9,8 +9,8 @@ import useLocalStorage from "../../hooks/localStorage";
 import useAccounts from "../../hooks/user";
 import { request } from "../../utils/request";
 
-let opened = false;
 let CloseCircleOutlineds = CloseCircleOutlined as any;
+let opening = false;
 const DrawerGetBlindBox = () => {
   const location = useLocation();
   const [isSign, account] = useAccounts();
@@ -20,10 +20,7 @@ const DrawerGetBlindBox = () => {
   const accessToken = useLocalStorage();
 
   const open = () => {
-    request.post("/sapi/lottery/addNum", {
-      BearerToken: "Bearer " + accessToken?.token,
-      Type: "Login",
-    });
+    opening = true;
     const context: any = modal?.info({
       closable: {
         closeIcon: (
@@ -33,7 +30,10 @@ const DrawerGetBlindBox = () => {
         ),
       },
       icon: <></>,
-      onCancel: () => context.destroy(),
+      onCancel: () => {
+        context.destroy();
+        opening = false;
+      },
       zIndex: 100,
       title: (
         <div className="text-center">
@@ -48,6 +48,7 @@ const DrawerGetBlindBox = () => {
             className="btn btn-wide m-auto mt-4 bg-black text-white hover:bg-black hover:scale-105"
             onClick={() => {
               if (!accessToken) {
+                opening = false;
                 context.destroy();
                 return navigate("/login");
               }
@@ -64,27 +65,25 @@ const DrawerGetBlindBox = () => {
     });
   };
   useEffect(() => {
-    const accessToken = localStorage.getItem("token");
-    if (!accessToken && !opened) {
-      opened = true;
+    const accessToken = localStorage.getItem("token") as any;
+    if (account && accessToken) {
+      request
+        .post("/sapi/lottery/info", {
+          UserId: account?.id,
+        })
+        .then((res) => {
+          if (!res.data.data.Login && !opening) {
+            open();
+          }
+          request.post("/sapi/lottery/addNum", {
+            BearerToken: "Bearer " + JSON.parse(accessToken).token,
+            Type: "Login",
+          });
+        });
+    } else if (!accessToken) {
       open();
-    } else {
-      if (isSign && account) {
-        if (location.pathname !== "/login") {
-          opened = true;
-          request
-            .post("/sapi/lottery/info", {
-              UserId: account?.id,
-            })
-            .then((res) => {
-              if (!res.data.data.Login) {
-                open();
-              }
-            });
-        }
-      }
     }
-  }, [isSign, modal, account, location]);
+  }, [account]);
 
   return <></>;
 };

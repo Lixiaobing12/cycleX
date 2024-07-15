@@ -18,28 +18,28 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "https://app.whaleflow.co",
+        target: "https://monster-island.top",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/sapi": {
-        target: "https://cyclex.cc",
+        target: "http://cyclex.monster-island.top",
         changeOrigin: true,
       },
       "/images": {
-        target: "https://app.whaleflow.co/uploads",
+        target: "https://monster-island.top/uploads",
         changeOrigin: true,
       },
       "/static/file": {
-        target: "http://127.0.0.1:8080",
+        target: "http://cyclex.monster-island.top",
         changeOrigin: true,
       },
       "/rwa": {
-        target: "https://cyclex.cc",
+        target: "http://cyclex.monster-island.top",
         changeOrigin: true,
       },
       "/translate": {
-        target: "https://cyclex.cc",
+        target: "http://cyclex.monster-island.top",
         changeOrigin: true,
       },
     },

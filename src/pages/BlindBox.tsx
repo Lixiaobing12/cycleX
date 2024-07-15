@@ -178,7 +178,7 @@ const BlindBox = () => {
             footer: null,
             width: "375px",
           });
-        }, 2000);
+        }, 4500);
       });
   };
 
@@ -250,8 +250,6 @@ const BlindBox = () => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
     const img = new Image();
     img.src = "/assets/comp.gif";
-    // const img2 = new Image();
-    // img2.src = "/assets/loading1.png";
     request.post("/api/api/my/getInvite").then(({ data }) => {
       invite_img.current = data.data;
     });
@@ -267,7 +265,7 @@ const BlindBox = () => {
                 <Loader />
               </div>
               <div className="w-full h-[60px]"></div>
-              <img src="/assets/comp.webp" alt="" width={600} />;
+              <img src="/assets/comp.gif" alt="" width={600} />;
             </div>
           )}
           <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
