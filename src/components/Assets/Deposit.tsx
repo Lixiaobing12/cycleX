@@ -194,8 +194,15 @@ const ItemDeposit: React.FC<{
         <input
           type="number"
           className="w-full input bg-[#F7F8FA] rounded-md border-0 placeholder:text-xs"
+          value={amount}
           onChange={(e) => {
             setDisabled(false);
+            if (e.target.value.split(".").length > 1) {
+              if (e.target.value.split(".")[1].length > 8) {
+                setAmount(Number(e.target.value[0] + "." + e.target.value.split(".")[1].slice(0, 8)));
+                return;
+              }
+            }
             setAmount(Number(e.target.value));
           }}
           placeholder={`${t("Min Purchase")}${product?.min_pay}`}
