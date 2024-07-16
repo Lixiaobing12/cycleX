@@ -14,6 +14,7 @@ import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 import Loader from "../Loader";
 import SafetyInput from "./SafetyInput";
+import ForgetSafetyCode from "./ForgotSafetyCode";
 
 // const SafetyInput: React.FC<{
 //   onSave: Function;
@@ -68,9 +69,9 @@ const ItemDeposit: React.FC<{
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [isSign, user, walletInfo] = useAccounts();
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState("");
   const [modal] = useAtom(modalContext);
-  const [btnDisabled, setDisabled] = useState(false);
+  const [btnDisabled, setDisabled] = useState(true);
   const secrityKey = useRef<string>();
   const [loading, setLoading] = useState(false);
   const { handleTranslate } = useTranslateLocalStorage();
@@ -161,16 +162,26 @@ const ItemDeposit: React.FC<{
         ),
         centered: true,
         footer: () => (
-          <button
-            className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
-            onClick={() => {
-              checkSecurity().then(() => {
+          <>
+            <button
+              className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
+              onClick={() => {
+                checkSecurity().then(() => {
+                  context.destroy();
+                });
+              }}>
+              <Loader spinning={loading} />
+              {t("confirm")}
+            </button>
+            <div
+              onClick={() => {
                 context.destroy();
-              });
-            }}>
-            <Loader spinning={loading} />
-            {t("confirm")}
-          </button>
+                setTimeout(openForgotSafetyModal, 200);
+              }}
+              className="text-center text-sm mt-2">
+              {t("Forget the password")}?
+            </div>
+          </>
         ),
         styles: {
           body: {
@@ -179,6 +190,30 @@ const ItemDeposit: React.FC<{
         },
       });
     }
+  };
+
+  const openForgotSafetyModal = () => {
+    const context: any = modal?.info({
+      closable: true,
+      icon: <></>,
+      onCancel: () => context.destroy(),
+      title: <h1 className="w-full py-2 text-center text-lg">{t("Please enter security key")}</h1>,
+      zIndex: 1000,
+      content: (
+        <ForgetSafetyCode
+          onComplate={() => {
+            context.destroy();
+          }}
+        />
+      ),
+      centered: true,
+      footer: null,
+      styles: {
+        body: {
+          width: "100%",
+        },
+      },
+    });
   };
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
@@ -200,7 +235,8 @@ const ItemDeposit: React.FC<{
             // 获取输入值
             let value = e.target.value;
             if (value === "") {
-              setAmount(undefined);
+              setDisabled(true);
+              setAmount("");
               return;
             }
             // 使用正则表达式检查合法性: 只允许正数，小数位最多8位
@@ -213,9 +249,10 @@ const ItemDeposit: React.FC<{
 
             // 若输入不合法，直接返回
             if (!regex.test(value)) {
+              setDisabled(true);
               return;
             }
-
+            setDisabled(false);
             // 最终设置金额
             setAmount(value);
           }}
