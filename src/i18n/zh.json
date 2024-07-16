@@ -573,5 +573,6 @@
   "Deposit between $10,000-$100,000 - Giveaway 20 lottery draw chances": "存款1万元至10万元-赠送20次抽奖机会",
   "Deposit more than $100,000- Giveaway 35 lottery draw chances.": "存款超过10万元-赠送35次抽奖机会。",
   "The final interpretation rights of this event belong solely to CycleX.": "本次活动的最终解释权仅属于 CycleX。",
-  "receipt":"到账"
+  "receipt": "到账",
+  "pending": "交易确认中"
 }

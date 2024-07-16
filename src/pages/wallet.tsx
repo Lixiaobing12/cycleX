@@ -41,6 +41,7 @@ const Wallet = () => {
     );
     return walletInfo ? total : 0;
   }, [walletInfo]);
+
   const columns: TableProps<any>["columns"] = [
     {
       title: t("Category/type"),
@@ -58,11 +59,11 @@ const Wallet = () => {
       width: 100,
       render(value, record, index) {
         if (record.AssetId === 2) {
-          return value + " ETH" + `(${t("receipt")} ${Number(record.TotalValue).toFixed(4)} USDT)`;
+          return value + " ETH" + `(${record.Status === 1 ? t("receipt") + Number(record.TotalValue).toFixed(4) + " USDT" : t("pending")})`;
         } else if (record.AssetId === 3) {
           return value + " USDT";
         } else {
-          return value + " BTC" + `(${t("receipt")} ${Number(record.TotalValue).toFixed(4)} USDT)`;
+          return value + " BTC" + `(${record.Status === 1 ? t("receipt") + Number(record.TotalValue).toFixed(4) + " USDT" : t("pending")})`;
         }
       },
     },
