@@ -67,7 +67,7 @@ const ItemDeposit: React.FC<{
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [isSign, user, walletInfo] = useAccounts();
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState<number>();
   const [modal] = useAtom(modalContext);
   const [btnDisabled, setDisabled] = useState(false);
   const secrityKey = useRef<string>();
@@ -93,7 +93,7 @@ const ItemDeposit: React.FC<{
     if (loading) return;
     setLoading(true);
     const { data } = await request.post("/sapi/fundOrder/create", {
-      Amount: amount.toString(),
+      Amount: Number(amount).toString(),
       ProductId: String(product?.id),
       SecurityPassword: secrityKey.current,
       ChainId: network === "Ethereum" ? 1 : 11501,
@@ -132,14 +132,14 @@ const ItemDeposit: React.FC<{
       const min = product?.min_pay;
       const balance = walletInfo?.balance;
       secrityKey.current = "";
-      if (amount < Number(min)) {
+      if (Number(amount) < Number(min)) {
         setDisabled(true);
         return toast?.warning({
           icon: <img src="/assets/error.png" width={30} />,
           message: t("Less than minimum purchase quantity"),
         });
       }
-      if (amount > Number(balance)) {
+      if (Number(amount) > Number(balance)) {
         setDisabled(true);
         return toast?.warning({
           icon: <img src="/assets/error.png" width={30} />,
@@ -196,14 +196,24 @@ const ItemDeposit: React.FC<{
           className="w-full input bg-[#F7F8FA] rounded-md border-0 placeholder:text-xs"
           value={amount}
           onChange={(e) => {
-            setDisabled(false);
-            if (e.target.value.split(".").length > 1) {
-              if (e.target.value.split(".")[1].length > 8) {
-                setAmount(Number(e.target.value[0] + "." + e.target.value.split(".")[1].slice(0, 8)));
-                return;
-              }
+            // 获取输入值
+            let value = e.target.value;
+
+            // 使用正则表达式检查合法性: 只允许正数，小数位最多8位
+            const regex = /^\d+(\.\d{0,8})?$/;
+
+            // 如果是以0开头，但不是0.几的情况，则设置为0
+            if (value.startsWith("0") && !value.startsWith("0.")) {
+              value = "0";
             }
-            setAmount(Number(e.target.value));
+
+            // 若输入不合法，直接返回
+            if (!regex.test(value)) {
+              return;
+            }
+
+            // 最终设置金额
+            setAmount(Number(value));
           }}
           placeholder={`${t("Min Purchase")}${product?.min_pay}`}
         />
