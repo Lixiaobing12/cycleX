@@ -199,7 +199,10 @@ const ItemDeposit: React.FC<{
           onChange={(e) => {
             // 获取输入值
             let value = e.target.value;
-
+            if (value === "") {
+              setAmount(undefined);
+              return;
+            }
             // 使用正则表达式检查合法性: 只允许正数，小数位最多8位
             const regex = /^\d+(\.\d{0,8})?$/;
 
