@@ -26,7 +26,7 @@ export default defineConfig({
         changeOrigin: true,
       },
       "/images": {
-        target: "https://cyclex.cc/uploads",
+        target: "https://cyclex.cc/",
         changeOrigin: true,
       },
       "/static/file": {

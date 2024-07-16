@@ -43,49 +43,49 @@ const HeaderComponent = () => {
   const accountItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-        { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-        {
-          label: t("Logout"),
-          icon: <img src="/assets/exit.png" width={12} />,
-          key: "exit",
-          onClick: () => {
-            window.localStorage.removeItem("token");
-            const setItemEvent = new Event("localstorage_save");
-            window.dispatchEvent(setItemEvent);
-            setTimeout(() => {
-              navigate("/login");
-            }, 200);
+          { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+          {
+            label: t("Logout"),
+            icon: <img src="/assets/exit.png" width={12} />,
+            key: "exit",
+            onClick: () => {
+              window.localStorage.removeItem("token");
+              const setItemEvent = new Event("localstorage_save");
+              window.dispatchEvent(setItemEvent);
+              setTimeout(() => {
+                navigate("/login");
+              }, 200);
+            },
           },
-        },
-      ]
+        ]
       : [
-        // {
-        //   label: t("Certification"),
-        //   icon: (
-        //     <div className="flex items-center">
-        //       <img src="/assets/risk.png" width={15} alt="" />
-        //     </div>
-        //   ),
-        //   key: "realName",
-        //   onClick: () => navigate("/verify"),
-        // },
-        { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-        {
-          label: t("Logout"),
-          icon: <img src="/assets/exit.png" width={12} />,
-          key: "exit",
-          onClick: () => {
-            window.localStorage.removeItem("token");
-            const setItemEvent = new Event("localstorage_save");
-            window.dispatchEvent(setItemEvent);
-            setTimeout(() => {
-              navigate("/login");
-            }, 200);
+          // {
+          //   label: t("Certification"),
+          //   icon: (
+          //     <div className="flex items-center">
+          //       <img src="/assets/risk.png" width={15} alt="" />
+          //     </div>
+          //   ),
+          //   key: "realName",
+          //   onClick: () => navigate("/verify"),
+          // },
+          { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+          {
+            label: t("Logout"),
+            icon: <img src="/assets/exit.png" width={12} />,
+            key: "exit",
+            onClick: () => {
+              window.localStorage.removeItem("token");
+              const setItemEvent = new Event("localstorage_save");
+              window.dispatchEvent(setItemEvent);
+              setTimeout(() => {
+                navigate("/login");
+              }, 200);
+            },
           },
-        },
-      ];
+        ];
   }, [users, t]);
 
   const MobileRouterItems: MenuProps["items"] = [
@@ -185,46 +185,46 @@ const HeaderComponent = () => {
   const MobileAccountActiveItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-        {
-          label: t("wallet"),
-          icon: <WrapperImg src="/assets/wallet-light.png" />,
-          key: "wallet",
-          onClick: () => {
-            setOpenMenu(false);
-            navigate("/wallet");
+          {
+            label: t("wallet"),
+            icon: <WrapperImg src="/assets/wallet-light.png" />,
+            key: "wallet",
+            onClick: () => {
+              setOpenMenu(false);
+              navigate("/wallet");
+            },
           },
-        },
-        { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
-      ]
+          { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
+        ]
       : [
-        // {
-        //   label: t("Certification"),
-        //   icon: <WrapperImg src="/assets/warning-light.png" />,
-        //   key: "realName",
-        //   onClick: () => {
-        //     setOpenMenu(false);
-        //     navigate("/verify");
-        //   },
-        // },
-        {
-          label: t("wallet"),
-          icon: <WrapperImg src="/assets/wallet-light.png" />,
-          key: "wallet",
-          onClick: () => {
-            setOpenMenu(false);
-            navigate("/wallet");
+          // {
+          //   label: t("Certification"),
+          //   icon: <WrapperImg src="/assets/warning-light.png" />,
+          //   key: "realName",
+          //   onClick: () => {
+          //     setOpenMenu(false);
+          //     navigate("/verify");
+          //   },
+          // },
+          {
+            label: t("wallet"),
+            icon: <WrapperImg src="/assets/wallet-light.png" />,
+            key: "wallet",
+            onClick: () => {
+              setOpenMenu(false);
+              navigate("/wallet");
+            },
           },
-        },
-        {
-          label: t("Invite"),
-          icon: <WrapperImg src="/assets/invite-light.png" />,
-          key: "users",
-          onClick: () => {
-            setOpenMenu(false);
-            invite();
+          {
+            label: t("Invite"),
+            icon: <WrapperImg src="/assets/invite-light.png" />,
+            key: "users",
+            onClick: () => {
+              setOpenMenu(false);
+              invite();
+            },
           },
-        },
-      ];
+        ];
   }, [users, t]);
 
   const invite = async () => {
@@ -301,7 +301,7 @@ const HeaderComponent = () => {
             {users && accessToken ? (
               <Dropdown menu={{ items: accountItems }}>
                 <a onClick={(e) => e.preventDefault()} className="flex items-center">
-                  {users.avatar && <img src={users.avatar} width={32} className="mr-2 rounded-full" alt="" />}
+                  {users.avatar && <img src={users.avatar.replace("/uploads", "")} width={32} className="mr-2 rounded-full" alt="" />}
                   {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
                   <div className="mt-1 ml-1">
                     <img src="/assets/down.png" width={15} alt="" />
