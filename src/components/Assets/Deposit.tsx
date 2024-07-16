@@ -13,52 +13,53 @@ import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 import Loader from "../Loader";
+import SafetyInput from "./SafetyInput";
 
-const SafetyInput: React.FC<{
-  onSave: Function;
-}> = ({ onSave }) => {
-  const [words, setWords] = useState([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }]);
-  const passwords = useRef("");
+// const SafetyInput: React.FC<{
+//   onSave: Function;
+// }> = ({ onSave }) => {
+//   const [words, setWords] = useState([{ value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }, { value: "" }]);
+//   const passwords = useRef("");
 
-  const handleInput = ({ key, e }: { key: number; e: React.ChangeEvent<HTMLInputElement> }) => {
-    setWords((state) => {
-      state[key].value = "*";
-      return [...state];
-    });
-    passwords.current += e.target.value;
-    if (key < 5) {
-      (document.querySelector(`#dinput${key + 1}`) as any)?.focus();
-    } else {
-      (document.querySelector(`#dinput${key}`) as any)?.blur();
-      onSave(passwords.current);
-      passwords.current = "";
-    }
-  };
-  useEventListener("keydown", (evnet) => {
-    if (evnet.key === "Delete" || evnet.key === "Backspace") {
-      for (let i = 5; i > -1; i--) {
-        if (!!words[i].value) {
-          setWords((state) => {
-            state[i].value = "";
-            return [...state];
-          });
-          (document.querySelector(`#dinput${i}`) as any)?.focus();
-          break;
-        }
-      }
-    }
-  });
-  useEffect(() => {
-    (document.querySelector(`#dinput0`) as any)?.focus();
-  }, []);
-  return (
-    <div className="flex items-center gap-2 w-full justify-center">
-      {words.map((item, key) => (
-        <input type="text" className="input border-black w-12 bg-white" value={words[key].value} onChange={(e) => handleInput({ e, key })} key={key} id={`dinput${key}`} autoComplete="off" />
-      ))}
-    </div>
-  );
-};
+//   const handleInput = ({ key, e }: { key: number; e: React.ChangeEvent<HTMLInputElement> }) => {
+//     setWords((state) => {
+//       state[key].value = "*";
+//       return [...state];
+//     });
+//     passwords.current += e.target.value;
+//     if (key < 5) {
+//       (document.querySelector(`#dinput${key + 1}`) as any)?.focus();
+//     } else {
+//       (document.querySelector(`#dinput${key}`) as any)?.blur();
+//       onSave(passwords.current);
+//       passwords.current = "";
+//     }
+//   };
+//   useEventListener("keydown", (evnet) => {
+//     if (evnet.key === "Delete" || evnet.key === "Backspace") {
+//       for (let i = 5; i > -1; i--) {
+//         if (!!words[i].value) {
+//           setWords((state) => {
+//             state[i].value = "";
+//             return [...state];
+//           });
+//           (document.querySelector(`#dinput${i}`) as any)?.focus();
+//           break;
+//         }
+//       }
+//     }
+//   });
+//   useEffect(() => {
+//     (document.querySelector(`#dinput0`) as any)?.focus();
+//   }, []);
+//   return (
+//     <div className="flex items-center gap-2 w-full justify-center">
+//       {words.map((item, key) => (
+//         <input type="number" className="input border-black w-12 bg-white" value={words[key].value} onChange={(e) => handleInput({ e, key })} key={key} id={`dinput${key}`} autoComplete="off" />
+//       ))}
+//     </div>
+//   );
+// };
 
 const ItemDeposit: React.FC<{
   network: string;
@@ -67,7 +68,7 @@ const ItemDeposit: React.FC<{
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [isSign, user, walletInfo] = useAccounts();
-  const [amount, setAmount] = useState<number>();
+  const [amount, setAmount] = useState('');
   const [modal] = useAtom(modalContext);
   const [btnDisabled, setDisabled] = useState(false);
   const secrityKey = useRef<string>();
@@ -213,7 +214,7 @@ const ItemDeposit: React.FC<{
             }
 
             // 最终设置金额
-            setAmount(Number(value));
+            setAmount(value);
           }}
           placeholder={`${t("Min Purchase")}${product?.min_pay}`}
         />
