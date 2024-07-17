@@ -97,7 +97,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div>
-                  <span className="text-2xl font-bold font-whalebold">{item.income2}</span>
+                  <span className="text-2xl font-bold font-whalebold mr-1">{item.income2}</span>
                   {t("Annual yield")}(APY)
                 </div>
                 <div className="flex items-center justify-between mt-4">

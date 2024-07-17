@@ -1,8 +1,8 @@
-import { Layout, Modal, notification } from "antd";
+import { Layout, Modal, notification, App as AntdApp } from "antd";
 import { HookAPI } from "antd/es/modal/useModal";
 import { NotificationInstance } from "antd/es/notification/interface";
 import { atom, useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import DrawerGetBlindBox from "./components/BlindBox/DrawerGetBlindBox";
 import Footers from "./components/Footers";
@@ -16,6 +16,8 @@ export const modalContext = atom<HookAPI | null>(null);
 const { Header, Content, Footer } = Layout;
 
 function App() {
+  const { modal } = AntdApp.useApp();
+  console.log('modal', modal)
   const router = useLocation();
   const accessToken = useLocalStorage();
   const navigator = useNavigate();
@@ -24,7 +26,6 @@ function App() {
     duration: 1.5,
   });
   // const [messageApi, contextHolder] = imessage.useMessage();
-  const [modal, modalContextHolder] = Modal.useModal();
   const [toast, setMessage] = useAtom(messageContext);
   const [, setModal] = useAtom(modalContext);
   setMessage(api);
@@ -50,7 +51,6 @@ function App() {
   return (
     <div>
       {contextHolder}
-      {modalContextHolder}
       <Layout>
         <Header
           className="iglass"
@@ -84,4 +84,7 @@ function App() {
   );
 }
 
-export default App;
+const AppWithProvider = () => {
+  return <AntdApp><App /></AntdApp>
+}
+export default AppWithProvider;

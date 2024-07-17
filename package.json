@@ -16,7 +16,7 @@
     "@ricons/utils": "^0.1.6",
     "@types/uuid": "^9.0.8",
     "animate.css": "^4.1.1",
-    "antd": "^5.12.2",
+    "antd": "^5.19.2",
     "antd-mobile": "^5.33.1",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.8",
