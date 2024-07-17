@@ -43,7 +43,7 @@ const HeaderComponent = () => {
   const accountItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-          { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+          { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
           { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
           {
             label: t("Logout"),
@@ -70,7 +70,7 @@ const HeaderComponent = () => {
           //   key: "realName",
           //   onClick: () => navigate("/verify"),
           // },
-          { label: t("wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+          { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
           { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
           {
             label: t("Logout"),
@@ -186,7 +186,7 @@ const HeaderComponent = () => {
     return users?.user_type === 1
       ? [
           {
-            label: t("wallet"),
+            label: t("Wallet"),
             icon: <WrapperImg src="/assets/wallet-light.png" />,
             key: "wallet",
             onClick: () => {
@@ -207,7 +207,7 @@ const HeaderComponent = () => {
           //   },
           // },
           {
-            label: t("wallet"),
+            label: t("Wallet"),
             icon: <WrapperImg src="/assets/wallet-light.png" />,
             key: "wallet",
             onClick: () => {

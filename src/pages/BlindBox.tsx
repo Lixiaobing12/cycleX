@@ -242,7 +242,9 @@ const BlindBox = () => {
         }
       });
   };
-
+  useEffect(() => {
+    init();
+  }, [account]);
   useEffect(() => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
     request.post("/api/api/my/getInvite").then(({ data }) => {

@@ -235,7 +235,7 @@ const SafetyInput: React.FC<{
         <Form.Item>
           <button className="btn btn-block m-auto mt-4 disabled:text-black-800" disabled={!vilid || !inputsAreCorrect} onClick={checkSecurity}>
             <Loader spinning={loading} />
-            {t("confirm")}
+            {t("Confirm")}
           </button>
         </Form.Item>
       </Form>

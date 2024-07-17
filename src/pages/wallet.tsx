@@ -248,7 +248,7 @@ const Wallet = () => {
                 </div>
               </div>
               <div className="flex-1 flex flex-col gap-1 items-start md:items-end">
-                <div className="text-white text-md">{t("wallet")}</div>
+                <div className="text-white text-md">{t("Wallet")}</div>
                 <div className="text-grey text-md flex gap-2 items-center">
                   <div>
                     {size.width < 600

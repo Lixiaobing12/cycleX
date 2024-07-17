@@ -126,7 +126,7 @@ const ItemDeposit: React.FC<{
                 });
               }}>
               <Loader spinning={loading} />
-              {t("confirm")}
+              {t("Confirm")}
             </button>
             <div
               onClick={() => {

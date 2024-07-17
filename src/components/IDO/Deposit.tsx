@@ -215,7 +215,7 @@ const SettingKey: React.FC<{
         <Form.Item>
           <button className="btn btn-block m-auto mt-4 disabled:text-black-800" disabled={!vilid || !inputsAreCorrect} onClick={checkSecurity}>
             <Loader spinning={loading} />
-            {t("confirm")}
+            {t("Confirm")}
           </button>
         </Form.Item>
       </Form>
@@ -349,7 +349,7 @@ const ItemDeposit = () => {
           footer: () => (
             <div className="text-center">
               <button className="btn btn-sm btn-wide bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack" onClick={context.destroy}>
-                {t("confirm")}
+                {t("Confirm")}
               </button>
             </div>
           ),
@@ -371,7 +371,7 @@ const ItemDeposit = () => {
           footer: () => (
             <div className="text-center">
               <button className="btn btn-sm btn-wide bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack" onClick={context.destroy}>
-                {t("confirm")}
+                {t("Confirm")}
               </button>
             </div>
           ),
@@ -444,7 +444,7 @@ const ItemDeposit = () => {
                 .catch(() => {});
             }}>
             <Loader spinning={loading} />
-            {t("confirm")}
+            {t("Confirm")}
           </button>
         ),
         styles: {

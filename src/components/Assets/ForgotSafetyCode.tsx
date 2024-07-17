@@ -228,7 +228,7 @@ const ForgetSafetyCode: React.FC<{
         <Form.Item>
           <button className="btn btn-block m-auto mt-4 bg-black text-white disabled:text-black-800 disabled:bg-[#2b344033]" disabled={!vilid || !inputsAreCorrect} onClick={checkSecurity}>
             <Loader spinning={loading} />
-            {t("confirm")}
+            {t("Confirm")}
           </button>
         </Form.Item>
       </Form>
