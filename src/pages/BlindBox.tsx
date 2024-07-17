@@ -206,17 +206,19 @@ const BlindBox = () => {
   };
 
   const init = () => {
-    request
-      .post("/sapi/lottery/info", {
-        UserId: account?.id,
-      })
-      .then((res) => {
-        setLotteryInfo(res.data.data);
-        setData((state) => {
-          state[1].done = res.data.data.Share;
-          return [...state];
+    if (account) {
+      request
+        .post("/sapi/lottery/info", {
+          UserId: account?.id,
+        })
+        .then((res) => {
+          setLotteryInfo(res.data.data);
+          setData((state) => {
+            state[1].done = res.data.data.Share;
+            return [...state];
+          });
         });
-      });
+    }
     request
       .post("/sapi/lottery/list", {
         unlock: false,
@@ -240,17 +242,18 @@ const BlindBox = () => {
         }
       });
   };
-  useEffect(() => {
-    if (account) {
-      init();
-    }
-  }, [account]);
 
   useEffect(() => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
     request.post("/api/api/my/getInvite").then(({ data }) => {
       invite_img.current = data.data;
     });
+    init();
+    const interval = setInterval(init, 6000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (
