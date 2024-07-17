@@ -1,5 +1,6 @@
 import { Divider } from "antd";
 import axios from "axios";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -40,7 +41,7 @@ const NewsDetails = () => {
         {news?.updated_at}
       </p>
       <Divider />
-      <div className="flex gap-10 flex-col md:flex-row">
+      <div className="flex gap-10 flex-col 2xl:flex-row">
         <div>
           <div className="">{news?.img_url && <img src={"https://api.whaleflow.co/storage/" + news?.img_url} alt="" />}</div>
           <div dangerouslySetInnerHTML={{ __html: news?.content ?? "" }} className="inner-img"></div>
@@ -48,12 +49,12 @@ const NewsDetails = () => {
         <Divider className="md:hidden" />
         <div>
           {newslist.map((item, index) => (
-            <div className="flex flex-col gap-4 self-start" key={index}>
+            <div className="flex flex-col mb-4 self-start" key={index}>
               <img src={item.img_url} alt="" className="rounded-box w-full md:w-60 h-56 cursor-pointer" onClick={() => navigate("/new/" + item.id + "#news-detail")} />
-              <div className="text-greyblack">{item.created_at}</div>
               <div className="w-full md:w-60 cursor-pointer" onClick={() => navigate("/new/" + item.id + "#news-detail")}>
                 {item.title}
               </div>
+              <div className="text-greyblack text-xs text-right">{moment(item.created_at, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}</div>
             </div>
           ))}
         </div>
