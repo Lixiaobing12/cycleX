@@ -249,7 +249,6 @@ const ItemDeposit: React.FC<{
 
             // 若输入不合法，直接返回
             if (!regex.test(value)) {
-              setDisabled(true);
               return;
             }
             setDisabled(false);
