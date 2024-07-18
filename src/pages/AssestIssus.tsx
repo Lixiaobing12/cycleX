@@ -13,7 +13,7 @@ const Issus = () => {
   const items: MenuProps["items"] = [
     { icon: <img width={24} src="/assets/guide.png" />, label: t("Release Guidelines"), key: "guide" },
     { icon: <img width={24} src="/assets/kyc.png" />, label: t("KYC(Authentication)"), key: "kyc" },
-    { icon: <img width={24} src="/assets/law.png" />, label: t("law"), key: "law" },
+    { icon: <img width={24} src="/assets/law.png" />, label: t("Law"), key: "law" },
   ];
 
   return (

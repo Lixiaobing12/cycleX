@@ -96,7 +96,7 @@ const Platform = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-1">
-                <div className="text-grey text-md">{t("released")} WFC</div>
+                <div className="text-grey text-md">{t("Released")} WFC</div>
                 <div className="text-white text-md">
                   <CountUp end={tokenInfo.OwnerReceiveTokenAmount} separator="," decimal="." decimals={2} />
                 </div>
@@ -104,7 +104,7 @@ const Platform = () => {
             </div>
           </div>
           <div className="my-14">
-            <div className="text-center text-black text-2xl mb-10">{t("WFC records")}</div>
+            <div className="text-center text-black text-2xl mb-10">{t("WFC Records")}</div>
             <div className="bg-transblack rounded-box">
               {data.length ? (
                 <>

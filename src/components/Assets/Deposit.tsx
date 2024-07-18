@@ -205,7 +205,7 @@ const ItemDeposit: React.FC<{
         />
       </Modal>
       <div className="flex justify-between items-center">
-        <span>{t("settlement period")}</span>
+        <span>{t("Settlement Period")}</span>
         <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
           T+{product?.pay_t_n}
           <div>
@@ -292,7 +292,7 @@ const Card = () => {
       key: "1",
       label: (
         <div className="flex gap-1 items-center">
-          <span className="text-base">{t("invest")}</span>
+          <span className="text-base">{t("Invest")}</span>
           <div>
             <img src={active === "1" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={16} />
           </div>

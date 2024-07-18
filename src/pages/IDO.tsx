@@ -25,7 +25,7 @@ const IDO = () => {
           <Deposit />
         </div>
         <div className="rounded-box border border-light p-8 my-14">
-          <div className="text-center  font-bold font-whalebold text-2xl text-black">{t("About us")}</div>
+          <div className="text-center  font-bold font-whalebold text-2xl text-black">{t("About Us")}</div>
           <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Project introduction")}</h2>
           <p className="my-4 text-black">
             {t(

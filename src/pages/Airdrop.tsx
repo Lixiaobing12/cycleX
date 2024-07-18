@@ -229,7 +229,7 @@ const Airdrop = () => {
         <Divider />
 
         <div className="rounded-box border border-light p-8 my-14">
-          <div className="text-center  font-bold font-whalebold text-2xl text-black">{t("About us")}</div>
+          <div className="text-center  font-bold font-whalebold text-2xl text-black">{t("About Us")}</div>
           <p className="my-4 text-greyblack">
             {t(
               "CycleX is committed to building a transparent and secure tokenized asset trading platform, allowing users to hold global high-quality assets more conveniently, no matter where they are. Through the collaborative efforts of the asset management department and the tokenization technology department, we have built a global decentralized real-world asset solution with system integrity and achieved seamless interactions. In the process, we improve the accessibility of financial products and connect traditional assets through smart contracts to provide users with the best choices. In addition to our technical efforts, we also actively embrace regulation, protect investors, establish a transparent reporting system, and continuously iterate on smart contracts. We work with leading industry partners to provide best-in-class services to our customers. You can browse our team and use our products by visiting whalefow.co/cyclex.cc. Here you can find detailed disclosures about the product, how it operates, and eligibility requirements. If you are interested in a product, you can invest through a digital wallet link. The currency units we accept include US dollars and US dollar stablecoins."
@@ -242,7 +242,7 @@ const Airdrop = () => {
           </p>
         </div>
         <div className="rounded-box border border-light p-8 my-14">
-          <div className="text-center  font-bold font-whalebold text-2xl text-black">Cycle X - {t("White paper")}</div>
+          <div className="text-center  font-bold font-whalebold text-2xl text-black">Cycle X - {t("White Paper")}</div>
           <Divider />
 
           <div className="text-base">

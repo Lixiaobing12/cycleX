@@ -59,7 +59,7 @@ const Footers = () => {
             <div className="flex flex-col gap-4">
               <div>{t("Corporation")}</div>
               <div onClick={() => navigate("/guide#us")} className="cursor-pointer">
-                {t("About us")}
+                {t("About Us")}
               </div>
               <div onClick={() => navigate("/guide#law")} className="cursor-pointer">
                 {t("Law and privacy")}
@@ -131,7 +131,7 @@ const Footers = () => {
             onClick={() => {
               navigate("/guide#law");
             }}>
-            {t("Privacy Policy")}
+            {t("Privacy policy")}
           </span>
         </div>
 

@@ -5,7 +5,7 @@ const Book = () => {
   const { t, i18n } = useTranslation();
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">Cycle X - {t("White paper")}</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">Cycle X - {t("White Paper")}</h1>
       <Divider />
 
       <div>

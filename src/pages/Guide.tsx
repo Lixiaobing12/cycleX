@@ -18,14 +18,14 @@ const Guide = () => {
   const { t } = useTranslation();
   const [show, setModalShow] = useState(false);
   const items: MenuProps["items"] = [
-    { icon: <img width={24} src="/assets/us.png" />, label: t("About us"), key: "us" },
+    { icon: <img width={24} src="/assets/us.png" />, label: t("About Us"), key: "us" },
     { icon: <img width={24} src="/assets/products.png" />, label: t("Product list"), key: "products" },
     { icon: <img width={24} src="/assets/kyc.png" />, label: t("KYC(Authentication)"), key: "kyc" },
     { icon: <img width={24} src="/assets/reward.png" />, label: t("Income standard"), key: "reward" },
     { icon: <img width={24} src="/assets/audit.png" />, label: t("Audit (Certificate of reserves)"), key: "audit" },
-    { icon: <img width={24} src="/assets/law.png" />, label: t("law"), key: "law" },
+    { icon: <img width={24} src="/assets/law.png" />, label: t("Law"), key: "law" },
     { icon: <img width={24} src="/assets/problem.png" />, label: t("Q&A"), key: "problem" },
-    { icon: <img width={24} src="/assets/book.png" />, label: t("White paper"), key: "book" },
+    { icon: <img width={24} src="/assets/book.png" />, label: t("White Paper"), key: "book" },
   ];
   useEffect(() => {
     console.log("location", location);

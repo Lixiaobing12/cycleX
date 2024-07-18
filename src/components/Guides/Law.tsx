@@ -5,7 +5,7 @@ const Law = () => {
   const { t, i18n } = useTranslation();
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("law")}</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Law")}</h1>
       <Divider />
 
       <div className="mt-10">

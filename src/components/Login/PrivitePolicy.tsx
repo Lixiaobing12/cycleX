@@ -4,7 +4,7 @@ const PrivitePolicy = () => {
     const { t, i18n } = useTranslation();
     return (
         <div>
-            <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Privacy Policy")}</h2>
+            <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Privacy policy")}</h2>
             <p>{t("Last Updated: July. 2024")}</p>
             {i18n.language === "en" ? (
                 <div>

@@ -596,7 +596,7 @@ const Up = () => {
                     setEmailNumber(e.target.value);
                   }}
                   size="large"
-                  placeholder={t("please input your email")}
+                  placeholder={t("Please input your email")}
                 />
               </Form.Item>
             ) : (
@@ -690,7 +690,7 @@ const Up = () => {
                     setType("privite");
                     setModalShow(true);
                   }}>
-                  {t("Privacy Policy")}
+                  {t("Privacy policy")}
                 </a>
               </Checkbox>
             </div>
@@ -839,7 +839,7 @@ const ForgotEmail = () => {
                   setNEmail(e.target.value);
                 }}
                 size="large"
-                placeholder={t("please input your email")}
+                placeholder={t("Please input your email")}
               />
             </Form.Item>
 
@@ -1181,7 +1181,7 @@ const Sign = () => {
               setType("privite");
               setModalShow(true);
             }}>
-            {t("Privacy Policy")}
+            {t("Privacy policy")}
           </a>
         </div>
       </div>

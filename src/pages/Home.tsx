@@ -73,7 +73,7 @@ export default function Home() {
         <div className="relative flex items-center justify-center">
           <img src="/assets/home_content.png" className="w-full h-screen md:h-[80vh]" alt="" />
           <div className="absolute flex flex-col items-center mt-[-120px] w-[94%] m-auto text-center">
-            <p className="tracking-widest	text-2xl md:text-4xl mb-10">{t("The tokenized fund is online")}</p>
+            <p className="tracking-widest	text-2xl md:text-4xl mb-10">{t("The Tokenized Fund Is Online")}</p>
             <p className="text-sm md:text-lg text-grey text-center tracking-widest leading-relaxed">
               {t("CycleX is committed to creating a transparent and secure tokenized asset trading platform, no matter in the world")}
               <br />
@@ -136,7 +136,7 @@ export default function Home() {
           </div>
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Mass asset realization")}</h1>
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Mass Asset Realization")}</h1>
               <p className="text-greyblack  font-bold font-whalebold">{t("Tokenization of fairly audited excess collateral for seamless access to real assets")}</p>
             </div>
             <Reassets />
@@ -160,7 +160,7 @@ export default function Home() {
 
           <div className="md:p-10 mt-28 md:mt-20">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Transaction flow")}</h1>
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Transaction Flow")}</h1>
               <p className="text-greyblack  font-bold font-whalebold text-sm">{t("The easiest way to buy tokenized assets without having to deal with cumbersome transaction processes")}</p>
             </div>
             <Process />
@@ -331,7 +331,7 @@ export default function Home() {
         </div>
         <div className="w-[92%] m-auto md:p-10 mt-14 md:mt-0">
           <div className="w-full text-center mb-14 md:mb-20">
-            <h1 className="text-black text-2xl mb-6">{t("News and insights")}</h1>
+            <h1 className="text-black text-2xl mb-6 font-bold">{t("News & Insights")}</h1>
           </div>
           <div className="w-full lg:w-5/6 m-auto">
             <News />
