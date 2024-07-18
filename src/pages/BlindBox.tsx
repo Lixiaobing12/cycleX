@@ -99,7 +99,7 @@ const BlindBox = () => {
   const [data, setData] = useState([
     { title: "Login", content: t("Daily login rewards 2 times"), avatar: "/assets/blindbox-tasks-1.png", done: true, times: 2 },
     { title: "Share To Friends", content: t("Successful sharing rewards 1 time"), avatar: "/assets/blindbox-tasks-2.png", done: false, times: 1 },
-    { title: "Invest In Products", content: t("Invest more than 100u and rewards 5 times"), avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
+    { title: "Invest In Products", content: t("Invest more than $10 and unclock more times"), avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
   ]);
 
   const invite = async () => {
