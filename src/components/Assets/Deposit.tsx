@@ -26,7 +26,7 @@ const ItemDeposit: React.FC<{
   const [amount, setAmount] = useState("");
   const [modal] = useAtom(modalContext);
   const [btnDisabled, setDisabled] = useState(true);
-  const secrityKey = useRef<string>();
+  const [secrityKey, setSecrityKey] = useState("");
   const [loading, setLoading] = useState(false);
   const { handleTranslate } = useTranslateLocalStorage();
   const [, copy] = useCopyToClipboard();
@@ -46,17 +46,17 @@ const ItemDeposit: React.FC<{
   };
 
   const checkSecurity = async () => {
-    if (!secrityKey.current) return;
+    if (!secrityKey) return;
     if (loading) return;
     setLoading(true);
     const { data } = await request.post("/sapi/fundOrder/create", {
       Amount: Number(amount).toString(),
       ProductId: String(product?.id),
-      SecurityPassword: secrityKey.current,
+      SecurityPassword: secrityKey,
       ChainId: network === "Ethereum" ? 1 : 11501,
     });
     setConfirmModalShow(false);
-    secrityKey.current = "";
+    setSecrityKey("");
     setTimeout(() => {
       setLoading(false);
     }, 500);
@@ -89,7 +89,7 @@ const ItemDeposit: React.FC<{
     } else {
       const min = product?.min_pay;
       const balance = walletInfo?.balance;
-      secrityKey.current = "";
+      setSecrityKey("");
       if (Number(amount) < Number(min)) {
         setDisabled(true);
         return toast?.warning({
@@ -189,7 +189,7 @@ const ItemDeposit: React.FC<{
             <button
               className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
               onClick={checkSecurity}
-              disabled={loading}>
+              disabled={loading || !secrityKey}>
               <Loader spinning={loading} />
               {t("Confirm")}
             </button>
@@ -198,11 +198,7 @@ const ItemDeposit: React.FC<{
             </div>
           </>
         }>
-        <SafetyInput
-          onSave={(e: string) => {
-            secrityKey.current = e;
-          }}
-        />
+        <SafetyInput onSave={setSecrityKey} />
       </Modal>
       <div className="flex justify-between items-center">
         <span>{t("Settlement Period")}</span>
