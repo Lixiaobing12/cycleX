@@ -51,7 +51,7 @@ const NewsDetails = () => {
           {newslist.map((item, index) => (
             <div className="flex flex-col mb-4 self-start" key={index}>
               <img src={item.img_url} alt="" className="rounded-box w-full md:w-60 h-56 cursor-pointer" onClick={() => navigate("/new/" + item.id + "#news-detail")} />
-              <div className="w-full md:w-60 cursor-pointer" onClick={() => navigate("/new/" + item.id + "#news-detail")}>
+              <div className="w-full md:w-60 cursor-pointer mt-2" onClick={() => navigate("/new/" + item.id + "#news-detail")}>
                 {item.title}
               </div>
               <div className="text-greyblack text-xs text-right">{moment(item.created_at, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}</div>
