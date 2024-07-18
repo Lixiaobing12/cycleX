@@ -34,14 +34,14 @@ const NewsDetails = () => {
     });
   }, [id]);
   return (
-    <div className="w-[92%] md:w-2/3 m-auto md:p-20 mt-14 md:mt-0 overflow-hidden pb-10" id="news-detail">
+    <div className="w-[92%] lg:w-3/4 m-auto max-w-screen-2xl mt-14 md:mt-0 overflow-hidden pb-10" id="news-detail">
       <div className="text-black font-bold text-3xl max-w-[800px]">{news?.title}</div>
       <p className="text-threePranentTransblack my-4 flex gap-2 items-center">
         <img src="/assets/icon.png" width={42} alt="" />
         {news?.updated_at}
       </p>
       <Divider />
-      <div className="flex gap-10 flex-col 2xl:flex-row">
+      <div className="flex gap-10 flex-col xl:flex-row">
         <div>
           <div className="">{news?.img_url && <img src={"https://api.whaleflow.co/storage/" + news?.img_url} alt="" />}</div>
           <div dangerouslySetInnerHTML={{ __html: news?.content ?? "" }} className="inner-img"></div>
