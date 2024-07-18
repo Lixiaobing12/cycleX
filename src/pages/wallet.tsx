@@ -165,8 +165,9 @@ const Wallet = () => {
     // });
   };
 
-  const handleChange = (_page: number) => {
+  const handleChange = (_page: number, pageSize: number) => {
     page.page = _page;
+    page.size = pageSize;
     fetch();
   };
   const fetch = () => {
@@ -277,7 +278,7 @@ const Wallet = () => {
             />
             {records.length > 0 && (
               <div className="text-right">
-                <Pagination simple total={page.total} pageSize={page.size} onChange={handleChange} />
+                <Pagination simple total={page.total} defaultCurrent={1} showSizeChanger onChange={handleChange} onShowSizeChange={handleChange} />
               </div>
             )}
           </div>

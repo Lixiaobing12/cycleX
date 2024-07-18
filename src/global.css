@@ -120,6 +120,9 @@ summary {
   display: none;
 }
 
+:where(.css-dev-only-do-not-override-1h0htq1).ant-pagination{
+  align-items: center;
+}
 .ant-modal-confirm-paragraph {
   max-width: 100% !important;
 }

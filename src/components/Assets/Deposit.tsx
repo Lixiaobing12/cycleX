@@ -1,4 +1,4 @@
-import { Select, Spin, Tabs } from "antd";
+import { Modal, Select, Spin, Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
@@ -25,12 +25,12 @@ const ItemDeposit: React.FC<{
   const [isSign, user, walletInfo] = useAccounts();
   const [amount, setAmount] = useState("");
   const [modal] = useAtom(modalContext);
-  console.log(modal)
   const [btnDisabled, setDisabled] = useState(true);
   const secrityKey = useRef<string>();
   const [loading, setLoading] = useState(false);
   const { handleTranslate } = useTranslateLocalStorage();
   const [, copy] = useCopyToClipboard();
+  const [confirmModalShow, setConfirmModalShow] = useState(false);
 
   const handleCopy = (text: string) => {
     copy(text)
@@ -46,7 +46,7 @@ const ItemDeposit: React.FC<{
   };
 
   const checkSecurity = async () => {
-    if (!secrityKey.current) return Promise.reject();
+    if (!secrityKey.current) return;
     if (loading) return;
     setLoading(true);
     const { data } = await request.post("/sapi/fundOrder/create", {
@@ -55,6 +55,8 @@ const ItemDeposit: React.FC<{
       SecurityPassword: secrityKey.current,
       ChainId: network === "Ethereum" ? 1 : 11501,
     });
+    setConfirmModalShow(false);
+    secrityKey.current = "";
     setTimeout(() => {
       setLoading(false);
     }, 500);
@@ -71,7 +73,6 @@ const ItemDeposit: React.FC<{
           icon: <img src="/assets/error.png" width={30} />,
         });
       }
-      return Promise.reject();
     } else {
       toast?.success({
         icon: <img src="/assets/success.png" width={30} />,
@@ -103,47 +104,48 @@ const ItemDeposit: React.FC<{
           message: t("Insufficient balance"),
         });
       }
-      const context: any = modal?.info({
-        closable: true,
-        icon: <></>,
-        onCancel: () => context.destroy(),
-        title: <h1 className="w-full py-2 text-center text-lg">{t("Please enter security key")}</h1>,
-        content: (
-          <SafetyInput
-            onSave={(e: string) => {
-              secrityKey.current = e;
-            }}
-          />
-        ),
-        centered: true,
-        footer: () => (
-          <>
-            <button
-              className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
-              onClick={() => {
-                checkSecurity().then(() => {
-                  context.destroy();
-                });
-              }}>
-              <Loader spinning={loading} />
-              {t("Confirm")}
-            </button>
-            <div
-              onClick={() => {
-                context.destroy();
-                setTimeout(openForgotSafetyModal, 200);
-              }}
-              className="text-center text-sm mt-2">
-              {t("Forget the password")}?
-            </div>
-          </>
-        ),
-        styles: {
-          body: {
-            width: "100%",
-          },
-        },
-      });
+      setConfirmModalShow(true);
+      // const context: any = modal?.info({
+      //   closable: true,
+      //   icon: <></>,
+      //   onCancel: () => context.destroy(),
+      //   title: <h1 className="w-full py-2 text-center text-lg">{t("Please enter security key")}</h1>,
+      //   content: (
+      //     <SafetyInput
+      //       onSave={(e: string) => {
+      //         secrityKey.current = e;
+      //       }}
+      //     />
+      //   ),
+      //   centered: true,
+      //   footer: () => (
+      //     <>
+      //       <button
+      //         className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
+      //         onClick={() => {
+      //           checkSecurity().then(() => {
+      //             context.destroy();
+      //           });
+      //         }}>
+      //         <Loader spinning={loading} />
+      //         {t("Confirm")}
+      //       </button>
+      //       <div
+      //         onClick={() => {
+      //           context.destroy();
+      //           setTimeout(openForgotSafetyModal, 200);
+      //         }}
+      //         className="text-center text-sm mt-2">
+      //         {t("Forget the password")}?
+      //       </div>
+      //     </>
+      //   ),
+      //   styles: {
+      //     body: {
+      //       width: "100%",
+      //     },
+      //   },
+      // });
     }
   };
 
@@ -172,6 +174,36 @@ const ItemDeposit: React.FC<{
   };
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
+      <Modal
+        destroyOnClose
+        centered
+        width={400}
+        open={confirmModalShow}
+        onCancel={() => setConfirmModalShow(false)}
+        onClose={() => setConfirmModalShow(false)}
+        closable
+        style={{ background: "#fff" }}
+        title={<h1 className="w-full py-2 text-center text-lg">{t("Please enter security key")}</h1>}
+        footer={
+          <>
+            <button
+              className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
+              onClick={checkSecurity}
+              disabled={loading}>
+              <Loader spinning={loading} />
+              {t("Confirm")}
+            </button>
+            <div onClick={openForgotSafetyModal} className="text-center text-sm mt-2 hover:cursor-pointer">
+              {t("Forget the password")}?
+            </div>
+          </>
+        }>
+        <SafetyInput
+          onSave={(e: string) => {
+            secrityKey.current = e;
+          }}
+        />
+      </Modal>
       <div className="flex justify-between items-center">
         <span>{t("settlement period")}</span>
         <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
