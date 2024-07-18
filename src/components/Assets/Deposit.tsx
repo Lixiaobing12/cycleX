@@ -55,8 +55,6 @@ const ItemDeposit: React.FC<{
       SecurityPassword: secrityKey,
       ChainId: network === "Ethereum" ? 1 : 11501,
     });
-    setConfirmModalShow(false);
-    setSecrityKey("");
     setTimeout(() => {
       setLoading(false);
     }, 500);
@@ -74,6 +72,8 @@ const ItemDeposit: React.FC<{
         });
       }
     } else {
+      setConfirmModalShow(false);
+      setSecrityKey("");
       toast?.success({
         icon: <img src="/assets/success.png" width={30} />,
         message: t("Congratulations on your successful subscription!"),

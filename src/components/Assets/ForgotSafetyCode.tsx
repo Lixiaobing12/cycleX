@@ -198,7 +198,7 @@ const ForgetSafetyCode: React.FC<{
         </Form.Item>
 
         <Form.Item
-          label={t("Payment password")}
+          label={t("New payment password")}
           help={
             <div className={`ml-4 ${!inputsAreCorrect ? "text-threePranentTransblack" : "text-green"}`}>
               <ul>
@@ -222,7 +222,7 @@ const ForgetSafetyCode: React.FC<{
             placeholder={t("New password")}
           />
         </Form.Item>
-        <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
+        <Form.Item label={t("Confirm new password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
           <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
         </Form.Item>
         <Form.Item>

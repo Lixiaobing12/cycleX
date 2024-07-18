@@ -576,5 +576,7 @@
   "receipt": "到账",
   "pending": "交易确认中",
   "Forget the password": "忘记密码",
-  "Invest more than $10 and unclock more times": "投资超过 10 美元即可获取更多次数"
+  "Invest more than $10 and unclock more times": "投资超过 10 美元即可获取更多次数",
+  "New payment password":"新支付密码",
+  "Confirm new password":"确认新支付密码"
 }
