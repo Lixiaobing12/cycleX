@@ -67,13 +67,14 @@ const SettingKey: React.FC<{
             });
           }
         } else {
+          setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
             message: t("Code sended"),
           });
-          setCountDownShow(true);
         }
       } catch (err: any) {
+        setSending(false);
         if (i18n.language === "en") {
           toast?.error({
             icon: <img src="/assets/error.png" width={30} />,

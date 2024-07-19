@@ -71,13 +71,14 @@ const SafetyInput: React.FC<{
             });
           }
         } else {
+          setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
             message: t("Code sended"),
           });
-          setCountDownShow(true);
         }
       } catch (err: any) {
+        setSending(false);
         if (i18n.language === "en") {
           toast?.error({
             icon: <img src="/assets/error.png" width={30} />,
@@ -501,11 +502,11 @@ const Up = () => {
             });
           }
         } else {
+          setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
             message: t("Code sended"),
           });
-          setCountDownShow(true);
         }
       } catch (err: any) {
         setSending(false);
@@ -784,7 +785,6 @@ const ForgotEmail = () => {
     const registerCode = async () => {
       try {
         setSending(true);
-        setCountDownShow(true);
         const { data } = await request.post("/api/api/msgSms/recoverCode", {
           mobile_prefix: 86,
           type: "email",
@@ -793,8 +793,6 @@ const ForgotEmail = () => {
         setSending(false);
 
         if (data.res_code !== 0) {
-          setLoading(false);
-          setCountDownShow(false);
           if (i18n.language === "en") {
             toast?.error({
               icon: <img src="/assets/error.png" width={30} />,
@@ -807,12 +805,14 @@ const ForgotEmail = () => {
             });
           }
         } else {
+          setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
             message: t("Code sended"),
           });
         }
       } catch (err: any) {
+        setSending(false);
         if (i18n.language === "en") {
           toast?.error({
             icon: <img src="/assets/error.png" width={30} />,
@@ -925,6 +925,7 @@ const ForgotPhone = () => {
   const [toast] = useAtom(messageContext);
   const { handleTranslate } = useTranslateLocalStorage();
   const [loading, setLoading] = useState(false);
+  const [sending, setSending] = useState(false);
   const [selectOptions, setOptions] = useState<
     {
       label: string;
@@ -991,12 +992,13 @@ const ForgotPhone = () => {
     /** 验证码 */
     const registerCode = async () => {
       try {
-        setCountDownShow(true);
+        setSending(true);
         const { data } = await request.post("/api/api/msgSms/recoverCode", {
           mobile_prefix: Number(phonePrefix),
           type: "mobile",
           username: phoneNumber,
         });
+        setSending(false);
         if (data.res_code !== 0) {
           if (i18n.language === "en")
             toast?.error({
@@ -1008,14 +1010,15 @@ const ForgotPhone = () => {
               icon: <img src="/assets/error.png" width={30} />,
               message: data.res_msg,
             });
-          setCountDownShow(false);
         } else {
+          setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
             message: t("Code sended"),
           });
         }
       } catch (err: any) {
+        setSending(false);
         if (i18n.language === "en") {
           toast?.error({
             message: err.response.data.message,
@@ -1106,7 +1109,7 @@ const ForgotPhone = () => {
                     />
                   ) : (
                     <a className="text-sm text-[#193CF6]" onClick={sendCode}>
-                      {t("Send")}
+                      {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
                 }
