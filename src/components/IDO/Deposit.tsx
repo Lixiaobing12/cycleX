@@ -67,6 +67,10 @@ const SettingKey: React.FC<{
             });
           }
         } else {
+          toast?.success({
+            icon: <img src="/assets/success.png" width={30} />,
+            message: t("Code sended"),
+          });
           setCountDownShow(true);
         }
       } catch (err: any) {

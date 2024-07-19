@@ -577,10 +577,11 @@
   "pending": "交易确认中",
   "Forget the password": "忘记密码",
   "Invest more than $10 and unclock more times": "投资超过 10 美元即可获取更多次数",
-  "New payment password":"新支付密码",
-  "Confirm new password":"确认新支付密码",
-  "Enter code":"请输入验证码",
-  "Enter new password":"请输入新密码",
-  "Enter new password again":"请再次输入新密码",
-  "6 numbers":"6位数字"
+  "New payment password": "新支付密码",
+  "Confirm new password": "确认新支付密码",
+  "Enter code": "请输入验证码",
+  "Enter new password": "请输入新密码",
+  "Enter new password again": "请再次输入新密码",
+  "6 numbers": "6位数字",
+  "Code sended": "验证码已发送"
 }

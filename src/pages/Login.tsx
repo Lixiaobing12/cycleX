@@ -71,6 +71,10 @@ const SafetyInput: React.FC<{
             });
           }
         } else {
+          toast?.success({
+            icon: <img src="/assets/success.png" width={30} />,
+            message: t("Code sended"),
+          });
           setCountDownShow(true);
         }
       } catch (err: any) {
@@ -497,6 +501,10 @@ const Up = () => {
             });
           }
         } else {
+          toast?.success({
+            icon: <img src="/assets/success.png" width={30} />,
+            message: t("Code sended"),
+          });
           setCountDownShow(true);
         }
       } catch (err: any) {
@@ -798,6 +806,11 @@ const ForgotEmail = () => {
               icon: <img src="/assets/error.png" width={30} />,
             });
           }
+        } else {
+          toast?.success({
+            icon: <img src="/assets/success.png" width={30} />,
+            message: t("Code sended"),
+          });
         }
       } catch (err: any) {
         if (i18n.language === "en") {
@@ -996,6 +1009,11 @@ const ForgotPhone = () => {
               message: data.res_msg,
             });
           setCountDownShow(false);
+        } else {
+          toast?.success({
+            icon: <img src="/assets/success.png" width={30} />,
+            message: t("Code sended"),
+          });
         }
       } catch (err: any) {
         if (i18n.language === "en") {
