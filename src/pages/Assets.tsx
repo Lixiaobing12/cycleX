@@ -71,7 +71,7 @@ export default function Assets() {
               </div>
             </div>
             <div className="flex gap-6 items-center w-fit">
-              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">{product?.income2} APY</div>
+              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">{Number(product?.income).toFixed(0) + "%"} APY</div>
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(product?.market_value) + 300000)} TVL</div>
               <img src="/assets/eth_white.png" width={30} alt="" />
             </div>
@@ -109,6 +109,29 @@ export default function Assets() {
                   <h1 className="text-black text-3xl mb-6">Product Analysis</h1>
                 </div>
                 <img src="/assets/CFOF/analysis.png" />
+              </div>
+            </>
+          )}
+          {product?.id === 9 && (
+            <>
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
+                </div>
+                <img src="/assets/CPTF/overview.png" className="w-full"/>
+              </div>
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">Fund Process</h1>
+                </div>
+                <img src="/assets/CPTF/process.png"  className="w-full"/>
+              </div>
+
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">Product Analysis</h1>
+                </div>
+                <img src="/assets/CPTF/analysis.png"  className="w-full"/>
               </div>
             </>
           )}

@@ -17,7 +17,6 @@ const { Header, Content, Footer } = Layout;
 
 function App() {
   const { modal } = AntdApp.useApp();
-  console.log('modal', modal)
   const router = useLocation();
   const accessToken = useLocalStorage();
   const navigator = useNavigate();

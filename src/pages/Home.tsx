@@ -16,6 +16,7 @@ import { useTranslateLocalStorage } from "../hooks/localStorage";
 import useAccounts from "../hooks/user";
 import { fundProductApiType } from "../types/fundProduct";
 import { scientific } from "../utils/BigNumberToString";
+import { userInfo_atom } from "../atom/userInfo";
 
 const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
@@ -24,7 +25,7 @@ const getAssetsBgImg = (ind = 1) => {
 const { Countdown } = Statistic;
 
 export default function Home() {
-  const [, users] = useAccounts();
+  const [users] = useAtom(userInfo_atom);
   const [toast] = useAtom(messageContext);
   const { t, i18n } = useTranslation();
   const [assets, setAssetsItems] = useAtom(products_atom);
@@ -97,7 +98,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div>
-                  <span className="text-2xl font-bold font-whalebold mr-1">{item.income2}</span>
+                  <span className="text-2xl font-bold font-whalebold mr-1">{Number(item.income).toFixed(0) + "%"}</span>
                   {t("Annual yield")}(APY)
                 </div>
                 <div className="flex items-center justify-between mt-4">
@@ -117,6 +118,7 @@ export default function Home() {
                     width={30}
                     className="cursor-pointer hover:scale-105"
                     onClick={() => {
+                      console.log('user',users)
                       if (users) {
                         navigate(`/assets/${item.id}#main`);
                       } else {

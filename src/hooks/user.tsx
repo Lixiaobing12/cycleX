@@ -28,7 +28,7 @@ const useAccounts = () => {
     if (interval) clearInterval(interval);
     interval = setInterval(() => {
       todo();
-    }, 10000);
+    }, 6000);
     return () => {
       clearInterval(interval);
     };
