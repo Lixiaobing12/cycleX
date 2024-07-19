@@ -175,7 +175,7 @@ const ForgetSafetyCode: React.FC<{
           <Input
             onChange={(e) => setCode(e.target.value)}
             size="large"
-            placeholder={t("Verification Code")}
+            placeholder={t("Enter code")}
             suffix={
               sendAndCountDown ? (
                 <Countdown
@@ -202,7 +202,7 @@ const ForgetSafetyCode: React.FC<{
           help={
             <div className={`ml-4 ${!inputsAreCorrect ? "text-threePranentTransblack" : "text-green"}`}>
               <ul>
-                <li>6 digits</li>
+                <li>{t("6 numbers")}</li>
               </ul>
             </div>
           }>
@@ -219,11 +219,11 @@ const ForgetSafetyCode: React.FC<{
               setNewPassword(e.target.value);
             }}
             size="large"
-            placeholder={t("New password")}
+            placeholder={t("Enter new password")}
           />
         </Form.Item>
         <Form.Item label={t("Confirm new password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-          <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
+          <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Enter new password again")} />
         </Form.Item>
         <Form.Item>
           <button className="btn btn-block m-auto mt-4 bg-black text-white disabled:text-black-800 disabled:bg-[#2b344033]" disabled={!vilid || !inputsAreCorrect} onClick={checkSecurity}>

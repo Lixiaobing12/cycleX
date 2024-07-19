@@ -209,7 +209,7 @@ const SafetyInput: React.FC<{
           help={
             <div className={`ml-4 ${!inputsAreCorrect ? "text-threePranentTransblack" : "text-green"}`}>
               <ul>
-                <li>6 digits</li>
+                <li>{t("6 numbers")}</li>
               </ul>
             </div>
           }>
@@ -629,7 +629,7 @@ const Up = () => {
                 className="placeholder:text-sm placeholder:text-greyblack text-sm"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
-                placeholder={t("Verification Code")}
+                placeholder={t("Enter code")}
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
@@ -651,7 +651,7 @@ const Up = () => {
               />
             </Form.Item>
             <Form.Item label={t("Password")}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
+              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
             </Form.Item>
             <Form.Item label={t("Referral code (optional)")}>
               <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setInviteCode(e.target.value)} size="large" placeholder={t("Referral code")} />
@@ -848,7 +848,7 @@ const ForgotEmail = () => {
                 className="placeholder:text-sm placeholder:text-greyblack text-sm"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
-                placeholder={t("Verification Code")}
+                placeholder={t("Enter code")}
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
@@ -876,11 +876,11 @@ const ForgotEmail = () => {
                 autoComplete="new-password"
                 onChange={(e) => setNewPassword(e.target.value)}
                 size="large"
-                placeholder={t("New password")}
+                placeholder={t("Enter new password")}
               />
             </Form.Item>
-            <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
+            <Form.Item label={t("Confirm new password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
+              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Enter new password again")} />
             </Form.Item>
           </Col>
           <Form.Item>
@@ -1073,7 +1073,7 @@ const ForgotPhone = () => {
                 className="placeholder:text-sm placeholder:text-greyblack text-sm"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
-                placeholder={t("Verification Code")}
+                placeholder={t("Enter code")}
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
@@ -1101,11 +1101,11 @@ const ForgotPhone = () => {
                 autoComplete="new-password"
                 onChange={(e) => setNewPassword(e.target.value)}
                 size="large"
-                placeholder={t("New password")}
+                placeholder={t("Enter new password")}
               />
             </Form.Item>
-            <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
+            <Form.Item label={t("Confirm new password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
+              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Enter new password again")} />
             </Form.Item>
           </Col>
 

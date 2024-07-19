@@ -189,7 +189,7 @@ const SettingKey: React.FC<{
           help={
             <div className={`ml-4 ${!inputsAreCorrect ? "text-threePranentTransblack" : "text-green"}`}>
               <ul>
-                <li>6 digits</li>
+                <li>{t("6 numbers")}</li>
               </ul>
             </div>
           }>
