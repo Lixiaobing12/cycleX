@@ -173,7 +173,7 @@ const Reassets = () => {
     },
   ];
   return (
-    <div className="flex flex-col md:flex-row w-full items-center gap-10">
+    <div className="flex flex-col xl:flex-row w-full items-center gap-10">
       <div className="flex-1 w-full p-4 rounded-box shadow-2xl ">
         <KLine />
       </div>

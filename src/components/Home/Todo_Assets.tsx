@@ -32,7 +32,7 @@ const TodoListAssets = () => {
       title: t("Name"),
       dataIndex: "name",
       key: "name",
-      width: 150,
+      width: 250,
       render: (value, row) => (
         <a
           className="text-black flex items-center gap-2"
@@ -49,9 +49,7 @@ const TodoListAssets = () => {
               });
             }
           }}>
-          <div>
-            <img src="/assets/assets_dollor.png" width={25} alt="" />
-          </div>
+          <img src="/assets/assets_dollor.png" className="w-[25px]" alt="" />
           <div className="flex flex-col">
             <span className="text-md font-bold font-whalebold">{value}</span>
             <span className="text-threePranentTransblack text-sm">{t("Tokenized funds")}</span>
