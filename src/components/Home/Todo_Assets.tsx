@@ -68,7 +68,7 @@ const TodoListAssets = () => {
       dataIndex: "market_value",
       key: "market_value",
       width: 180,
-      render: (value) => "$200M",
+      render: (value, record) => (record.id === 8 ? "$ 200M" : record.id === 9 ? "$ 10M" : "$ 10k"),
     },
     {
       title: t("Net value per unit /NAV"),
