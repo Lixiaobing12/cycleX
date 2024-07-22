@@ -341,12 +341,12 @@ const BlindBox = () => {
                 </li>
                 <li>
                   <div className="my-2 text-grey-700 text-xs">
-                    {t("Users who invest over 100 USDT will unlock more chances!")}
+                    {t("Users who invest over $10 USDT will unlock more chances!")}
                     <ul className="ml-8 text-grey">
                       <li className="my-1">{t("Deposit between $10-100 - Giveaway 3 lottery draw chances")}</li>
                       <li className="my-1">{t("Deposit between $100-1000 - Giveaway 6 lottery draw chances")}</li>
-                      <li className="my-1">{t("Deposit between $1000-$10,000 - Giveaway 15 lottery draw chances")}</li>
-                      <li className="my-1">{t("Deposit between $10,000-$100,000 - Giveaway 20 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit between $1000-10,000 - Giveaway 15 lottery draw chances")}</li>
+                      <li className="my-1">{t("Deposit between $10,000-100,000 - Giveaway 20 lottery draw chances")}</li>
                       <li className="my-1">{t("Deposit more than $100,000- Giveaway 35 lottery draw chances.")}</li>
                     </ul>
                   </div>
