@@ -525,7 +525,8 @@ const Up = () => {
     };
     if (emailOrPhone === 1) {
       let status = false;
-      let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
       status = reg.test(emailNumber);
       if (!status) {
         toast?.error({
