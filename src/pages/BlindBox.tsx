@@ -144,6 +144,7 @@ const BlindBox = () => {
   };
 
   const handleOpen = () => {
+    if(openStatus) return;
     setOpenStatus(true);
     request
       .post("/sapi/lottery/open", {
