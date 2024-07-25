@@ -75,7 +75,7 @@ const TodoListAssets = () => {
       key: "unit",
       dataIndex: "unit",
       width: 180,
-      render: (value) => "$1000",
+      render: (value) => (Number(value) ? '$'+ value : value),
     },
     {
       title: t("Expected yield /APY"),

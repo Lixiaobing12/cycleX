@@ -62,11 +62,10 @@ const Product = () => {
     },
     {
       title: t("Net value per unit /NAV"),
-      key: "net_worth",
-      dataIndex: "net_worth",
+      key: "unit",
+      dataIndex: "unit",
       width: 150,
-      // render: (value) => (Number(value) ? '$'+ value : value),
-      render: (value) => "$ 1000",
+      render: (value) => (Number(value) ? '$'+ value : value),
     },
     {
       title: t("Expected yield /APY"),
