@@ -341,7 +341,7 @@ const Deposit = () => {
   const assetsData = [
     { value: "$ " + scientific(Number(product?.market_value) + 300000), name: "TVL" },
     { value: product?.lockDct?.en ?? "0", name: "Lock" },
-    { value: "$1000", name: "NAV" },
+    { value:'$' + product?.unit, name: "NAV" },
     { value: Number(product?.income).toFixed(0) + "%", name: "APY" },
   ];
   const handleCopy = (text: string) => {
