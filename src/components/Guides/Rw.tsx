@@ -33,7 +33,7 @@ const Rw = () => {
   const data = [
     {
       key: "1",
-      type: t("equity in assets"),
+      type: t("Equity in assets"),
       desc: t("Accrued interest on underlying assets"),
       rate: t("5% annualized rate of return"),
       tip: t("Net asset value increase calculation"),
@@ -47,7 +47,7 @@ const Rw = () => {
     },
     {
       key: "3",
-      type: t("- service charge"),
+      type: t("- Service charge"),
       desc: t("Fees charged by CycleX operations"),
       rate: "0.1-2%",
       tip: t("Net asset value increase calculation"),

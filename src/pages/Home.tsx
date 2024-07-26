@@ -191,7 +191,7 @@ export default function Home() {
                 </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">{t("yield profit")}</span>
+                <span className="font-bold font-whalebold">{t("Yield prof")}</span>
                 <span className="text-threePranentTransblack ml-4">
                   {t(
                     "Users to CycleX App select products according to the list of invested products to submit to the C2C trading floor transfer/different types of products can be redeemed automatically"
