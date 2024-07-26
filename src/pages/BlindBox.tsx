@@ -329,7 +329,7 @@ const BlindBox = () => {
               />
             </div>
             <div className="border border-[#555555] rounded-box p-6 px-4 my-6">
-              <h3 className="text-white text-base">Rules</h3>
+              <h3 className="text-white text-base max-w-[500px]">Rules</h3>
               <ul className="marker:text-grey-700 ml-6">
                 <li className="list-item">
                   <p className="my-2 text-grey-700 text-xs">{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
