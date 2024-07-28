@@ -144,7 +144,7 @@ const BlindBox = () => {
   };
 
   const handleOpen = () => {
-    if(openStatus) return;
+    if (openStatus) return;
     setOpenStatus(true);
     request
       .post("/sapi/lottery/open", {
@@ -220,11 +220,13 @@ const BlindBox = () => {
           });
         });
     }
+  };
+  const getBullet = () => {
     request
       .post("/sapi/lottery/list", {
         unlock: false,
         Page: page,
-        Size: 8,
+        Size: 3,
       })
       .then(({ data }) => {
         if (data.data.length) {
@@ -247,15 +249,18 @@ const BlindBox = () => {
     init();
   }, [account]);
   useEffect(() => {
-    screenRef.current = new BulletJs("#danmu-screen", { speed: 80 });
+    screenRef.current = new BulletJs("#danmu-screen", { speed: 80, trackHeight: 50 });
     request.post("/api/api/my/getInvite").then(({ data }) => {
       invite_img.current = data.data;
     });
     init();
+    getBullet();
     const interval = setInterval(init, 6000);
+    const interval2 = setInterval(getBullet, 5000);
 
     return () => {
       clearInterval(interval);
+      clearInterval(interval2);
     };
   }, []);
 
@@ -274,8 +279,8 @@ const BlindBox = () => {
           )}
           <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
             <img src={width > 600 ? "/assets/titlepc.png" : "/assets/titlemb.png"} alt="" width={width > 600 ? 700 : 300} className="max-w-[80vw]" />
-            <div id="danmu-screen" className="w-full lg:w-[130%] h-[100px] "></div>
-            <img src="/assets/box-shine.png" width={580} alt="" className="lg:my-[-30px]" />
+            <div id="danmu-screen" className="w-full lg:w-[130%] h-[150px] "></div>
+            <img src="/assets/box-shine.png" width={500} alt="" className="lg:my-[-30px]" />
             <div className={`relative flex-center gap-4 w-full`}>
               <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={handleList}>
                 <WrapperImg src="/assets/blindbox-coin.png" width={16} />
