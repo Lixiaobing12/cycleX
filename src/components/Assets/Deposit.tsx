@@ -53,7 +53,8 @@ const ItemDeposit: React.FC<{
       Amount: Number(amount).toString(),
       ProductId: String(product?.id),
       SecurityPassword: secrityKey,
-      ChainId: network === "Ethereum" ? 1 : 11501,
+      ChainId: 1,
+      // ChainId: network === "Ethereum" ? 1 : 11501,
     });
     setTimeout(() => {
       setLoading(false);
@@ -312,7 +313,15 @@ const Card = () => {
   return (
     <div className="p-4 flex flex-col">
       <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
-        {network === "Ethereum" ? <img src="/assets/eth.png" width={20} /> : <img src="/assets/bevm.png" width={20} />}
+        {network === "Ethereum" ? (
+          <img src="/assets/eth.png" width={20} />
+        ) : network === "BEVM" ? (
+          <img src="/assets/bevm.png" width={20} />
+        ) : network === "Merlin" ? (
+          <img src="/assets/merlin.png" width={20} />
+        ) : (
+          <></>
+        )}
         <Select
           size="small"
           defaultValue="Ethereum"
@@ -320,6 +329,7 @@ const Card = () => {
           options={[
             { value: "Ethereum", label: "Ethereum" },
             { value: "BEVM", label: "BEVM" },
+            { value: "Merlin", label: "Merlin" },
           ]}
           style={{ fontSize: "12px" }}
         />
@@ -341,7 +351,7 @@ const Deposit = () => {
   const assetsData = [
     { value: "$ " + scientific(Number(product?.market_value) + 300000), name: "TVL" },
     { value: product?.lockDct?.en ?? "0", name: "Lock" },
-    { value:'$' + product?.unit, name: "NAV" },
+    { value: "$" + product?.unit, name: "NAV" },
     { value: Number(product?.income).toFixed(0) + "%", name: "APY" },
   ];
   const handleCopy = (text: string) => {

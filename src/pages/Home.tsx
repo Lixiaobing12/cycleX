@@ -85,7 +85,7 @@ export default function Home() {
         <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto">
           <div className="flex flex-wrap gap-4 item-center justify-center my-20" id="fund">
             {assets.map((item, ind) => (
-              <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col justify-evenly ${getAssetsBgImg(ind++)} w-full lg:w-[33%] min-h-80 bg-100`}>
+              <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col justify-evenly ${getAssetsBgImg(ind++)} w-full lg:w-[40%] 2xl:w-[33%] min-h-80 bg-100`}>
                 <div className="flex items-center my-4">
                   <img src="/assets/dollor_r.png" width={30} alt="" />
                   <span className="text-2xl font-bold font-whalebold ml-2">{item.simple_name}</span>
@@ -110,15 +110,15 @@ export default function Home() {
                       <img src="/assets/eth.png" className="w-8 h-8" alt="" />
                       <img src="/assets/usdt.png" className="w-8 h-8 mx-1" alt="" />
                       <img src="/assets/bevm.png" className="w-8 h-8" alt="" />
+                      <img src="/assets/merlin.png" className="w-8 h-8" alt="" />
                     </div>
-
                   </div>
                   <img
                     src="/assets/right.png"
                     width={30}
                     className="cursor-pointer hover:scale-105"
                     onClick={() => {
-                      console.log('user',users)
+                      console.log("user", users);
                       if (users) {
                         navigate(`/assets/${item.id}#main`);
                       } else {
