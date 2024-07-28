@@ -110,7 +110,7 @@ export default function Home() {
                       <img src="/assets/eth.png" className="w-8 h-8" alt="" />
                       <img src="/assets/usdt.png" className="w-8 h-8 mx-1" alt="" />
                       <img src="/assets/bevm.png" className="w-8 h-8" alt="" />
-                      <img src="/assets/merlin.png" className="w-8 h-8" alt="" />
+                      <img src="/assets/merlin.png" className="w-8 h-8 mx-1" alt="" />
                     </div>
                   </div>
                   <img
