@@ -299,11 +299,12 @@ const Wallet = () => {
                 value={recharge_network}
                 onChange={(e) => {
                   set_recharge_network(e);
-                  set_recharge_coin(e === "BEVM" ? "BTC" : "USDT");
+                  set_recharge_coin(e === "BEVM" || e === "Merlin" ? "BTC" : "USDT");
                 }}
                 options={[
                   { value: "Ethereum", label: "Ethereum Mainnet" },
                   { value: "BEVM", label: "BEVM Mainnet" },
+                  { value: "Merlin", label: "Merlin Mainnet" },
                 ]}
               />
 
@@ -312,7 +313,7 @@ const Wallet = () => {
                 value={recharge_coin}
                 onChange={set_recharge_coin}
                 options={
-                  recharge_network === "BEVM"
+                  recharge_network === "BEVM" || recharge_network === "Merlin"
                     ? [{ value: "BTC", label: "BTC" }]
                     : [
                         { value: "USDT", label: "USDT" },
