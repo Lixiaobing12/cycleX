@@ -356,8 +356,10 @@ const Wallet = () => {
                   <p>{t("You can only deposit USDT-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
                 ) : recharge_coin === "ETH" ? (
                   <p>{t("You can only deposit ETH-ERC20 to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
-                ) : (
+                ) : recharge_network === "BEVM" ? (
                   <p>{t("You can only deposit BTC-BEVM to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
+                ) : (
+                  <p>{t("You can only deposit BTC-Merlin to this address. If you deposit other assets, you will not be able to retrieve them.")}</p>
                 )}
               </div>
 
