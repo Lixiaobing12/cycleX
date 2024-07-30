@@ -276,6 +276,7 @@ const Card = () => {
   const [active, setActive] = useState("1");
   const [network, set_network] = useState("Ethereum");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = (e: "Ethereum" | "BEVM") => {
     setLoading(true);
@@ -297,24 +298,12 @@ const Card = () => {
       ),
       children: <ItemDeposit network={network} />,
     },
-    // {
-    //   key: "2",
-    //   label: (
-    //     <div className="flex gap-1">
-    //       <span className="text-base">{t("redemption")}</span>
-    //       <div>
-    //         <img src={active === "2" ? "/assets/countdowm.png" : "/assets/countdowm_notactive.png"} width={18} />
-    //       </div>
-    //     </div>
-    //   ),
-    //   children: <ItemWithDraw />,
-    // },
   ];
   return (
-    <div className="p-4 flex flex-col">
-      <img src="/assets/airdropbox.gif" alt="" />
-      <div className="w-11/12 m-auto">
-        <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit mt-6">
+    <div className="flex flex-col justify-center gap-6 h-full">
+      <img src="/assets/airdropbox.gif" className="hidden lg:block" alt="" onClick={() => navigate("/blindbox")} />
+      <div className="shadow-2xl rounded-lg p-4">
+        <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
           {network === "Ethereum" ? (
             <img src="/assets/eth.png" width={20} />
           ) : network === "BEVM" ? (
@@ -370,92 +359,76 @@ const Deposit = () => {
       });
   };
   return (
-    <div className="flex flex-col md:flex-row w-full items-center gap-10 text-black">
-      <div className="flex-1 flex flex-col">
-        <div className="flex flex-col gap-4">
-          <span className="text-2xl mr-4">{t("Fairly audited over-collateralization tokenization for seamless access to real-world assets")}</span>
-          <span className="text-greyblack">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
-          <div className="text-greyblack flex items-center gap-2 md:gap-10 my-2 text-sm">
-            <div className="flex gap-2 items-center">
-              <span>{t("Disclaimer")}</span>
-              <div className="ml-1">
-                <WrapperImg src="/assets/goto.png" width={12} onClick={() => navigate("/guide#law")} />
+    <>
+      <img src="/assets/airdropbox.gif" className="block lg:hidden mb-6" alt="" onClick={() => navigate("/blindbox")} />
+      <div className="grid lg:grid-cols-2 w-full items-center gap-10 text-black">
+        <div className="flex-1 flex flex-col justify-between h-full">
+          <div className="flex flex-col gap-4 shadow-lg rounded-lg p-4">
+            <span className="text-2xl mr-4 hyphens-auto">{t("Fairly audited over-collateralization tokenization for seamless access to real-world assets")}</span>
+            <span className="text-greyblack hyphens-auto">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
+            <div className="text-greyblack flex items-center my-2 text-sm justify-between">
+              <div className="flex gap-2 items-center">
+                <span>{t("Disclaimer")}</span>
+                <div className="ml-1">
+                  <img src="/assets/goto.png" width={12} onClick={() => navigate("/guide#law")} />
+                </div>
               </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <span>{t("Release summary")}</span>
-              <div className="ml-1">
-                <WrapperImg src="/assets/goto.png" width={12} onClick={() => product?.fund_annex?.[0].annex && window.open(product?.fund_annex?.[0].annex, "blank")} />
+              <div className="flex gap-2 items-center">
+                <span>{t("Release summary")}</span>
+                <div className="ml-1">
+                  <img src="/assets/goto.png" width={12} onClick={() => product?.fund_annex?.[0].annex && window.open(product?.fund_annex?.[0].annex, "blank")} />
+                </div>
               </div>
-            </div>
-            <div className="flex gap-2">
-              <span>ERC1400</span>
+              <div className="flex gap-2">
+                <span>ERC1400</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="rounded-box border border-light p-4 flex flex-col gap-4  text-sm">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-4">
-            {assetsData.map((item, index) => (
-              <div key={item.name} className="flex items-center relative flex-1">
-                <div className="flex flex-col">
-                  <div className="text-greyblack flex items-center">
-                    <span>{item.name}</span>
-                    {/* <div>
-                      <WrapperImg src="/assets/question.png" width={12} />
-                    </div> */}
+          <div className="flex flex-col gap-4  text-sm  shadow-lg rounded-lg p-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-4">
+              {assetsData.map((item, index) => (
+                <div key={item.name} className="flex items-center relative flex-1">
+                  <div className="flex flex-col">
+                    <div className="text-greyblack flex items-center">
+                      <span>{item.name}</span>
+                    </div>
+                    <div className="text-black text-xl font-bold font-whalebold">{item.value}</div>
                   </div>
-                  <div className="text-black text-xl font-bold font-whalebold">{item.value}</div>
+                  <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>
                 </div>
-                <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>
-              </div>
-            ))}
-          </div>
-          <div className="bg-[#FAFAFC] rounded-box md:p-4">
-            <div className="join join-vertical w-full text-xs">
-              <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
-                <div className="flex gap-2">
-                  <span>{t("Audit Report")}</span>
-                  {/* <div>
-                    <WrapperImg src="/assets/question.png" width={12} />
-                  </div> */}
+              ))}
+            </div>
+            <div className="bg-[#FAFAFC] rounded-box md:p-4">
+              <div className="join join-vertical w-full text-xs">
+                <div className="join-item flex justify-between p-2 text-greyblack  border-b border-transblack">
+                  <div className="flex gap-2">
+                    <span>{t("Audit Report")}</span>
+                  </div>
                 </div>
-              </div>
-              {/* <div className="join-item flex justify-between p-2 text-greyblack border-b border-transblack">
-                <div className="flex gap-2">
-                  <span>{t("fluidity")}</span>
-                 
-                </div>
-                <div>{t("Daily trading volume reaches $25 million")}</div>
-              </div> */}
-              <div className="join-item flex justify-between p-2 text-greyblack">
-                <div className="flex gap-2">
-                  <span>{t("On-chain address")}</span>
-                  {/* <div>
-                    <WrapperImg src="/assets/question.png" width={12} />
-                  </div> */}
-                </div>
-                <div className="flex gap-2">
-                  <div className="flex items-center gap-1">
-                    <span>{product?.contract_address.replace(/^(.{6}).*(.{4})$/, "$1...$2")}</span>
-                    {/* <WrapperImg src="/assets/copy.png" width={14} onClick={() => handleCopy(product?.contract_address ?? "")} /> */}
-                    {/* <a href={`https://etherscan.io/address/${product?.contract_address}`} target="_blank">
-                      <WrapperImg src="/assets/goto.png" width={12} />
-                    </a> */}
+
+                <div className="join-item flex justify-between p-2 text-greyblack">
+                  <div className="flex gap-2">
+                    <span>{t("On-chain address")}</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="flex items-center gap-1">
+                      <span>{product?.contract_address.replace(/^(.{6}).*(.{4})$/, "$1...$2")}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="text-greyblack">
-            {t("last updated date")} {moment(product?.updated_at ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}
+            <div className="text-greyblack">
+              {t("last updated date")} {moment(product?.updated_at ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}
+            </div>
           </div>
         </div>
+        <div className="flex-1 rounded-box h-full">
+          <Card />
+        </div>
       </div>
-      <div className="flex-1 rounded-box p-4 pt-10">
-        <Card />
-      </div>
-    </div>
+    </>
   );
 };
 

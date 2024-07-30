@@ -43,49 +43,49 @@ const HeaderComponent = () => {
   const accountItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-          { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-          {
-            label: t("Logout"),
-            icon: <img src="/assets/exit.png" width={12} />,
-            key: "exit",
-            onClick: () => {
-              window.localStorage.removeItem("token");
-              const setItemEvent = new Event("localstorage_save");
-              window.dispatchEvent(setItemEvent);
-              setTimeout(() => {
-                navigate("/login");
-              }, 200);
-            },
+        { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+        {
+          label: t("Logout"),
+          icon: <img src="/assets/exit.png" width={12} />,
+          key: "exit",
+          onClick: () => {
+            window.localStorage.removeItem("token");
+            const setItemEvent = new Event("localstorage_save");
+            window.dispatchEvent(setItemEvent);
+            setTimeout(() => {
+              navigate("/login");
+            }, 200);
           },
-        ]
+        },
+      ]
       : [
-          // {
-          //   label: t("Certification"),
-          //   icon: (
-          //     <div className="flex items-center">
-          //       <img src="/assets/risk.png" width={15} alt="" />
-          //     </div>
-          //   ),
-          //   key: "realName",
-          //   onClick: () => navigate("/verify"),
-          // },
-          { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-          {
-            label: t("Logout"),
-            icon: <img src="/assets/exit.png" width={12} />,
-            key: "exit",
-            onClick: () => {
-              window.localStorage.removeItem("token");
-              const setItemEvent = new Event("localstorage_save");
-              window.dispatchEvent(setItemEvent);
-              setTimeout(() => {
-                navigate("/login");
-              }, 200);
-            },
+        // {
+        //   label: t("Certification"),
+        //   icon: (
+        //     <div className="flex items-center">
+        //       <img src="/assets/risk.png" width={15} alt="" />
+        //     </div>
+        //   ),
+        //   key: "realName",
+        //   onClick: () => navigate("/verify"),
+        // },
+        { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+        {
+          label: t("Logout"),
+          icon: <img src="/assets/exit.png" width={12} />,
+          key: "exit",
+          onClick: () => {
+            window.localStorage.removeItem("token");
+            const setItemEvent = new Event("localstorage_save");
+            window.dispatchEvent(setItemEvent);
+            setTimeout(() => {
+              navigate("/login");
+            }, 200);
           },
-        ];
+        },
+      ];
   }, [users, t]);
 
   const MobileRouterItems: MenuProps["items"] = [
@@ -114,7 +114,7 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: t("Asset Backed Securities"),
+      label: t("Asset issuance"),
       key: "issus",
       onClick: () => {
         navigate("/issus");
@@ -122,27 +122,23 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: t("Airdrop"),
+      label: <img src="/assets/airdrop-btn.png" className="rounded-lg" />,
       key: "Airdrop",
       onClick: () => {
-        navigate("/airdrop");
+        navigate("/blindbox");
         setOpenMenu(false);
       },
     },
     {
-      label: (
-        <div className="flex gap-2 items-center">
-          Mystery Box
-          <div>
-            <img src="/assets/hot.png" width={20} alt="" />
-          </div>
-        </div>
-      ),
+      label: <img src="/assets/blindbox-btn.png" className="w-full" />,
       key: "Mystery Box",
       onClick: () => {
         navigate("/blindbox");
         setOpenMenu(false);
       },
+      style: {
+        marginTop: '20px'
+      }
     },
   ];
 
@@ -185,46 +181,46 @@ const HeaderComponent = () => {
   const MobileAccountActiveItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-          {
-            label: t("Wallet"),
-            icon: <WrapperImg src="/assets/wallet-light.png" />,
-            key: "wallet",
-            onClick: () => {
-              setOpenMenu(false);
-              navigate("/wallet");
-            },
+        {
+          label: t("Wallet"),
+          icon: <WrapperImg src="/assets/wallet-light.png" />,
+          key: "wallet",
+          onClick: () => {
+            setOpenMenu(false);
+            navigate("/wallet");
           },
-          { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
-        ]
+        },
+        { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
+      ]
       : [
-          // {
-          //   label: t("Certification"),
-          //   icon: <WrapperImg src="/assets/warning-light.png" />,
-          //   key: "realName",
-          //   onClick: () => {
-          //     setOpenMenu(false);
-          //     navigate("/verify");
-          //   },
-          // },
-          {
-            label: t("Wallet"),
-            icon: <WrapperImg src="/assets/wallet-light.png" />,
-            key: "wallet",
-            onClick: () => {
-              setOpenMenu(false);
-              navigate("/wallet");
-            },
+        // {
+        //   label: t("Certification"),
+        //   icon: <WrapperImg src="/assets/warning-light.png" />,
+        //   key: "realName",
+        //   onClick: () => {
+        //     setOpenMenu(false);
+        //     navigate("/verify");
+        //   },
+        // },
+        {
+          label: t("Wallet"),
+          icon: <WrapperImg src="/assets/wallet-light.png" />,
+          key: "wallet",
+          onClick: () => {
+            setOpenMenu(false);
+            navigate("/wallet");
           },
-          {
-            label: t("Invite"),
-            icon: <WrapperImg src="/assets/invite-light.png" />,
-            key: "users",
-            onClick: () => {
-              setOpenMenu(false);
-              invite();
-            },
+        },
+        {
+          label: t("Invite"),
+          icon: <WrapperImg src="/assets/invite-light.png" />,
+          key: "users",
+          onClick: () => {
+            setOpenMenu(false);
+            invite();
           },
-        ];
+        },
+      ];
   }, [users, t]);
 
   const invite = async () => {
@@ -278,22 +274,24 @@ const HeaderComponent = () => {
           </div>
           <span className="font-bold text-2xl font-whalebold">CycleX</span>
         </div>
-        <div className="hidden md:flex md:flex-1 md:leading-[3] md:ml-20 gap-4">
-          <div className="cursor-pointer hover:scale-105 leading-normal" onClick={() => navigate("/#fund")}>
+        <div className="hidden md:flex md:flex-1 md:leading-[3] ml-6 xl:ml-20 gap-4">
+          <div className="cursor-pointer hover:scale-105 leading-normal flex items-center	" onClick={() => navigate("/#fund")}>
             {t("Fund")}
           </div>
-          <div className="cursor-pointer  hover:scale-105 leading-normal xl:w-fit" onClick={() => navigate("/guide")}>
+          <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit" onClick={() => navigate("/guide")}>
             {t("Newbie Guide")}
           </div>
-          <div className="cursor-pointer  hover:scale-105 leading-normal xl:w-fit" onClick={() => navigate("/issus")}>
-            {t("Asset Backed Securities")}
+          <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit" onClick={() => navigate("/issus")}>
+            {t("Asset issuance")}
           </div>
-          <div className="cursor-pointer  hover:scale-105 leading-normal xl:w-fit" onClick={() => navigate("/airdrop")}>
-            {t("Airdrop")}
+          <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
+            <img src="/assets/airdrop-btn.png" width={120} />
+            {/* {t("Airdrop")} */}
           </div>
-          <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit gap-2" onClick={() => navigate("/blindbox")}>
-            Mystery Box
-            <img src="/assets/hot.png" width={15} alt="" />
+          <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
+            {/* Mystery Box
+            <img src="/assets/hot.png" width={15} alt="" /> */}
+            <img src="/assets/blindbox-btn.png" width={170} />
           </div>
         </div>
         <div className="hidden md:flex text-right mr-10">
