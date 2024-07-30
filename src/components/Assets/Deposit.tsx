@@ -312,32 +312,35 @@ const Card = () => {
   ];
   return (
     <div className="p-4 flex flex-col">
-      <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
-        {network === "Ethereum" ? (
-          <img src="/assets/eth.png" width={20} />
-        ) : network === "BEVM" ? (
-          <img src="/assets/bevm.png" width={20} />
-        ) : network === "Merlin" ? (
-          <img src="/assets/merlin.png" width={20} />
-        ) : (
-          <></>
-        )}
-        <Select
-          size="small"
-          defaultValue="Ethereum"
-          onChange={handleClick}
-          options={[
-            { value: "Ethereum", label: "Ethereum" },
-            { value: "BEVM", label: "BEVM" },
-            { value: "Merlin", label: "Merlin" },
-          ]}
-          style={{ fontSize: "12px" }}
-        />
-      </div>
-      <div>
-        <Spin spinning={loading}>
-          <Tabs items={items} onChange={setActive}></Tabs>
-        </Spin>
+      <img src="/assets/airdropbox.gif" alt="" />
+      <div className="w-11/12 m-auto">
+        <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit mt-6">
+          {network === "Ethereum" ? (
+            <img src="/assets/eth.png" width={20} />
+          ) : network === "BEVM" ? (
+            <img src="/assets/bevm.png" width={20} />
+          ) : network === "Merlin" ? (
+            <img src="/assets/merlin.png" width={20} />
+          ) : (
+            <></>
+          )}
+          <Select
+            size="small"
+            defaultValue="Ethereum"
+            onChange={handleClick}
+            options={[
+              { value: "Ethereum", label: "Ethereum" },
+              { value: "BEVM", label: "BEVM" },
+              { value: "Merlin", label: "Merlin" },
+            ]}
+            style={{ fontSize: "12px" }}
+          />
+        </div>
+        <div>
+          <Spin spinning={loading}>
+            <Tabs items={items} onChange={setActive}></Tabs>
+          </Spin>
+        </div>
       </div>
     </div>
   );
@@ -449,7 +452,7 @@ const Deposit = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 rounded-box shadow-2xl p-4 pt-10">
+      <div className="flex-1 rounded-box p-4 pt-10">
         <Card />
       </div>
     </div>
