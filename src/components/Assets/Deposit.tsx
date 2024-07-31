@@ -49,7 +49,7 @@ const ItemDeposit: React.FC<{
       });
   };
 
-  const open = () => {
+  const open = (num = 3) => {
     const context: any = modal?.info({
       closable: {
         closeIcon: (
@@ -73,7 +73,7 @@ const ItemDeposit: React.FC<{
         <div className="bg-white rounded-box flex flex-col justify-center items-center">
           <div className="flex justify-center items-center">
             <img src="/assets/box.png" width={160} alt="" className="animate__animated animate__pulse animate__infinite" />
-            <span className="text-3xl font-bold text-[#6c6c6c]">X 10</span>
+            <span className="text-3xl font-bold text-[#6c6c6c]">X {num}</span>
           </div>
 
           <button
@@ -125,7 +125,18 @@ const ItemDeposit: React.FC<{
         icon: <img src="/assets/success.png" width={30} />,
         message: t("Congratulations on your successful subscription!"),
       });
-      open()
+      const _amount = Number(amount);
+      if (_amount >= 10 && _amount <= 100) {
+        open(3)
+      } else if (_amount > 100 && _amount <= 1000) {
+        open(6)
+      } else if (_amount > 1000 && _amount <= 10000) {
+        open(15)
+      } else if (_amount > 10000 && _amount <= 100000) {
+        open(20)
+      } else if (_amount > 100_000) {
+        open(35)
+      }
     }
   };
   const handlerClick = () => {

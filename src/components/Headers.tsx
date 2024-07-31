@@ -107,21 +107,21 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: t("Newbie Guide"),
+      label: t("Docs"),
       key: "guide",
       onClick: () => {
         navigate("/guide");
         setOpenMenu(false);
       },
     },
-    {
-      label: t("About"),
-      key: "issus",
-      onClick: () => {
-        navigate("/issus");
-        setOpenMenu(false);
-      },
-    },
+    // {
+    //   label: t("About"),
+    //   key: "issus",
+    //   onClick: () => {
+    //     navigate("/issus");
+    //     setOpenMenu(false);
+    //   },
+    // },
     // {
     //   label: <img src="/assets/airdrop-btn.png" className="rounded-lg" />,
     //   key: "Airdrop",
@@ -275,16 +275,16 @@ const HeaderComponent = () => {
           </div>
           <span className="font-bold text-2xl font-whalebold">CycleX</span>
         </div>
-        <div className="hidden md:flex md:flex-1 md:leading-[3] ml-6 xl:ml-20 gap-4">
+        <div className="hidden md:flex md:flex-1 md:leading-[3] ml-6 xl:ml-20 gap-10">
           <div className={`cursor-pointer hover:scale-105 leading-normal flex items-center	${location.pathname === "/" && 'underline'}`} onClick={() => navigate("/#fund")}>
             {t("Invest")}
           </div>
           <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === '/guide' && 'underline'}`} onClick={() => navigate("/guide")}>
-            {t("Newbie Guide")}
+            {t("Docs")}
           </div>
-          <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === '/issus' && 'underline'}`} onClick={() => navigate("/issus")}>
+          {/* <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === '/issus' && 'underline'}`} onClick={() => navigate("/issus")}>
             {t("About")}
-          </div>
+          </div> */}
           {/* <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
             <img src="/assets/airdrop-btn.png" width={120} />
           </div> */}
