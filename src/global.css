@@ -41,6 +41,15 @@ ul li {
   margin: 12px 0;
 }
 
+.news ul li {
+  list-style-type: initial;
+  margin: auto;
+  margin-left: 2em;
+}
+.news p {
+  margin: 1em 0;
+}
+
 .mobile-login-background {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/assets/login_background.png");
   background-blend-mode: multiply;

@@ -44,7 +44,7 @@ const NewsDetails = () => {
       <div className="flex gap-10 flex-col xl:flex-row">
         <div>
           <div className="">{news?.img_url && <img src={"https://api.whaleflow.co/storage/" + news?.img_url} alt="" />}</div>
-          <div dangerouslySetInnerHTML={{ __html: news?.content ?? "" }} className="inner-img"></div>
+          <div dangerouslySetInnerHTML={{ __html: news?.content ?? "" }} className="inner-img news"></div>
         </div>
         <Divider className="md:hidden" />
         <div>
