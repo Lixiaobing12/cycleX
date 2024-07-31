@@ -248,7 +248,7 @@ const ItemDeposit: React.FC<{
         footer={
           <>
             <button
-              className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
+              className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:bg-[#e4e4e4] disabled:text-threePranentTransblack"
               onClick={checkSecurity}
               disabled={loading || !secrityKey}>
               <Loader spinning={loading} />
