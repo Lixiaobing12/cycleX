@@ -20,10 +20,10 @@ const SafetyInput: React.FC<{
   return (
     <div className="w-full codeInput">
       <Input.OTP
-        style={{ width: "100%", fontSize: "2em", lineHeight: 1 }}
+        style={{ width: "100%", fontSize: "2em", lineHeight: 1, color: "black", fontWeight: "bold", }}
         onChange={onChange}
         value={code}
-        mask=""
+        mask="·"
         ref={otpRef}
       />
     </div>

@@ -180,3 +180,10 @@ input::-webkit-inner-spin-button {
   text-decoration-thickness: 3px;
   text-underline-offset: 5px;
 }
+
+.codeInput .ant-otp-input {
+  height: 45px;
+  line-height: 45px;
+  width: 45px;
+  padding-bottom: 8px;
+}
