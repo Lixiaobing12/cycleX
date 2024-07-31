@@ -144,6 +144,7 @@ const BlindBox = () => {
   };
 
   const handleOpen = () => {
+    init()
     if (openStatus) return;
     setOpenStatus(true);
     request
@@ -151,6 +152,7 @@ const BlindBox = () => {
         BearerToken: "Bearer " + accessToken?.token,
       })
       .then(({ data }) => {
+        init()
         setTimeout(() => {
           setOpenStatus(false);
           const context: any = modal?.info({
@@ -219,6 +221,8 @@ const BlindBox = () => {
             return [...state];
           });
         });
+    } else {
+      setTimeout(init, 1000)
     }
   };
   const getBullet = () => {
