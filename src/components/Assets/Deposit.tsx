@@ -15,6 +15,9 @@ import WrapperImg from "../Common/Img";
 import Loader from "../Loader";
 import SafetyInput from "./SafetyInput";
 import ForgetSafetyCode from "./ForgotSafetyCode";
+import { Icon } from "@ricons/utils";
+import { CloseCircleOutlined } from "@ricons/antd";
+let CloseCircleOutlineds = CloseCircleOutlined as any;
 
 const ItemDeposit: React.FC<{
   network: string;
@@ -31,6 +34,7 @@ const ItemDeposit: React.FC<{
   const { handleTranslate } = useTranslateLocalStorage();
   const [, copy] = useCopyToClipboard();
   const [confirmModalShow, setConfirmModalShow] = useState(false);
+  const navigate = useNavigate();
 
   const handleCopy = (text: string) => {
     copy(text)
@@ -45,6 +49,48 @@ const ItemDeposit: React.FC<{
       });
   };
 
+  const open = () => {
+    const context: any = modal?.info({
+      closable: {
+        closeIcon: (
+          <Icon size={25}>
+            <CloseCircleOutlineds />
+          </Icon>
+        ),
+      },
+      icon: <></>,
+      onCancel: () => {
+        context.destroy();
+      },
+      zIndex: 100,
+      title: (
+        <div className="text-center">
+          <h1 className="w-full py-2 text-center text-xl">{t("Congratulations！")}</h1>
+          <div className="font-normal">{t("You have drawn a lucky box")}</div>
+        </div>
+      ),
+      content: (
+        <div className="bg-white rounded-box flex flex-col justify-center items-center">
+          <div className="flex justify-center items-center">
+            <img src="/assets/box.png" width={160} alt="" className="animate__animated animate__pulse animate__infinite" />
+            <span className="text-3xl font-bold text-[#6c6c6c]">X 10</span>
+          </div>
+
+          <button
+            className="btn btn-wide m-auto mt-4 bg-black text-white hover:bg-black hover:scale-105"
+            onClick={() => {
+              context.destroy();
+              navigate("/blindBox");
+            }}>
+            Open
+          </button>
+        </div>
+      ),
+      centered: true,
+      footer: null,
+      width: "375px",
+    });
+  };
   const checkSecurity = async () => {
     if (!secrityKey) return;
     if (loading) return;
@@ -79,6 +125,7 @@ const ItemDeposit: React.FC<{
         icon: <img src="/assets/success.png" width={30} />,
         message: t("Congratulations on your successful subscription!"),
       });
+      open()
     }
   };
   const handlerClick = () => {
@@ -105,6 +152,7 @@ const ItemDeposit: React.FC<{
           message: t("Insufficient balance"),
         });
       }
+
       setConfirmModalShow(true);
       // const context: any = modal?.info({
       //   closable: true,

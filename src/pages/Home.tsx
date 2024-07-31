@@ -83,7 +83,21 @@ export default function Home() {
           </div>
         </div>
         <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto">
-          <div className="flex flex-wrap gap-4 item-center justify-center my-20" id="fund">
+          <div className="md:p-10 mt-10 md:mt-0">
+            <div className="w-full text-center">
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t('Start investing')}</h1>
+              <div className="flex w-full bg-[rgb(191,249,254)] justify-center items-center text-black rounded-box py-4">
+                <img src="/assets/fire.png" width={16} alt="" />
+                <img src="/assets/fire.png" width={16} alt="" />
+                <img src="/assets/fire.png" width={16} alt="" />
+                <span className="mx-2 font-bold font-whalebold">{t('Start investing and claim your $WFC airdrop now')}</span>
+                <img src="/assets/gift.png" width={16} alt="" />
+                <div className="bg-black rounded-full text-[rgb(102,198,206)] text-xs px-4 py-1 ml-2 cursor-pointer" onClick={() => navigate("/blindbox")}>{t('View airdrop rules')}{'>'}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-4 item-center justify-center my-20 mt-4" id="fund">
             {assets.map((item, ind) => (
               <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col justify-evenly ${getAssetsBgImg(ind++)} w-full lg:w-[40%] 2xl:w-[33%] min-h-80 bg-100`}>
                 <div className="flex items-center my-4">
