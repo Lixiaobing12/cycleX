@@ -120,7 +120,7 @@ summary {
   display: none;
 }
 
-:where(.css-dev-only-do-not-override-1h0htq1).ant-pagination{
+:where(.css-dev-only-do-not-override-1h0htq1).ant-pagination {
   align-items: center;
 }
 .ant-modal-confirm-paragraph {
@@ -163,4 +163,10 @@ input::-webkit-inner-spin-button {
 
 .ant-select-selection-item {
   font-size: 12px;
+}
+
+.underline {
+  text-decoration: underline;
+  text-decoration-color: #38cdff;
+  text-decoration-thickness: 3px;
 }
