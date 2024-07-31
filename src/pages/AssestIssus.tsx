@@ -9,9 +9,9 @@ import Law from "../components/Guides/Law";
 const Issus = () => {
   const { t } = useTranslation();
   const [show, setModalShow] = useState(false);
-  const [active, setActiveItem] = useState("guide");
+  const [active, setActiveItem] = useState("kyc");
   const items: MenuProps["items"] = [
-    { icon: <img width={24} src="/assets/guide.png" />, label: t("Release Guidelines"), key: "guide" },
+    // { icon: <img width={24} src="/assets/guide.png" />, label: t("Release Guidelines"), key: "guide" },
     { icon: <img width={24} src="/assets/kyc.png" />, label: t("KYC(Authentication)"), key: "kyc" },
     { icon: <img width={24} src="/assets/law.png" />, label: t("Law"), key: "law" },
   ];
@@ -21,7 +21,7 @@ const Issus = () => {
       <div className="relative flex items-center justify-center">
         <img src="/assets/guide-banner.png" className="w-full min-h-[140px]" alt="" />
         <div className="absolute flex w-[94%] m-auto">
-          <p className="tracking-widest	text-2xl font-bold font-whalebold text-white text-center m-auto">{t("Asset Backed Securities")}</p>
+          <p className="tracking-widest	text-2xl font-bold font-whalebold text-white text-center m-auto">{t("About")}</p>
         </div>
       </div>
       <div className="py-6 relative">
@@ -32,7 +32,7 @@ const Issus = () => {
             </button>
           </div>
           <Col xs={0} md={6} lg={4}>
-            <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} onSelect={({ key }) => setActiveItem(key)} style={{ height: "100%" }} />
+            <Menu defaultSelectedKeys={["kyc"]} mode="inline" items={items} onSelect={({ key }) => setActiveItem(key)} style={{ height: "100%" }} />
           </Col>
           <Col xs={24} md={14} lg={16}>
             <div className="min-h-screen px-4">{active === "guide" ? <Aguide /> : active === "kyc" ? <Kyc /> : active === "law" ? <Law /> : <></>}</div>

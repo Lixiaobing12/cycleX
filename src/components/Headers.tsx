@@ -13,6 +13,7 @@ import { useWindowSize } from "usehooks-ts";
 
 const HeaderComponent = () => {
   const location = useLocation();
+  console.log(location)
   const accessToken = useLocalStorage();
   const navigate = useNavigate();
   const [users, setUsersInfo] = useAtom(userInfo_atom);
@@ -98,7 +99,7 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: t("Fund"),
+      label: t("Invese"),
       key: "fund",
       onClick: () => {
         navigate("/#fund");
@@ -114,21 +115,21 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: t("Asset issuance"),
+      label: t("About"),
       key: "issus",
       onClick: () => {
         navigate("/issus");
         setOpenMenu(false);
       },
     },
-    {
-      label: <img src="/assets/airdrop-btn.png" className="rounded-lg" />,
-      key: "Airdrop",
-      onClick: () => {
-        navigate("/blindbox");
-        setOpenMenu(false);
-      },
-    },
+    // {
+    //   label: <img src="/assets/airdrop-btn.png" className="rounded-lg" />,
+    //   key: "Airdrop",
+    //   onClick: () => {
+    //     navigate("/blindbox");
+    //     setOpenMenu(false);
+    //   },
+    // },
     {
       label: <img src="/assets/blindbox-btn.png" className="w-full" />,
       key: "Mystery Box",
@@ -275,19 +276,18 @@ const HeaderComponent = () => {
           <span className="font-bold text-2xl font-whalebold">CycleX</span>
         </div>
         <div className="hidden md:flex md:flex-1 md:leading-[3] ml-6 xl:ml-20 gap-4">
-          <div className="cursor-pointer hover:scale-105 leading-normal flex items-center	" onClick={() => navigate("/#fund")}>
-            {t("Fund")}
+          <div className="cursor-pointer hover:scale-105 leading-normal flex items-center	" style={location.pathname === "/" ? { color: "#38CDFF" } : {}} onClick={() => navigate("/#fund")}>
+            {t("Invese")}
           </div>
-          <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit" onClick={() => navigate("/guide")}>
+          <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit" style={location.pathname === "/guide" ? { color: "#38CDFF" } : {}} onClick={() => navigate("/guide")}>
             {t("Newbie Guide")}
           </div>
-          <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit" onClick={() => navigate("/issus")}>
-            {t("Asset issuance")}
+          <div className="cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit" style={location.pathname === "/issus" ? { color: "#38CDFF" } : {}} onClick={() => navigate("/issus")}>
+            {t("About")}
           </div>
-          <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
+          {/* <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
             <img src="/assets/airdrop-btn.png" width={120} />
-            {/* {t("Airdrop")} */}
-          </div>
+          </div> */}
           <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
             {/* Mystery Box
             <img src="/assets/hot.png" width={15} alt="" /> */}

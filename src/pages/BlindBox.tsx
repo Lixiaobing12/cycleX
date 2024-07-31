@@ -317,7 +317,7 @@ const BlindBox = () => {
                             if (index === 1) {
                               handleCopy();
                             } else if (index === 2) {
-                              window.open("https://cyclex.cc/#fund", "_blank");
+                              navigate('/#fund')
                             }
                           }}>
                           +{item.times}

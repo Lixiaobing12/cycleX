@@ -49,6 +49,7 @@
   "Invite": "邀请好友",
   "Logout": "退出登录",
   "Fund": "基金",
+  "Invese": "基金",
   "Newbie Guide": "新手指南",
   "Asset Backed Securities": "资产发行",
   "Sign in": "登录",
@@ -585,5 +586,6 @@
   "Enter new password again": "请再次输入新密码",
   "6 numbers": "6位数字",
   "Code sended": "验证码已发送",
-  "Asset issuance": "资产发行"
+  "Asset issuance": "资产发行",
+  "About": "资产发行"
 }
