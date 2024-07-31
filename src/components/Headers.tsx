@@ -99,7 +99,7 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: t("Invese"),
+      label: t("Invest"),
       key: "fund",
       onClick: () => {
         navigate("/#fund");
@@ -277,7 +277,7 @@ const HeaderComponent = () => {
         </div>
         <div className="hidden md:flex md:flex-1 md:leading-[3] ml-6 xl:ml-20 gap-4">
           <div className={`cursor-pointer hover:scale-105 leading-normal flex items-center	${location.pathname === "/" && 'underline'}`} onClick={() => navigate("/#fund")}>
-            {t("Invese")}
+            {t("Invest")}
           </div>
           <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === '/guide' && 'underline'}`} onClick={() => navigate("/guide")}>
             {t("Newbie Guide")}
