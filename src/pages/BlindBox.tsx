@@ -39,24 +39,24 @@ const AppendLotteryUserRecordComponent = () => {
   const [userLotteryList, setUserLotteryList] = useState<any[]>([]);
   const [, account] = useAccounts();
   const getData = () => {
-    request
-      .post("/sapi/lottery/list", {
-        UserId: account?.id,
-        unlock: false,
-        Page: 1,
-        Size: 9999,
-      })
-      .then(({ data }) => {
-        const newdata = new Set<any>(data.data.concat(userLotteryList));
-        setUserLotteryList(Array.from(newdata));
-      });
-  };
-  useEffect(() => {
-    if (account) {
-      getData();
+    if (account?.id) {
+      request
+        .post("/sapi/lottery/list", {
+          UserId: account?.id,
+          unlock: false,
+          Page: 1,
+          Size: 9999,
+        })
+        .then(({ data }) => {
+          const newdata = new Set<any>(data.data);
+          setUserLotteryList(Array.from(newdata));
+        });
+    } else {
+      setTimeout(getData, 1000)
     }
-  }, [account]);
 
+  };
+  getData();
   return (
     <List>
       <VirtualList data={userLotteryList} height={400} itemHeight={47} itemKey="email">
