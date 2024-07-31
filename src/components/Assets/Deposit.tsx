@@ -241,6 +241,7 @@ const ItemDeposit: React.FC<{
         open={confirmModalShow}
         onCancel={() => setConfirmModalShow(false)}
         onClose={() => setConfirmModalShow(false)}
+        maskClosable={false}
         closable
         style={{ background: "#fff" }}
         title={<h1 className="w-full py-2 text-center text-lg">{t("Please enter security key")}</h1>}
@@ -311,11 +312,15 @@ const ItemDeposit: React.FC<{
         <div>
           {t("Minimum amount")}: {product?.min_pay} USDT
         </div>
-        <div>
-          {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
+        <div className="flex justify-between items-center">
+          <div>
+            {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
+          </div>
+          <div className="w-fit bg-black text-white rounded-full py-1 px-2" onClick={() => navigate('/wallet#main')}>TOP-UP</div>
         </div>
+
       </div>
-      <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
+      <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:bg-[#e4e4e4] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
         {!isSign ? t("please sign in") : t("Confirm purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
@@ -422,10 +427,10 @@ const Deposit = () => {
       <img src="/assets/airdropbox.gif" className="block lg:hidden mb-6" alt="" onClick={() => navigate("/blindbox")} />
       <div className="grid lg:grid-cols-2 w-full items-center gap-10 text-black">
         <div className="flex-1 flex flex-col justify-between h-full">
-          <div className="flex flex-col gap-4 shadow-lg rounded-lg p-4">
+          <div className="flex flex-col gap-2 shadow-lg rounded-lg p-4">
             <span className="text-2xl mr-4 hyphens-auto">{t("Fairly audited over-collateralization tokenization for seamless access to real-world assets")}</span>
-            <span className="text-greyblack hyphens-auto">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
-            <div className="text-greyblack flex items-center my-2 text-sm justify-between">
+            <span className="text-greyblack hyphens-auto mt-4">{t("Earn risk-free U.S. Treasury yields on-chain, fully backed by U.S. Treasury bonds maturing in 6 months and reverse repos")}</span>
+            <div className="text-greyblack flex items-center text-sm justify-between">
               <div className="flex gap-2 items-center">
                 <span>{t("Disclaimer")}</span>
                 <div className="ml-1">
@@ -445,16 +450,18 @@ const Deposit = () => {
           </div>
 
           <div className="flex flex-col gap-4  text-sm  shadow-lg rounded-lg p-4">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-4">
+            <div className="grid grid-cols-4 lg:grid-cols-4 gap-1 my-4">
               {assetsData.map((item, index) => (
                 <div key={item.name} className="flex items-center relative flex-1">
                   <div className="flex flex-col">
-                    <div className="text-greyblack flex items-center">
+                    <div className="text-greyblack flex items-center text-xs">
                       <span>{item.name}</span>
                     </div>
-                    <div className="text-black text-xl font-bold font-whalebold">{item.value}</div>
+                    <div className="text-black text-md font-bold font-whalebold">{item.value}</div>
                   </div>
-                  <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>
+                  {
+                    index < 3 && <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>
+                  }
                 </div>
               ))}
             </div>

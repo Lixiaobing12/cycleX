@@ -86,13 +86,24 @@ export default function Home() {
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center">
               <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t('Start investing')}</h1>
-              <div className="flex w-full bg-[rgb(191,249,254)] justify-center items-center text-black rounded-box py-4">
+              <div className="w-full bg-[rgb(191,249,254)] justify-center items-center text-black rounded-box py-4  hidden lg:flex">
                 <img src="/assets/fire.png" width={16} alt="" />
                 <img src="/assets/fire.png" width={16} alt="" />
                 <img src="/assets/fire.png" width={16} alt="" />
                 <span className="mx-2 font-bold font-whalebold">{t('Start investing and claim your $WFC airdrop now')}</span>
                 <img src="/assets/gift.png" width={16} alt="" />
                 <div className="bg-black rounded-full text-[rgb(102,198,206)] text-xs px-4 py-1 ml-2 cursor-pointer" onClick={() => navigate("/blindbox")}>{t('View airdrop rules')}{'>'}</div>
+              </div>
+              <div className="block lg:hidden">
+                <div className="flex bg-[rgb(191,249,254)] justify-around items-center text-black rounded-box py-4">
+                  <div className="flex items-center justify-center">
+                    <img src="/assets/fire.png" width={16} alt="" />
+                    <span className="mx-2 font-bold font-whalebold">{t("Claim Your $WFC Now")}</span>
+                    <img src="/assets/gift.png" width={16} alt="" />
+                  </div>
+
+                  <img src="/assets/invest_arrow.png" width={16} alt="" onClick={() => navigate("/blindbox")} />
+                </div>
               </div>
             </div>
           </div>

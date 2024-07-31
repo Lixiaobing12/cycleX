@@ -219,7 +219,7 @@ const Wallet = () => {
     fetch();
   }, [user?.id, size]);
   return (
-    <div className="w-full p-4 py-10 min-h-11/12">
+    <div className="w-full p-4 py-10 min-h-11/12" id="main">
       <Row justify="center">
         <Col xs={24} md={22} lg={18}>
           <div className="rounded-box bg-black flex flex-col p-8 gap-4 relative  bg-wallet bg-100">
@@ -316,9 +316,9 @@ const Wallet = () => {
                   recharge_network === "BEVM" || recharge_network === "Merlin"
                     ? [{ value: "BTC", label: "BTC" }]
                     : [
-                        { value: "USDT", label: "USDT" },
-                        { value: "ETH", label: "ETH" },
-                      ]
+                      { value: "USDT", label: "USDT" },
+                      { value: "ETH", label: "ETH" },
+                    ]
                 }
               />
 
