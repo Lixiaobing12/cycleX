@@ -1,4 +1,4 @@
-import { Table as ATable, TableProps } from "antd";
+import { Table as ATable, Statistic, TableProps } from "antd";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,7 @@ import { useTranslateLocalStorage } from "../../hooks/localStorage";
 import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
+import CountUp from "react-countup";
 
 const Table = () => {
   const { t, i18n } = useTranslation();
@@ -16,13 +17,18 @@ const Table = () => {
       title: t("Current assets/size"),
       dataIndex: "MarketValue",
       key: "MarketValue",
-      render: (value) => "$" + scientific(value),
+      render: (value) => {
+        const marketValue = scientific(value);
+        const uint = marketValue?.slice(-1);
+        const num = marketValue?.slice(0, marketValue.length - 1);
+        return <CountUp end={Number(num)} decimals={0} prefix="$" suffix={uint} />
+      }
     },
     {
       title: t("Category/type"),
       dataIndex: "TypeSort",
       key: "TypeSort",
-      render: (value, row) => <>{i18n.language === "en" ? row.TypeSortDct?.en : row.TypeSortDct?.zh}</>,
+      render: (value, row) => <span className="capitalize">{i18n.language === "en" ? row.TypeSortDct?.en : row.TypeSortDct?.zh}</span>,
     },
     {
       title: t("Report/Reserve details"),
@@ -30,7 +36,7 @@ const Table = () => {
       key: "Name",
       render: (value, row) => (
         <div className="flex items-center">
-          <span className="flex-1">{i18n.language === "en" ? row.NameDct?.en : row.NameDct?.zh}</span>
+          <span className="flex-1 capitalize">{i18n.language === "en" ? row.NameDct?.en : row.NameDct?.zh}</span>
           {/* <div className="w-6 h-6">
             <img src="/assets/pdf.png" className="w-[20px] h-[20px] absolute" />
           </div> */}
@@ -97,8 +103,9 @@ const ProofAssets = () => {
           {proofs.map((item, index) => (
             <div className="w-full flex items-center" key={item.Name}>
               <div style={{ background: item.color }} className="w-6 h-6 rounded-md"></div>
-              <span className="mx-4">{item.Rate}%</span>
-              <span className="text-sm">{i18n.language === "en" ? item.NameDct?.en : item.NameDct?.zh}</span>
+              <span className="mx-4">
+                <CountUp end={Number(item.Rate)} decimals={0} suffix="%" /></span>
+              <span className="text-sm capitalize">{i18n.language === "en" ? item.NameDct?.en : item.NameDct?.zh}</span>
             </div>
           ))}
         </div>

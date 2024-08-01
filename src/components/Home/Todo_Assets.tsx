@@ -10,6 +10,7 @@ import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
 import WrapperButton from "../Common/Button";
 import WrapperImg from "../Common/Img";
+import CountUp from "react-countup";
 
 interface DataType {
   key: string;
@@ -75,14 +76,17 @@ const TodoListAssets = () => {
       key: "unit",
       dataIndex: "unit",
       width: 180,
-      render: (value) => (Number(value) ? '$'+ value : value),
+      render: (value) => (Number(value) ? '$' + value : value),
     },
     {
       title: t("APY"),
       key: "income",
       dataIndex: "income",
       width: 100,
-      render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">+{parseInt(value)}%</span> : <span className="text-[#FF6838]">-{parseInt(value)}%</span>}</div>,
+      render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">
+        <CountUp end={Number(value)} decimals={0} prefix="+" suffix="%" />
+      </span> : <span className="text-[#FF6838]">
+        <CountUp end={Number(value)} decimals={0} prefix="-" suffix="%" /></span>}</div>,
     },
   ];
 

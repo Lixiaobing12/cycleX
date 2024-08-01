@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 const Us = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   return (
     <div className="w-full text-black md:p-8" id="us">
       <h1 className="font-bold font-whalebold text-3xl mb-2">{t("Welcome to CycleX")}</h1>
@@ -11,10 +11,11 @@ const Us = () => {
       </p>
       <p className="py-4">
         {t("In addition to technology, we actively embrace regulation, investor protection, reporting transparency systems and smart contract iterations, and work with leading industry partners to provide customers with first-class services.")}
-        </p>
-     
+      </p>
+
       <h1 className="font-bold font-whalebold text-3xl mb-2">{t("Follow us")}</h1>
-      <p className="py-4">{t("You can browse our team and use our products by visiting whaleflow.co/cyclex.cc. Here you can find detailed disclosures about the product, how it operates, and eligibility requirements. If you are interested in a product, you can invest through the digital wallet link. The currency units we accept include digital currencies like USDT and ETH. If you would like to learn more or get in touch with us, you can email us at services@whaleflow.co. Our dynamic updates are posted on our X social platforms and on Telegram, where you can keep up with our latest news.")}</p>
+      <p className="py-4">
+        <Trans i18nKey="browseteam2" components={{ a: <a></a> }}></Trans></p>
     </div>
   );
 };
