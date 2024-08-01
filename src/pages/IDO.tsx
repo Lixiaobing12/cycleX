@@ -312,7 +312,7 @@ const IDO = () => {
           </p>
           <p className="my-4 text-black">
             {t(
-              "Compliance Market Opening: Currently, CycleX is open only for the compliance market and provides compliance services according to regulatory requirements. Ensure compliance with regulatory requirements in target markets."
+              "Compliance market opening: Currently, CycleX is open only for the compliance market and provides compliance services according to regulatory requirements. Ensure compliance with regulatory requirements in target markets."
             )}
           </p>
           <p className="my-4 text-black">{t("Issuer: The Singapore Foundation shall act as the issuer and issue the legal statement of the relevant law firm.")}</p>

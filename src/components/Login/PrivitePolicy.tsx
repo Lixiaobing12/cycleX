@@ -5,7 +5,7 @@ const PrivitePolicy = () => {
     return (
         <div>
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Privacy policy")}</h2>
-            <p>{t("Last Updated: July. 2024")}</p>
+            <p>{t("Last Updated: July, 2024")}</p>
             {i18n.language === "en" ? (
                 <div>
                     <p>This Privacy Policy (the "Policy") describes how Whaleflow collects, uses and discloses information, and your choices regarding this information. Please read this Policy carefully and if you have questions, please contact us at services@whaleflow.co.</p>
@@ -121,7 +121,7 @@ const PrivitePolicy = () => {
                         This Policy
                     </h2>
                     <p>
-                        If we make any changes, we will change the last updated date above. We encourage you to review this policy to stay informed. We will provide additional notice if we make material changes, such as through the email specified in your account or through the service or website.
+                        If we make any changes, we will change the Last updated date above. We encourage you to review this policy to stay informed. We will provide additional notice if we make material changes, such as through the email specified in your account or through the service or website.
                     </p>
 
                     <h2 className="my-2 text-bold text-base">
@@ -198,7 +198,7 @@ const PrivitePolicy = () => {
                         <h2 className="my-2 text-bold text-base">
                             Contact Us
                         </h2>
-                        If you have any questions about this Policy or seek to exercise any statutory rights, please contact us. We will respond within a reasonable period of time in accordance with applicable law. You can contact us at services@whaleflow.co.
+                        If you have any questions about this Policy or seek to exercise any statutory rights, please contact us. We will respond within a reasonable period of time in accordance with applicable law. You can contact us at <a href='mailto:services@whaleflow.co'>services@whaleflow.co</a>.
                     </p>
                 </div>
             ) : (

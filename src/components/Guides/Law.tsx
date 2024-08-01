@@ -10,10 +10,10 @@ const Law = () => {
 
       <div className="mt-10">
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-md font-normal">{t("User service agreement")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("User Service Agreement")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}</h2>
-            <p>{t("Last Updated: July. 2024")}</p>
+            <p>{t("Last Updated: July, 2024")}</p>
             {i18n.language === "en" ? (
               <ul className="ml-6">
                 <li>
@@ -854,7 +854,7 @@ const Law = () => {
         </details>
         <div className="divider my-0"></div>
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-md font-normal">{t("Risk warning")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Risk Warning")}</summary>
           <div className="collapse-content">
             {i18n.language === "en" ? (
               <p>
@@ -883,7 +883,7 @@ const Law = () => {
           <summary className="collapse-title text-md font-normal">{t("Disclaimer")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}:</h2>
-            <p className="mb-4">{t("Last Updated: July. 2024")}</p>
+            <p className="mb-4">{t("Last Updated: July, 2024")}</p>
 
             {i18n.language === "en" ? (
               <div>

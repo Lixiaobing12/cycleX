@@ -74,18 +74,18 @@ export default function Home() {
         <div className="relative flex items-center justify-center">
           <img src="/assets/home_content.png" className="w-full h-screen md:h-[80vh]" alt="" />
           <div className="absolute flex flex-col items-center mt-[-120px] w-[94%] m-auto text-center">
-            <p className="tracking-widest	text-2xl md:text-4xl mb-10">{t("The Tokenized Fund Is Online")}</p>
+            <p className="tracking-widest	text-2xl md:text-4xl mb-10">{t("The Tokenized Fund is Online")}</p>
             <p className="text-sm md:text-lg text-grey text-center tracking-widest leading-relaxed">
-              {t("CycleX is committed to creating a transparent and secure tokenized asset trading platform, no matter in the world")}
+              {t("CycleX is committed to creating a transparent and secure tokenized asset trading platform")}
               <br />
-              {t("Anywhere, make it easier for users to hold high-quality assets around the world")}
+              {t("No matter anywhere, make it easier for users to hold high-quality assets around the world")}
             </p>
           </div>
         </div>
         <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto">
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center">
-              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t('Start investing')}</h1>
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t('Start Investing')}</h1>
               <div className="w-full bg-[rgb(191,249,254)] justify-center items-center text-black rounded-box py-4  hidden lg:flex">
                 <img src="/assets/fire.png" width={16} alt="" />
                 <img src="/assets/fire.png" width={16} alt="" />
@@ -200,7 +200,7 @@ export default function Home() {
                 </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">{t("Distributionsphase")}</span>
+                <span className="font-bold font-whalebold">{t("Distributions Phase")}</span>
                 <span className="text-threePranentTransblack ml-4">
                   {t(
                     "CycleX App issues this tokenized asset/fund and deploits it to the public chain, which currently only supports Ethereum and will be added in the future, please check the update tips at that time"
@@ -208,7 +208,7 @@ export default function Home() {
                 </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">{t("Transaction platform")}</span>
+                <span className="font-bold font-whalebold">{t("Transaction Platform")}</span>
                 <span className="text-threePranentTransblack ml-4">
                   {t(
                     "Users submit KYC review on the platform and invest in such assets, provide closed/open according to the asset class, and enjoy the corresponding returns after the purchase is completed"

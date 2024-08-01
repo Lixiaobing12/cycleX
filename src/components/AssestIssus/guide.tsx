@@ -1,5 +1,5 @@
 import { Divider } from "antd";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 const Aguide = () => {
   const { t } = useTranslation();
@@ -14,9 +14,7 @@ const Aguide = () => {
           )}
         </p>
         <p className="text-base mt-2">
-          {t(
-            "Make sure the information you fill in is accurate and complete, and feel free to contact our service team (services@whaleflow.co) for support and help, and we will provide you with the necessary audit process and follow-up process as soon as possible."
-          )}
+          <Trans i18nKey={"makesure"} components={{ a: <a /> }}></Trans>
         </p>
       </div>
 

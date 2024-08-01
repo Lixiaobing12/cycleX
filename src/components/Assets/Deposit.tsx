@@ -2,7 +2,7 @@ import { Modal, Select, Spin, Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useCopyToClipboard, useEventListener } from "usehooks-ts";
 import { messageContext, modalContext } from "../../App";
@@ -127,15 +127,15 @@ const ItemDeposit: React.FC<{
       });
       const _amount = Number(amount);
       if (_amount >= 10 && _amount <= 100) {
-        open(3)
+        open(3);
       } else if (_amount > 100 && _amount <= 1000) {
-        open(6)
+        open(6);
       } else if (_amount > 1000 && _amount <= 10000) {
-        open(15)
+        open(15);
       } else if (_amount > 10000 && _amount <= 100000) {
-        open(20)
+        open(20);
       } else if (_amount > 100_000) {
-        open(35)
+        open(35);
       }
     }
   };
@@ -310,21 +310,24 @@ const ItemDeposit: React.FC<{
       </div>
       <div className="flex flex-col gap-1 text-xs">
         <div>
-          {t("Minimum amount")}: {product?.min_pay} USDT
+          {t("Minimum Amount")}: {product?.min_pay} USDT
         </div>
         <div className="flex justify-between items-center">
           <div>
             {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
           </div>
-          <div className="w-fit bg-black text-white rounded-full py-1 px-2" onClick={() => navigate('/wallet#main')}>TOP-UP</div>
+          <div className="w-fit bg-black text-white rounded-full py-1 px-2" onClick={() => navigate("/wallet#main")}>
+            TOP-UP
+          </div>
         </div>
-
       </div>
       <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:bg-[#e4e4e4] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
-        {!isSign ? t("please sign in") : t("Confirm purchase")}
+        {!isSign ? t("please sign in") : t("Confirm Purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span className="text-xs">{t("Contact services@whaleflow.co to gain access")}</span>
+        <span className="text-xs">
+          <Trans i18nKey={"access"} components={{ a: <a /> }}></Trans>
+        </span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} onClick={() => handleCopy("services@whaleflow.co")} />
           <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363] w-8">
@@ -459,9 +462,7 @@ const Deposit = () => {
                     </div>
                     <div className="text-black text-md font-bold font-whalebold">{item.value}</div>
                   </div>
-                  {
-                    index < 3 && <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>
-                  }
+                  {index < 3 && <div className="divider divider-vertical w-px	h-2/3  bg-transblack absolute right-[20%]"></div>}
                 </div>
               ))}
             </div>
@@ -475,7 +476,7 @@ const Deposit = () => {
 
                 <div className="join-item flex justify-between p-2 text-greyblack">
                   <div className="flex gap-2">
-                    <span>{t("On-chain address")}</span>
+                    <span>{t("On-chain Address")}</span>
                   </div>
                   <div className="flex gap-2">
                     <div className="flex items-center gap-1">
@@ -486,7 +487,7 @@ const Deposit = () => {
               </div>
             </div>
             <div className="text-greyblack">
-              {t("last updated date")} {moment(product?.updated_at ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}
+              {t("Last updated date")} {moment(product?.updated_at ?? "", "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD")}
             </div>
           </div>
         </div>

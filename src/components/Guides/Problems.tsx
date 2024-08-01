@@ -26,7 +26,7 @@ const Problems = () => {
         </details>
         <Divider className="my-1" />
         <details className="collapse collapse-arrow bg-white text-black">
-          <summary className="collapse-title text-md font-normal">{t("Compliance and Regulation")}</summary>
+          <summary className="collapse-title text-md font-normal">{t("Compliance and regulation")}</summary>
           <div className="collapse-content text-sm text-black-800">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("CycleX has made the following preparations in terms of regulatory compliance")}:</h2>
 
@@ -39,10 +39,10 @@ const Problems = () => {
             <h3 className="text-black text-base my-2">{t("Meeting the compliance standards for RWA product offerings")}:</h3>
             <p>{t("CycleX is committed to meeting the compliance standards for RWA product offerings, ensuring that its product design and operation are in compliance with the regulations of the relevant regulatory authorities, and protecting the rights and interests of investors and the safety of assets.")}</p>
 
-            <h3 className="text-black text-base my-2">{t("Compliance Market Opening")}:</h3>
+            <h3 className="text-black text-base my-2">{t("Compliance market opening")}:</h3>
             <p>{t("Currently, CycleX is only open for the compliance market and provides compliance services in accordance with regulatory requirements. Ensure compliance with the regulatory requirements of the target market.")}</p>
 
-            <h3 className="text-black text-base my-2">{t("Future Regulatory Direction")}:</h3>
+            <h3 className="text-black text-base my-2">{t("Future regulatory direction")}:</h3>
             <p>{t("ycleX plans to gradually acquire more regulatory licenses according to the requirements of the target markets and comply with the laws and regulatory direction of the target governments to ensure compliance.")}</p>
           </div>
         </details>
@@ -116,7 +116,7 @@ const Problems = () => {
             <p>{t("Continuously optimize the product mix and management strategy to improve the return on investment and attract more investors to participate.")}</p>
 
             <h3 className="text-black text-base my-2">{t("Improve trading platform experience")}:</h3>
-            <p>{t("continuously improve the functions and user experience of the trading platform, improve trading efficiency and security, and provide better trading experience for users.")}</p>
+            <p>{t("Continuously improve the functions and user experience of the trading platform, improve trading efficiency and security, and provide better trading experience for users.")}</p>
 
             <h3 className="text-black text-base my-2">{t("Expand partnerships")}:</h3>
             <p>{t("Strengthen cooperation with traditional financial institutions, crypto asset platforms and other ecological partners to jointly promote the development and growth of the ecosystem. Through continuous product iteration and development planning, CycleX will be able to better meet market demand, enhance competitiveness and achieve long-term development goals.")}</p>

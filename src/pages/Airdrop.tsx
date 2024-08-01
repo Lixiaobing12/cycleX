@@ -67,7 +67,7 @@ const Airdrop = () => {
             </WrapperButton>
           </div>
           <div className="flex gap-2 items-center self-end text-greyblack text-sm">
-            {t("Last Updated: July. 2024")}
+            {t("Last Updated: July, 2024")}
             <a onClick={() => setReset(true)}>
               <WrapperImg src="/assets/reflush.png" width={18} />
             </a>
@@ -77,45 +77,6 @@ const Airdrop = () => {
         <div className="flex items-start md:items-center md:justify-between my-10 flex-col md:flex-row gap-4">
           {activeItem === 0
             ? tokenizedes.map((items, key) => (
-              <Statistic
-                key={key}
-                valueStyle={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-                title={Object.keys(items)[0]}
-                value={Object.values(items)[0]}
-                formatter={(value) =>
-                  value.toString().endsWith("B") ? (
-                    <CountUp
-                      end={Number(
-                        value
-                          .toString()
-                          .replace(/B|\$|,/g, "")
-                          .trim()
-                      )}
-                      separator=","
-                      decimal="."
-                      decimals={2}
-                      suffix="B"
-                      prefix="$"
-                    />
-                  ) : value.toString().startsWith("$") ? (
-                    <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
-                  ) : value.toString().endsWith("%") ? (
-                    <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
-                  ) : value.toString().endsWith("M") ? (
-                    <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
-                  ) : Number(value.toString().replace(/,/g, "")) ? (
-                    <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
-                  ) : (
-                    value.toString()
-                  )
-                }
-              />
-            ))
-            : activeItem === 1
-              ? ustreasury.map((items, key) => (
                 <Statistic
                   key={key}
                   valueStyle={{
@@ -153,7 +114,46 @@ const Airdrop = () => {
                   }
                 />
               ))
-              : stablecoins.map((items, key) => (
+            : activeItem === 1
+            ? ustreasury.map((items, key) => (
+                <Statistic
+                  key={key}
+                  valueStyle={{
+                    fontSize: "1.5em",
+                    fontWeight: "bold",
+                  }}
+                  title={Object.keys(items)[0]}
+                  value={Object.values(items)[0]}
+                  formatter={(value) =>
+                    value.toString().endsWith("B") ? (
+                      <CountUp
+                        end={Number(
+                          value
+                            .toString()
+                            .replace(/B|\$|,/g, "")
+                            .trim()
+                        )}
+                        separator=","
+                        decimal="."
+                        decimals={2}
+                        suffix="B"
+                        prefix="$"
+                      />
+                    ) : value.toString().startsWith("$") ? (
+                      <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
+                    ) : value.toString().endsWith("%") ? (
+                      <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
+                    ) : value.toString().endsWith("M") ? (
+                      <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
+                    ) : Number(value.toString().replace(/,/g, "")) ? (
+                      <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
+                    ) : (
+                      value.toString()
+                    )
+                  }
+                />
+              ))
+            : stablecoins.map((items, key) => (
                 <Statistic
                   key={key}
                   valueStyle={{
@@ -177,32 +177,31 @@ const Airdrop = () => {
                         suffix="T"
                         prefix="$"
                       />
-                    ) :
-                      value.toString().match(/B$/) ? (
-                        <CountUp
-                          end={Number(
-                            value
-                              .toString()
-                              .replace(/B|\$|,/g, "")
-                              .trim()
-                          )}
-                          separator=","
-                          decimal="."
-                          decimals={2}
-                          suffix="B"
-                          prefix="$"
-                        />
-                      ) : value.toString().startsWith("$") ? (
-                        <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
-                      ) : value.toString().endsWith("%") ? (
-                        <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
-                      ) : value.toString().endsWith("M") ? (
-                        <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
-                      ) : Number(value.toString().replace(/,/g, "")) ? (
-                        <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
-                      ) : (
-                        value.toString()
-                      )
+                    ) : value.toString().match(/B$/) ? (
+                      <CountUp
+                        end={Number(
+                          value
+                            .toString()
+                            .replace(/B|\$|,/g, "")
+                            .trim()
+                        )}
+                        separator=","
+                        decimal="."
+                        decimals={2}
+                        suffix="B"
+                        prefix="$"
+                      />
+                    ) : value.toString().startsWith("$") ? (
+                      <CountUp end={Number(value.toString().replace(/\$|,/g, ""))} separator="," decimal="." decimals={2} prefix="$" />
+                    ) : value.toString().endsWith("%") ? (
+                      <CountUp end={Number(value.toString().replace(/%|,/g, ""))} separator="," decimal="." decimals={2} suffix="%" />
+                    ) : value.toString().endsWith("M") ? (
+                      <CountUp end={Number(value.toString().replace(/\M|,/g, ""))} separator="," decimal="." decimals={2} suffix="M" />
+                    ) : Number(value.toString().replace(/,/g, "")) ? (
+                      <CountUp end={Number(value.toString().replace(/,/g, ""))} separator="," decimal="." decimals={2} />
+                    ) : (
+                      value.toString()
+                    )
                   }
                 />
               ))}
@@ -230,14 +229,10 @@ const Airdrop = () => {
 
         <div className="rounded-box border border-light p-8 my-14">
           <div className="text-center  font-bold font-whalebold text-2xl text-black">{t("About Us")}</div>
-          <p className="my-4 text-greyblack">
-            {t(
-              "CycleX is committed to building a transparent and secure tokenized asset trading platform, allowing users to hold global high-quality assets more conveniently, no matter where they are. Through the collaborative efforts of the asset management department and the tokenization technology department, we have built a global decentralized real-world asset solution with system integrity and achieved seamless interactions. In the process, we improve the accessibility of financial products and connect traditional assets through smart contracts to provide users with the best choices. In addition to our technical efforts, we also actively embrace regulation, protect investors, establish a transparent reporting system, and continuously iterate on smart contracts. We work with leading industry partners to provide best-in-class services to our customers. You can browse our team and use our products by visiting whalefow.co/cyclex.cc. Here you can find detailed disclosures about the product, how it operates, and eligibility requirements. If you are interested in a product, you can invest through a digital wallet link. The currency units we accept include US dollars and US dollar stablecoins."
-            )}
-          </p>
+          <p className="my-4 text-greyblack">{t("cyclexcom")}</p>
           <p className="text-black">
             {t(
-              "If you would like more information or to get in touch with us, you can send an email to services@whaleflow.co. Our dynamic updates will be posted on our X social platform and Telegram, and you can learn about our latest news through these channels."
+              "ify"
             )}
           </p>
         </div>
@@ -246,7 +241,7 @@ const Airdrop = () => {
           <Divider />
 
           <div className="text-base">
-            <p className="text-threePranentTransblack font-xs">{t("Last Updated: July. 2024")}</p>
+            <p className="text-threePranentTransblack font-xs">{t("Last Updated: July, 2024")}</p>
             <p className="my-2">
               {t(
                 "What's really powerful is not the reinvention of traditional finance, but the fact that people are using RWA as a new paradigm,And building things that would not have been possible without this technology."

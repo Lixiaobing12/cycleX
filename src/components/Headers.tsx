@@ -298,13 +298,13 @@ const HeaderComponent = () => {
           <Space size="large">
             {users && accessToken ? (
               <Dropdown menu={{ items: accountItems }}>
-                <a onClick={(e) => e.preventDefault()} className="flex items-center">
+                <div onClick={(e) => e.preventDefault()} className="flex items-center cursor-pointer">
                   {users.avatar && <img src={users.avatar} width={32} className="mr-2 rounded-full" alt="" />}
                   {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
                   <div className="mt-1 ml-1">
                     <img src="/assets/down.png" width={15} alt="" />
                   </div>
-                </a>
+                </div>
               </Dropdown>
             ) : (
               <>

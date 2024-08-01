@@ -480,7 +480,7 @@ const ItemDeposit = () => {
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <div>{t("Minimum amount")}: 100 USDT</div>
+        <div>{t("Minimum Amount")}: 100 USDT</div>
         {amount > 0 ? (
           <div>
             {amount} USDT = {(amount * 1000).toFixed(2)} WFC
@@ -494,10 +494,10 @@ const ItemDeposit = () => {
         </div>
       </div>
       <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
-        {!isSign ? t("please sign in") : t("Confirm purchase")}
+        {!isSign ? t("please sign in") : t("Confirm Purchase")}
       </button>
       <div className="flex items-center justify-center gap-1">
-        <span className="text-xs">{t("Contact services@whaleflow.co to gain access")}</span>
+        <span className="text-xs">{t("access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} onClick={() => handleCopy("services@whaleflow.co")} />
           <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363] w-8">
@@ -614,7 +614,7 @@ const ItemParticipate = () => {
         )}
       </div>
       <div className="flex items-center justify-center gap-1">
-        <span className="text-xs">{t("Contact services@whaleflow.co to gain access")}</span>
+        <span className="text-xs">{t("access")}</span>
         <div className="flex items-center gap-1">
           <WrapperImg src="/assets/transparent_copy.png" width={18} onClick={() => handleCopy("services@whaleflow.co")} />
           <a href="https://t.me/CycleXTeam" target="_blank" className="ml-2 hover:text-[#636363]">
@@ -804,7 +804,7 @@ const Deposit = () => {
             </div>
           </div>
           <div className="text-greyblack">
-            {t("last updated date")} {moment().format("YYYY-MM-DD")}
+            {t("Last updated date")} {moment().format("YYYY-MM-DD")}
           </div>
         </div>
       </div>

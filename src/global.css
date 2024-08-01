@@ -187,3 +187,8 @@ input::-webkit-inner-spin-button {
   width: 45px;
   padding-bottom: 8px;
 }
+
+a {
+  color: #1677ff;
+  text-decoration: underline;
+}

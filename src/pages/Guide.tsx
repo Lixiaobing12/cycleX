@@ -19,10 +19,10 @@ const Guide = () => {
   const [show, setModalShow] = useState(false);
   const items: MenuProps["items"] = [
     { icon: <img width={24} src="/assets/us.png" />, label: t("About Us"), key: "us" },
-    { icon: <img width={24} src="/assets/products.png" />, label: t("Product list"), key: "products" },
+    { icon: <img width={24} src="/assets/products.png" />, label: t("Product List"), key: "products" },
     { icon: <img width={24} src="/assets/kyc.png" />, label: t("KYC(Authentication)"), key: "kyc" },
-    { icon: <img width={24} src="/assets/reward.png" />, label: t("Income standard"), key: "reward" },
-    { icon: <img width={24} src="/assets/audit.png" />, label: t("Audit (Certificate of reserves)"), key: "audit" },
+    { icon: <img width={24} src="/assets/reward.png" />, label: t("Income Standard"), key: "reward" },
+    { icon: <img width={24} src="/assets/audit.png" />, label: t("Audit"), key: "audit" },
     { icon: <img width={24} src="/assets/law.png" />, label: t("Law"), key: "law" },
     { icon: <img width={24} src="/assets/problem.png" />, label: t("Q&A"), key: "problem" },
     { icon: <img width={24} src="/assets/book.png" />, label: t("White Paper"), key: "book" },
@@ -38,7 +38,7 @@ const Guide = () => {
       <div className="relative flex items-center justify-center">
         <img src="/assets/guide-banner.png" className="w-full min-h-[120px]" alt="" />
         <div className="absolute flex w-[94%] m-auto">
-          <p className="tracking-widest	text-2xl font-bold font-whalebold text-white text-center m-auto">{t("Docs")}</p>
+          <p className="tracking-widest	text-2xl font-bold font-whalebold text-white text-center m-auto"></p>
         </div>
       </div>
       <div className="py-6 relative">

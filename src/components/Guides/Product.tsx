@@ -54,21 +54,21 @@ const Product = () => {
       render: () => <span>{t("Fund")}</span>,
     },
     {
-      title: t("AUM /Asset Under Management"),
+      title: t("AUM"),
       dataIndex: "market_value",
       key: "market_value",
       width: 200,
-      render: (value, record) => (record.id === 8 ? "$ 200M" : record.id === 9 ? "$ 10M" : "$ 10k"),
+      render: (value, record) => (record.id === 8 ? "$200M" : record.id === 9 ? "$10M" : "$10k"),
     },
     {
-      title: t("Net value per unit /NAV"),
+      title: t("NAV"),
       key: "unit",
       dataIndex: "unit",
       width: 150,
       render: (value) => (Number(value) ? '$'+ value : value),
     },
     {
-      title: t("Expected yield /APY"),
+      title: t("APY"),
       key: "income",
       dataIndex: "income",
       width: 100,
@@ -83,7 +83,7 @@ const Product = () => {
   }, []);
   return (
     <div className="w-full text-black md:p-8">
-      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Product list")}</h1>
+      <h1 className="font-bold font-whalebold text-3xl mb-6">{t("Product List")}</h1>
       <Divider />
       <Table columns={columns} dataSource={assets} pagination={false} className="w-full" scroll={{ x: 750 }} rowKey="name" />
     </div>

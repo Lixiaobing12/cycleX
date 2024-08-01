@@ -5,25 +5,25 @@ const Rw = () => {
   const { t } = useTranslation();
   const columns = [
     {
-      title: t("type"),
+      title: t("Type"),
       dataIndex: "type",
       key: "type",
       width: 100,
     },
     {
-      title: t("describe"),
+      title: t("Describe"),
       dataIndex: "desc",
       key: "desc",
       width: 100,
     },
     {
-      title: t("rate"),
+      title: t("Rate"),
       dataIndex: "rate",
       key: "rate",
       width: 100,
     },
     {
-      title: t("tip"),
+      title: t("Tip"),
       dataIndex: "tip",
       key: "tip",
       width: 100,
