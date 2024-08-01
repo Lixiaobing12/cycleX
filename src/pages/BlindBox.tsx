@@ -1,6 +1,6 @@
 import { CaretRightOutlined, CloseCircleOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
-import { Avatar, Collapse, CollapseProps, Divider, List } from "antd";
+import { Avatar, Collapse, CollapseProps, Divider, List, Table, TableProps } from "antd";
 import { useAtom } from "jotai";
 import BulletJs from "js-bullets";
 import moment from "moment";
@@ -38,6 +38,18 @@ const Loader = () => {
 const AppendLotteryUserRecordComponent = () => {
   const [userLotteryList, setUserLotteryList] = useState<any[]>([]);
   const [, account] = useAccounts();
+  const { t } = useTranslation();
+  const columns: TableProps["columns"] = [
+    {
+      title: t("Rewards num"),
+      key: "Amount",
+      render: ({ Amount }) => <span>{Amount} WFC</span>,
+    }, {
+      title: t("Rewards time"),
+      key: "CreatedAt",
+      render: ({ CreatedAt }) => <span>{moment(CreatedAt).format("MM/DD HH:mm")}</span>,
+    },
+  ];
   const getData = () => {
     if (account?.id) {
       request
@@ -58,22 +70,24 @@ const AppendLotteryUserRecordComponent = () => {
   };
   getData();
   return (
-    <List>
-      <VirtualList data={userLotteryList} height={400} itemHeight={47} itemKey="email">
-        {(item) => (
-          <List.Item extra={<span>{moment(item.CreatedAt).format("YYYY-MM-DD HH:mm:ss")}</span>}>
-            <List.Item.Meta
-              title={
-                <div className="flex gap-1">
-                  <span className="text-bold">+{item.Amount}</span>
-                  <span className="text-greyblack">WFC</span>
-                </div>
-              }
-            />
-          </List.Item>
-        )}
-      </VirtualList>
-    </List>
+    // <List>
+    //   <VirtualList data={userLotteryList} height={400} itemHeight={47} itemKey="email">
+    //     {(item) => (
+    //       <List.Item extra={<span>{moment(item.CreatedAt).format("YYYY-MM-DD HH:mm:ss")}</span>}>
+    //         <List.Item.Meta
+    //           title={
+    //             <div className="flex gap-1">
+    //               <span className="text-bold">+{item.Amount}</span>
+    //               <span className="text-greyblack">WFC</span>
+    //             </div>
+    //           }
+    //         />
+    //       </List.Item>
+    //     )}
+    //   </VirtualList>
+    // </List>
+    <Table columns={columns} dataSource={userLotteryList} pagination={false} className="w-full" />
+
   );
 };
 
@@ -205,6 +219,7 @@ const BlindBox = () => {
       centered: true,
       footer: null,
       width: "375px",
+      height: '400px'
     });
   };
 
