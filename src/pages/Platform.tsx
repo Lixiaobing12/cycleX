@@ -1,4 +1,4 @@
-import { Col, Empty, List, Pagination, Row } from "antd";
+import { Col, Empty, List, Pagination, Row, Table, TableProps } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
@@ -14,7 +14,34 @@ const Platform = () => {
   const navigate = useNavigate();
   const [balance, setBalance] = useState(0);
   const { handleTranslate } = useTranslateLocalStorage();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any[]>([]);
+  const columns: TableProps<any>["columns"] = [
+    {
+      title: t("Category/Type"),
+      dataIndex: "DescDct.key",
+      key: "DescDct",
+      width: 100,
+      render(value, record, index) {
+        return i18n.language === "en" ? record.DescDct.en : record.DescDct.zh;
+      },
+    },
+    {
+      title: t("Earnings/Change"),
+      dataIndex: "Amount",
+      key: "Amount",
+      width: 100,
+    },
+    {
+      title: t("Update Time"),
+      dataIndex: "CreatedAt",
+      key: "CreatedAt",
+      width: 100,
+      render(value, record, index) {
+        return moment(value).format("YYYY-MM-DD HH:mm:ss");
+      },
+    },
+  ];
   const defaultPage = {
     page: 1,
     size: 10,
@@ -33,16 +60,18 @@ const Platform = () => {
   const [tokenInfo, settokenInfo] = useState(defaulttokenInfo);
   const [page, setPage] = useState(defaultPage);
 
-  const handleChange = (_page: number) => {
+  const handleChange = (_page: number, pageSize: number) => {
     page.page = _page;
+    page.size = pageSize;
     fetch();
   };
 
   const fetch = () => {
     if (userInfo?.id) {
+      setLoading(true);
       request
         .post("/sapi/presale/getInfoByUserId", {
-          UserId: userInfo?.id || 10000006,
+          UserId: userInfo.id,
         })
         .then(async ({ data }) => {
           settokenInfo(data.data);
@@ -68,6 +97,7 @@ const Platform = () => {
               total: data.page.count,
             });
             setData(data.data);
+            setLoading(false);
           }
         });
     }
@@ -80,7 +110,6 @@ const Platform = () => {
       <Row justify="center">
         <Col xs={24} md={22} lg={18}>
           <div className="rounded-box bg-black flex flex-col p-8 gap-4 relative  bg-wallet bg-100">
-
             <button className=" btn btn-sm border-light bg-black text-white hover:text-black hover:bg-white w-fit absolute right-4 top-4" onClick={() => navigate("/wallet")}>
               {t("my assets")}
             </button>
@@ -104,31 +133,25 @@ const Platform = () => {
             </div>
           </div>
           <div className="my-14">
-            <div className="text-center text-black text-2xl mb-10">{t("WFC Records")}</div>
-            <div className="bg-transblack rounded-box">
-              {data.length ? (
-                <>
-                  <List
-                    itemLayout="horizontal"
-                    dataSource={data}
-                    renderItem={(item, index) => (
-                      <List.Item key={index}>
-                        <div className="p-4 w-full grid grid-cols-3 text-center">
-                          <div>{i18n.language === "en" ? item.DescDct.en : item.DescDct.zh}</div>
-                          <div>{item.Amount} WFC</div>
-                          <div>{moment(item.UpdatedAt as any).format("MM-DD HH:mm")}</div>
-                        </div>
-                      </List.Item>
-                    )}
-                  />
-                  <div className="text-right">
-                    <Pagination simple total={page.total} onChange={handleChange} />
-                  </div>
-                </>
-              ) : (
-                <Empty description="not Data" />
-              )}
-            </div>
+            <Table
+              loading={{
+                indicator: <img src="/assets/loader.png" className="rotating-image" />,
+                spinning: loading,
+              }}
+              columns={columns}
+              dataSource={data}
+              className="w-full"
+              pagination={false}
+              scroll={{ x: 500, y: 500 }}
+              rowKey="Id"
+              rootClassName="pretter-scroll"
+              rowClassName="pretter-scroll"
+            />
+            {data.length > 0 && (
+              <div className="text-right">
+                <Pagination simple total={page.total} defaultCurrent={1} showSizeChanger onChange={handleChange} onShowSizeChange={handleChange} />
+              </div>
+            )}
           </div>
         </Col>
       </Row>
