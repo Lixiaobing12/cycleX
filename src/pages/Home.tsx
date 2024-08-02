@@ -192,7 +192,7 @@ export default function Home() {
             </div>
             <Process />
             <div className="flex flex-col gap-4 items-left text-black mt-12 text-sm">
-              <h2 className="font-bold font-whalebold text-base">{t("Friendly reminder")}</h2>
+              <h2 className="font-bold font-whalebold text-base">{t("Friendly Reminder")}</h2>
               <p>
                 <span className="font-bold font-whalebold">{t("Asset SPV")}</span>
                 <span className="text-threePranentTransblack ml-4">
@@ -216,7 +216,7 @@ export default function Home() {
                 </span>
               </p>
               <p>
-                <span className="font-bold font-whalebold">{t("Yield prof")}</span>
+                <span className="font-bold font-whalebold">{t("Yield Prof")}</span>
                 <span className="text-threePranentTransblack ml-4">
                   {t(
                     "Users to CycleX App select products according to the list of invested products to submit to the C2C trading floor transfer/different types of products can be redeemed automatically"

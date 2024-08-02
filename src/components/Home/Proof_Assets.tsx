@@ -14,7 +14,7 @@ const Table = () => {
   const [proofs] = useAtom(fundProofs_atom);
   const columns: TableProps<FundProofType>["columns"] = [
     {
-      title: t("Current assets/size"),
+      title: t("Current assets/Size"),
       dataIndex: "MarketValue",
       key: "MarketValue",
       render: (value) => {
@@ -25,7 +25,7 @@ const Table = () => {
       }
     },
     {
-      title: t("Category/type"),
+      title: t("Category/Type"),
       dataIndex: "TypeSort",
       key: "TypeSort",
       render: (value, row) => <span className="capitalize">{i18n.language === "en" ? row.TypeSortDct?.en : row.TypeSortDct?.zh}</span>,

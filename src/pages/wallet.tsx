@@ -44,7 +44,7 @@ const Wallet = () => {
 
   const columns: TableProps<any>["columns"] = [
     {
-      title: t("Category/type"),
+      title: t("Category/Type"),
       dataIndex: "Description",
       key: "Description",
       width: 100,

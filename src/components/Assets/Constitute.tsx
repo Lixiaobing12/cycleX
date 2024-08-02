@@ -39,7 +39,7 @@ const Constitute = () => {
       width: 100,
     },
     {
-      title: t("Category/type"),
+      title: t("Category/Type"),
       key: "Labels",
       dataIndex: "Labels",
       width: 200,
