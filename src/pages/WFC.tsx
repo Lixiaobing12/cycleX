@@ -8,9 +8,11 @@ import WrapperButton from "../components/Common/Button";
 import WrapperImg from "../components/Common/Img";
 import * as echarts from "echarts";
 import { request } from "../utils/request";
+import { useWindowSize } from "usehooks-ts";
 
 const Pie = () => {
   const { t, i18n } = useTranslation();
+  const { width } = useWindowSize();
   useEffect(() => {
     var chartDom = document.getElementById("pie");
     var myChart = echarts.init(chartDom);
@@ -20,9 +22,8 @@ const Pie = () => {
       color: ["#080808", "#A9AEC0", "#878B9B", "#474A55", "#DCDFEA"],
       series: [
         {
-          name: "Access From",
           type: "pie",
-          radius: "50%",
+          radius: width > 768 ? "50%" : "38%",
           data: [
             { value: 7.5, name: t("Ecosystems") },
             { value: 30, name: t("Team and Investors") },
@@ -34,6 +35,12 @@ const Pie = () => {
             normal: {
               show: true,
               formatter: "{b} ({d}%)",
+              overflow: "break",
+            },
+          },
+          labelLine: {
+            lineStyle: {
+              type: "dashed",
             },
           },
           emphasis: {
@@ -48,7 +55,7 @@ const Pie = () => {
     };
 
     option && myChart.setOption(option);
-  }, [i18n.language]);
+  }, [i18n.language, width]);
 
   return <div id="pie" className="w-full h-80"></div>;
 };
@@ -57,11 +64,11 @@ const WFC = () => {
   const [toast] = useAtom(messageContext);
   const { t, i18n } = useTranslation();
   const datas = [
-    { name: "Ecosystems", value: "7.5%" },
-    { name: "Team and Investors", value: "30%" },
-    { name: "Early Airdrop", value: "20%" },
-    { name: "Market Plan", value: "17.5%" },
-    { name: "Market Liauidityand Trade", value: "25%" },
+    { name: "Ecosystems", value: "7.5%", className: "border-r border-b lg:border-0" },
+    { name: "Team and Investors", value: "30%", className: "border-b pl-2 lg:border-0" },
+    { name: "Early Airdrop", value: "20%", className: "border-r border-b pt-2 lg:border-0" },
+    { name: "Market Plan", value: "17.5%", className: "border-b pl-2 pt-2 lg:border-0" },
+    { name: "Market Liauidityand Trade", value: "25%", className: "border-r pt-2 lg:border-0" },
   ];
 
   return (
@@ -79,8 +86,8 @@ const WFC = () => {
 
       <div className="mt-16 p-6">
         <div className="text-center text-2xl">{t("Main usage scenarios")}</div>
-        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-8 mt-10 w-full lg:w-11/12 2xl:w-5/6 m-auto">
-          <div className="shadow-xl rounded-box p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-center lg:justify-start gap-4">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-11/12 2xl:w-5/6 m-auto">
+          <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
             <img src="/assets/wfc_platform.png" className="self-start w-12 lg:w-20" alt="" />
             <div>
               <h2 className="text-lg">{t("Platform Governance")}</h2>
@@ -92,7 +99,7 @@ const WFC = () => {
             </div>
           </div>
 
-          <div className="shadow-xl rounded-box p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-center lg:justify-start gap-4">
+          <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
             <img src="/assets/wfc_fund.png" className="self-start w-12 lg:w-20" alt="" />
             <div>
               <h2 className="text-lg">{t("Fund Issuance")}</h2>
@@ -102,7 +109,7 @@ const WFC = () => {
             </div>
           </div>
 
-          <div className="shadow-xl rounded-box p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-center lg:justify-start gap-4">
+          <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
             <img src="/assets/wfc_lp.png" className="self-start w-12 lg:w-20" alt="" />
             <div>
               <h2 className="text-lg">{t("LP Staking")}</h2>
@@ -113,7 +120,7 @@ const WFC = () => {
             </div>
           </div>
 
-          <div className="shadow-xl rounded-box p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-center lg:justify-start gap-4">
+          <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
             <img src="/assets/wfc_airdrop.png" className="self-start w-12 lg:w-20" alt="" />
             <div>
               <h2 className="text-lg">{t("Fund Airdrop")}</h2>
@@ -127,12 +134,12 @@ const WFC = () => {
 
       <div className="mt-16 p-6">
         <div className="text-center text-2xl">{t("Token Distribution Model")}</div>
-        <div className="text-center text-lg mt-4">{t("Total supply $WFC 100,000,000,000")}</div>
+        <div className="text-center text-base mt-4">{t("Total supply $WFC 100,000,000,000")}</div>
 
         <div className="flex flex-col lg:flex-row items-stretch justify-center gap-8 mt-10 w-full lg:w-11/12 2xl:w-5/6 m-auto">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2">
             {datas.map((data, index) => (
-              <div key={index} className="flex flex-col">
+              <div key={index} className={`flex flex-col pb-2 ${data.className}`}>
                 <div className="text-xl">{data.value}</div>
                 <div>{t(data.name)}</div>
               </div>
