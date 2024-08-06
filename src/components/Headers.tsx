@@ -107,6 +107,14 @@ const HeaderComponent = () => {
       },
     },
     {
+      label: t("$WFC Token"),
+      key: "wfc",
+      onClick: () => {
+        navigate("/wfc");
+        setOpenMenu(false);
+      },
+    },
+    {
       label: t("Docs"),
       key: "guide",
       onClick: () => {
