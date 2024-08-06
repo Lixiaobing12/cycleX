@@ -84,7 +84,7 @@ const WFC = () => {
       </div>
 
       <div className="mt-16 p-6">
-        <div className="text-center text-2xl">{t("Main usage scenarios")}</div>
+        <div className="text-center text-xl">{t("Main usage scenarios")}</div>
         <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-11/12 2xl:w-4/6 m-auto">
           <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
             <img src="/assets/wfc_platform.png" className="self-start w-12 lg:w-18" alt="" />
@@ -132,7 +132,7 @@ const WFC = () => {
       </div>
 
       <div className="mt-12 p-6">
-        <div className="text-center text-2xl">{t("Token Distribution Model")}</div>
+        <div className="text-center text-xl font-bold font-whalebold">{t("Token Distribution Model")}</div>
         <div className="text-center text-base mt-4">{t("Total supply $WFC 100,000,000,000")}</div>
 
         <div className="flex flex-col lg:flex-row items-stretch justify-center lg:gap-8 mt-10 w-full lg:w-11/12 2xl:w-5/6 m-auto">
