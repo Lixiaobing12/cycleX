@@ -34,7 +34,7 @@ const Pie = () => {
           label: {
             normal: {
               show: true,
-              formatter: "{b} ({d}%)",
+              formatter: "{d}%\n{b}",
               overflow: "break",
             },
           },
@@ -61,7 +61,6 @@ const Pie = () => {
 };
 
 const WFC = () => {
-  const [toast] = useAtom(messageContext);
   const { t, i18n } = useTranslation();
   const datas = [
     { name: "Ecosystems", value: "7.5%", className: "border-r border-b lg:border-0" },
@@ -74,13 +73,13 @@ const WFC = () => {
   return (
     <div>
       <div className="relative flex items-center justify-center bg-black">
-        <img src="/assets/wfcbg.png" className="w-full lg:w-4/5 h-56 lg:h-96 object-cover ml-auto" alt="" />
+        <img src="/assets/wfcbg.png" className="w-full lg:w-4/5 h-56 lg:h-80 object-cover ml-auto" alt="" />
         <div className="w-full absolute left-0 right-0 flex justify-around items-center xl:items-start p-4 xl:p-0">
-          <div className="text-white max-w-[400px]">
-            <h1 className="text-2xl leading-10 mb-4">{t("$WFC Token")}</h1>
-            <p className="leading-5 xl:leading-8 font-normal">{t("wfc tips")}</p>
+          <div className="text-white max-w-[500px]">
+            <h1 className="text-2xl leading-10 mb-4 font-normal">{t("$WFC Token")}</h1>
+            <p className="leading-5 xl:leading-8 font-normal font-">{t("wfc tips")}</p>
           </div>
-          <img src="/assets/wfccoin.png" className="w-28 xl:w-48" alt="" />
+          <img src="/assets/wfccoin.png" className="w-20 xl:w-40" alt="" />
         </div>
       </div>
 
@@ -132,7 +131,7 @@ const WFC = () => {
         </div>
       </div>
 
-      <div className="mt-16 p-6">
+      <div className="mt-12 p-6">
         <div className="text-center text-2xl">{t("Token Distribution Model")}</div>
         <div className="text-center text-base mt-4">{t("Total supply $WFC 100,000,000,000")}</div>
 
