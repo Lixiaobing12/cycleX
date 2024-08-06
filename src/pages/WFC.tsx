@@ -23,7 +23,7 @@ const Pie = () => {
       series: [
         {
           type: "pie",
-          radius: width > 768 ? "50%" : "38%",
+          radius: width > 768 ? [0, "60%"] : "38%",
           data: [
             { value: 7.5, name: t("Ecosystems") },
             { value: 30, name: t("Team and Investors") },
@@ -74,7 +74,7 @@ const WFC = () => {
     <div>
       <div className="relative flex items-center justify-center bg-black">
         <img src="/assets/wfcbg.png" className="w-full lg:w-4/5 h-56 lg:h-80 object-cover ml-auto" alt="" />
-        <div className="w-full absolute left-0 right-0 flex justify-around items-center xl:items-start p-4 xl:p-0">
+        <div className="w-full lg:w-10/12 2xl:w-4/6 m-auto absolute left-0 right-0 flex justify-between items-center xl:items-start p-4">
           <div className="text-white max-w-[500px]">
             <h1 className="text-2xl leading-10 mb-4 font-normal">{t("$WFC Token")}</h1>
             <p className="leading-5 xl:leading-8 font-normal font-">{t("wfc tips")}</p>
@@ -85,9 +85,9 @@ const WFC = () => {
 
       <div className="mt-16 p-6">
         <div className="text-center text-2xl">{t("Main usage scenarios")}</div>
-        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-11/12 2xl:w-5/6 m-auto">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-11/12 2xl:w-4/6 m-auto">
           <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
-            <img src="/assets/wfc_platform.png" className="self-start w-12 lg:w-20" alt="" />
+            <img src="/assets/wfc_platform.png" className="self-start w-12 lg:w-18" alt="" />
             <div>
               <h2 className="text-lg">{t("Platform Governance")}</h2>
               <ul>
@@ -99,7 +99,7 @@ const WFC = () => {
           </div>
 
           <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
-            <img src="/assets/wfc_fund.png" className="self-start w-12 lg:w-20" alt="" />
+            <img src="/assets/wfc_fund.png" className="self-start w-12 lg:w-18" alt="" />
             <div>
               <h2 className="text-lg">{t("Fund Issuance")}</h2>
               <ul>
@@ -109,7 +109,7 @@ const WFC = () => {
           </div>
 
           <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
-            <img src="/assets/wfc_lp.png" className="self-start w-12 lg:w-20" alt="" />
+            <img src="/assets/wfc_lp.png" className="self-start w-12 lg:w-18" alt="" />
             <div>
               <h2 className="text-lg">{t("LP Staking")}</h2>
               <ul>
@@ -120,7 +120,7 @@ const WFC = () => {
           </div>
 
           <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
-            <img src="/assets/wfc_airdrop.png" className="self-start w-12 lg:w-20" alt="" />
+            <img src="/assets/wfc_airdrop.png" className="self-start w-12 lg:w-18" alt="" />
             <div>
               <h2 className="text-lg">{t("Fund Airdrop")}</h2>
               <ul>
@@ -135,8 +135,8 @@ const WFC = () => {
         <div className="text-center text-2xl">{t("Token Distribution Model")}</div>
         <div className="text-center text-base mt-4">{t("Total supply $WFC 100,000,000,000")}</div>
 
-        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-8 mt-10 w-full lg:w-11/12 2xl:w-5/6 m-auto">
-          <div className="grid grid-cols-2">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center lg:gap-8 mt-10 w-full lg:w-11/12 2xl:w-5/6 m-auto">
+          <div className="grid grid-cols-2 mb-[-40px] lg:mb-0">
             {datas.map((data, index) => (
               <div key={index} className={`flex flex-col pb-2 ${data.className}`}>
                 <div className="text-xl">{data.value}</div>
