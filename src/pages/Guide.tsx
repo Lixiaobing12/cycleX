@@ -34,7 +34,7 @@ const Guide = () => {
     }
   }, [location]);
   return (
-    <div>
+    <div id="main">
       <div className="relative flex items-center justify-center">
         <img src="/assets/guide-banner.png" className="w-full min-h-[120px]" alt="" />
         <div className="absolute flex w-[94%] m-auto">

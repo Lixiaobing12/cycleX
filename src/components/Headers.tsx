@@ -13,7 +13,7 @@ import { useWindowSize } from "usehooks-ts";
 
 const HeaderComponent = () => {
   const location = useLocation();
-  console.log(location)
+  console.log(location);
   const accessToken = useLocalStorage();
   const navigate = useNavigate();
   const [users, setUsersInfo] = useAtom(userInfo_atom);
@@ -44,49 +44,49 @@ const HeaderComponent = () => {
   const accountItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-        { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-        {
-          label: t("Logout"),
-          icon: <img src="/assets/exit.png" width={12} />,
-          key: "exit",
-          onClick: () => {
-            window.localStorage.removeItem("token");
-            const setItemEvent = new Event("localstorage_save");
-            window.dispatchEvent(setItemEvent);
-            setTimeout(() => {
-              navigate("/login");
-            }, 200);
+          { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+          {
+            label: t("Logout"),
+            icon: <img src="/assets/exit.png" width={12} />,
+            key: "exit",
+            onClick: () => {
+              window.localStorage.removeItem("token");
+              const setItemEvent = new Event("localstorage_save");
+              window.dispatchEvent(setItemEvent);
+              setTimeout(() => {
+                navigate("/login");
+              }, 200);
+            },
           },
-        },
-      ]
+        ]
       : [
-        // {
-        //   label: t("Certification"),
-        //   icon: (
-        //     <div className="flex items-center">
-        //       <img src="/assets/risk.png" width={15} alt="" />
-        //     </div>
-        //   ),
-        //   key: "realName",
-        //   onClick: () => navigate("/verify"),
-        // },
-        { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-        {
-          label: t("Logout"),
-          icon: <img src="/assets/exit.png" width={12} />,
-          key: "exit",
-          onClick: () => {
-            window.localStorage.removeItem("token");
-            const setItemEvent = new Event("localstorage_save");
-            window.dispatchEvent(setItemEvent);
-            setTimeout(() => {
-              navigate("/login");
-            }, 200);
+          // {
+          //   label: t("Certification"),
+          //   icon: (
+          //     <div className="flex items-center">
+          //       <img src="/assets/risk.png" width={15} alt="" />
+          //     </div>
+          //   ),
+          //   key: "realName",
+          //   onClick: () => navigate("/verify"),
+          // },
+          { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+          {
+            label: t("Logout"),
+            icon: <img src="/assets/exit.png" width={12} />,
+            key: "exit",
+            onClick: () => {
+              window.localStorage.removeItem("token");
+              const setItemEvent = new Event("localstorage_save");
+              window.dispatchEvent(setItemEvent);
+              setTimeout(() => {
+                navigate("/login");
+              }, 200);
+            },
           },
-        },
-      ];
+        ];
   }, [users, t]);
 
   const MobileRouterItems: MenuProps["items"] = [
@@ -138,8 +138,8 @@ const HeaderComponent = () => {
         setOpenMenu(false);
       },
       style: {
-        marginTop: '20px'
-      }
+        marginTop: "20px",
+      },
     },
   ];
 
@@ -182,46 +182,46 @@ const HeaderComponent = () => {
   const MobileAccountActiveItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-        {
-          label: t("Wallet"),
-          icon: <WrapperImg src="/assets/wallet-light.png" />,
-          key: "wallet",
-          onClick: () => {
-            setOpenMenu(false);
-            navigate("/wallet");
+          {
+            label: t("Wallet"),
+            icon: <WrapperImg src="/assets/wallet-light.png" />,
+            key: "wallet",
+            onClick: () => {
+              setOpenMenu(false);
+              navigate("/wallet");
+            },
           },
-        },
-        { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
-      ]
+          { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
+        ]
       : [
-        // {
-        //   label: t("Certification"),
-        //   icon: <WrapperImg src="/assets/warning-light.png" />,
-        //   key: "realName",
-        //   onClick: () => {
-        //     setOpenMenu(false);
-        //     navigate("/verify");
-        //   },
-        // },
-        {
-          label: t("Wallet"),
-          icon: <WrapperImg src="/assets/wallet-light.png" />,
-          key: "wallet",
-          onClick: () => {
-            setOpenMenu(false);
-            navigate("/wallet");
+          // {
+          //   label: t("Certification"),
+          //   icon: <WrapperImg src="/assets/warning-light.png" />,
+          //   key: "realName",
+          //   onClick: () => {
+          //     setOpenMenu(false);
+          //     navigate("/verify");
+          //   },
+          // },
+          {
+            label: t("Wallet"),
+            icon: <WrapperImg src="/assets/wallet-light.png" />,
+            key: "wallet",
+            onClick: () => {
+              setOpenMenu(false);
+              navigate("/wallet");
+            },
           },
-        },
-        {
-          label: t("Invite"),
-          icon: <WrapperImg src="/assets/invite-light.png" />,
-          key: "users",
-          onClick: () => {
-            setOpenMenu(false);
-            invite();
+          {
+            label: t("Invite"),
+            icon: <WrapperImg src="/assets/invite-light.png" />,
+            key: "users",
+            onClick: () => {
+              setOpenMenu(false);
+              invite();
+            },
           },
-        },
-      ];
+        ];
   }, [users, t]);
 
   const invite = async () => {
@@ -268,29 +268,27 @@ const HeaderComponent = () => {
   }, [location]);
   return (
     <>
-      <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack md:px-[4%] 2xl:px-[10%] pt-6">
+      <div className="w-full leading-10 font-bold font-whalebold p-4 flex justify-between items-center md:justify-around border-b border-transblack md:px-[4%] 2xl:px-[10%] pt-6 gap-6">
         <div className="inline-flex md:justify-end md:items-center cursor-pointer gap-1" onClick={() => navigate("/")}>
           <div>
             <img src="/assets/loader.png" className="" width={30} height={30} alt="" />
           </div>
           <span className="font-bold text-2xl font-whalebold">CycleX</span>
         </div>
-        <div className="hidden md:flex md:flex-1 md:leading-[3] ml-6 xl:ml-20 gap-10">
-          <div className={`cursor-pointer hover:scale-105 leading-normal flex items-center	${location.pathname === "/" && 'underline'}`} onClick={() => navigate("/#fund")}>
+        <div className="hidden md:flex md:flex-1 md:leading-[3] ml-6 xl:ml-16 gap-10">
+          <div className={`cursor-pointer hover:scale-105 leading-normal flex items-center	${location.pathname === "/" && "underline"}`} onClick={() => navigate("/#fund")}>
             {t("Invest")}
           </div>
-          <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === '/guide' && 'underline'}`} onClick={() => navigate("/guide")}>
+          <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === "/guide" && "underline"}`} onClick={() => navigate("/guide")}>
             {t("Docs")}
           </div>
-          {/* <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === '/issus' && 'underline'}`} onClick={() => navigate("/issus")}>
-            {t("About")}
-          </div> */}
+          <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === "/wfc" && "underline"}`} onClick={() => navigate("/wfc")}>
+            {t("$WFC Token")}
+          </div>
           {/* <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
             <img src="/assets/airdrop-btn.png" width={120} />
           </div> */}
-          <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
-            {/* Mystery Box
-            <img src="/assets/hot.png" width={15} alt="" /> */}
+          <div className="cursor-pointer leading-normal xl:w-fit ml-auto" onClick={() => navigate("/blindbox")}>
             <img src="/assets/blindbox-btn.png" width={170} />
           </div>
         </div>

@@ -13,6 +13,7 @@ import NewsDetails from "./pages/NewsDetail";
 import Platform from "./pages/Platform";
 import Verify from "./pages/Verify";
 import Wallet from "./pages/wallet";
+import WFC from "./pages/WFC";
 
 function RouterProviders() {
   const size = useWindowSize();
@@ -43,6 +44,7 @@ function RouterProviders() {
       <Route path="/issus" element={<Issus />} />
       <Route path="/airdrop" element={<Airdrop />} />
       <Route path="/ido" element={<IDO />} />
+      <Route path="/wfc" element={<WFC />} />
       <Route path="/new/:id" element={<NewsDetails />} />
       <Route path="/blindbox" element={<BlindBox />}></Route>
       <Route
