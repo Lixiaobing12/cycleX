@@ -13,6 +13,7 @@ import { useWindowSize } from "usehooks-ts";
 const Pie = () => {
   const { t, i18n } = useTranslation();
   const { width } = useWindowSize();
+
   useEffect(() => {
     var chartDom = document.getElementById("pie");
     var myChart = echarts.init(chartDom);
@@ -23,7 +24,7 @@ const Pie = () => {
       series: [
         {
           type: "pie",
-          radius: width > 768 ? [0, "60%"] : "38%",
+          radius: "100%",
           data: [
             { value: 7.5, name: t("Ecosystems") },
             { value: 30, name: t("Team and Investors") },
@@ -33,7 +34,7 @@ const Pie = () => {
           ],
           label: {
             normal: {
-              show: true,
+              show: false,
               formatter: "{d}%\n{b}",
               overflow: "break",
             },
@@ -57,7 +58,7 @@ const Pie = () => {
     option && myChart.setOption(option);
   }, [i18n.language, width]);
 
-  return <div id="pie" className="w-full h-80"></div>;
+  return <div id="pie" className="w-52 h-52"></div>;
 };
 
 const WFC = () => {
@@ -84,38 +85,38 @@ const WFC = () => {
           </div>
         </div>
 
-        <div className="mb-20 p-6 text-white font-gotham">
+        <div className="mb-6 p-6 text-white font-gotham">
           <div className="text-left text-2xl font-bold font-gotham-bold w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">{t("Main Usage Scenarios")}</div>
           <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">
-            <div className="p-3 lg:pl-0 lg:py-0 lg:pr-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#2b2b2b]">
+            <div className="p-3 lg:pl-0 lg:py-0 lg:pr-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
               <img src="/assets/wfc_platform.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
                 <h2 className="text-base">{t("Platform Governance")}</h2>
                 <ul>
-                  <li className="list-none text-xs">· {t("Vote on feature improvements")}</li>
-                  <li className="list-none text-xs">· {t("Vote on operational activities")}</li>
-                  <li className="list-none text-xs">· {t("Vote on fund issuance")}</li>
+                  <li className="list-none text-xs">{t("Vote on feature improvements")}</li>
+                  <li className="list-none text-xs">{t("Vote on operational activities")}</li>
+                  <li className="list-none text-xs">{t("Vote on fund issuance")}</li>
                 </ul>
               </div>
             </div>
 
-            <div className="p-3 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#2b2b2b]">
+            <div className="p-3 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
               <img src="/assets/wfc_fund.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
                 <h2 className="text-base">{t("Fund Issuance")}</h2>
                 <ul>
-                  <li className="list-none text-xs">· {t("Issue fund projects on the platform")}</li>
+                  <li className="list-none text-xs">{t("Issue fund projects on the platform")}</li>
                 </ul>
               </div>
             </div>
 
-            <div className="p-3 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#2b2b2b]">
+            <div className="p-3 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
               <img src="/assets/wfc_lp.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
                 <h2 className="text-base">{t("LP Staking")}</h2>
                 <ul>
-                  <li className="list-none text-xs">· {t("Participate in LP pledge of issued funds")}</li>
-                  <li className="list-none text-xs">· {t("Compete for LP staking rewards")}</li>
+                  <li className="list-none text-xs">{t("Participate in LP pledge of issued funds")}</li>
+                  <li className="list-none text-xs">{t("Compete for LP staking rewards")}</li>
                 </ul>
               </div>
             </div>
@@ -125,7 +126,7 @@ const WFC = () => {
               <div>
                 <h2 className="text-base">{t("Fund Airdrop")}</h2>
                 <ul>
-                  <li className="list-none text-xs">· {t("Get airdrops from new issued fund")}</li>
+                  <li className="list-none text-xs">{t("Get airdrops from new issued fund")}</li>
                 </ul>
               </div>
             </div>
@@ -134,38 +135,46 @@ const WFC = () => {
       </div>
 
       <div className="mt-12 p-6 font-gotham">
-        <div className="flex flex-col lg:flex-row items-stretch justify-center lg:gap-8 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto text-center">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center lg:gap-8 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto text-left font-bold text-base">
           <p>{t("$WFC plan")}</p>
         </div>
       </div>
-      <div className="mt-12 p-6 font-gotham">
-        <div className="text-center text-xl font-bold font-gotham-bold">{t("Token Distribution Model")}</div>
-        <div className="text-center text-base mt-2">{t("Total supply $WFC 100,000,000,000")}</div>
+      <div className="p-6 font-gotham">
+        <div className="block lg:hidden">
+          <div className="text-center text-xs font-bold font-gotham-bold">{t("Token Distribution Model")}</div>
+          <div className="text-center text-base mt-2 font-bold font-gotham-bold">{t("Total supply $WFC 100,000,000,000")}</div>
+        </div>
 
-        <div className="flex flex-col lg:flex-row items-stretch justify-around lg:gap-8 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto ">
+        <div className="flex items-center justify-between lg:gap-8 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto relative lg:mb-20">
+          <div className="hidden lg:block border-t text-[#e5e7eb] h-[1px] absolute z-[0] w-[80%] right-[10%]"></div>
+          <div className="hidden w-full lg:block lg:w-1/2">
+            <div className="w-full flex flex-col items-start gap-8">
+              <div className="text-center text-xs font-bold font-gotham-bold">{t("Token Distribution Model")}:</div>
+              <Pie />
+              <div className="text-center text-base mt-2 font-bold font-gotham-bold">{t("Total supply $WFC 100,000,000,000")}</div>
+            </div>
+          </div>
           {width > 768 ? (
-            <div className="grid grid-cols-2 mb-[-40px] lg:mb-0">
+            <div className="grid grid-cols-1 border-l pl-8 sticky gap-4 bg-white">
               {datas.map((data, index) => (
-                <div key={index} className={`flex flex-col pb-2 ${data.className}`}>
-                  <div className="text-xl">{data.value}</div>
-                  <div>{t(data.name)}</div>
+                <div key={index} className={`flex flex-col pb-2`}>
+                  <div className="text-base font-bold">{data.value}</div>
+                  <div className="text-xs">{t(data.name)}</div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="mb-[-40px] lg:mb-0">
-              {datas.map((data, index) => (
-                <div key={index} className="grid grid-cols-3">
-                  <div className="col-span-2 border-b border-r p-2">{t(data.name)}</div>
-                  <div className="text-base border-b p-2">{data.value}</div>
-                </div>
-              ))}
-            </div>
+            <>
+              <div className="border-t py-4">
+                {datas.map((data, index) => (
+                  <div key={index} className="grid grid-cols-5">
+                    <div className="col-span-4 p-2 text-xs">{t(data.name)}</div>
+                    <div className="text-base p-2 font-bold">{data.value}</div>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
-
-          <div className="w-full lg:w-1/2">
-            <Pie />
-          </div>
         </div>
       </div>
     </div>
