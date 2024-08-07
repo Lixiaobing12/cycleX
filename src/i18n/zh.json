@@ -352,6 +352,7 @@
   "Incorrect username or password": "账号或密码错误",
   "Username": "账号",
   "Email or Mobile phone number": "请输入邮箱或者手机号",
+  "Email Address": "请输入邮箱",
   "Password": "密码",
   "Forget": "忘记密码",
   "Please enter password": "请输入密码",
@@ -611,6 +612,6 @@
   "Team and Investors": "团队和投资人",
   "Early Airdrop": "早期空投",
   "Market Plan": "营销计划",
-  "Market Liauidityand Trade": "市场流动性和交易",
+  "Market Liauidity and Trade": "市场流动性和交易",
   "$WFC plan":"CycleX 将释放20%的代币空投给早期使用者。代币分配策略将确保所有关键利益相关者都获得适当的激励，从而促进繁荣和强劲的生态系统，具体分配如下："
 }

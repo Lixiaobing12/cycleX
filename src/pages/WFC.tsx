@@ -29,7 +29,7 @@ const Pie = () => {
             { value: 30, name: t("Team and Investors") },
             { value: 20, name: t("Early Airdrop") },
             { value: 17.5, name: t("Market Plan") },
-            { value: 25, name: t("Market Liauidityand Trade") },
+            { value: 25, name: t("Market Liauidity and Trade") },
           ],
           label: {
             normal: {
@@ -61,13 +61,14 @@ const Pie = () => {
 };
 
 const WFC = () => {
+  const { width } = useWindowSize();
   const { t, i18n } = useTranslation();
   const datas = [
     { name: "Ecosystems", value: "7.5%", className: "border-r border-b lg:border-0" },
     { name: "Team and Investors", value: "30%", className: "border-b pl-2 lg:border-0" },
     { name: "Early Airdrop", value: "20%", className: "border-r border-b pt-2 lg:border-0" },
     { name: "Market Plan", value: "17.5%", className: "border-b pl-2 pt-2 lg:border-0" },
-    { name: "Market Liauidityand Trade", value: "25%", className: "border-r pt-2 lg:border-0" },
+    { name: "Market Liauidity and Trade", value: "25%", className: "border-r pt-2 lg:border-0" },
   ];
 
   return (
@@ -142,14 +143,26 @@ const WFC = () => {
         <div className="text-center text-base mt-2">{t("Total supply $WFC 100,000,000,000")}</div>
 
         <div className="flex flex-col lg:flex-row items-stretch justify-around lg:gap-8 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto ">
-          <div className="grid grid-cols-2 mb-[-40px] lg:mb-0">
-            {datas.map((data, index) => (
-              <div key={index} className={`flex flex-col pb-2 ${data.className}`}>
-                <div className="text-xl">{data.value}</div>
-                <div>{t(data.name)}</div>
-              </div>
-            ))}
-          </div>
+          {width > 768 ? (
+            <div className="grid grid-cols-2 mb-[-40px] lg:mb-0">
+              {datas.map((data, index) => (
+                <div key={index} className={`flex flex-col pb-2 ${data.className}`}>
+                  <div className="text-xl">{data.value}</div>
+                  <div>{t(data.name)}</div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="mb-[-40px] lg:mb-0">
+              {datas.map((data, index) => (
+                <div key={index} className="grid grid-cols-3">
+                  <div className="col-span-2 border-b border-r p-2">{t(data.name)}</div>
+                  <div className="text-base border-b p-2">{data.value}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="w-full lg:w-1/2">
             <Pie />
           </div>

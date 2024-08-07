@@ -312,7 +312,7 @@ const In = () => {
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
           <Form.Item label={t("Username")}>
-            <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Email or Mobile phone number")} />
+            <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Email Address")} />
           </Form.Item>
           <Form.Item noStyle>
             <div className="flex w-full flex-col mb-10">
@@ -586,14 +586,14 @@ const Up = () => {
                   className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 1 ? "bg-[#F1F3F5] text-black" : "bg-white text-greyblack"}`}>
                   {t("Email")}
                 </button>
-                <button
+                {/* <button
                   onClick={() => {
                     setStatus("validating");
                     setChange(2);
                   }}
                   className={`btn rounded-full border-0 btn-sm btn-cycle active:text-white ${emailOrPhone === 2 ? "bg-[#F1F3F5] text-black" : "bg-white text-greyblack"}`}>
                   {t("Phone number")}
-                </button>
+                </button> */}
               </div>
             </Form.Item>
             {emailOrPhone === 1 ? (
@@ -1225,15 +1225,15 @@ const Forget = () => {
       ),
       children: <ForgotEmail />,
     },
-    {
-      key: "2",
-      label: (
-        <div className="flex gap-1">
-          <span className="text-base">{t("Phone number")}</span>
-        </div>
-      ),
-      children: <ForgotPhone />,
-    },
+    // {
+    //   key: "2",
+    //   label: (
+    //     <div className="flex gap-1">
+    //       <span className="text-base">{t("Phone number")}</span>
+    //     </div>
+    //   ),
+    //   children: <ForgotPhone />,
+    // },
   ];
 
   return (
