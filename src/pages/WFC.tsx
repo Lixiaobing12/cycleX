@@ -72,70 +72,76 @@ const WFC = () => {
 
   return (
     <div>
-      <div className="relative flex items-center justify-center bg-black">
-        <img src="/assets/wfcbg.png" className="w-full lg:w-4/5 h-56 lg:h-80 object-cover ml-auto" alt="" />
-        <div className="w-full lg:w-10/12 2xl:w-4/6 m-auto absolute left-0 right-0 flex justify-between items-center xl:items-start p-4">
+      <div className="bg-wfc_barner_bg bg-100 relative">
+        <div className="w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto flex justify-between items-center xl:items-start p-4 pt-10">
           <div className="text-white max-w-[500px]">
-            <h1 className="text-2xl leading-10 mb-4 font-normal">{t("$WFC Token")}</h1>
-            <p className="leading-5 xl:leading-8 font-normal font-">{t("wfc tips")}</p>
+            <h1 className="text-2xl leading-10 mb-4 font-bold font-gotham-bold ">{t("$WFC Token")}</h1>
+            <p className="leading-5 xl:leading-8 font-gotham">{t("wfc tips")}</p>
           </div>
-          <img src="/assets/wfccoin.png" className="w-20 xl:w-40" alt="" />
+          <div>
+            <img src="/assets/wfccoin.png" className="w-78 lg:w-32 xl:w-48" alt="" />
+          </div>
+        </div>
+
+        <div className="mt-16 p-6 text-white font-gotham">
+          <div className="text-center text-2xl font-bold font-gotham-bold">{t("Main Usage Scenarios")}</div>
+          <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">
+            <div className="p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+              <img src="/assets/wfc_platform.png" className="self-start w-14 lg:w-18" alt="" />
+              <div>
+                <h2 className="text-lg">{t("Platform Governance")}</h2>
+                <ul>
+                  <li className="list-none">· {t("Vote on feature improvements")}</li>
+                  <li className="list-none">· {t("Vote on operational activities")}</li>
+                  <li className="list-none">· {t("Vote on fund issuance")}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+              <img src="/assets/wfc_fund.png" className="self-start w-14 lg:w-18" alt="" />
+              <div>
+                <h2 className="text-lg">{t("Fund Issuance")}</h2>
+                <ul>
+                  <li className="list-none">· {t("Issue fund projects on the platform")}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+              <img src="/assets/wfc_lp.png" className="self-start w-14 lg:w-18" alt="" />
+              <div>
+                <h2 className="text-lg">{t("LP Staking")}</h2>
+                <ul>
+                  <li className="list-none">· {t("Participate in LP pledge of issued funds")}</li>
+                  <li className="list-none">· {t("Compete for LP staking rewards")}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
+              <img src="/assets/wfc_airdrop.png" className="self-start w-14 lg:w-18" alt="" />
+              <div>
+                <h2 className="text-lg">{t("Fund Airdrop")}</h2>
+                <ul>
+                  <li className="list-none">· {t("Get airdrops from new issued fund")}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="mt-16 p-6">
-        <div className="text-center text-xl">{t("Main usage scenarios")}</div>
-        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-11/12 2xl:w-4/6 m-auto">
-          <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
-            <img src="/assets/wfc_platform.png" className="self-start w-12 lg:w-18" alt="" />
-            <div>
-              <h2 className="text-lg">{t("Platform Governance")}</h2>
-              <ul>
-                <li className="list-none">· {t("Vote on feature improvements")}</li>
-                <li className="list-none">· {t("Vote on operational activities")}</li>
-                <li className="list-none">· {t("Vote on fund issuance")}</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
-            <img src="/assets/wfc_fund.png" className="self-start w-12 lg:w-18" alt="" />
-            <div>
-              <h2 className="text-lg">{t("Fund Issuance")}</h2>
-              <ul>
-                <li className="list-none">· {t("Issue fund projects on the platform")}</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
-            <img src="/assets/wfc_lp.png" className="self-start w-12 lg:w-18" alt="" />
-            <div>
-              <h2 className="text-lg">{t("LP Staking")}</h2>
-              <ul>
-                <li className="list-none">· {t("Participate in LP pledge of issued funds")}</li>
-                <li className="list-none">· {t("Compete for LP staking rewards")}</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="shadow-xl rounded-box p-4 lg:p-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
-            <img src="/assets/wfc_airdrop.png" className="self-start w-12 lg:w-18" alt="" />
-            <div>
-              <h2 className="text-lg">{t("Fund Airdrop")}</h2>
-              <ul>
-                <li className="list-none">· {t("Get airdrops from new issued fund")}</li>
-              </ul>
-            </div>
-          </div>
+      <div className="mt-12 p-6 font-gotham">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center lg:gap-8 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto text-center">
+          <p>{t("$WFC plan")}</p>
         </div>
       </div>
+      <div className="mt-12 p-6 font-gotham">
+        <div className="text-center text-xl font-bold font-gotham-bold">{t("Token Distribution Model")}</div>
+        <div className="text-center text-base mt-2">{t("Total supply $WFC 100,000,000,000")}</div>
 
-      <div className="mt-12 p-6">
-        <div className="text-center text-xl font-bold font-whalebold">{t("Token Distribution Model")}</div>
-        <div className="text-center text-base mt-4">{t("Total supply $WFC 100,000,000,000")}</div>
-
-        <div className="flex flex-col lg:flex-row items-stretch justify-center lg:gap-8 mt-10 w-full lg:w-11/12 2xl:w-5/6 m-auto">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center lg:gap-8 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto ">
           <div className="grid grid-cols-2 mb-[-40px] lg:mb-0">
             {datas.map((data, index) => (
               <div key={index} className={`flex flex-col pb-2 ${data.className}`}>

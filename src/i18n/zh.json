@@ -593,7 +593,7 @@
   "Rewards time": "时间",
   "$WFC Token": "$WFC代币",
   "wfc tips": "$WFC 是Cyclex 平台的实用和治理代币, $WFC 代币发行的目的在于支持平台的增长、发展和可持续性。",
-  "Main usage scenarios": "主要使用场景",
+  "Main Usage Scenarios": "主要使用场景",
   "Platform Governance": "参与平台治理",
   "Vote on feature improvements": "对功能改进方案进行投票",
   "Vote on operational activities": "对运营活动进行投票",
@@ -611,5 +611,6 @@
   "Team and Investors": "团队和投资人",
   "Early Airdrop": "早期空投",
   "Market Plan": "营销计划",
-  "Market Liauidityand Trade": "市场流动性和交易"
+  "Market Liauidityand Trade": "市场流动性和交易",
+  "$WFC plan":"CycleX 将释放20%的代币空投给早期使用者。代币分配策略将确保所有关键利益相关者都获得适当的激励，从而促进繁荣和强劲的生态系统，具体分配如下："
 }

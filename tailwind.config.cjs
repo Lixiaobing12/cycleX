@@ -2,10 +2,11 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   plugins: [require("daisyui")],
   theme: {
-    backgroundSize: {
-      100: "100% 100%",
-    },
     extend: {
+      screens: {
+        '3xl': '1980px',
+        '4xl': '2400px',
+      },
       backgroundImage: {
         assets_f: "url('/assets/assets_f.png')",
         assets_s: "url('/assets/assets_s.png')",
@@ -16,12 +17,15 @@ module.exports = {
         blindboxbgh5: "url('/assets/blindbox-bg-h5.png')",
         blindboxpopbg: "url('/assets/blindbox-btn-pop.png')",
         assetsbg: "url('/assets/assets_bg.png')",
+        wfc_barner_bg: "url('/assets/wfcbg.png')"
       },
       backgroundSize: {
         100: "100% 100%",
       },
       fontFamily: {
         whalebold: ["Alliance-bold", "Whale-bold"],
+        gotham: ["Gotham-Book", "sans-serif"],
+        'gotham-bold': ["Gotham-Bold", "sans-serif"],
       },
       colors: {
         green: "green",

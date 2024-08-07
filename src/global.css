@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: "Gotham-Book";
+  src: url("/asssets/Gotham-Book.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Gotham-Bold";
+  src: url("/asssets/Gotham-Bold.otf") format("opentype");
+}
+@font-face {
   font-family: "Whale";
   src: url("/assets/Whale_regular.otf") format("opentype");
 }
