@@ -76,17 +76,17 @@ const WFC = () => {
         <div className="w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto flex justify-between items-center xl:items-start p-4 pt-10">
           <div className="text-white max-w-[500px]">
             <h1 className="text-2xl leading-10 mb-4 font-bold font-gotham-bold ">{t("$WFC Token")}</h1>
-            <p className="leading-5 xl:leading-8 font-gotham text-base font-light">{t("wfc tips")}</p>
+            <p className="leading-8 text-sm xl:leading-8 font-gotham text-base font-light">{t("wfc tips")}</p>
           </div>
           <div>
-            <img src="/assets/wfccoin.png" className="w-78 lg:w-32 xl:w-48" alt="" />
+            <img src="/assets/wfccoin.png" className="w-44 lg:w-32 xl:w-48" alt="" />
           </div>
         </div>
 
         <div className="mb-20 p-6 text-white font-gotham">
           <div className="text-center text-2xl font-bold font-gotham-bold">{t("Main Usage Scenarios")}</div>
           <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">
-            <div className="p-4 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+            <div className="p-3 lg:pl-0 lg:py-0 lg:pr-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#7b7b7b] border-dashed">
               <img src="/assets/wfc_platform.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
                 <h2 className="text-base">{t("Platform Governance")}</h2>
@@ -98,7 +98,7 @@ const WFC = () => {
               </div>
             </div>
 
-            <div className="p-4 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+            <div className="p-3 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#7b7b7b] border-dashed">
               <img src="/assets/wfc_fund.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
                 <h2 className="text-base">{t("Fund Issuance")}</h2>
@@ -108,7 +108,7 @@ const WFC = () => {
               </div>
             </div>
 
-            <div className="p-4 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+            <div className="p-3 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#7b7b7b] border-dashed">
               <img src="/assets/wfc_lp.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
                 <h2 className="text-base">{t("LP Staking")}</h2>
@@ -119,7 +119,7 @@ const WFC = () => {
               </div>
             </div>
 
-            <div className="p-4 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
+            <div className="p-3 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
               <img src="/assets/wfc_airdrop.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
                 <h2 className="text-base">{t("Fund Airdrop")}</h2>
