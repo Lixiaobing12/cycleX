@@ -76,7 +76,7 @@ const WFC = () => {
         <div className="w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto flex justify-between items-center xl:items-start p-4 pt-10">
           <div className="text-white max-w-[500px]">
             <h1 className="text-2xl leading-10 mb-4 font-bold font-gotham-bold ">{t("$WFC Token")}</h1>
-            <p className="leading-5 xl:leading-8 font-gotham">{t("wfc tips")}</p>
+            <p className="leading-5 xl:leading-8 font-gotham text-base font-light">{t("wfc tips")}</p>
           </div>
           <div>
             <img src="/assets/wfccoin.png" className="w-78 lg:w-32 xl:w-48" alt="" />
@@ -86,45 +86,45 @@ const WFC = () => {
         <div className="mb-20 p-6 text-white font-gotham">
           <div className="text-center text-2xl font-bold font-gotham-bold">{t("Main Usage Scenarios")}</div>
           <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">
-            <div className="px-4 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+            <div className="p-4 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
               <img src="/assets/wfc_platform.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
-                <h2 className="text-lg">{t("Platform Governance")}</h2>
+                <h2 className="text-base">{t("Platform Governance")}</h2>
                 <ul>
-                  <li className="list-none">· {t("Vote on feature improvements")}</li>
-                  <li className="list-none">· {t("Vote on operational activities")}</li>
-                  <li className="list-none">· {t("Vote on fund issuance")}</li>
+                  <li className="list-none text-xs">· {t("Vote on feature improvements")}</li>
+                  <li className="list-none text-xs">· {t("Vote on operational activities")}</li>
+                  <li className="list-none text-xs">· {t("Vote on fund issuance")}</li>
                 </ul>
               </div>
             </div>
 
-            <div className="px-4 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+            <div className="p-4 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
               <img src="/assets/wfc_fund.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
-                <h2 className="text-lg">{t("Fund Issuance")}</h2>
+                <h2 className="text-base">{t("Fund Issuance")}</h2>
                 <ul>
-                  <li className="list-none">· {t("Issue fund projects on the platform")}</li>
+                  <li className="list-none text-xs">· {t("Issue fund projects on the platform")}</li>
                 </ul>
               </div>
             </div>
 
-            <div className="px-4 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
+            <div className="p-4 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#636363]">
               <img src="/assets/wfc_lp.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
-                <h2 className="text-lg">{t("LP Staking")}</h2>
+                <h2 className="text-base">{t("LP Staking")}</h2>
                 <ul>
-                  <li className="list-none">· {t("Participate in LP pledge of issued funds")}</li>
-                  <li className="list-none">· {t("Compete for LP staking rewards")}</li>
+                  <li className="list-none text-xs">· {t("Participate in LP pledge of issued funds")}</li>
+                  <li className="list-none text-xs">· {t("Compete for LP staking rewards")}</li>
                 </ul>
               </div>
             </div>
 
-            <div className="px-4 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
+            <div className="p-4 lg:py-0 lg:px-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
               <img src="/assets/wfc_airdrop.png" className="self-start w-14 lg:w-18" alt="" />
               <div>
-                <h2 className="text-lg">{t("Fund Airdrop")}</h2>
+                <h2 className="text-base">{t("Fund Airdrop")}</h2>
                 <ul>
-                  <li className="list-none">· {t("Get airdrops from new issued fund")}</li>
+                  <li className="list-none text-xs">· {t("Get airdrops from new issued fund")}</li>
                 </ul>
               </div>
             </div>
@@ -141,7 +141,7 @@ const WFC = () => {
         <div className="text-center text-xl font-bold font-gotham-bold">{t("Token Distribution Model")}</div>
         <div className="text-center text-base mt-2">{t("Total supply $WFC 100,000,000,000")}</div>
 
-        <div className="flex flex-col lg:flex-row items-stretch justify-center lg:gap-8 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto ">
+        <div className="flex flex-col lg:flex-row items-stretch justify-around lg:gap-8 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto ">
           <div className="grid grid-cols-2 mb-[-40px] lg:mb-0">
             {datas.map((data, index) => (
               <div key={index} className={`flex flex-col pb-2 ${data.className}`}>
