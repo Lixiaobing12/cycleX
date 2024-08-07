@@ -85,7 +85,7 @@ const WFC = () => {
         </div>
 
         <div className="mb-20 p-6 text-white font-gotham">
-          <div className="text-center text-2xl font-bold font-gotham-bold">{t("Main Usage Scenarios")}</div>
+          <div className="text-left text-2xl font-bold font-gotham-bold w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">{t("Main Usage Scenarios")}</div>
           <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">
             <div className="p-3 lg:pl-0 lg:py-0 lg:pr-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4 border-b lg:border-0 lg:border-r border-[#2b2b2b]">
               <img src="/assets/wfc_platform.png" className="self-start w-14 lg:w-18" alt="" />

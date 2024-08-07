@@ -1,7 +1,7 @@
 import { Statistic } from "antd";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
@@ -17,6 +17,8 @@ import useAccounts from "../hooks/user";
 import { fundProductApiType } from "../types/fundProduct";
 import { scientific } from "../utils/BigNumberToString";
 import { userInfo_atom } from "../atom/userInfo";
+import moment from "moment";
+import CountUp from "react-countup";
 
 const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
@@ -31,6 +33,9 @@ export default function Home() {
   const [assets, setAssetsItems] = useAtom(products_atom);
   const { handleTranslate } = useTranslateLocalStorage();
   const navigate = useNavigate();
+  const [tvl, setTvl] = useState(0);
+  const [aum, setAum] = useState(0);
+
   useEffect(() => {
     axios.post("/api/api/fundProduct/getList").then(
       async ({
@@ -40,12 +45,9 @@ export default function Home() {
           data: fundProductApiType[];
         };
       }) => {
-        let items = [];
-        if (data.data.length > 3) {
-          items = data.data.slice(0, 3);
-        } else {
-          items = data.data;
-        }
+        let items = data.data;
+        let _tvl = 0;
+        let _aum = 0;
         for (let i = 0; i < items.length; i++) {
           items[i].labelsDcts = [];
           for (let j = 0; j < items[i].labels.length; j++) {
@@ -56,8 +58,13 @@ export default function Home() {
               en: data,
             });
           }
+          _tvl += Number(items[i].market_value);
+          _aum += Number(items[i].aum_value);
         }
+        console.log(_tvl, _aum);
         setAssetsItems(items);
+        setTvl(_tvl);
+        setAum(_aum);
       }
     );
   }, []);
@@ -79,20 +86,37 @@ export default function Home() {
               {t("CycleX is committed to creating a transparent and secure tokenized asset trading platform")}
               <br />
               {t("No matter anywhere, make it easier for users to hold high-quality assets around the world")}
+
+              <span className="border-y-glass flex justify-between items-center mt-20 w-full py-6 text-white">
+                {tvl / 100_000_000 > 0.1 ? (
+                  <CountUp end={Number((tvl / 1_000_000).toFixed(2))} decimals={2} suffix="M TVL" prefix="$" />
+                ) : (
+                  <CountUp end={Number((tvl / 1000).toFixed(2))} decimals={2} suffix="K TVL" prefix="$" />
+                )}
+
+                {aum / 100_000_000 > 0.1 ? (
+                  <CountUp end={Number((aum / 1_000_000).toFixed(2))} decimals={2} suffix="M AUM" prefix="$" />
+                ) : (
+                  <CountUp end={Number((aum / 1000).toFixed(2))} decimals={2} suffix="K AUM" prefix="$" />
+                )}
+              </span>
             </p>
           </div>
         </div>
         <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto">
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center">
-              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t('Start Investing')}</h1>
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Start Investing")}</h1>
               <div className="w-full bg-[rgb(191,249,254)] justify-center items-center text-black rounded-box py-4  hidden lg:flex">
                 <img src="/assets/fire.png" width={16} alt="" />
                 <img src="/assets/fire.png" width={16} alt="" />
                 <img src="/assets/fire.png" width={16} alt="" />
-                <span className="mx-2 font-bold font-whalebold">{t('Start investing and claim your $WFC airdrop now')}</span>
+                <span className="mx-2 font-bold font-whalebold">{t("Start investing and claim your $WFC airdrop now")}</span>
                 <img src="/assets/gift.png" width={16} alt="" />
-                <div className="bg-black rounded-full text-[rgb(102,198,206)] text-xs px-4 py-1 ml-2 cursor-pointer" onClick={() => navigate("/blindbox")}>{t('View airdrop rules')}{'>'}</div>
+                <div className="bg-black rounded-full text-[rgb(102,198,206)] text-xs px-4 py-1 ml-2 cursor-pointer" onClick={() => navigate("/blindbox")}>
+                  {t("View airdrop rules")}
+                  {">"}
+                </div>
               </div>
               <div className="block lg:hidden">
                 <div className="flex bg-[rgb(191,249,254)] justify-around items-center text-black rounded-box py-4">
@@ -129,7 +153,7 @@ export default function Home() {
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex gap-4">
                     <div>
-                      <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(item.market_value) + 300000)} TVL</div>
+                      <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(item.market_value))} TVL</div>
                     </div>
                     <div className="flex items-center">
                       <img src="/assets/eth.png" className="w-8 h-8" alt="" />

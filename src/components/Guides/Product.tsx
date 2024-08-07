@@ -55,10 +55,10 @@ const Product = () => {
     },
     {
       title: t("AUM"),
-      dataIndex: "market_value",
-      key: "market_value",
+      dataIndex: "aum_value",
+      key: "aum_value",
       width: 200,
-      render: (value, record) => (record.id === 8 ? "$200M" : record.id === 9 ? "$10M" : "$10k"),
+      render: (value, record) => scientific(value),
     },
     {
       title: t("NAV"),

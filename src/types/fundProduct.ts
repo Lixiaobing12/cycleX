@@ -54,6 +54,7 @@ export type fundProductApiType = {
   share_posters: string;
   desc: string;
   market_value: string;
+  aum_value: string;
   raised_number: string;
   raised_amount: string;
   redeem_number: string;
