@@ -317,7 +317,7 @@ const ItemDeposit: React.FC<{
             {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
           </div>
           <div className="w-fit bg-black text-white rounded-full py-1 px-2" onClick={() => navigate("/wallet#main")}>
-            TOP-UP
+            {t("TOP-UP")}
           </div>
         </div>
       </div>
@@ -338,6 +338,7 @@ const ItemDeposit: React.FC<{
     </div>
   );
 };
+
 const Card = () => {
   const { t } = useTranslation();
   const [active, setActive] = useState("1");
