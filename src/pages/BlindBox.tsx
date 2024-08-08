@@ -44,7 +44,8 @@ const AppendLotteryUserRecordComponent = () => {
       title: t("Rewards num"),
       key: "Amount",
       render: ({ Amount }) => <span>{Amount} WFC</span>,
-    }, {
+    },
+    {
       title: t("Rewards time"),
       key: "CreatedAt",
       render: ({ CreatedAt }) => <span>{moment(CreatedAt).format("MM/DD HH:mm")}</span>,
@@ -64,9 +65,8 @@ const AppendLotteryUserRecordComponent = () => {
           setUserLotteryList(Array.from(newdata));
         });
     } else {
-      setTimeout(getData, 1000)
+      setTimeout(getData, 1000);
     }
-
   };
   getData();
   return (
@@ -87,7 +87,6 @@ const AppendLotteryUserRecordComponent = () => {
     //   </VirtualList>
     // </List>
     <Table columns={columns} dataSource={userLotteryList} pagination={false} className="w-full" />
-
   );
 };
 
@@ -111,9 +110,10 @@ const BlindBox = () => {
     Share: false,
   });
   const [data, setData] = useState([
-    { title: "Login", content: t("Daily login rewards 2 times"), avatar: "/assets/blindbox-tasks-1.png", done: true, times: 2 },
-    { title: "Share To Friends", content: t("Successful sharing rewards 1 time"), avatar: "/assets/blindbox-tasks-2.png", done: false, times: 1 },
-    { title: "Invest In Products", content: t("Invest more than $10 and unclock more times"), avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
+    { title: "Sign Up", content: "Users are given 1 lottery chance for completing registration.", avatar: "/assets/blindbox-tasks-1.png", done: true, times: 1 },
+    { title: "Share To Friends", content: "Successful sharing rewards 1 time", avatar: "/assets/blindbox-tasks-2.png", done: false, times: 1 },
+    { title: "First Payment", content: "Users are given 2 lottery chances for making their first payment.", avatar: "/assets/blindbox-tasks-3.png", done: false, times: 2 },
+    { title: "Invest In Products", content: "Invest more than $10 and unclock more times", avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
   ]);
 
   const invite = async () => {
@@ -140,10 +140,6 @@ const BlindBox = () => {
   };
   const handleCopy = () => {
     invite();
-    request.post("/sapi/lottery/addNum", {
-      BearerToken: "Bearer " + accessToken?.token,
-      Type: "share",
-    });
     // copy("https://cyclex.cc")
     //   .then(() => {
     //     toast?.success({
@@ -158,7 +154,7 @@ const BlindBox = () => {
   };
 
   const handleOpen = () => {
-    init()
+    init();
     if (openStatus) return;
     setOpenStatus(true);
     request
@@ -166,7 +162,7 @@ const BlindBox = () => {
         BearerToken: "Bearer " + accessToken?.token,
       })
       .then(({ data }) => {
-        init()
+        init();
         setTimeout(() => {
           setOpenStatus(false);
           const context: any = modal?.info({
@@ -219,7 +215,7 @@ const BlindBox = () => {
       centered: true,
       footer: null,
       width: "375px",
-      height: '400px'
+      height: "400px",
     });
   };
 
@@ -231,13 +227,13 @@ const BlindBox = () => {
         })
         .then((res) => {
           setLotteryInfo(res.data.data);
-          setData((state) => {
-            state[1].done = res.data.data.Share;
-            return [...state];
-          });
+          // setData((state) => {
+          //   state[1].done = res.data.data.Share;
+          //   return [...state];
+          // });
         });
     } else {
-      setTimeout(init, 1000)
+      setTimeout(init, 1000);
     }
   };
   const getBullet = () => {
@@ -336,7 +332,9 @@ const BlindBox = () => {
                             if (index === 1) {
                               handleCopy();
                             } else if (index === 2) {
-                              navigate('/#fund')
+                              navigate("/wallet");
+                            } else if (index === 3) {
+                              navigate("/#fund");
                             }
                           }}>
                           +{item.times}
@@ -345,8 +343,8 @@ const BlindBox = () => {
                     }>
                     <List.Item.Meta
                       avatar={<Avatar src={item.avatar} size={60} shape="square" />}
-                      title={<span className="text-white text-md">{item.title}</span>}
-                      description={<span className="text-grey">{item.content}</span>}
+                      title={<span className="text-white text-md">{t(item.title)}</span>}
+                      description={<span className="text-grey">{t(item.content)}</span>}
                     />
                   </List.Item>
                 )}
@@ -359,10 +357,13 @@ const BlindBox = () => {
                   <p className="my-2 text-grey-700 text-xs">{t("CycleX Ignition Gala! Ignite the Mystery box by participating in the tasks and claim rare $WFC tokens!")}</p>
                 </li>
                 <li>
-                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 2 lottery chances per day for logging in.")}</p>
+                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 1 lottery chance for completing registration.")}</p>
                 </li>
                 <li>
-                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 1 lottery chance per day for sharing.")}</p>
+                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 2 lottery chances for making their first payment.")}</p>
+                </li>
+                <li>
+                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 1 lottery chances for each successful share.")}</p>
                 </li>
                 <li>
                   <div className="my-2 text-grey-700 text-xs">
