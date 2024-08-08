@@ -24,7 +24,7 @@ const Pie = () => {
       series: [
         {
           type: "pie",
-          radius: "100%",
+          radius: "85%",
           data: [
             { value: 7.5, name: t("Ecosystems") },
             { value: 30, name: t("Team and Investors") },
@@ -85,7 +85,8 @@ const WFC = () => {
           </div>
         </div>
 
-        <div className="mb-6 p-6 text-white font-gotham">
+        <div className="mb-6 p-6 text-white font-gotham relative">
+          <div className="absolute top-[-50px] bottom-10 border-r lg:hidden right-16 border-[#575757]"></div>
           <div className="text-left text-2xl font-bold font-gotham-bold w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">{t("Main Usage Scenarios")}</div>
           <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">
             <div className="p-3 lg:pl-0 lg:py-0 lg:pr-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
@@ -165,11 +166,11 @@ const WFC = () => {
             </div>
           ) : (
             <>
-              <div className="border-t py-4">
+              <div className="border-t py-4 w-full">
                 {datas.map((data, index) => (
-                  <div key={index} className="grid grid-cols-5">
-                    <div className="col-span-4 p-2 text-xs">{t(data.name)}</div>
-                    <div className="text-base p-2 font-bold">{data.value}</div>
+                  <div key={index} className="flex items-center w-full">
+                    <div className="p-2 text-xs flex-1">{t(data.name)}</div>
+                    <div className="text-base p-2 font-bold w-16">{data.value}</div>
                   </div>
                 ))}
               </div>
