@@ -8,6 +8,7 @@ import { modalContext } from "../../App";
 import useLocalStorage from "../../hooks/localStorage";
 import useAccounts from "../../hooks/user";
 import { request } from "../../utils/request";
+import moment from "moment";
 
 let CloseCircleOutlineds = CloseCircleOutlined as any;
 let opening = false;
@@ -65,23 +66,19 @@ const DrawerGetBlindBox = () => {
     });
   };
   useEffect(() => {
-    const accessToken = localStorage.getItem("token") as any;
-    if (account && accessToken) {
-      request
-        .post("/sapi/lottery/info", {
-          UserId: account?.id,
-        })
-        .then((res) => {
-          if (!res.data.data.Login && !opening) {
-            open();
-          }
-          request.post("/sapi/lottery/addNum", {
-            BearerToken: "Bearer " + JSON.parse(accessToken).token,
-            Type: "Login",
-          });
-        });
-    } else if (!accessToken) {
+    const localStorage = window.localStorage;
+    const opened = localStorage.getItem("opened") as any;
+    if (opened) {
+      const types = JSON.parse(opened);
+      for (const t of types) {
+        if (t.type === "login" && moment().diff(moment(t.date), "d") !== 0) {
+          open();
+          localStorage.setItem("opened", JSON.stringify([{ type: "login", date: moment().format() }]));
+        }
+      }
+    } else {
       open();
+      localStorage.setItem("opened", JSON.stringify([{ type: "login", date: moment().format() }]));
     }
   }, [account]);
 

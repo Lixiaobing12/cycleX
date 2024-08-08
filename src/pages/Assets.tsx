@@ -40,7 +40,7 @@ export default function Assets() {
       data.data.lockDct = {
         key: data.data.lock,
         zh: data.data.lock,
-        en: lock_en.replace('months', 'mos'),
+        en: lock_en.replace("months", "mos"),
       };
       setProductInfo(data.data);
     });
@@ -118,27 +118,28 @@ export default function Assets() {
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
                 </div>
-                <img src="/assets/CPTF/overview.png" className="w-full"/>
+                <img src="/assets/CPTF/overview.png" className="w-full" />
               </div>
               <div className="mt-14">
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Fund Process</h1>
                 </div>
-                <img src="/assets/CPTF/process.png"  className="w-full"/>
+                <img src="/assets/CPTF/process.png" className="w-full" />
               </div>
 
               <div className="mt-14">
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Product Analysis</h1>
                 </div>
-                <img src="/assets/CPTF/analysis.png"  className="w-full"/>
+                <img src="/assets/CPTF/analysis.png" className="w-full" />
               </div>
             </>
           )}
 
           <div className="mt-14">
             <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6">{t("Performance")}</h1>
+              <h1 className="text-black text-3xl mb-6">{t("Expected Return")}</h1>
+              <p className="text-center text-black max-w-[600px] m-auto">{t("On top of our initia returns, we have enhanced our gains with WFCandboosted the future exponentia arowth of NAV.")}</p>
             </div>
             <Performance />
           </div>

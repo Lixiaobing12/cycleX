@@ -153,9 +153,21 @@ const KLine = () => {
 
 /** 海量资产实现 -- commonent */
 const Performance = () => {
+  const { t } = useTranslation();
   return (
-    <div className="flex flex-col w-full items-center gap-10  rounded-box shadow-2xl p-4">
-      <KLine />
+    <div className="flex flex-col w-full items-center gap-10  rounded-box shadow-2xl p-4 text-black">
+      <div className="flex justify-between items-center w-full">
+        <div>
+          <div className="text-[#bbb] text-normal">{t("NAV Price Fluctuation Over 2 Years With Different Scenarios")}</div>
+          <div>(+100%APY)</div>
+        </div>
+        <div>
+          <img src="/assets/incomegrowthboxbtn2.gif" className="w-36 lg:w-36 xl:w-36 2xl:w-40 mt-[-20px] mr-[-20px]" alt="" />
+        </div>
+      </div>
+      <div>
+        <img src="/assets/performance.png" className="w-full" alt="" />
+      </div>
     </div>
   );
 };
