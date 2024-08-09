@@ -67,7 +67,7 @@ ul li {
   width: 2rem;
   height: 2rem;
   /* 保持纵横比 */
-  animation: rotate 3s linear infinite;
+  animation: rotate 10s linear infinite;
   /* 设置旋转动画 */
 }
 
