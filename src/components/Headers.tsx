@@ -232,25 +232,27 @@ const HeaderComponent = () => {
   }, [users, t]);
 
   const invite = async () => {
-    const invite_url = window.location.href + "?code=" + users?.referral_code;
-    const context: any = modal?.info({
-      closable: false,
-      icon: <></>,
-      onCancel: () => context.destroy(),
-      title: null,
-      modalRender: () => (
-        <div className="w-full flex flex-col items-center pointer-events-auto bg-white rounded-box relative py-10 px-6">
-          <button className="absolute top-4 right-4 btn btn-circle mb-2 bg-black border-0 btn-sm hover:bg-black hover:scale-105" onClick={() => context.destroy()}>
-            <img src="/assets/x.png" width={20} alt="" />
-          </button>
-          <div className="text-xl">Share link</div>
-          <input type="text" value={invite_url} className="bg-white text-black border rounded-lg w-full my-4 py-1 px-2" />
-          <button className="btn btn-sm rounded-full bg-black text-white text-normal">{t("COPY")}</button>
-        </div>
-      ),
-      centered: true,
-      footer: null,
-    });
+    navigate("/blindbox")
+
+    // const invite_url = window.location.href + "?code=" + users?.referral_code;
+    // const context: any = modal?.info({
+    //   closable: false,
+    //   icon: <></>,
+    //   onCancel: () => context.destroy(),
+    //   title: null,
+    //   modalRender: () => (
+    //     <div className="w-full flex flex-col items-center pointer-events-auto bg-white rounded-box relative py-10 px-6">
+    //       <button className="absolute top-4 right-4 btn btn-circle mb-2 bg-black border-0 btn-sm hover:bg-black hover:scale-105" onClick={() => context.destroy()}>
+    //         <img src="/assets/x.png" width={20} alt="" />
+    //       </button>
+    //       <div className="text-xl">Share link</div>
+    //       <input type="text" value={invite_url} className="bg-white text-black border rounded-lg w-full my-4 py-1 px-2" />
+    //       <button className="btn btn-sm rounded-full bg-black text-white text-normal">{t("COPY")}</button>
+    //     </div>
+    //   ),
+    //   centered: true,
+    //   footer: null,
+    // });
   };
 
   useEffect(() => {

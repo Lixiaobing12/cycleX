@@ -102,6 +102,7 @@ const BlindBox = () => {
   const { t } = useTranslation();
   const invite_img = useRef("");
   const { width } = useWindowSize();
+  const [invite_url, setInviteUrl] = useState("");
 
   const [lotteryInfo, setLotteryInfo] = useState({
     LotteryNum: 0,
@@ -117,43 +118,55 @@ const BlindBox = () => {
     { title: "Invest In Products", content: "Invest more than $10 and unclock more times", avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
   ]);
 
-  const invite = async () => {
-    const context: any = modal?.info({
-      closable: false,
-      icon: <></>,
-      onCancel: () => context.destroy(),
-      title: null,
-      modalRender: () => (
-        <div className="w-full flex flex-col items-center pointer-events-auto">
-          <button className="btn btn-circle mb-2 bg-black border-0 btn-sm hover:bg-black hover:scale-105" onClick={() => context.destroy()}>
-            <img src="/assets/x.png" width={26} alt="" />
-          </button>
-          <img src={invite_img.current} alt="" className="w-[320px] md:w-[380px]" />
+  // const invite = async () => {
+  //   const context: any = modal?.info({
+  //     closable: false,
+  //     icon: <></>,
+  //     onCancel: () => context.destroy(),
+  //     title: null,
+  //     modalRender: () => (
+  //       <div className="w-full flex flex-col items-center pointer-events-auto">
+  //         <button className="btn btn-circle mb-2 bg-black border-0 btn-sm hover:bg-black hover:scale-105" onClick={() => context.destroy()}>
+  //           <img src="/assets/x.png" width={26} alt="" />
+  //         </button>
+  //         <img src={invite_img.current} alt="" className="w-[320px] md:w-[380px]" />
 
-          <a href={invite_img.current} download target="_blank">
-            <button className="btn btn-wide  mt-2">{t("Download")}</button>
-          </a>
-        </div>
-      ),
-      centered: true,
-      footer: null,
-    });
+  //         <a href={invite_img.current} download target="_blank">
+  //           <button className="btn btn-wide  mt-2">{t("Download")}</button>
+  //         </a>
+  //       </div>
+  //     ),
+  //     centered: true,
+  //     footer: null,
+  //   });
+  // };
+  // const handleCopy = () => {
+  // navigate("/blindbox")
+  // invite();
+  // copy("https://cyclex.cc")
+  //   .then(() => {
+  //     toast?.success({
+  //       icon: <img src="/assets/success.png" width={30} />,
+  //       message: "Copied!",
+  //     });
+
+  //   })
+  //   .catch((error) => {
+  //     console.error("Failed to copy!", error);
+  //   });
+  // };
+  const handleCopy = (text: string) => {
+    copy(text)
+      .then(() => {
+        toast?.success({
+          icon: <img src="/assets/success.png" width={30} />,
+          message: "Copied!",
+        });
+      })
+      .catch((error) => {
+        console.error("Failed to copy!", error);
+      });
   };
-  const handleCopy = () => {
-    invite();
-    // copy("https://cyclex.cc")
-    //   .then(() => {
-    //     toast?.success({
-    //       icon: <img src="/assets/success.png" width={30} />,
-    //       message: "Copied!",
-    //     });
-
-    //   })
-    //   .catch((error) => {
-    //     console.error("Failed to copy!", error);
-    //   });
-  };
-
   const handleOpen = () => {
     init();
     if (openStatus) return;
@@ -235,7 +248,7 @@ const BlindBox = () => {
         });
       request.get("/api/api/user/validUserFirstRecharge").then((res) => {
         setLotteryInfo((state) => ({ ...state, firstRecharge: res.data.data }));
-        setData(state=>{
+        setData(state => {
           state[2].done = res.data.data;
           return [...state];
         })
@@ -270,6 +283,7 @@ const BlindBox = () => {
   };
   useEffect(() => {
     init();
+    setInviteUrl(window.location.origin + "?referral=" + account?.referral_code)
   }, [account]);
   useEffect(() => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80, trackHeight: 50 });
@@ -337,9 +351,7 @@ const BlindBox = () => {
                         <button
                           className="btn btn-sm hover:bg-black hover:scale-105 bg-black text-white rounded-full w-14"
                           onClick={() => {
-                            if (index === 1) {
-                              handleCopy();
-                            } else if (index === 2) {
+                            if (index === 2) {
                               navigate("/wallet");
                             } else if (index === 3) {
                               navigate("/#fund");
@@ -352,7 +364,19 @@ const BlindBox = () => {
                     <List.Item.Meta
                       avatar={<Avatar src={item.avatar} size={60} shape="square" />}
                       title={<span className="text-white text-md">{t(item.title)}</span>}
-                      description={<span className="text-grey">{t(item.content)}</span>}
+                      description={<div>{
+                        index === 1 ? (
+                          <div>
+                            <div className="text-grey">{t(item.content)}</div>
+                            <div className="flex items-center gap-2">
+                              <div className="text-white">{invite_url}</div>
+                              <div className="btn btn-xs text-white bg-transparent border-white hover:bg-white hover:text-black rounded-full" onClick={() => handleCopy(invite_url)}>COPY</div>
+                            </div>
+                          </div>
+                        ) : (
+                          <span className="text-grey">{t(item.content)}</span>
+                        )
+                      }</div>}
                     />
                   </List.Item>
                 )}

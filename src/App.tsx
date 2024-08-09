@@ -10,6 +10,7 @@ import HeaderComponent from "./components/Headers";
 import Loader from "./components/Loader";
 import useLocalStorage from "./hooks/localStorage";
 import RouterProviders from "./router";
+import { InviteCodeAtom } from "./atom/invite";
 
 export const messageContext = atom<NotificationInstance | null>(null);
 export const modalContext = atom<HookAPI | null>(null);
@@ -27,6 +28,7 @@ function App() {
   // const [messageApi, contextHolder] = imessage.useMessage();
   const [toast, setMessage] = useAtom(messageContext);
   const [, setModal] = useAtom(modalContext);
+  const [, setReferralCode] = useAtom(InviteCodeAtom);
   setMessage(api);
   setModal(modal);
 
@@ -46,6 +48,10 @@ function App() {
   useEffect(() => {
     const img = new Image();
     img.src = "/assets/comp.gif";
+    const match = window.location.href.match(/\?referral=([^&]*)/);
+    const code = match ? match[1] : null;
+    setReferralCode(code);
+
   }, []);
   return (
     <div>
