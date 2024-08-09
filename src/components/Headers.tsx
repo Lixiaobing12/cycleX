@@ -107,7 +107,7 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: t("$WFC Token"),
+      label: t("$WFC TOKEN"),
       key: "wfc",
       onClick: () => {
         navigate("/wfc");
@@ -291,7 +291,7 @@ const HeaderComponent = () => {
             {t("Docs")}
           </div>
           <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === "/wfc" && "underline"}`} onClick={() => navigate("/wfc")}>
-            {t("$WFC Token")}
+            {t("$WFC TOKEN")}
           </div>
           {/* <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
             <img src="/assets/airdrop-btn.png" width={120} />

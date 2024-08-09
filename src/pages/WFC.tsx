@@ -77,7 +77,7 @@ const WFC = () => {
       <div className="bg-wfc_barner_bg bg-100 relative pb-1">
         <div className="w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto flex justify-between items-center xl:items-start p-4 pt-10">
           <div className="text-white max-w-[500px]">
-            <h1 className="text-2xl leading-10 mb-4 font-bold font-gotham-bold ">{t("$WFC Token")}</h1>
+            <h1 className="text-2xl leading-10 mb-4 font-bold font-gotham-bold ">{t("$WFC TOKEN")}</h1>
             <p className="leading-8 text-sm xl:leading-8 font-gotham text-base font-light">{t("wfc tips")}</p>
           </div>
           <div>

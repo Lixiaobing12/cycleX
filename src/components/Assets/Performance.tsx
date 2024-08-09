@@ -163,7 +163,7 @@ const Performance = () => {
         </div>
         <div>
           {/* <img src="/assets/incomegrowthboxbtn2.gif" className="w-36 lg:w-36 xl:w-36 2xl:w-40 mt-[-20px] mr-[-20px]" alt="" /> */}
-          <img src="/assets/box.png" alt="" className="w-28 lg:w-32 xl:w-36 2xl:w-40 animate__animated animate__pulse animate__infinite" />
+          <img src="/assets/box.png" alt="" className="w-28 lg:w-32 xl:w-32 2xl:w-32 animate__animated animate__pulse animate__infinite" />
         </div>
       </div>
       <div>
