@@ -201,7 +201,7 @@ const SafetyInput: React.FC<{
                   onFinish={() => setCountDownShow(false)}
                 />
               ) : (
-                <a className="text-sm " onClick={sendCode}>
+                <a className="text-sm text-white md:text-black" onClick={sendCode}>
                   {sending ? <Loader spinning={sending} /> : t("Send")}
                 </a>
               )
@@ -318,7 +318,7 @@ const In = () => {
             <div className="flex w-full flex-col mb-10">
               <div className="flex justify-between items-center w-full mb-1">
                 <span className="text-white md:text-current">{t("Password")}</span>
-                <a className="" onClick={() => setType("Forgot")}>
+                <a className="text-white md:text-black" onClick={() => setType("Forgot")}>
                   {t("Forget")}
                 </a>
               </div>
@@ -348,7 +348,7 @@ const In = () => {
           <Form.Item>
             <div className="text-center">
               <span className="text-white md:text-current	">{t("No account yet")}?</span>
-              <a className="ml-2 " onClick={() => navigate("/login?t=up")}>
+              <a className="ml-2 text-white md:text-black" onClick={() => navigate("/login?t=up")}>
                 {t("Sign up")}
               </a>
             </div>
@@ -617,7 +617,7 @@ const Up = () => {
                   addonBefore={
                     <div className="min-w-10">
                       <Dropdown menu={{ items: selectOptions as MenuProps["items"] }}>
-                        <a onClick={(e) => e.preventDefault()} className="text-white md:text-current">
+                        <a onClick={(e) => e.preventDefault()} className="text-black">
                           <Space>+{phonePrefix}</Space>
                         </a>
                       </Dropdown>
@@ -653,7 +653,7 @@ const Up = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm " onClick={sendCode}>
+                    <a className="text-sm text-black" onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
@@ -684,7 +684,7 @@ const Up = () => {
                 }}>
                 <span className="text-white md:text-current">{t("I have read, agreed and understood")}</span>
                 <a
-                  className=""
+                  className="text-white md:text-black"
                   onClick={(e) => {
                     e.stopPropagation();
                     setType("agreement");
@@ -694,7 +694,7 @@ const Up = () => {
                 </a>
                 &
                 <a
-                  className=""
+                  className="text-white md:text-black"
                   onClick={(e) => {
                     e.stopPropagation();
                     setType("privite");
@@ -876,7 +876,7 @@ const ForgotEmail = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm " onClick={sendCode}>
+                    <a className="text-sm text-black" onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
@@ -1074,7 +1074,7 @@ const ForgotPhone = () => {
                 addonBefore={
                   <div className="min-w-10">
                     <Dropdown menu={{ items: selectOptions as MenuProps["items"] }}>
-                      <a onClick={(e) => e.preventDefault()} className="text-white md:text-current">
+                      <a onClick={(e) => e.preventDefault()} className="text-white md:text-current text-white md:text-black">
                         <Space>+{phonePrefix}</Space>
                       </a>
                     </Dropdown>
@@ -1109,7 +1109,7 @@ const ForgotPhone = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm " onClick={sendCode}>
+                    <a className="text-sm text-white md:text-black" onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
@@ -1190,7 +1190,7 @@ const Sign = () => {
         <div>ALL RIGHTS RESERVED ©2024 CycleX</div>
         <div className="flex gap-4">
           <a
-            className="cursor-pointer"
+            className="cursor-pointer text-white md:text-black"
             onClick={() => {
               setType("agreement");
               setModalShow(true);
@@ -1198,7 +1198,7 @@ const Sign = () => {
             {t("User Agreement")}
           </a>
           <a
-            className="cursor-pointer"
+            className="cursor-pointer text-white md:text-black"
             onClick={() => {
               setType("privite");
               setModalShow(true);

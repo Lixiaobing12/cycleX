@@ -198,8 +198,13 @@ input::-webkit-inner-spin-button {
 }
 
 a {
-  color: #fff;
+  color: black;
+  font-weight: 600;
   text-decoration: underline;
+}
+
+a:hover{
+  color: inherit;
 }
 
 .shadow-xl,
