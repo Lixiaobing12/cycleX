@@ -155,14 +155,15 @@ const KLine = () => {
 const Performance = () => {
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col w-full items-center gap-10  rounded-box shadow-2xl p-4 text-black">
-      <div className="flex justify-between items-center w-full">
+    <div className="flex flex-col w-full items-center  rounded-box shadow-2xl p-4 text-black">
+      <div className="flex justify-between items-center w-full md:px-6 lg:px-10 3xl:px-14">
         <div>
           <div className="text-[#bbb] text-normal">{t("NAV Price Fluctuation Over 2 Years With Different Scenarios")}</div>
           <div>(+100%APY)</div>
         </div>
         <div>
-          <img src="/assets/incomegrowthboxbtn2.gif" className="w-36 lg:w-36 xl:w-36 2xl:w-40 mt-[-20px] mr-[-20px]" alt="" />
+          {/* <img src="/assets/incomegrowthboxbtn2.gif" className="w-36 lg:w-36 xl:w-36 2xl:w-40 mt-[-20px] mr-[-20px]" alt="" /> */}
+          <img src="/assets/box.png" alt="" className="w-28 lg:w-32 xl:w-36 2xl:w-40 animate__animated animate__pulse animate__infinite" />
         </div>
       </div>
       <div>

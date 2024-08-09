@@ -289,9 +289,11 @@ const Book = () => {
                   <p className="my-2 flex gap-4">
                     Distribution ratio:
                     <ol className="ml-4">
-                      <li>Team: 50%</li>
-                      <li>Airdrop: 20%</li>
-                      <li>Sales: 30% (including public and private)</li>
+                      <li>Team and Investors: 30%</li>
+                      <li>Market Liauidity and Trade: 25%</li>
+                      <li>Early Airdrop: 20%</li>
+                      <li>Market Plan: 17.5%</li>
+                      <li>Ecosystems: 7.5%</li>
                     </ol>
                   </p>
                   <p className="my-2">Standard: ERC20</p>
@@ -629,9 +631,11 @@ const Book = () => {
                   <p className="my-2 flex gap-4">
                     分配比例:
                     <ol className="ml-4">
-                      <li>团队：50%</li>
-                      <li>空投：20%</li>
-                      <li>销售：30%（含公开和私募）</li>
+                      <li>团队和投资人: 30%</li>
+                      <li>市场流动性和交易: 25%</li>
+                      <li>早期空投: 20%</li>
+                      <li>营销计划: 17.5%</li>
+                      <li>生态系统: 7.5%</li>
                     </ol>
                   </p>
                   <p className="my-2">区块链：以太坊 标准：ERC20</p>

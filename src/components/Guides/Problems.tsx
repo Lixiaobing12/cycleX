@@ -43,7 +43,7 @@ const Problems = () => {
             <p>{t("Currently, CycleX is only open for the compliance market and provides compliance services in accordance with regulatory requirements. Ensure compliance with the regulatory requirements of the target market.")}</p>
 
             <h3 className="text-black text-base my-2">{t("Future regulatory direction")}:</h3>
-            <p>{t("ycleX plans to gradually acquire more regulatory licenses according to the requirements of the target markets and comply with the laws and regulatory direction of the target governments to ensure compliance.")}</p>
+            <p>{t("cycleX plans to gradually acquire more regulatory licenses according to the requirements of the target markets and comply with the laws and regulatory direction of the target governments to ensure compliance.")}</p>
           </div>
         </details>
 

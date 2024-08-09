@@ -108,6 +108,7 @@ const BlindBox = () => {
     Amount: 0,
     Login: false,
     Share: false,
+    firstRecharge: false,
   });
   const [data, setData] = useState([
     { title: "Sign Up", content: "Users are given 1 lottery chance for completing registration.", avatar: "/assets/blindbox-tasks-1.png", done: true, times: 1 },
@@ -232,6 +233,13 @@ const BlindBox = () => {
           //   return [...state];
           // });
         });
+      request.get("/api/api/user/validUserFirstRecharge").then((res) => {
+        setLotteryInfo((state) => ({ ...state, firstRecharge: res.data.data }));
+        setData(state=>{
+          state[2].done = res.data.data;
+          return [...state];
+        })
+      });
     } else {
       setTimeout(init, 1000);
     }
