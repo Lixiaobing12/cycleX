@@ -194,7 +194,7 @@ const ForgetSafetyCode: React.FC<{
                   onFinish={() => setCountDownShow(false)}
                 />
               ) : (
-                <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                <a className="text-sm " onClick={sendCode}>
                   {sending ? <Loader spinning={sending} /> : t("Send")}
                 </a>
               )

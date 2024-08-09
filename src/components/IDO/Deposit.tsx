@@ -181,7 +181,7 @@ const SettingKey: React.FC<{
                   onFinish={() => setCountDownShow(false)}
                 />
               ) : (
-                <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                <a className="text-sm " onClick={sendCode}>
                   {sending ? <Loader spinning={sending} /> : t("Send")}
                 </a>
               )
@@ -295,7 +295,7 @@ const SafetyInput: React.FC<{
         ))}
       </div>
       <div className="my-1 text-right">
-        <a className="text-[#193CF6]" onClick={open}>
+        <a className="" onClick={open}>
           {t("Forget")}
         </a>
       </div>

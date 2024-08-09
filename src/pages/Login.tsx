@@ -201,7 +201,7 @@ const SafetyInput: React.FC<{
                   onFinish={() => setCountDownShow(false)}
                 />
               ) : (
-                <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                <a className="text-sm " onClick={sendCode}>
                   {sending ? <Loader spinning={sending} /> : t("Send")}
                 </a>
               )
@@ -318,7 +318,7 @@ const In = () => {
             <div className="flex w-full flex-col mb-10">
               <div className="flex justify-between items-center w-full mb-1">
                 <span className="text-white md:text-current">{t("Password")}</span>
-                <a className="text-[#193CF6]" onClick={() => setType("Forgot")}>
+                <a className="" onClick={() => setType("Forgot")}>
                   {t("Forget")}
                 </a>
               </div>
@@ -348,7 +348,7 @@ const In = () => {
           <Form.Item>
             <div className="text-center">
               <span className="text-white md:text-current	">{t("No account yet")}?</span>
-              <a className="ml-2 text-[#193CF6]" onClick={() => navigate("/login?t=up")}>
+              <a className="ml-2 " onClick={() => navigate("/login?t=up")}>
                 {t("Sign up")}
               </a>
             </div>
@@ -653,7 +653,7 @@ const Up = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                    <a className="text-sm " onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
@@ -684,7 +684,7 @@ const Up = () => {
                 }}>
                 <span className="text-white md:text-current">{t("I have read, agreed and understood")}</span>
                 <a
-                  className="text-[#193CF6]"
+                  className=""
                   onClick={(e) => {
                     e.stopPropagation();
                     setType("agreement");
@@ -694,7 +694,7 @@ const Up = () => {
                 </a>
                 &
                 <a
-                  className="text-[#193CF6]"
+                  className=""
                   onClick={(e) => {
                     e.stopPropagation();
                     setType("privite");
@@ -876,7 +876,7 @@ const ForgotEmail = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                    <a className="text-sm " onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
@@ -1109,7 +1109,7 @@ const ForgotPhone = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm text-[#193CF6]" onClick={sendCode}>
+                    <a className="text-sm " onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
