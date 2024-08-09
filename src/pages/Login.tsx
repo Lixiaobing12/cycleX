@@ -13,6 +13,7 @@ import useLocalStorage, { useTranslateLocalStorage } from "../hooks/localStorage
 import useAccounts from "../hooks/user";
 import { request } from "../utils/request";
 import { validPhoneNumber } from "../utils/validMobildPhone";
+import { InviteCodeAtom } from "../atom/invite";
 
 const tabTypes = atom<"Sign" | "Forgot" | "Revise">("Sign");
 
@@ -366,6 +367,7 @@ type SecrityKeyType = {
 };
 /** 注册 */
 const Up = () => {
+  const [referral_code] = useAtom(InviteCodeAtom);
   const [modal] = useAtom(modalContext);
   const navigator = useNavigate();
   const { handleTranslate } = useTranslateLocalStorage();
@@ -552,25 +554,31 @@ const Up = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en === "Chain" ? "China" : item.name_en,
-                title: item.name_en === "Chain" ? "China" : item.name_en,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name_en === "Chain" ? "China" : item.name_en,
+              title: item.name_en === "Chain" ? "China" : item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
             : {
-                label: item.name,
-                title: item.name,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
         )
       );
     });
   }, [i18n.language]);
+
+  useEffect(() => {
+
+    console.log(referral_code)
+    referral_code && setInviteCode(referral_code)
+  }, [referral_code])
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
@@ -664,7 +672,7 @@ const Up = () => {
               <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
             </Form.Item>
             <Form.Item label={t("Referral code (optional)")}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setInviteCode(e.target.value)} size="large" placeholder={t("Referral code")} />
+              <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setInviteCode(e.target.value)} value={inviteCode} size="large" placeholder={t("Referral code")} />
             </Form.Item>
           </Col>
           <Form.Item>
@@ -1043,21 +1051,21 @@ const ForgotPhone = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en === "Chain" ? "China" : item.name_en,
-                title: item.name_en === "Chain" ? "China" : item.name_en,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name_en === "Chain" ? "China" : item.name_en,
+              title: item.name_en === "Chain" ? "China" : item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
             : {
-                label: item.name,
-                title: item.name,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
         )
       );
     });
@@ -1259,7 +1267,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => {};
+  const confirm = () => { };
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>
