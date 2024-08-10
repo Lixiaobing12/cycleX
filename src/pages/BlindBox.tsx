@@ -348,7 +348,7 @@ const BlindBox = () => {
                       item.done ? (
                         <img src="/assets/done.png" className="w-14" />
                       ) : index === 1 ? (
-                        <button className="btn btn-sm hover:bg-black hover:scale-105 bg-black text-white rounded-full w-14" onClick={() => handleCopy(invite_url)}>
+                        <button className="btn btn-sm hover:bg-black hover:scale-105 bg-black text-white text-xs rounded-full w-14" onClick={() => handleCopy(invite_url)}>
                           {t("COPY")}
                         </button>
                       ) : (
