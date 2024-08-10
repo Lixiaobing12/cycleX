@@ -248,10 +248,10 @@ const BlindBox = () => {
         });
       request.get("/api/api/user/validUserFirstRecharge").then((res) => {
         setLotteryInfo((state) => ({ ...state, firstRecharge: res.data.data }));
-        setData(state => {
+        setData((state) => {
           state[2].done = res.data.data;
           return [...state];
-        })
+        });
       });
     } else {
       setTimeout(init, 1000);
@@ -283,7 +283,7 @@ const BlindBox = () => {
   };
   useEffect(() => {
     init();
-    setInviteUrl(window.location.origin + "?referral=" + account?.referral_code)
+    setInviteUrl(window.location.origin + "/login?t=up&referral=" + account?.referral_code);
   }, [account]);
   useEffect(() => {
     screenRef.current = new BulletJs("#danmu-screen", { speed: 80, trackHeight: 50 });
@@ -364,19 +364,25 @@ const BlindBox = () => {
                     <List.Item.Meta
                       avatar={<Avatar src={item.avatar} size={60} shape="square" />}
                       title={<span className="text-white text-md">{t(item.title)}</span>}
-                      description={<div>{
-                        index === 1 ? (
-                          <div>
-                            <div className="text-grey">{t(item.content)}</div>
-                            <div className="flex items-center gap-2">
-                              <div className="text-white">{invite_url}</div>
-                              <div className="btn btn-xs text-white bg-transparent border-white hover:bg-white hover:text-black rounded-full" onClick={() => handleCopy(invite_url)}>COPY</div>
+                      description={
+                        <div>
+                          {index === 1 ? (
+                            <div>
+                              <div className="text-grey">{t(item.content)}</div>
+                              {account && (
+                                <div className="flex items-center gap-2">
+                                  <div className="text-white">{invite_url}</div>
+                                  <div className="btn btn-xs text-white bg-transparent border-white hover:bg-white hover:text-black rounded-full" onClick={() => handleCopy(invite_url)}>
+                                    COPY
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                          </div>
-                        ) : (
-                          <span className="text-grey">{t(item.content)}</span>
-                        )
-                      }</div>}
+                          ) : (
+                            <span className="text-grey">{t(item.content)}</span>
+                          )}
+                        </div>
+                      }
                     />
                   </List.Item>
                 )}

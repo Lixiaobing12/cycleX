@@ -48,10 +48,11 @@ function App() {
   useEffect(() => {
     const img = new Image();
     img.src = "/assets/comp.gif";
-    const match = window.location.href.match(/\?referral=([^&]*)/);
+    const match = window.location.href.match(/referral=([^&]*)/);
     const code = match ? match[1] : null;
-    setReferralCode(code);
 
+    console.log("code", code);
+    setReferralCode(code);
   }, []);
   return (
     <div>
@@ -90,6 +91,10 @@ function App() {
 }
 
 const AppWithProvider = () => {
-  return <AntdApp><App /></AntdApp>
-}
+  return (
+    <AntdApp>
+      <App />
+    </AntdApp>
+  );
+};
 export default AppWithProvider;
