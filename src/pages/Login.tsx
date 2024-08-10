@@ -182,10 +182,11 @@ const SafetyInput: React.FC<{
     <div>
       <Form form={form} layout="vertical" autoComplete="off">
         <Form.Item label={t("Account")}>
-          <Input className="placeholder:text-sm placeholder:text-greyblack" type="text" readOnly size="large" value={nickname} />
+          <Input className="placeholder:text-xs placeholder:text-greyblack" type="text" readOnly size="large" value={nickname} />
         </Form.Item>
         <Form.Item label={t("Verification code")} validateStatus={codeItemStatus as any}>
           <Input
+            className="placeholder:text-xs placeholder:text-greyblack text-sm"
             onChange={(e) => setCode(e.target.value)}
             size="large"
             placeholder={t("Verification Code")}
@@ -197,7 +198,7 @@ const SafetyInput: React.FC<{
                   suffix="s"
                   valueStyle={{
                     fontSize: "14px",
-                    color: "#193CF6",
+                    color: "#999",
                   }}
                   onFinish={() => setCountDownShow(false)}
                 />
@@ -220,7 +221,7 @@ const SafetyInput: React.FC<{
             </div>
           }>
           <Input
-            className="placeholder:text-sm placeholder:text-greyblack"
+            className="placeholder:text-xs placeholder:text-greyblack"
             type="password"
             autoComplete="new-password"
             onChange={(e) => {
@@ -236,7 +237,7 @@ const SafetyInput: React.FC<{
           />
         </Form.Item>
         <Form.Item label={t("Verify payment password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-          <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
+          <Input className="placeholder:text-xs placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
         </Form.Item>
         <Form.Item>
           <button className="btn btn-block m-auto mt-4 disabled:text-black-800" disabled={!vilid || !inputsAreCorrect} onClick={checkSecurity}>
@@ -313,7 +314,7 @@ const In = () => {
       <Row align="middle" justify="center">
         <Col xs={{ span: 22 }} md={{ span: 12 }}>
           <Form.Item label={t("Username")}>
-            <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Email Address")} />
+            <Input className="placeholder:text-xs placeholder:text-greyblack" onChange={(e) => setNickName(e.target.value)} size="large" placeholder={t("Email Address")} />
           </Form.Item>
           <Form.Item noStyle>
             <div className="flex w-full flex-col mb-10">
@@ -325,7 +326,7 @@ const In = () => {
               </div>
               <div className="relative items-center flex">
                 <Input
-                  className="placeholder:text-sm placeholder:text-greyblack"
+                  className="placeholder:text-xs placeholder:text-greyblack"
                   type={visible ? "text" : "password"}
                   onChange={(e) => setPassword(e.target.value)}
                   size="large"
@@ -554,31 +555,30 @@ const Up = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-              label: item.name_en === "Chain" ? "China" : item.name_en,
-              title: item.name_en === "Chain" ? "China" : item.name_en,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name_en === "Chain" ? "China" : item.name_en,
+                title: item.name_en === "Chain" ? "China" : item.name_en,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
             : {
-              label: item.name,
-              title: item.name,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name,
+                title: item.name,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
         )
       );
     });
   }, [i18n.language]);
 
   useEffect(() => {
-
-    console.log(referral_code)
-    referral_code && setInviteCode(referral_code)
-  }, [referral_code])
+    console.log(referral_code);
+    referral_code && setInviteCode(referral_code);
+  }, [referral_code]);
   return (
     <Form form={form} layout="vertical" autoComplete="off">
       <Row align="middle" justify="center">
@@ -607,7 +607,7 @@ const Up = () => {
             {emailOrPhone === 1 ? (
               <Form.Item label={t("Email")} validateStatus={validateStatus as any}>
                 <Input
-                  className="placeholder:text-sm placeholder:text-greyblack"
+                  className="placeholder:text-xs placeholder:text-greyblack"
                   key="email"
                   onChange={(e) => {
                     setStatus("validating");
@@ -620,7 +620,7 @@ const Up = () => {
             ) : (
               <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
                 <Input
-                  className="placeholder:text-sm placeholder:text-greyblack text-sm"
+                  className="placeholder:text-xs placeholder:text-greyblack text-sm"
                   key="phone"
                   addonBefore={
                     <div className="min-w-10">
@@ -644,7 +644,7 @@ const Up = () => {
             )}
             <Form.Item label={t("Verification code")}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack text-sm"
+                className="placeholder:text-xs placeholder:text-greyblack text-sm antd-input-password"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
                 placeholder={t("Enter code")}
@@ -656,7 +656,7 @@ const Up = () => {
                       suffix="s"
                       valueStyle={{
                         fontSize: "14px",
-                        color: "#193CF6",
+                        color: "#999",
                       }}
                       onFinish={() => setCountDownShow(false)}
                     />
@@ -669,10 +669,15 @@ const Up = () => {
               />
             </Form.Item>
             <Form.Item label={t("Password")}>
-              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setPassword(e.target.value)} size="large" placeholder={t("Please set a password")} />
+              <Input.Password
+                className="placeholder:text-xs placeholder:text-greyblack antd-input-password"
+                onChange={(e) => setPassword(e.target.value)}
+                size="large"
+                placeholder={t("Please set a password")}
+              />
             </Form.Item>
             <Form.Item label={t("Referral code (optional)")}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setInviteCode(e.target.value)} value={inviteCode} size="large" placeholder={t("Referral code")} />
+              <Input className="placeholder:text-xs placeholder:text-greyblack" onChange={(e) => setInviteCode(e.target.value)} value={inviteCode} size="large" placeholder={t("Referral code")} />
             </Form.Item>
           </Col>
           <Form.Item>
@@ -855,7 +860,7 @@ const ForgotEmail = () => {
           <Col className={`${loading && "opacity-30	pointer-events-none"}`}>
             <Form.Item label={t("Email")} validateStatus={validateStatus as any}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack"
+                className="placeholder:text-xs placeholder:text-greyblack"
                 onChange={(e) => {
                   setStatus("validating");
                   setNEmail(e.target.value);
@@ -867,7 +872,7 @@ const ForgotEmail = () => {
 
             <Form.Item label={t("Verification code")}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack text-sm"
+                className="placeholder:text-xs placeholder:text-greyblack text-sm antd-input-password"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
                 placeholder={t("Enter code")}
@@ -879,7 +884,7 @@ const ForgotEmail = () => {
                       suffix="s"
                       valueStyle={{
                         fontSize: "14px",
-                        color: "#193CF6",
+                        color: "#999",
                       }}
                       onFinish={() => setCountDownShow(false)}
                     />
@@ -893,7 +898,7 @@ const ForgotEmail = () => {
             </Form.Item>
             <Form.Item label={t("New Password")}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack"
+                className="placeholder:text-xs placeholder:text-greyblack"
                 type="password"
                 autoComplete="new-password"
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -902,7 +907,7 @@ const ForgotEmail = () => {
               />
             </Form.Item>
             <Form.Item label={t("Confirm new password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Enter new password again")} />
+              <Input className="placeholder:text-xs placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Enter new password again")} />
             </Form.Item>
           </Col>
           <Form.Item>
@@ -1051,21 +1056,21 @@ const ForgotPhone = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-              label: item.name_en === "Chain" ? "China" : item.name_en,
-              title: item.name_en === "Chain" ? "China" : item.name_en,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name_en === "Chain" ? "China" : item.name_en,
+                title: item.name_en === "Chain" ? "China" : item.name_en,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
             : {
-              label: item.name,
-              title: item.name,
-              key: item.prefix,
-              onClick: (e: any) => {
-                setPhonePrefix(e.key);
-              },
-            }
+                label: item.name,
+                title: item.name,
+                key: item.prefix,
+                onClick: (e: any) => {
+                  setPhonePrefix(e.key);
+                },
+              }
         )
       );
     });
@@ -1077,7 +1082,7 @@ const ForgotPhone = () => {
           <Col className={`${loading && "opacity-30	pointer-events-none"}`}>
             <Form.Item label={t("Phone number")} validateStatus={validateStatus as any}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack text-sm"
+                className="placeholder:text-xs placeholder:text-greyblack text-sm"
                 key="phone"
                 addonBefore={
                   <div className="min-w-10">
@@ -1100,7 +1105,7 @@ const ForgotPhone = () => {
             </Form.Item>
             <Form.Item label={t("Verification code")}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack text-sm"
+                className="placeholder:text-xs placeholder:text-greyblack text-sm"
                 onChange={(e) => setCode(e.target.value)}
                 size="large"
                 placeholder={t("Enter code")}
@@ -1112,7 +1117,7 @@ const ForgotPhone = () => {
                       suffix="s"
                       valueStyle={{
                         fontSize: "14px",
-                        color: "#193CF6",
+                        color: "#999",
                       }}
                       onFinish={() => setCountDownShow(false)}
                     />
@@ -1126,7 +1131,7 @@ const ForgotPhone = () => {
             </Form.Item>
             <Form.Item label={t("New Password")}>
               <Input
-                className="placeholder:text-sm placeholder:text-greyblack"
+                className="placeholder:text-xs placeholder:text-greyblack"
                 type="password"
                 autoComplete="new-password"
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -1135,7 +1140,7 @@ const ForgotPhone = () => {
               />
             </Form.Item>
             <Form.Item label={t("Confirm new password")} validateStatus={!!newPassword && !vilid ? "warning" : "validating"}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Enter new password again")} />
+              <Input className="placeholder:text-xs placeholder:text-greyblack" type="password" onChange={onVilid} size="large" placeholder={t("Enter new password again")} />
             </Form.Item>
           </Col>
 
@@ -1267,7 +1272,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => { };
+  const confirm = () => {};
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>
@@ -1275,13 +1280,18 @@ const Revise = () => {
         <Row align="middle" justify="center">
           <Col xs={{ span: 22 }} md={{ span: 12 }}>
             <Form.Item label={t("Old Password")}>
-              <Input className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setOldPassword(e.target.value)} size="large" placeholder={t("Please enter old password")} />
+              <Input className="placeholder:text-xs placeholder:text-greyblack" onChange={(e) => setOldPassword(e.target.value)} size="large" placeholder={t("Please enter old password")} />
             </Form.Item>
             <Form.Item label={t("New Password")}>
-              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={(e) => setNewPassword(e.target.value)} size="large" placeholder={t("New password")} />
+              <Input.Password
+                className="placeholder:text-xs placeholder:text-greyblack antd-input-password"
+                onChange={(e) => setNewPassword(e.target.value)}
+                size="large"
+                placeholder={t("New password")}
+              />
             </Form.Item>
             <Form.Item label={t("New password verification")} validateStatus={!!newPassword && !vilid ? "error" : "success"}>
-              <Input.Password className="placeholder:text-sm placeholder:text-greyblack" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
+              <Input.Password className="placeholder:text-xs placeholder:text-greyblack antd-input-password" onChange={onVilid} size="large" placeholder={t("Verify new password")} />
             </Form.Item>
             <Form.Item>
               <button className="btn btn-block border-0 bg-black text-white disabled:bg-[#DFE0E4] disabled:text-black-800" disabled={!vilid} onClick={confirm}>

@@ -9,7 +9,8 @@ TARGET_DIST=/www/wwwroot/cyclex.monster-island.top
 
 # 打包完，上传到服务器
 npm run build && \
-sshpass -p "#8vHw_!EDE7Jk[S=" scp -r ./$DIST/* root@$SERVER_HOST:$TARGET_DIST
+sshpass -p "#8vHw_!EDE7Jk[S=" scp -r ./$DIST/static/* root@$SERVER_HOST:$TARGET_DIST/static
+sshpass -p "#8vHw_!EDE7Jk[S=" scp -r ./$DIST/index.html root@$SERVER_HOST:$TARGET_DIST
 
 # 服务器重启nginx
 sshpass -p "#8vHw_!EDE7Jk[S=" ssh root@$SERVER_HOST "nginx -s reload"
