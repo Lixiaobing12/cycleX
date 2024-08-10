@@ -1,6 +1,6 @@
 import { CaretRightOutlined, CloseCircleOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
-import { Avatar, Collapse, CollapseProps, Divider, List, Table, TableProps } from "antd";
+import { Avatar, Collapse, CollapseProps, Divider, List, Modal, Table, TableProps } from "antd";
 import { useAtom } from "jotai";
 import BulletJs from "js-bullets";
 import moment from "moment";
@@ -52,7 +52,7 @@ const AppendLotteryUserRecordComponent = () => {
     },
   ];
   const getData = () => {
-    if (account?.id) {
+    if (account?.id && !userLotteryList.length) {
       request
         .post("/sapi/lottery/list", {
           UserId: account?.id,
@@ -68,28 +68,85 @@ const AppendLotteryUserRecordComponent = () => {
       setTimeout(getData, 1000);
     }
   };
-  getData();
+
+  useEffect(() => {
+    getData();
+  }, [account]);
+
   return (
-    // <List>
-    //   <VirtualList data={userLotteryList} height={400} itemHeight={47} itemKey="email">
-    //     {(item) => (
-    //       <List.Item extra={<span>{moment(item.CreatedAt).format("YYYY-MM-DD HH:mm:ss")}</span>}>
-    //         <List.Item.Meta
-    //           title={
-    //             <div className="flex gap-1">
-    //               <span className="text-bold">+{item.Amount}</span>
-    //               <span className="text-greyblack">WFC</span>
-    //             </div>
-    //           }
-    //         />
-    //       </List.Item>
-    //     )}
-    //   </VirtualList>
-    // </List>
-    <Table columns={columns} dataSource={userLotteryList} pagination={false} className="w-full" />
+    <div className="max-h-[300px] overflow-y-auto hidden-scroll">
+      <Table columns={columns} dataSource={userLotteryList} pagination={false} className="w-full" rowKey={"Amount"} />
+    </div>
   );
 };
 
+const AppendUserInvationRecordComponent = () => {
+  const [userInvationList, setUserInvationList] = useState<any[]>([]);
+  const [, account] = useAccounts();
+  const { t } = useTranslation();
+  const [sums, setSums] = useState(0);
+  const [valid, setValid] = useState(0);
+  const columns: TableProps["columns"] = [
+    {
+      title: t("Account"),
+      key: "name",
+      dataIndex: "name",
+    },
+    {
+      title: t("Time"),
+      key: "created_at",
+      render: ({ created_at }) => <span>{moment(created_at).format("MM/DD HH:mm")}</span>,
+    },
+  ];
+  const getData = () => {
+    if (account?.id && !userInvationList.length) {
+      request
+        .get("/api/api/user/getInvitelist", {
+          params: {
+            user_id: account?.id,
+            page: 1,
+            size: 9999,
+          },
+        })
+        .then(({ data }) => {
+          const newdata = new Set<any>(data.data);
+          setUserInvationList(Array.from(newdata));
+        });
+
+      request
+        .get("/api/api/user/getInviteSum", {
+          params: {
+            user_id: account?.id,
+          },
+        })
+        .then(({ data }) => {
+          setSums(data.data.sums);
+          setValid(data.data.valids);
+        });
+    } else {
+      setTimeout(getData, 1000);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, [account]);
+  return (
+    <div className="max-h-[300px] overflow-y-auto hidden-scroll">
+      <div className="flex w-full justify-center items-center gap-2 my-2">
+        <span className="text-xs text-black font-bold">
+          {t("Invited friends")} ({sums})
+        </span>
+        <div>
+          <img src="/assets/union.png" width={50} alt="" />
+        </div>
+        <span className="text-xs text-black font-bold">
+          {t("Purchased Accounts")} ({valid})
+        </span>
+      </div>
+      <Table columns={columns} dataSource={userInvationList} pagination={false} className="w-full" />
+    </div>
+  );
+};
 const BlindBox = () => {
   const navigate = useNavigate();
   const [, account] = useAccounts();
@@ -103,7 +160,8 @@ const BlindBox = () => {
   const invite_img = useRef("");
   const { width } = useWindowSize();
   const [invite_url, setInviteUrl] = useState("");
-
+  const [openLotteryModal, setOpenLotteryModal] = useState(false);
+  const [openInvationModal, setopenInvationModal] = useState(false);
   const [lotteryInfo, setLotteryInfo] = useState({
     LotteryNum: 0,
     Amount: 0,
@@ -117,44 +175,6 @@ const BlindBox = () => {
     { title: "First Recharge", content: "First recharge rewards 2 times", avatar: "/assets/blindbox-tasks-4.png", done: false, times: 2 },
     { title: "Invest In Products", content: "Invest more than $10 and unclock more times", avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
   ]);
-
-  // const invite = async () => {
-  //   const context: any = modal?.info({
-  //     closable: false,
-  //     icon: <></>,
-  //     onCancel: () => context.destroy(),
-  //     title: null,
-  //     modalRender: () => (
-  //       <div className="w-full flex flex-col items-center pointer-events-auto">
-  //         <button className="btn btn-circle mb-2 bg-black border-0 btn-sm hover:bg-black hover:scale-105" onClick={() => context.destroy()}>
-  //           <img src="/assets/x.png" width={26} alt="" />
-  //         </button>
-  //         <img src={invite_img.current} alt="" className="w-[320px] md:w-[380px]" />
-
-  //         <a href={invite_img.current} download target="_blank">
-  //           <button className="btn btn-wide  mt-2">{t("Download")}</button>
-  //         </a>
-  //       </div>
-  //     ),
-  //     centered: true,
-  //     footer: null,
-  //   });
-  // };
-  // const handleCopy = () => {
-  // navigate("/blindbox")
-  // invite();
-  // copy("https://cyclex.cc")
-  //   .then(() => {
-  //     toast?.success({
-  //       icon: <img src="/assets/success.png" width={30} />,
-  //       message: "Copied!",
-  //     });
-
-  //   })
-  //   .catch((error) => {
-  //     console.error("Failed to copy!", error);
-  //   });
-  // };
   const handleCopy = (text: string) => {
     copy(text)
       .then(() => {
@@ -207,30 +227,6 @@ const BlindBox = () => {
           });
         }, 4500);
       });
-  };
-
-  const handleList = () => {
-    const context: any = modal?.info({
-      closable: {
-        closeIcon: (
-          <Icon size={18}>
-            <img src="/assets/close_r.png" />
-          </Icon>
-        ),
-      },
-      icon: <></>,
-      onCancel: () => context.destroy(),
-      title: (
-        <div className="text-center">
-          <h1 className="w-full py-2 text-center text-xl">Records</h1>
-        </div>
-      ),
-      content: <AppendLotteryUserRecordComponent />,
-      centered: true,
-      footer: null,
-      width: "375px",
-      height: "400px",
-    });
   };
 
   const init = () => {
@@ -303,6 +299,50 @@ const BlindBox = () => {
 
   return (
     <>
+      <Modal
+        open={openLotteryModal}
+        onClose={() => setOpenLotteryModal(false)}
+        centered
+        width="375px"
+        height="300px"
+        footer={null}
+        maskClosable={false}
+        modalRender={() => (
+          <div className="relative pointer-events-auto p-4 bg-white rounded-box">
+            <div className="text-center">
+              <h1 className="w-full py-2 text-center text-xl">Records</h1>
+            </div>
+            <a className="absolute top-2 right-2 cursor-pointer" onClick={() => setOpenLotteryModal(false)}>
+              <Icon size={18}>
+                <img src="/assets/close_r.png" />
+              </Icon>
+            </a>
+            <AppendLotteryUserRecordComponent />
+          </div>
+        )}></Modal>
+
+      <Modal
+        open={openInvationModal}
+        onClose={() => setopenInvationModal(false)}
+        centered
+        height="300px"
+        width="375px"
+        footer={null}
+        maskClosable={false}
+        modalRender={() => (
+          <div className="relative pointer-events-auto p-4 bg-white rounded-box">
+            <div className="text-center">
+              <h1 className="w-full py-2 text-center text-xl">{t("Invitation Records")}</h1>
+            </div>
+            <a className="absolute top-2 right-2 cursor-pointer" onClick={() => setopenInvationModal(false)}>
+              <Icon size={18}>
+                <img src="/assets/close_r.png" />
+              </Icon>
+            </a>
+            <AppendUserInvationRecordComponent />
+          </div>
+        )}></Modal>
+
       <div className="bg-black bg-blindboxbgh5 bg-100 xl:bg-blindboxbg flex flex-col lg:flex-row justify-center items-center lg:items-start py-10 gap-14 lg:py-20">
         <div className="relative">
           {openStatus && (
@@ -319,7 +359,7 @@ const BlindBox = () => {
             <div id="danmu-screen" className="w-full lg:w-[130%] h-[150px] "></div>
             <img src="/assets/box-shine.png" width={500} alt="" className="lg:my-[-30px]" />
             <div className={`relative flex-center gap-4 w-full`}>
-              <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={handleList}>
+              <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={() => setOpenLotteryModal(true)}>
                 <WrapperImg src="/assets/blindbox-coin.png" width={16} />
                 <div className="flex flex-col justify-center items-start ml-2">
                   <span className="text-white">{lotteryInfo.Amount}</span>
@@ -329,8 +369,11 @@ const BlindBox = () => {
               <div className="flex-center-col w-fit">
                 <div className="bg-blindboxpopbg bg-100 px-4 py-1 self-end mb-1 flex pb-2">+{lotteryInfo.LotteryNum} times</div>
                 <a style={lotteryInfo.LotteryNum === 0 ? { pointerEvents: "none", filter: "brightness(0.5)" } : {}}>
-                  <WrapperImg src="/assets/blindbox-btn-open.png" className="h-[50px]" width={200} onClick={handleOpen} />
+                  <WrapperImg src="/assets/blindbox-btn-open.png" className="h-[50px] xxs:w-[100px] xs:w-[150px] lg:w-[200px]]" onClick={handleOpen} />
                 </a>
+              </div>
+              <div className="flex-center self-end flex bg-white p-1 px-2 rounded-md h-12" onClick={() => setopenInvationModal(true)}>
+                <span className="text-black text-xs">{t(width > 600 ? "Invitation Records" : "Invitation")}</span>
               </div>
             </div>
           </div>
