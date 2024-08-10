@@ -347,6 +347,10 @@ const BlindBox = () => {
                     extra={
                       item.done ? (
                         <img src="/assets/done.png" className="w-14" />
+                      ) : index === 1 ? (
+                        <button className="btn btn-sm hover:bg-black hover:scale-105 bg-black text-white rounded-full w-14" onClick={() => handleCopy(invite_url)}>
+                          {t("COPY")}
+                        </button>
                       ) : (
                         <button
                           className="btn btn-sm hover:bg-black hover:scale-105 bg-black text-white rounded-full w-14"
@@ -363,24 +367,19 @@ const BlindBox = () => {
                     }>
                     <List.Item.Meta
                       avatar={<Avatar src={item.avatar} size={60} shape="square" />}
-                      title={<span className="text-white text-md">{t(item.title)}</span>}
+                      title={
+                        index === 1 ? (
+                          <div>
+                            <span className="text-white text-md">{t(item.title)}</span>
+                            <div className="btn btn-xs px-4 py-0 h-auto text-white hover:bg-transparent ml-4 bg-transparent border-white rounded-full">+1</div>
+                          </div>
+                        ) : (
+                          <span className="text-white text-md">{t(item.title)}</span>
+                        )
+                      }
                       description={
                         <div>
-                          {index === 1 ? (
-                            <div>
-                              <div className="text-grey">{t(item.content)}</div>
-                              {account && (
-                                <div className="flex items-center gap-2">
-                                  <div className="text-white">{invite_url}</div>
-                                  <div className="btn btn-xs text-white bg-transparent border-white hover:bg-white hover:text-black rounded-full" onClick={() => handleCopy(invite_url)}>
-                                    COPY
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="text-grey">{t(item.content)}</span>
-                          )}
+                          <span className="text-grey">{t(item.content)}</span>
                         </div>
                       }
                     />
