@@ -334,7 +334,7 @@ const BlindBox = () => {
         modalRender={() => (
           <div className="relative pointer-events-auto p-4 bg-white rounded-box">
             <div className="text-center">
-              <h1 className="w-full py-2 text-center text-xl">{t("Invitation Records")}</h1>
+              <h1 className="w-full py-2 text-center text-xl">{t("Invitation Lists")}</h1>
             </div>
             <a className="absolute top-2 right-2 cursor-pointer" onClick={() => setopenInvationModal(false)}>
               <Icon size={18}>
