@@ -358,7 +358,7 @@ const BlindBox = () => {
           )}
           <div className={`gap-4 pb-10 flex-center-col ${openStatus ? "opacity-0" : ""} justify-start`}>
             <img src={width > 600 ? "/assets/titlepc.png" : "/assets/titlemb.png"} alt="" width={width > 600 ? 700 : 300} className="max-w-[80vw]" />
-            <div id="danmu-screen" className="w-full lg:w-[130%] h-[150px] "></div>
+            <div id="danmu-screen" className="w-full lg:w-[130%] h-[150px] right-[5%]"></div>
             <img src="/assets/box-shine.png" width={500} alt="" className="lg:my-[-30px]" />
             <div className={`relative flex-center gap-4 w-full`}>
               <div className="flex-center self-end flex bg-[#373737] rounded-lg cursor-pointer  animate__animated  hover:animate__pulse" onClick={() => setOpenLotteryModal(true)}>
@@ -397,12 +397,13 @@ const BlindBox = () => {
         <div className="p-4 lg:pt-0">
           <div className="w-full m-auto">
             <div className="bg-[transparent] text-white border border-[#555555] text-center py-2 rounded-lg text-lg">Lucky Tasks</div>
-            <div>
+            <div className="mt-8">
               <List
                 itemLayout="horizontal"
                 dataSource={data}
                 renderItem={(item, index) => (
                   <List.Item
+                    className="iglass2"
                     extra={
                       item.done ? (
                         <img src="/assets/done.png" className="w-14" />
@@ -412,7 +413,7 @@ const BlindBox = () => {
                         </button>
                       ) : (
                         <button
-                          className="btn btn-sm hover:bg-black hover:scale-105 bg-black text-white rounded-full w-14"
+                          className="btn btn-sm hover:bg-white hover:scale-105 bg-white text-black rounded-full w-14"
                           onClick={() => {
                             if (index === 2) {
                               navigate("/wallet");
@@ -429,16 +430,16 @@ const BlindBox = () => {
                       title={
                         index === 1 ? (
                           <div>
-                            <span className="text-white text-md">{t(item.title)}</span>
+                            <span className="text-white text-sm text-light">{t(item.title)}</span>
                             <div className="btn btn-xs px-4 py-0 h-auto text-white hover:bg-transparent ml-4 bg-transparent border-white rounded-full">+1</div>
                           </div>
                         ) : (
-                          <span className="text-white text-md">{t(item.title)}</span>
+                          <span className="text-white text-sm text-light">{t(item.title)}</span>
                         )
                       }
                       description={
                         <div>
-                          <span className="text-grey">{t(item.content)}</span>
+                          <span className="text-grey text-xs">{t(item.content)}</span>
                         </div>
                       }
                     />
