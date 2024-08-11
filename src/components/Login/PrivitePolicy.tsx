@@ -5,7 +5,7 @@ const PrivitePolicy = () => {
     return (
         <div>
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Privacy policy")}</h2>
-            <p>{t("Last Updated: July, 2024")}</p>
+            <p>{t("Last Updated: Aug, 2024")}</p>
             {i18n.language === "en" ? (
                 <div>
                     <p>This Privacy Policy (the "Policy") describes how Whaleflow collects, uses and discloses information, and your choices regarding this information. Please read this Policy carefully and if you have questions, please contact us at services@whaleflow.co.</p>

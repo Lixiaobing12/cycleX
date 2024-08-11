@@ -111,7 +111,7 @@ const TodoListAssets = () => {
         </div>
 
         <div className="self-end md:self-auto flex items-center text-greyblack text-sm">
-          <span className="mr-2">{t("Until July/1,2024")}</span>
+          <span className="mr-2">{t("Until 01/08/2024")}</span>
           <WrapperImg src="/assets/reflush.png" width={14} />
         </div>
       </div>

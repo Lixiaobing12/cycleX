@@ -13,7 +13,7 @@ const Law = () => {
           <summary className="collapse-title text-md font-normal">{t("User Service Agreement")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}</h2>
-            <p>{t("Last Updated: July, 2024")}</p>
+            <p>{t("Last Updated: Aug, 2024")}</p>
             {i18n.language === "en" ? (
               <ul className="ml-6">
                 <li>
@@ -883,7 +883,7 @@ const Law = () => {
           <summary className="collapse-title text-md font-normal">{t("Disclaimer")}</summary>
           <div className="collapse-content">
             <h2 className="text-black text-base  font-bold font-whalebold my-2">{t("Terms of Service")}:</h2>
-            <p className="mb-4">{t("Last Updated: July, 2024")}</p>
+            <p className="mb-4">{t("Last Updated: Aug, 2024")}</p>
 
             {i18n.language === "en" ? (
               <div>
