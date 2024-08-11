@@ -87,11 +87,18 @@ const AppendUserInvationRecordComponent = () => {
   const { t } = useTranslation();
   const [sums, setSums] = useState(0);
   const [valid, setValid] = useState(0);
+
+  const formatterEmail = (email: string) => {
+    // 正则表达式匹配
+    let maskedEmail = email.replace(/(^.{2}).*(.{2}(?=@).*)/, "$1...$2");
+    return maskedEmail;
+  };
   const columns: TableProps["columns"] = [
     {
       title: t("Account"),
       key: "name",
       dataIndex: "name",
+      render: (value) => <span>{formatterEmail(value)}</span>,
     },
     {
       title: t("Time"),
