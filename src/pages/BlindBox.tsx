@@ -372,7 +372,7 @@ const BlindBox = () => {
                   </div>
                 </div>
               </div>
-              <div className={`flex-center-col relative ${lotteryInfo.LotteryNum ? "cursor-pointer" : "cursor-no-drop"}`}>
+              <div className={`flex-center-col relative lg:mx-4 ${lotteryInfo.LotteryNum ? "cursor-pointer" : "cursor-no-drop"}`}>
                 <div className="bg-blindboxpopbg bg-100 px-2 self-end flex pb-1 absolute z-10 top-[-25px] right-[-30px]">+{lotteryInfo.LotteryNum} times</div>
                 <div className="bg-[#b2b2b2] rounded-lg text-black text-base font-bold">
                   <div className="bg-white relative rounded-lg bottom-[6px] h-[45px] xxs:w-[100px] xs:w-[150px] lg:w-[200px]] flex-center" onClick={handleOpen}>
