@@ -106,7 +106,7 @@
   "The issuance and redemption process for an asset usually involves the following steps": "资产的发行和赎回流程通常涉及以下步骤",
   "Issuance process": "发行流程",
   "Create an asset: Before issuing a tokenized asset, it needs to be created. This may involve the asset manager or issuer working with a partner, such as a technology service provider, to determine the characteristics, parameters, and compliance requirements of the asset.": "创建资产：在发行代币化资产之前，需要进行资产的创建。这可能涉及资产管理公司或发行方与合作伙伴（如技术服务提供商）合作，确定资产的特征、参数和合规性要求。",
-  "Issue tokens: Once the asset is created, the tokens are issued onto the blockchain network via smart contracts. This includes determining the number of tokens, the mechanism for allocating the tokens, and the rules for issuing the tokens.": "发行代币：一旦资产创建完成，代币通过智能合约发行到区块链网络上。这包括确定代币数量、代币的分配机制以及代币的发行规则.",
+  "Issue tokens: Once the asset is created, the tokens are issued onto the blockchain network via smart contracts. This includes determining the number of tokens, the mechanism for allocating the tokens, and the rules for issuing the tokens.": "发行代币：一旦资产创建完成，代币通过智能合约发行到区块链网络上。这包括确定代币数量、代币的分配机制以及代币的发行规则。",
   "Distribute the tokens: Once the tokens have been issued, the tokens can be distributed to investors. This may include a private distribution to designated investors or an offering on the open market.": "分发代币：一旦代币发行完成，可以将代币分发给投资者。这可能包括向指定投资者进行私募分发或在公开市场上进行发行。",
   "Redemption process": "赎回流程",
   "Investor Request for redemption: The investor decides to redeem the tokens held by him/her and makes a redemption request to the asset management company or relevant institution.": "投资者请求赎回：投资者决定赎回其持有的代币，并向资产管理公司或相关机构提出赎回请求。",
