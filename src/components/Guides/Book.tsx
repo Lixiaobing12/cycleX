@@ -327,7 +327,7 @@ const Book = () => {
                         </li>
                         <li>
                           9.1.3 Strategic Market Expansion Plan: Carry out comprehensive market analysis, explore new asset classes and regional markets, and formulate targeted market expansion
-                          strategies. In addition to Greater China, we will begin to expand the Southeast Asian market.
+                          strategies.
                         </li>
                       </ol>
                     </li>
@@ -664,7 +664,7 @@ const Book = () => {
                       <ol className="ml-2">
                         <li>9.1.1 平台2.0版本上线，主网内侧。开始空投激励季节。</li>
                         <li>9.1.2用户体验深度优化: 根据已收集的用户反馈，进行深入的界面和交易流程优化，提高用户满意度和平台易用性。</li>
-                        <li>9.1.3战略市场扩张计划: 开展全面市场分析，探索新的资产类别和地区市场，制定针对性的市场扩张策略。除了大中华区之外，开始拓展东南亚市场。</li>
+                        <li>9.1.3战略市场扩张计划: 开展全面市场分析，探索新的资产类别和地区市场，制定针对性的市场扩张策略。</li>
                       </ol>
                     </li>
                     <li>

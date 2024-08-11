@@ -81,6 +81,7 @@ const AppendLotteryUserRecordComponent = () => {
 };
 
 const AppendUserInvationRecordComponent = () => {
+  const { width } = useWindowSize();
   const [userInvationList, setUserInvationList] = useState<any[]>([]);
   const [, account] = useAccounts();
   const { t } = useTranslation();
@@ -133,15 +134,15 @@ const AppendUserInvationRecordComponent = () => {
   return (
     <div className="max-h-[300px] overflow-y-auto hidden-scroll">
       <div className="flex w-full justify-center items-center gap-2 my-2">
-        <span className="text-xs text-black font-bold">
-          {t("Invited friends")} ({sums})
-        </span>
-        <div>
-          <img src="/assets/union.png" width={50} alt="" />
+        <div className="text-xs text-black font-bold flex flex-col lg:flex-row items-center">
+          <span className="order-2 lg:order-1">{t("Invited friends")} </span>
+          <span className="order-1">({sums})</span>
         </div>
-        <span className="text-xs text-black font-bold">
-          {t("Purchased Accounts")} ({valid})
-        </span>
+        <div>{width > 600 ? <img src="/assets/union.png" width={50} alt="" /> : <img src="/assets/union_mb.png" width={16} className="mx-2" alt="" />}</div>
+        <div className="text-xs text-black font-bold flex flex-col lg:flex-row items-center">
+          <span className="order-2 lg:order-1">{t("Purchased Accounts")} </span>
+          <span className="order-1">({valid})</span>
+        </div>
       </div>
       <Table columns={columns} dataSource={userInvationList} pagination={false} className="w-full" />
     </div>
@@ -189,6 +190,7 @@ const BlindBox = () => {
   };
   const handleOpen = () => {
     init();
+    if (!lotteryInfo.LotteryNum) return;
     if (openStatus) return;
     setOpenStatus(true);
     request
@@ -359,21 +361,35 @@ const BlindBox = () => {
             <div id="danmu-screen" className="w-full lg:w-[130%] h-[150px] "></div>
             <img src="/assets/box-shine.png" width={500} alt="" className="lg:my-[-30px]" />
             <div className={`relative flex-center gap-4 w-full`}>
-              <div className="flex-center self-end flex bg-[rgb(33,31,33)] p-1 px-2 rounded-md" onClick={() => setOpenLotteryModal(true)}>
-                <WrapperImg src="/assets/blindbox-coin.png" width={16} />
-                <div className="flex flex-col justify-center items-start ml-2">
-                  <span className="text-white">{lotteryInfo.Amount}</span>
-                  <span className="text-grey text-xs">Earned WFC</span>
+              <div className="flex-center self-end flex bg-[#373737] rounded-lg cursor-pointer  animate__animated  hover:animate__pulse" onClick={() => setOpenLotteryModal(true)}>
+                <div className="flex rounded-lg relative bottom-[6px] bg-[#1d1b1e] w-full p-1 px-2 items-center">
+                  <div>
+                    <img src="/assets/blindbox-coin.png" className="w-5" alt="" />
+                  </div>
+                  <div className="flex flex-col justify-center items-start ml-2">
+                    <i className="text-white text-base leading-none">{lotteryInfo.Amount}</i>
+                    <span className="text-white text-xs">Earned WFC</span>
+                  </div>
                 </div>
               </div>
-              <div className="flex-center-col w-fit">
-                <div className="bg-blindboxpopbg bg-100 px-4 py-1 self-end mb-1 flex pb-2">+{lotteryInfo.LotteryNum} times</div>
-                <a style={lotteryInfo.LotteryNum === 0 ? { pointerEvents: "none", filter: "brightness(0.5)" } : {}}>
-                  <WrapperImg src="/assets/blindbox-btn-open.png" className="h-[50px] xxs:w-[100px] xs:w-[150px] lg:w-[200px]]" onClick={handleOpen} />
-                </a>
+              <div className={`flex-center-col relative ${lotteryInfo.LotteryNum ? "cursor-pointer" : "cursor-no-drop"}`}>
+                <div className="bg-blindboxpopbg bg-100 px-2 self-end flex pb-1 absolute z-10 top-[-25px] right-[-30px]">+{lotteryInfo.LotteryNum} times</div>
+                <div className="bg-[#b2b2b2] rounded-lg text-black text-base font-bold">
+                  <div className="bg-white relative rounded-lg bottom-[6px] h-[45px] xxs:w-[100px] xs:w-[150px] lg:w-[200px]] flex-center" onClick={handleOpen}>
+                    OPEN
+                  </div>
+                </div>
               </div>
-              <div className="flex-center self-end flex bg-white p-1 px-2 rounded-md h-12" onClick={() => setopenInvationModal(true)}>
-                <span className="text-black text-xs">{t(width > 600 ? "Invitation Records" : "Invitation")}</span>
+              <div className="flex-center self-end flex bg-[#b2b2b2] rounded-lg cursor-pointer" onClick={() => setopenInvationModal(true)}>
+                <div className="flex rounded-lg relative bottom-[6px] bg-white w-full p-1 px-2 lg:px-4 items-center">
+                  <div className="flex flex-col justify-center items-start">
+                    <span className="text-black text-xs">Invitation</span>
+                    <label className="flex items-center text-xs">
+                      <span>Lists</span>
+                      <img src="/assets/ivitation_lists.png" className="w-3 ml-1" alt="" />
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -391,7 +407,7 @@ const BlindBox = () => {
                       item.done ? (
                         <img src="/assets/done.png" className="w-14" />
                       ) : index === 1 ? (
-                        <button className="btn btn-sm hover:bg-black hover:scale-105 bg-black text-white text-xs rounded-full w-14" onClick={() => handleCopy(invite_url)}>
+                        <button className="btn btn-sm hover:bg-white hover:scale-105 bg-white text-black text-xs rounded-full w-14 font-light" onClick={() => handleCopy(invite_url)}>
                           {t("COPY")}
                         </button>
                       ) : (
