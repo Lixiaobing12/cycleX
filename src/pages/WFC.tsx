@@ -80,13 +80,13 @@ const WFC = () => {
             <h1 className="text-2xl leading-10 mb-4 font-bold font-gotham-bold ">{t("$WFC TOKEN")}</h1>
             <p className="leading-8 text-sm xl:leading-8 font-gotham text-base font-light">{t("wfc tips")}</p>
           </div>
-          <div>
+          <div className="relative flex justify-center">
             <img src="/assets/wfccoin.png" className="w-44 lg:w-32 xl:w-48" alt="" />
+            <div className="absolute top-16 md:top-48 z-[0] h-[650px] w-[1px] bg-[#575757] lg:hidden"></div>
           </div>
         </div>
 
         <div className="mb-6 p-6 text-white font-gotham relative">
-          <div className="absolute top-[-50px] bottom-10 border-r lg:hidden right-16 border-[#575757]"></div>
           <div className="text-left text-2xl font-bold font-gotham-bold w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">{t("Main Usage Scenarios")}</div>
           <div className="flex flex-col lg:flex-row items-stretch justify-center gap-4 mt-10 w-full lg:w-10/12 xl:w-4/6 4xl:w-3/6 m-auto">
             <div className="p-3 lg:pl-0 lg:py-0 lg:pr-6 w-full h-auto flex flex-row xl:flex-col items-start justify-start lg:justify-start lg:justify-start gap-4">
