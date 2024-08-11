@@ -175,7 +175,13 @@ const Wallet = () => {
               <div className="flex flex-col gap-1">
                 <div className="text-grey text-md">{t("Today's profit and loss")} US$</div>
                 <div className="text-white text-md">
-                  <CountUp end={Number(walletInfo?.yesterday_output) ?? 0} separator="," decimal="." decimals={2} prefix={Number(walletInfo?.yesterday_output) > 0 ? "+" : "-"} />
+                  <CountUp
+                    end={Number(walletInfo?.yesterday_output) ?? 0}
+                    separator=","
+                    decimal="."
+                    decimals={2}
+                    prefix={Number(walletInfo?.yesterday_output) > 0 ? "+" : Number(walletInfo?.yesterday_output) < 0 ? "-" : ""}
+                  />
                 </div>
               </div>
               <div className="flex-1 flex flex-col gap-1 items-start md:items-end">

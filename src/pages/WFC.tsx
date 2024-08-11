@@ -81,7 +81,7 @@ const WFC = () => {
             <p className="leading-8 text-sm xl:leading-8 font-gotham text-base font-light">{t("wfc tips")}</p>
           </div>
           <div className="relative flex justify-center">
-            <img src="/assets/wfccoin.png" className="w-44 lg:w-32 xl:w-48" alt="" />
+            <img src="/assets/wfccoin.png" className="w-44 lg:w-32 xl:w-48 z-10" alt="" />
             <div className="absolute top-16 md:top-48 z-[0] h-[650px] w-[1px] bg-[#575757] lg:hidden"></div>
           </div>
         </div>

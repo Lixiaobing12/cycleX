@@ -106,14 +106,6 @@ const HeaderComponent = () => {
       },
     },
     {
-      label: t("$WFC TOKEN"),
-      key: "wfc",
-      onClick: () => {
-        navigate("/wfc");
-        setOpenMenu(false);
-      },
-    },
-    {
       label: t("Docs"),
       key: "guide",
       onClick: () => {
@@ -121,6 +113,15 @@ const HeaderComponent = () => {
         setOpenMenu(false);
       },
     },
+    {
+      label: t("$WFC TOKEN"),
+      key: "wfc",
+      onClick: () => {
+        navigate("/wfc");
+        setOpenMenu(false);
+      },
+    },
+
     // {
     //   label: t("About"),
     //   key: "issus",
@@ -232,7 +233,7 @@ const HeaderComponent = () => {
   }, [users, t]);
 
   const invite = async () => {
-    navigate("/blindbox")
+    navigate("/blindbox");
 
     // const invite_url = window.location.href + "?code=" + users?.referral_code;
     // const context: any = modal?.info({

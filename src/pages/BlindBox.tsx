@@ -179,7 +179,7 @@ const BlindBox = () => {
   });
   const [data, setData] = useState([
     { title: "Sign Up", content: "Users are given 1 lottery chance for completing registration.", avatar: "/assets/blindbox-tasks-1.png", done: true, times: 1 },
-    { title: "Share To Friends", content: "Successful sharing rewards 1 time", avatar: "/assets/blindbox-tasks-2.png", done: false, times: 1 },
+    { title: "Invitation", content: "Successful invitation rewards 1 time", avatar: "/assets/blindbox-tasks-2.png", done: false, times: 1 },
     { title: "First Recharge", content: "First recharge rewards 2 times", avatar: "/assets/blindbox-tasks-4.png", done: false, times: 2 },
     { title: "Invest In Products", content: "Invest more than $10 and unclock more times", avatar: "/assets/blindbox-tasks-3.png", done: false, times: 5 },
   ]);
@@ -467,7 +467,7 @@ const BlindBox = () => {
                   <p className="my-2 text-grey-700 text-xs">{t("Users are given 2 lottery chances for making their first payment.")}</p>
                 </li>
                 <li>
-                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 1 lottery chances for each successful share.")}</p>
+                  <p className="my-2 text-grey-700 text-xs">{t("Users are given 1 lottery chances for each successful invitation.")}</p>
                 </li>
                 <li>
                   <div className="my-2 text-grey-700 text-xs">
