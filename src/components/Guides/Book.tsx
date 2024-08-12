@@ -405,6 +405,21 @@ const Book = () => {
                 </div>
               </details>
             </li>
+            <li>
+              <details className="collapse collapse-arrow bg-white text-black">
+                <summary className="collapse-title text-md font-normal">References</summary>
+                <div className="collapse-content text-sm text-black-800">
+                  <ol className="ml-2">
+                    <li>1.Nakamoto, S. (2008). Bitcoin: A Peer-to-Peer Electronic Cash System.</li>
+                    <li>2.Catalini, C., & Gans, J. S. (2016). Some Simple Economics of the Blockchain. </li>
+                    <li>3.Schär, F. (2021). Decentralized Finance: On Blockchain- and Smart Contract-based Financial Markets.</li>
+                    <li>4.Harvey, C. R., Ramachandran, A., & Santoro, J. (2021). DeFi and the Future of Finance. </li>
+                    <li>5.Tapscott, D., & Tapscott, A. (2016). Blockchain Revolution: How the Technology Behind Bitcoin and Other Cryptocurrencies is Changing the World.</li>
+                    <li>6.Werbach, K. (2018). The Blockchain and the New Architecture of Trust.</li>
+                  </ol>
+                </div>
+              </details>
+            </li>
           </ul>
         ) : (
           <ul className="ml-6">
@@ -713,6 +728,21 @@ const Book = () => {
                   <p className="my-2">
                     CycleX致力于将现实资产通过区块链手段进行有效运营，发挥资产的价值最大化。并让全球投资者享受到投资便利的益处。 平台的宗旨是利用科技手段打破物理界限，提高资金和资产的最佳匹配率。
                   </p>
+                </div>
+              </details>
+            </li>
+            <li>
+              <details className="collapse collapse-arrow bg-white text-black">
+                <summary className="collapse-title text-md font-normal">参考文献</summary>
+                <div className="collapse-content text-sm text-black-800">
+                  <ol className="ml-2">
+                    <li>1.Nakamoto, S. (2008). Bitcoin: A Peer-to-Peer Electronic Cash System.</li>
+                    <li>2.Catalini, C., & Gans, J. S. (2016). Some Simple Economics of the Blockchain. </li>
+                    <li>3.Schär, F. (2021). Decentralized Finance: On Blockchain- and Smart Contract-based Financial Markets.</li>
+                    <li>4.Harvey, C. R., Ramachandran, A., & Santoro, J. (2021). DeFi and the Future of Finance. </li>
+                    <li>5.Tapscott, D., & Tapscott, A. (2016). Blockchain Revolution: How the Technology Behind Bitcoin and Other Cryptocurrencies is Changing the World.</li>
+                    <li>6.Werbach, K. (2018). The Blockchain and the New Architecture of Trust.</li>
+                  </ol>
                 </div>
               </details>
             </li>
