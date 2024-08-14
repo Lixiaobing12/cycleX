@@ -203,7 +203,7 @@ const SafetyInput: React.FC<{
                   onFinish={() => setCountDownShow(false)}
                 />
               ) : (
-                <a className="text-sm text-black" onClick={sendCode}>
+                <a className="text-xs text-black" onClick={sendCode}>
                   {sending ? <Loader spinning={sending} /> : t("Send")}
                 </a>
               )
@@ -653,7 +653,7 @@ const Up = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm text-black" onClick={sendCode}>
+                    <a className="text-xs text-black" onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
@@ -881,7 +881,7 @@ const ForgotEmail = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm text-black" onClick={sendCode}>
+                    <a className="text-xs text-black" onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
@@ -1114,7 +1114,7 @@ const ForgotPhone = () => {
                       onFinish={() => setCountDownShow(false)}
                     />
                   ) : (
-                    <a className="text-sm text-white md:text-black" onClick={sendCode}>
+                    <a className="text-xs text-white md:text-black" onClick={sendCode}>
                       {sending ? <Loader spinning={sending} /> : t("Send")}
                     </a>
                   )
