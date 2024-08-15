@@ -58,6 +58,8 @@ const Platform = () => {
     OwnerBalance: 0,
   };
   const [tokenInfo, settokenInfo] = useState(defaulttokenInfo);
+  const [totalValue, setTotalValue] = useState(0);
+  const [dailyValue, setDailyValue] = useState(0);
   const [page, setPage] = useState(defaultPage);
 
   const handleChange = (_page: number, pageSize: number) => {
@@ -75,6 +77,14 @@ const Platform = () => {
         })
         .then(async ({ data }) => {
           settokenInfo(data.data);
+        });
+      request
+        .post("/sapi/tokenDetail/sum", {
+          UserId: userInfo.id,
+        })
+        .then((res) => {
+          setTotalValue(res.data.data.TotalSum * 0.001);
+          setDailyValue(res.data.data.TodaySum * 0.001);
         });
       request
         .post("/sapi/tokenDetail/list", {
@@ -117,7 +127,7 @@ const Platform = () => {
             <div className="text-white text-2xl">
               <CountUp end={tokenInfo.OwnerTvlTokenAmount} separator="," decimal="." decimals={2} />
             </div>
-            <div className="flex gap-4 md:gap-14 flex-wrap">
+            <div className="grid grid-cols-2 lg:grid-cols-4 w-full xl:w-2/3">
               <div className="flex flex-col gap-1">
                 <div className="text-grey text-md">{t("Locked up")} WFC</div>
                 <div className="text-white text-md">
@@ -128,6 +138,18 @@ const Platform = () => {
                 <div className="text-grey text-md">{t("Released")} WFC</div>
                 <div className="text-white text-md">
                   <CountUp end={tokenInfo.OwnerReceiveTokenAmount} separator="," decimal="." decimals={2} />
+                </div>
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="text-grey text-md">{t("Current valuation")}</div>
+                <div className="text-white text-md">
+                  <CountUp end={totalValue} separator="," decimal="." decimals={2} prefix="$" />
+                </div>
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="text-grey text-md">{t("Today's income")}</div>
+                <div className="text-white text-md">
+                  <CountUp end={dailyValue} separator="," decimal="." decimals={2} prefix={dailyValue > 0 ? "+$" : "$"} />
                 </div>
               </div>
             </div>
