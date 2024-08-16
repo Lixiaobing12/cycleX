@@ -111,8 +111,8 @@ const Footers = () => {
           </a>
         </div>
       </div>
-      <div className="text-white my-10">
-        <span className="rounded-md border border-light py-1 px-4 text-base md:ml-36">{t("More products coming soon")}</span>
+      <div className="text-white my-10 md:w-[81%] md:ml-[9%]">
+        <span className="rounded-md border border-light py-1 px-4 text-base">{t("More products coming soon")}</span>
       </div>
 
       <div className="w-full divider md:w-[82%] m-auto"></div>
