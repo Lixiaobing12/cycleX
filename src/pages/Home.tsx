@@ -19,6 +19,7 @@ import { scientific } from "../utils/BigNumberToString";
 import { userInfo_atom } from "../atom/userInfo";
 import moment from "moment";
 import CountUp from "react-countup";
+import Divdend from "../components/Home/Dividend";
 
 const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
@@ -185,6 +186,10 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="md:p-10 mt-10 md:mt-0">
+            <Divdend />
+          </div>
+
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Mass Asset Realization")}</h1>

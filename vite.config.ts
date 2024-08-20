@@ -21,6 +21,8 @@ export default defineConfig({
       "/api": {
         target: "https://cyclex.cc/",
         changeOrigin: true,
+        // target: "http://127.0.0.1:8000/",
+        // rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/sapi": {
         target: "https://cyclex.cc/",
