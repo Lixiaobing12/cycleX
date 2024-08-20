@@ -19,7 +19,8 @@ module.exports = {
         blindboxbgh5: "url('/assets/blindbox-bg-h5.png')",
         blindboxpopbg: "url('/assets/blindbox-btn-pop.png')",
         assetsbg: "url('/assets/assets_bg.png')",
-        wfc_barner_bg: "url('/assets/wfcbg.png')"
+        wfc_barner_bg: "url('/assets/wfcbg.png')",
+        div_barner_image: "linear-gradient( 90deg, rgba(45,45,47,0) 0%, #2D2D2F 33%, #2D2D2F 67%, rgba(45,45,47,0) 100%)"
       },
       backgroundSize: {
         100: "100% 100%",
@@ -55,6 +56,8 @@ module.exports = {
         ptheme: "#C5F971",
         lingergradebg: "linear-gradient(#978FF6,#B7B0FE)",
         "border-divider": "rgba(220, 219, 219,0.3)",
+        'gery-120': "rgba(255,255,255,0.12)",
+        'gery-300': "rgba(255,255,255,0.3)"
       },
     },
   },
