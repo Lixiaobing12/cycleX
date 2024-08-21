@@ -95,26 +95,26 @@ const ItemDeposit: React.FC<{
     if (!secrityKey) return;
     if (loading) return;
     setLoading(true);
-    const { data } = await request.post("/sapi/fundOrder/create", {
-      Amount: Number(amount).toString(),
-      ProductId: String(product?.id),
-      SecurityPassword: secrityKey,
-      ChainId: 1,
+    const { data } = await request.post("/api/api/fundOrder/create", {
+      amount: Number(amount).toString(),
+      product_id: String(product?.id),
+      security_password: secrityKey,
+      chain_id: 1,
       // ChainId: network === "Ethereum" ? 1 : 11501,
     });
     setTimeout(() => {
       setLoading(false);
     }, 500);
 
-    if (data.code !== 0) {
+    if (data.res_code !== 0) {
       if (i18n.language === "en") {
         toast?.warning({
-          message: await handleTranslate(data.msg),
+          message: await handleTranslate(data.res_msg),
           icon: <img src="/assets/error.png" width={30} />,
         });
       } else {
         toast?.warning({
-          message: data.msg,
+          message: data.res_msg,
           icon: <img src="/assets/error.png" width={30} />,
         });
       }
