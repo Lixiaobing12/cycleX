@@ -151,9 +151,11 @@ const Divdend = () => {
                         <div className="text-grey text-sm truncate">{invite_url}</div>
                         <img src="/assets/dividend_copy.png" className="w-4 lg:hidden" alt="" onClick={() => handleCopy(invite_url)} />
                         <div className="absolute left-0 right-0 top-12 hidden lg:block">
-                            <p className="text-gery-300 text-xs">
+                            {i18n.language === 'en' ? <p className="text-gery-300 text-xs">
                                 Invite friends to register and purchase funds to earn points. At the end of the event, the top <span className="text-grey-700">1,000 users</span> will share <span className="text-grey-700">100,000 USDT and 100 million WFC</span> in the prize pool
-                            </p>
+                            </p> : <p className="text-gery-300 text-xs">
+                                邀请好友注册并购买基金以赚取积分。活动结束时，前 <span className="text-grey-700">1,000 名用户</span> 将分享 <span className="text-grey-700">100,000 USDT 和 100,000,000 WFC</span> 的奖金池
+                            </p>}
                         </div>
                     </div>
                     <button className="btn bg-[#2D2D2F] text-white border-0 py-2 px-6 h-auto min-h-0 self-stretch hover:bg-[#2D2D2F] hidden lg:block" onClick={() => handleCopy(invite_url)}>{t("Copy link")}</button>
