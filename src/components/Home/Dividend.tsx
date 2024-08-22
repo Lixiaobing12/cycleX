@@ -116,15 +116,36 @@ const Divdend = () => {
                         i18n.language === 'en' ? (
                             <>
                                 <div className="text-grey text-lg hidden lg:block">Rich Alliance: CycleX's first batch of incentive dividend plan</div>
-                                <div className="text-white text-base lg:text-2xl leading-10 my-4 font-bold">
-                                    Invite friends to share <span className="text-lg lg:text-2xl text-[#5F79FF]">100,000 USDT</span> and <span className="text-base lg:text-2xl text-[#5F79FF]">100 million WFC</span> prize pool
+                                <div className="text-white text-base lg:text-2xl leading-10 my-6 font-bold" style={{ lineHeight: width > 600 ? '2.5rem' : '1.5rem' }}>
+                                    {
+                                        width > 600 ? (
+                                            <>
+                                                Invite friends to share <span className="text-lg lg:text-2xl text-[#5F79FF]">100,000 USDT</span> <br /> and <span className="text-base lg:text-2xl text-[#5F79FF]">100 million WFC</span> prize pool
+                                            </>
+                                        ) : (
+                                            <>
+                                                Invite friends to share <span className="text-lg lg:text-2xl text-[#5F79FF]">100,000 USDT</span> and <br /> <span className="text-base lg:text-2xl text-[#5F79FF]">100 million WFC</span> prize pool
+                                            </>
+                                        )
+                                    }
                                 </div>
                             </>
                         ) : (
                             <>
                                 <div className="text-grey text-lg hidden lg:block">暴富者联盟：CycleX首批激励奖金计划</div>
-                                <div className="text-white text-base lg:text-2xl leading-10 my-4 font-bold">
-                                    邀请好友分享 <span className="text-lg lg:text-2xl text-[#5F79FF]">100,000 USDT</span> 和 <span className="text-lg lg:text-2xl text-[#5F79FF]">100 million WFC</span> 奖池
+                                <div className="text-white text-base lg:text-2xl leading-10 my-4 font-bold" style={{ lineHeight: width > 600 ? '2.5rem' : '1.5rem' }}>
+                                    {
+                                        width > 600 ? (
+                                            <>
+                                                邀请好友分享 <span className="text-lg lg:text-2xl text-[#5F79FF]">100,000 USDT</span> <br /> 和 <span className="text-lg lg:text-2xl text-[#5F79FF]">100 million WFC</span> 奖池
+                                            </>
+                                        ) : (
+                                            <>
+                                                邀请好友分享 <br /> <span className="text-lg lg:text-2xl text-[#5F79FF]">100,000 USDT</span> 和 <br /> <span className="text-lg lg:text-2xl text-[#5F79FF]">100 million WFC</span> 奖池
+                                            </>
+                                        )
+                                    }
+
                                 </div>
                             </>
                         )
@@ -151,8 +172,8 @@ const Divdend = () => {
                 </div>
                 <img src="/assets/div-header.png" className="absolute bottom-0 right-[-40px] w-56 lg:w-80" alt="" />
             </div>
-            <div className="bg-gradient-to-r from-[#212125] to-[#1A1A1D] py-8 rounded-b-box">
-                <div className="flex items-center gap-8 mb-12 px-4 lg:px-8">
+            <div className="bg-gradient-to-r from-[#262629] to-[#1A1A1D] py-8 rounded-b-box">
+                <div className="flex items-center gap-8 lg:mb-12 px-4 lg:px-8">
                     <div className="flex-1 p-4 py-2 flex items-center rounded-lg border border-gery-120 relative w-full">
                         <div className="text-sm whitespace-nowrap">{t("My invitation link")}</div>
                         <div className="divider divider-horizontal after:bg-gery-120 before:bg-gery-120 after:w-[1px] before:w-[1px] mx-1 lg:mx-3"></div>
@@ -168,9 +189,13 @@ const Divdend = () => {
                     </div>
                     <button className="btn bg-[#2D2D2F] text-white border-0 py-2 px-6 h-auto min-h-0 self-stretch hover:bg-[#2D2D2F] hidden md:block" onClick={() => handleCopy(invite_url)}>{t("Copy link")}</button>
                 </div>
-                <div className="divider h-0 after:bg-gery-120 before:bg-gery-120 after:h-[1px] before:h-[1px] mb-0 mt-16  mx-4 lg:mx-8"></div>
+                {
+                    width > 600 && (
+                        <div className="divider h-0 after:bg-gery-120 before:bg-gery-120 after:h-[1px] before:h-[1px] mb-0 mt-16  mx-4 lg:mx-8"></div>
+                    )
+                }
                 <div className="relative">
-                    <img src="/assets/dividend_card_bg.png" className="absolute top-0 right-0 w-1/2" alt="" />
+                    <img src="/assets/dividend_card_bg.png" className="absolute top-0 right-0 w-1/2 hidden lg:block" alt="" />
                     <div className="pt-6 pb-4 px-8">
                         <h2 className="text-white text-xl lg:text-2xl font-bold text-center">{t("Ranking List")}</h2>
                     </div>
@@ -197,7 +222,9 @@ const Divdend = () => {
                                 <tr className="text-white border-gery-120">
                                     <th className="min-w-14">#</th>
                                     <th>{t("Account")}</th>
-                                    <th>{t("Conribution")}</th>
+                                    <th className="text-right">{t("Conribution")}</th>
+                                    <th className="text-right">{t("Expcted reward USDT")}</th>
+                                    <th className="text-right">{t("Expcted reward WFC")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -211,13 +238,15 @@ const Divdend = () => {
                                                             <span className="text-white">{index + 1}</span>
                                             }</a>
                                         </th>
-                                        <td>{
+                                        <td className="text-right">{
                                             <div className="flex items-center gap-2">
-                                                <img src={item.user.avatar} width={14} alt="" />
+                                                <div><img src={item.user.avatar} className="rounded-full w-4 h-4" alt="" /></div>
                                                 <span>{item.user.name.replace(/^(.{3}).*(.{2}@.*\.com)$/, "$1***$2")}</span>
                                             </div>
                                         }</td>
-                                        <td>{BigNumber(item.contribute_count).toFormat(0)}</td>
+                                        <td className="text-right">{BigNumber(item.contribute_count).toFormat(0)}</td>
+                                        <td className="text-right">{BigNumber(item.usdt_reward).toFormat(0)}</td>
+                                        <td className="text-right">{BigNumber(item.wfc_reward).toFormat(0)}</td>
                                     </tr>
                                 ))}
                             </tbody>
