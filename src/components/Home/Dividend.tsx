@@ -245,8 +245,8 @@ const Divdend = () => {
                                             </div>
                                         }</td>
                                         <td className="text-right">{BigNumber(item.contribute_count).toFormat(0)}</td>
-                                        <td className="text-right">{BigNumber(item.usdt_reward).toFormat(0)}</td>
-                                        <td className="text-right">{BigNumber(item.wfc_reward).toFormat(0)}</td>
+                                        <td className="text-right">{BigNumber(item.usdtReward).toFormat(0)}</td>
+                                        <td className="text-right">{BigNumber(item.wfcReward).toFormat(0)}</td>
                                     </tr>
                                 ))}
                             </tbody>
