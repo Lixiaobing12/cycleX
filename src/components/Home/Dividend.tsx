@@ -2,7 +2,7 @@ import Countdown from "antd/es/statistic/Countdown";
 import moment, { Moment } from "moment";
 import { useEffect, useState } from "react";
 import useAccounts from "../../hooks/user";
-import { useCopyToClipboard } from "usehooks-ts";
+import { useCopyToClipboard, useWindowSize } from "usehooks-ts";
 import { useAtom } from "jotai";
 import { messageContext } from "../../App";
 import BigNumber from "bignumber.js";
@@ -19,6 +19,7 @@ type ListItem = {
     wfc_reward: number;
 }
 const Divdend = () => {
+    const { width } = useWindowSize();
     const { t, i18n } = useTranslation();
     const [toast] = useAtom(messageContext);
     const [, copy] = useCopyToClipboard();
@@ -34,6 +35,13 @@ const Divdend = () => {
     const [list, setList] = useState<any[]>([]);
 
     const handleCopy = (text: string) => {
+        if (!account?.referral_code) {
+            toast?.error({
+                icon: <img src="/assets/error.png" width={30} />,
+                message: t("Please login first!"),
+            });
+            return;
+        }
         copy(text)
             .then(() => {
                 toast?.success({
@@ -102,31 +110,31 @@ const Divdend = () => {
     }, [account]);
     return (
         <div className="w-full bg-black rounded-box overflow-hidden xl:overflow-visible">
-            <div className="bg-gradient-to-b from-[#000000] to-[rgb(30,30,33)] p-4 lg:p-8 lg:pt-16 rounded-t-box relative">
-                <div className="relative z-[1] max-w-[70%]">
+            <div className="bg-gradient-to-b from-[#000000] to-[hsl(240,5%,12%)] p-4 lg:p-8 lg:pt-16 rounded-t-box relative">
+                <div className="relative z-[1] w-[70%] md:max-w-[60%]">
                     {
                         i18n.language === 'en' ? (
                             <>
-                                <div className="text-grey text-xs hidden lg:block">Rich Alliance: CycleX's first batch of incentive dividend plan</div>
-                                <div className="text-white text-base leading-4 my-4">
-                                    Invite friends to share <span className="text-lg text-[#5F79FF]">100,000 USDT</span> and <span className="text-lg text-[#5F79FF]">100 million WFC</span> prize pool
+                                <div className="text-grey text-lg hidden lg:block">Rich Alliance: CycleX's first batch of incentive dividend plan</div>
+                                <div className="text-white text-base lg:text-2xl leading-10 my-4 font-bold">
+                                    Invite friends to share <span className="text-lg lg:text-2xl text-[#5F79FF]">100,000 USDT</span> and <span className="text-base lg:text-2xl text-[#5F79FF]">100 million WFC</span> prize pool
                                 </div>
                             </>
                         ) : (
                             <>
-                                <div className="text-grey text-xs hidden lg:block">暴富者联盟：CycleX首批激励奖金计划</div>
-                                <div className="text-white text-base leading-4 my-4">
-                                    邀请好友分享 <span className="text-lg text-[#5F79FF]">100,000 USDT</span> 和 <span className="text-lg text-[#5F79FF]">100 million WFC</span> 奖池
+                                <div className="text-grey text-lg hidden lg:block">暴富者联盟：CycleX首批激励奖金计划</div>
+                                <div className="text-white text-base lg:text-2xl leading-10 my-4 font-bold">
+                                    邀请好友分享 <span className="text-lg lg:text-2xl text-[#5F79FF]">100,000 USDT</span> 和 <span className="text-lg lg:text-2xl text-[#5F79FF]">100 million WFC</span> 奖池
                                 </div>
                             </>
                         )
 
                     }
 
-                    <div className="bg-[#212125] p-4 xl:px-6 rounded-md inline-block">
+                    <div className="bg-[#212125] p-2 lg:p-4 rounded-md inline-block">
                         <div className="text-grey text-xs mb-1">{t("Event end countdown")}</div>
                         <div className="text-2xl text-white flex items-end">
-                            <div className="self-end mb-[3px] lg:mr-4">{days} <span className="text-xs">{t("days")}</span></div>
+                            <div className="self-end mb-[3px] mr-2 lg:mr-6">{days} <span className="text-xs">{t("days")}</span></div>
                             <Countdown
                                 title=""
                                 value={getDiffTime()}
@@ -135,21 +143,21 @@ const Divdend = () => {
                                     color: "#fff",
                                     alignSelf: "flex-end",
                                     fontSize: "1.5rem",
-                                    width: "100px"
+                                    width: width > 600 ? "120px" : "100px"
                                 }}
                             />
                         </div>
                     </div>
                 </div>
-                <img src="/assets/div-header.png" className="absolute bottom-0 right-[-40px] w-40 xl:w-64" alt="" />
+                <img src="/assets/div-header.png" className="absolute bottom-0 right-[-40px] w-56 lg:w-80" alt="" />
             </div>
             <div className="bg-gradient-to-r from-[#212125] to-[#1A1A1D] py-8 rounded-b-box">
                 <div className="flex items-center gap-8 mb-12 px-4 lg:px-8">
                     <div className="flex-1 p-4 py-2 flex items-center rounded-lg border border-gery-120 relative w-full">
                         <div className="text-sm whitespace-nowrap">{t("My invitation link")}</div>
                         <div className="divider divider-horizontal after:bg-gery-120 before:bg-gery-120 after:w-[1px] before:w-[1px] mx-1 lg:mx-3"></div>
-                        <div className="text-grey text-sm truncate">{invite_url}</div>
-                        <img src="/assets/dividend_copy.png" className="w-4 lg:hidden" alt="" onClick={() => handleCopy(invite_url)} />
+                        <div className="text-grey text-sm truncate">{account?.referral_code ? invite_url : t("Please login first!")}</div>
+                        <img src="/assets/dividend_copy.png" className="w-4 md:hidden" alt="" onClick={() => handleCopy(invite_url)} />
                         <div className="absolute left-0 right-0 top-12 hidden lg:block">
                             {i18n.language === 'en' ? <p className="text-gery-300 text-xs">
                                 Invite friends to register and purchase funds to earn points. At the end of the event, the top <span className="text-grey-700">1,000 users</span> will share <span className="text-grey-700">100,000 USDT and 100 million WFC</span> in the prize pool
@@ -158,13 +166,13 @@ const Divdend = () => {
                             </p>}
                         </div>
                     </div>
-                    <button className="btn bg-[#2D2D2F] text-white border-0 py-2 px-6 h-auto min-h-0 self-stretch hover:bg-[#2D2D2F] hidden lg:block" onClick={() => handleCopy(invite_url)}>{t("Copy link")}</button>
+                    <button className="btn bg-[#2D2D2F] text-white border-0 py-2 px-6 h-auto min-h-0 self-stretch hover:bg-[#2D2D2F] hidden md:block" onClick={() => handleCopy(invite_url)}>{t("Copy link")}</button>
                 </div>
                 <div className="divider h-0 after:bg-gery-120 before:bg-gery-120 after:h-[1px] before:h-[1px] mb-0 mt-16  mx-4 lg:mx-8"></div>
                 <div className="relative">
                     <img src="/assets/dividend_card_bg.png" className="absolute top-0 right-0 w-1/2" alt="" />
                     <div className="pt-6 pb-4 px-8">
-                        <h2 className="text-white text-2xl font-bold text-center">{t("Ranking List")}</h2>
+                        <h2 className="text-white text-xl lg:text-2xl font-bold text-center">{t("Ranking List")}</h2>
                     </div>
                     <div className="bg-div_barner_image flex items-center justify-center gap-4 lg:gap-8 text-grey text-xs py-4 flex-wrap">
                         <div className="flex items-end gap-1">
@@ -183,10 +191,10 @@ const Divdend = () => {
                     <div className="divider after:bg-gery-120 before:bg-gery-120 after:h-[1px] before:h-[1px] mb-0  mx-4 lg:mx-8"></div>
 
                     <div className="overflow-auto hidden-scroll px-4 lg:px-8 max-h-96">
-                        <table className="table hidden-scroll">
+                        <table className="table">
                             {/* head */}
                             <thead>
-                                <tr className="text-white">
+                                <tr className="text-white border-gery-120">
                                     <th className="min-w-14">#</th>
                                     <th>{t("Account")}</th>
                                     <th>{t("Conribution")}</th>
@@ -194,7 +202,7 @@ const Divdend = () => {
                             </thead>
                             <tbody>
                                 {list.map((item, index) => (
-                                    <tr>
+                                    <tr className="border-gery-120">
                                         <th>
                                             <a>{
                                                 index === 0 ? <img src="/assets/ranking_1.png" width={20} /> :

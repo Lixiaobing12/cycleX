@@ -141,6 +141,9 @@ summary {
 }
 
 .hidden-scroll {
+  scrollbar-width: none;
+  /* internet explorer 10+ */
+  -ms-overflow-style: none;
 }
 .hidden-scroll::-webkit-scrollbar {
   display: none;

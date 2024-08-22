@@ -104,7 +104,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="w-[92%] md:w-11/12 lg:w-9/12 m-auto">
+        <div className="w-[92%] md:w-11/12 lg:w-10/12 xl:w-8/12 m-auto">
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center">
               <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Start Investing")}</h1>
@@ -134,58 +134,61 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap gap-4 item-center justify-center my-20 mt-4" id="fund">
-            {assets.map((item, ind) => (
-              <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col justify-evenly ${getAssetsBgImg(ind++)} w-full lg:w-[40%] 2xl:w-[33%] min-h-80 bg-100`}>
-                <div className="flex items-center my-4">
-                  <img src="/assets/dollor_r.png" width={30} alt="" />
-                  <span className="text-2xl font-bold font-whalebold ml-2">{item.simple_name}</span>
-                </div>
-                <div className="flex w-full flex-wrap gap-4 mb-10">
-                  {item.labelsDcts?.map(({ zh, en }) => (
-                    <div className="rounded-full px-4 py-1 bg-[#222] text-grey text-sm" key={en + v4()}>
-                      {i18n.language === "en" ? en : zh}
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <span className="text-2xl font-bold font-whalebold mr-1">{Number(item.income).toFixed(0) + "%"}</span>
-                  {t("Annual yield")}(APY)
-                </div>
-                <div className="flex items-center justify-between mt-4">
-                  <div className="flex gap-4">
-                    <div>
-                      <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(item.market_value))} TVL</div>
-                    </div>
-                    <div className="flex items-center">
-                      <img src="/assets/eth.png" className="w-8 h-8" alt="" />
-                      <img src="/assets/usdt.png" className="w-8 h-8 mx-1" alt="" />
-                      <img src="/assets/bevm.png" className="w-8 h-8" alt="" />
-                      <img src="/assets/merlin.png" className="w-8 h-8 mx-1" alt="" />
-                    </div>
+            <div className={`grid grid-cols-1 lg:grid-cols-${assets.length} w-full gap-4 md:p-10`}>
+              {assets.map((item, ind) => (
+                <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col justify-evenly ${getAssetsBgImg(ind++)} w-full min-h-80 bg-100`}>
+                  <div className="flex items-center my-4">
+                    <img src="/assets/dollor_r.png" width={30} alt="" />
+                    <span className="text-2xl font-bold font-whalebold ml-2">{item.simple_name}</span>
                   </div>
-                  <img
-                    src="/assets/right.png"
-                    width={30}
-                    className="cursor-pointer hover:scale-105"
-                    onClick={() => {
-                      console.log("user", users);
-                      if (users) {
-                        navigate(`/assets/${item.id}#main`);
-                      } else {
-                        toast?.warning({
-                          message: t("please sign in"),
-                          icon: <img src="/assets/error.png" width={30} />,
-                          onClose() {
-                            navigate("/login?t=in");
-                          },
-                        });
-                      }
-                    }}
-                  />
+                  <div className="flex w-full flex-wrap gap-4 mb-10">
+                    {item.labelsDcts?.map(({ zh, en }) => (
+                      <div className="rounded-full px-4 py-1 bg-[#222] text-grey text-sm" key={en + v4()}>
+                        {i18n.language === "en" ? en : zh}
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <span className="text-2xl font-bold font-whalebold mr-1">{Number(item.income).toFixed(0) + "%"}</span>
+                    {t("Annual yield")}(APY)
+                  </div>
+                  <div className="flex items-center justify-between mt-4">
+                    <div className="flex gap-4">
+                      <div>
+                        <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(item.market_value))} TVL</div>
+                      </div>
+                      <div className="flex items-center">
+                        <img src="/assets/eth.png" className="w-8 h-8" alt="" />
+                        <img src="/assets/usdt.png" className="w-8 h-8 mx-1" alt="" />
+                        <img src="/assets/bevm.png" className="w-8 h-8" alt="" />
+                        <img src="/assets/merlin.png" className="w-8 h-8 mx-1" alt="" />
+                      </div>
+                    </div>
+                    <img
+                      src="/assets/right.png"
+                      width={30}
+                      className="cursor-pointer hover:scale-105"
+                      onClick={() => {
+                        console.log("user", users);
+                        if (users) {
+                          navigate(`/assets/${item.id}#main`);
+                        } else {
+                          toast?.warning({
+                            message: t("please sign in"),
+                            icon: <img src="/assets/error.png" width={30} />,
+                            onClose() {
+                              navigate("/login?t=in");
+                            },
+                          });
+                        }
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
           <div className="md:p-10 mt-10 md:mt-0">
             <Divdend />
           </div>
@@ -384,15 +387,21 @@ export default function Home() {
               </details>
             </div>
           </div>
+
+          <div className="md:p-10 mt-14 md:mt-0">
+            <div className="w-full text-center mb-14 md:mb-20">
+              <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("News & Insights")}</h1> </div>
+            <News />
+          </div>
         </div>
-        <div className="w-[92%] m-auto md:p-10 mt-14 md:mt-0">
+        {/* <div className="w-[92%] m-auto md:p-10 mt-14 md:mt-0">
           <div className="w-full text-center mb-14 md:mb-20">
             <h1 className="text-black text-2xl mb-6 font-bold">{t("News & Insights")}</h1>
           </div>
           <div className="w-full lg:w-5/6 m-auto">
             <News />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
