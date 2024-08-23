@@ -252,9 +252,9 @@ const Wallet = () => {
                   recharge_network === "BEVM" || recharge_network === "Merlin"
                     ? [{ value: "BTC", label: "BTC" }]
                     : [
-                        { value: "USDT", label: "USDT" },
-                        { value: "ETH", label: "ETH" },
-                      ]
+                      { value: "USDT", label: "USDT" },
+                      { value: "ETH", label: "ETH" },
+                    ]
                 }
               />
 
