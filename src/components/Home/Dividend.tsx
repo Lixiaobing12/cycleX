@@ -164,8 +164,8 @@ const Divdend = () => {
                         )
                     }
 
-                    <div className="bg-[#212125] p-3 rounded-md w-full mt-4 lg:mt-10 lg:w-4/5">
-                        <div className="text-grey text-xs mb-1">{t("Event end countdown")}</div>
+                    <div className="bg-[#212125] py-1 px-3 lg:p-3 rounded-md w-4/5 mt-4 lg:mt-10 lg:w-3/5">
+                        <div className="text-grey text-xs">{t("Event end countdown")}</div>
                         <div className="text-white flex items-end justify-between">
                             <Countdown
                                 title=""
@@ -174,11 +174,11 @@ const Divdend = () => {
                                 valueStyle={{
                                     color: "#fff",
                                     alignSelf: "flex-end",
-                                    fontSize: width > 600 ? "1.5rem" : "1.125rem",
+                                    fontSize: width > 600 ? "1.5rem" : "1rem",
                                     fontWeight: width > 600 ? "normal" : "bold"
                                 }}
                             />
-                            <div className="text-lg lg:text-2xl self-end mg-0 lg:mb-[3px]"><span className="font-bold lg:font-normal">{days}</span> <span className="text-xs">{t("days")}</span></div>
+                            <div className="text-base lg:text-2xl self-end mg-0 lg:mb-[3px]"><span className="font-bold lg:font-normal">{days}</span> <span className="text-xs">{t("days")}</span></div>
                         </div>
                     </div>
                 </div>
@@ -197,31 +197,33 @@ const Divdend = () => {
                 </div>
                 <div className="divider h-0 after:bg-gery-300 before:bg-gery-300 after:h-[1px] before:h-[1px] mx-4 lg:mx-8"></div>
 
-                <div className="relative">
+                <div className="pb-4">
                     <div className="pt-6 pb-4 px-8">
                         <h2 className="text-white text-xl lg:text-2xl font-bold text-center">{t("Ranking List")}</h2>
                     </div>
-                    <div className="bg-[#272727] flex items-center justify-center gap-x-8 gap-y-2 text-grey text-xs py-4 flex-wrap">
-                        <div className="flex items-end gap-1">
+                    <div className="bg-[#272727] flex items-center justify-center  text-grey text-xs p-4 px-0  overflow-x-auto w-full hidden-scroll pl-14 pr-4 lg:px-4 lg:justify-around">
+                        <div className="flex items-end gap-1 whitespace-pre">
                             <span>{t("My ranking")}</span>
-                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{userRankInfo.ranking > 1000 ? '1000+' : userRankInfo.points === 0 ? t("Unranked") : userRankInfo.ranking}</span>
+                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? ((userRankInfo.ranking <= 1000 && userRankInfo.ranking > 0) ? userRankInfo.ranking : userRankInfo.ranking > 1000 ? '1000+' : t("Unranked")) : '-'}</span>
                         </div>
-                        <div className="flex items-end gap-1">
+                        <div className="flex items-end gap-1 whitespace-pre	ml-4">
                             <span>{t("Points")}</span>
-                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{BigNumber(userRankInfo.points).toFormat(0)}</span>
+                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.points).toFormat(0) : '-'}</span>
                         </div>
-                        <div className="flex items-end gap-1">
-                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{BigNumber(userRankInfo.needPoints || 1).toFormat(0)}</span>
-                            <span>{t("points away from the reward")}</span>
-                        </div>
+                        {
+                            userRankInfo.ranking > 1000 || !account || userRankInfo.points === 0 && <div className="flex items-end gap-1 whitespace-pre	ml-4">
+                                <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.needPoints || 1).toFormat(0) : '-'}</span>
+                                <span>{t("points away from the reward")}</span>
+                            </div>
+                        }
                     </div>
 
-                    <div className="overflow-auto hidden-scroll px-4 lg:px-8 max-h-96 mt-4">
+                    <div className="overflow-auto hidden-scroll lg:px-8 max-h-96 mt-4">
                         <table className="table">
                             {/* head */}
-                            <thead>
+                            <thead className="sticky top-0 bg-black z-10">
                                 <tr className="text-white border-gery-120">
-                                    <th className="min-w-14">#</th>
+                                    <th className="min-w-14 text-center sticky left-0 bg-black">#</th>
                                     <th>{t("Account")}</th>
                                     <th className="text-right">{t("Points")}</th>
                                     <th className="text-right">{t("Expcted reward USDT")}</th>
@@ -230,8 +232,8 @@ const Divdend = () => {
                             </thead>
                             <tbody>
                                 {list.map((item, index) => (
-                                    <tr className="border-gery-120">
-                                        <th className="text-center">
+                                    <tr className="border-gery-120" key={index}>
+                                        <th className="flex justify-center sticky left-0 bg-black">
                                             <a>{
                                                 index === 0 ? <img src="/assets/ranking_1.png" width={20} /> :
                                                     index === 1 ? <img src="/assets/ranking_2.png" width={20} /> :
@@ -245,23 +247,13 @@ const Divdend = () => {
                                                 <span>{item.user.name.replace(/^(.{3}).*(.{2}@.*\.com)$/, "$1***$2")}</span>
                                             </div>
                                         }</td>
-                                        <td className="text-right">{BigNumber(item.contribute_count).toFormat(0)}</td>
+                                        <td className="text-right">{BigNumber(item.contribute_count).toFormat(2)}</td>
                                         <td className="text-right">{BigNumber(item.usdtReward).toFormat(0)}</td>
                                         <td className="text-right">{BigNumber(item.wfcReward).toFormat(0)}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                    </div>
-
-                    <div className="lg:hidden px-4">
-                        <div className="divider after:bg-gery-120 before:bg-gery-120 after:h-[1px] before:h-[1px] mb-0"></div>
-
-                        {i18n.language === 'en' ? <p className="text-gery-300 text-xs">
-                            Invite friends to register and purchase funds to earn points. At the end of the event, the top <span className="text-grey-700">1,000 users</span> will share <span className="text-grey-700">100,000 USDT and 100 million WFC</span> in the prize pool
-                        </p> : <p className="text-gery-300 text-xs">
-                            邀请好友注册并购买基金以赚取积分。活动结束时，前 <span className="text-grey-700">1,000 名用户</span> 将分享 <span className="text-grey-700">100,000 USDT 和 100,000,000 WFC</span> 的奖金池
-                        </p>}
                     </div>
 
                 </div>
