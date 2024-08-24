@@ -139,6 +139,15 @@ summary {
   background: rgb(68, 68, 68) !important;
   border-radius: 10px !important;
 }
+.ant-table-cell-fix-left-last::after{
+  box-shadow: none !important;
+}
+.ant-table-thead .ant-table-cell {
+  font-weight: 400 !important;
+}
+.ant-table-container::after{
+  box-shadow: none !important;
+}
 
 .hidden-scroll {
   scrollbar-width: none;

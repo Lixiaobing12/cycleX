@@ -3,6 +3,9 @@ module.exports = {
   plugins: [require("daisyui"), require('@tailwindcss/line-clamp')],
   theme: {
     extend: {
+      fontSize: {
+        xxs: "10px"
+      },
       screens: {
         xxs: "300px",
         xs: "360px",

@@ -1,4 +1,4 @@
-import { Statistic } from "antd";
+import { ConfigProvider, Statistic } from "antd";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
@@ -104,7 +104,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="w-[92%] md:w-11/12 lg:w-10/12 xl:w-8/12 m-auto">
+        <div className="w-[92%] md:w-11/12 lg:w-10/12 xl:w-8/12 2xl:w-5/12 m-auto">
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center">
               <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Start Investing")}</h1>
@@ -190,7 +190,28 @@ export default function Home() {
           </div>
 
           <div className="md:p-10 mt-10 md:mt-0">
-            <Divdend />
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorBgContainer: '#080a0b',
+                  colorText: '#fff'
+                },
+                components: {
+                  Table: {
+                    borderColor: "rgba(255,255,255,0.12)",
+                    cellFontSizeSM: 12,
+                    headerBg: "#080a0b",
+                    headerColor: "#fff",
+                    headerSplitColor: "#080a0b",
+                    headerBorderRadius: 0,
+                    footerBg: "#080a0b",
+                    stickyScrollBarBg: "#080a0b",
+                    rowHoverBg: "#080a0b",
+                  },
+                },
+              }}>
+              <Divdend />
+            </ConfigProvider>
           </div>
 
           <div className="md:p-10 mt-10 md:mt-0">
