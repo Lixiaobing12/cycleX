@@ -318,7 +318,7 @@ const HeaderComponent = () => {
                 <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=in")}>
                   {t("Sign in")}
                 </div>
-                <button className="btn btn-sm bg-black text-white rounded-md" onClick={() => navigate("/login?t=up")}>
+                <button className="btn btn-sm bg-black text-white rounded-md border-0" onClick={() => navigate("/login?t=up")}>
                   {t("Sign up")}
                 </button>
               </>
@@ -381,7 +381,7 @@ const HeaderComponent = () => {
                     {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
                   </div>
                   <button
-                    className="btn btn-sm rounded-full bg-black border-grey text-white"
+                    className="btn btn-sm rounded-full bg-black border-grey text-white border-0"
                     onClick={() => {
                       window.localStorage.removeItem("token");
                       const setItemEvent = new Event("localstorage_save");
@@ -396,7 +396,7 @@ const HeaderComponent = () => {
               ) : (
                 <div className="flex gap-4">
                   <button
-                    className="btn btn-sm rounded-full bg-white text-black flex-1"
+                    className="btn btn-sm rounded-full bg-white text-black flex-1 border-0"
                     onClick={() => {
                       setOpenMenu(false);
                       navigate("/login?t=in");
@@ -404,7 +404,7 @@ const HeaderComponent = () => {
                     {t("Sign in")}
                   </button>
                   <button
-                    className="btn btn-sm rounded-full bg-black border-grey flex-1 text-white"
+                    className="btn btn-sm rounded-full bg-black border-grey flex-1 text-white border-0"
                     onClick={() => {
                       setOpenMenu(false);
                       navigate("/login?t=up");

@@ -31,6 +31,7 @@ const Divdend = () => {
         ranking: 0,
         points: 0,
         needPoints: 0, // 距离上榜还需要多少积分
+        isRanked: false, // 是否上榜
     });
     const [list, setList] = useState<any[]>([]);
 
@@ -88,12 +89,12 @@ const Divdend = () => {
     const getData = () => {
 
         request.post('/api/api/contributionOrder/getUserContributionInfo').then(res => {
-            console.log('res.data.data', res.data.data)
             setUserRankInfo(state => {
                 state = {
                     ranking: res.data.data.todayRank,
                     points: res.data.data.todayContribution,
-                    needPoints: res.data.data.gapToTop1000
+                    needPoints: res.data.data.gapToTop1000,
+                    isRanked: res.data.data.todayRank > 0
                 }
                 return { ...state }
             })
@@ -109,7 +110,7 @@ const Divdend = () => {
         setInviteUrl(window.location.origin + "/login?t=up&referral=" + account?.referral_code);
     }, [account]);
     return (
-        <div className="w-full bg-black rounded-box overflow-hidden xl:overflow-visible">
+        <div className="w-full bg-[rgb(8,10,11)] rounded-box overflow-hidden xl:overflow-visible">
             <div className="bg-gradient-to-b p-4 pr-1  lg:p-8 lg:pt-16 rounded-t-box flex mt-6">
                 <div className="w-[60%]">
                     {
@@ -195,35 +196,47 @@ const Divdend = () => {
                     <div className="text-white text-xs lg:text-sm truncate">{account?.referral_code ? invite_url : t("Please login first!")}</div>
                     <button className="btn bg-[#fff] font-normal text-black border-0 p-3 py-2 lg:py-3 lg:px-6 h-auto min-h-0 self-stretch hover:bg-[#fff]" onClick={() => handleCopy(invite_url)}>{t("Copy link")}</button>
                 </div>
-                <div className="divider h-0 after:bg-gery-300 before:bg-gery-300 after:h-[1px] before:h-[1px] mx-4 lg:mx-8"></div>
+                <div className="divider h-0 after:bg-gery-300 before:bg-gery-300 after:h-[1px] before:h-[1px] mx-4 lg:mx-8 lg:mb-0"></div>
 
-                <div className="pb-4">
+                <div className="pb-4 relative">
+                    <img src="/assets/dividend_card_bg.png" className="absolute top-0 right-0 w-1/2 hidden lg:block" alt="" />
                     <div className="pt-6 pb-4 px-8">
                         <h2 className="text-white text-xl lg:text-2xl font-bold text-center">{t("Ranking List")}</h2>
                     </div>
-                    <div className="bg-[#272727] flex items-center justify-center  text-grey text-xs p-4 px-0  overflow-x-auto w-full hidden-scroll pl-14 pr-4 lg:px-4 lg:justify-around">
-                        <div className="flex items-end gap-1 whitespace-pre">
-                            <span>{t("My ranking")}</span>
-                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? ((userRankInfo.ranking <= 1000 && userRankInfo.ranking > 0) ? userRankInfo.ranking : userRankInfo.ranking > 1000 ? '1000+' : t("Unranked")) : '-'}</span>
-                        </div>
-                        <div className="flex items-end gap-1 whitespace-pre	ml-4">
-                            <span>{t("Points")}</span>
-                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.points).toFormat(0) : '-'}</span>
-                        </div>
-                        {
-                            userRankInfo.ranking > 1000 || !account || userRankInfo.points === 0 && <div className="flex items-end gap-1 whitespace-pre	ml-4">
-                                <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.needPoints || 1).toFormat(0) : '-'}</span>
-                                <span>{t("points away from the reward")}</span>
+
+                    <div className="pb-4 px-4 lg:px-8">
+                        <div className="bg-[#272727] flex items-center justify-around text-grey text-xs  w-full hidden-scroll py-3 lg:py-4 rounded-lg px-4 overflow-auto">
+                            <div className="flex items-end gap-1 whitespace-pre">
+                                <span>{t("My ranking")}</span>
+                                <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? (userRankInfo.isRanked ? userRankInfo.ranking : t("Unranked")) : '-'}</span>
                             </div>
-                        }
+                            <div className="divider divider-horizontal after:bg-gery-120 before:bg-gery-120 after:w-[1px] before:w-[1px] mx-3 mt-[2px] h-3"></div>
+                            <div className="flex items-end gap-1 whitespace-pre	">
+                                <span>{t("Points")}</span>
+                                <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.points).toFormat(2) : '-'}</span>
+                            </div>
+                            {
+                                (userRankInfo.ranking > 1000 || !account || !userRankInfo.isRanked) && (
+                                    <>
+                                        <div className="divider divider-horizontal after:bg-gery-120 before:bg-gery-120 after:w-[1px] before:w-[1px]  mt-[2px] h-3"></div>
+                                        <div className="flex items-end gap-1 whitespace-pre">
+                                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.needPoints || 1).toFormat(0) : '-'}</span>
+                                            <span>{t("points away from the reward")}</span>
+                                        </div>
+                                    </>
+                                )
+                            }
+                        </div>
                     </div>
 
-                    <div className="overflow-auto hidden-scroll lg:px-8 max-h-96 mt-4">
+
+                    <div className="overflow-auto hidden-scroll lg:px-8 max-h-96">
+                        <div className="divider h-0 after:bg-gery-120 before:bg-gery-120 after:h-[1px] before:h-[1px] my-1"></div>
                         <table className="table">
                             {/* head */}
-                            <thead className="sticky top-0 bg-black z-10">
+                            <thead className="sticky top-0 bg-[rgb(8,10,11)] z-10">
                                 <tr className="text-white border-gery-120">
-                                    <th className="min-w-14 text-center sticky left-0 bg-black">#</th>
+                                    <th className="min-w-14 text-center sticky left-0 bg-[rgb(8,10,11)]">#</th>
                                     <th>{t("Account")}</th>
                                     <th className="text-right">{t("Points")}</th>
                                     <th className="text-right">{t("Expcted reward USDT")}</th>
@@ -233,7 +246,7 @@ const Divdend = () => {
                             <tbody>
                                 {list.map((item, index) => (
                                     <tr className="border-gery-120" key={index}>
-                                        <th className="flex justify-center sticky left-0 bg-black">
+                                        <th className="flex justify-center sticky left-0 bg-[rgb(8,10,11)]">
                                             <a>{
                                                 index === 0 ? <img src="/assets/ranking_1.png" width={20} /> :
                                                     index === 1 ? <img src="/assets/ranking_2.png" width={20} /> :
