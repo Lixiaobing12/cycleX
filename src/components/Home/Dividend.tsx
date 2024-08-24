@@ -46,21 +46,21 @@ const Divdend = () => {
             className: "",
             render: (text, record, index) => {
                 return <div className="w-full flex justify-center">{
-                    index === 0 ? <img src="/assets/ranking_1.png" width={20} /> :
-                        index === 1 ? <img src="/assets/ranking_2.png" width={20} /> :
-                            index === 2 ? <img src="/assets/ranking_3.png" width={20} /> :
+                    index === 0 ? <img src="/assets/ranking_1.png" width={22} /> :
+                        index === 1 ? <img src="/assets/ranking_2.png" width={22} /> :
+                            index === 2 ? <img src="/assets/ranking_3.png" width={22} /> :
                                 <span className="text-white">{index + 1}</span>
                 }</div>
             }
         },
         {
             title: t("Account"),
-            width: 150,
+            width: 170,
             dataIndex: 'age',
             key: 'age',
             render: (text, record, index) => {
                 return <div className="flex items-center gap-2">
-                    <div><img src={record.user.avatar} className="rounded-full w-4 h-4" alt="" /></div>
+                    <div><img src={record.user.avatar} className="rounded-full w-5 h-5" alt="" /></div>
                     <span>{record.user.name.replace(/^(.{3}).*(.{2}@.*\.com)$/, "$1***$2")}</span>
                 </div>
             }
@@ -70,7 +70,7 @@ const Divdend = () => {
             dataIndex: 'contribute_count',
             key: 'contribute_count',
             align: 'right',
-            width: 80,
+            width: 100,
             render: (text, record, index) => {
                 return BigNumber(record.contribute_count).toFormat(2)
             }
@@ -172,7 +172,7 @@ const Divdend = () => {
     }, [account]);
     return (
         <div className="w-full bg-[rgb(8,10,11)] rounded-box overflow-hidden xl:overflow-visible">
-            <div className="bg-gradient-to-b p-4 pr-1 pt-1 lg:p-8 lg:pt-16 rounded-t-box flex mt-6">
+            <div className="bg-gradient-to-b p-4 pb-1 pr-1 pt-1 lg:p-8 lg:pt-16 rounded-t-box flex mt-6">
                 <div className="w-[60%]">
                     <div className="w-full">
                         {
@@ -195,7 +195,7 @@ const Divdend = () => {
                                                 </span>
                                                 : <span>
                                                     <span>Invite friends to get <br /></span>
-                                                    <span className="font-bold">100,000 USDT & 100M WFC</span>
+                                                    <span className="font-bold text-xs lg:text-base">100,000 USDT & 100M WFC</span>
                                                 </span>
                                         }
                                     </div>
@@ -219,7 +219,7 @@ const Divdend = () => {
                                                 </span>
                                                 : <span>
                                                     <span>邀请好友瓜分<br /></span>
-                                                    <span className="font-bold">100,000 USDT & 100M WFC</span>
+                                                    <span className="font-bold text-xs lg:text-base">100,000 USDT & 100M WFC</span>
                                                 </span>
                                         }
                                     </div>
@@ -230,7 +230,7 @@ const Divdend = () => {
 
 
                     <div className="bg-[#212125] py-1 px-3 lg:p-3 rounded-md w-4/5 mt-4 lg:mt-10 lg:w-4/5">
-                        <div className="text-grey text-xxs">{t("Event end countdown")}</div>
+                        <div className="text-grey text-xxs lg:text-xs">{t("Event end countdown")}</div>
                         <div className="text-white flex items-center justify-between">
                             <Countdown
                                 title=""
@@ -272,19 +272,19 @@ const Divdend = () => {
                         <div className="bg-[#272727] flex items-center justify-around text-grey text-xxs  w-full hidden-scroll py-2 lg:py-4 rounded-md px-4 overflow-auto">
                             <div className="flex items-end gap-1 whitespace-pre">
                                 <span>{t("My ranking")}</span>
-                                <span className="text-white lg:text-md" style={{ lineHeight: "1rem" }}>{account ? (userRankInfo.isRanked ? userRankInfo.ranking : t("Unranked")) : '-'}</span>
+                                <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? (userRankInfo.isRanked ? userRankInfo.ranking : '1000+') : '-'}</span>
                             </div>
                             <div className="divider divider-horizontal after:bg-gery-120 before:bg-gery-120 after:w-[1px] before:w-[1px] mx-3 mt-[2px] h-3"></div>
                             <div className="flex items-end gap-1 whitespace-pre	">
                                 <span>{t("Points")}</span>
-                                <span className="text-white lg:text-md" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.points).toFormat(2) : '-'}</span>
+                                <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.points).toFormat(2) : '-'}</span>
                             </div>
                             {
                                 (userRankInfo.ranking > 1000 || !account || !userRankInfo.isRanked) && (
                                     <>
                                         <div className="divider divider-horizontal after:bg-gery-120 before:bg-gery-120 after:w-[1px] before:w-[1px]  mt-[2px] h-3"></div>
                                         <div className="flex items-end gap-1 whitespace-pre">
-                                            <span className="text-white lg:text-md" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.needPoints || 1).toFormat(0) : '-'}</span>
+                                            <span className="text-white lg:text-base" style={{ lineHeight: "1rem" }}>{account ? BigNumber(userRankInfo.needPoints || 1).toFormat(0) : '-'}</span>
                                             <span>{t("points away from the reward")}</span>
                                         </div>
                                     </>

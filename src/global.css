@@ -148,7 +148,12 @@ summary {
 .ant-table-container::after{
   box-shadow: none !important;
 }
-
+.ant-table-row{
+  line-height: 35px !important;
+}
+.ant-table-cell{
+  line-height: 35px !important;
+}
 .hidden-scroll {
   scrollbar-width: none;
   /* internet explorer 10+ */
