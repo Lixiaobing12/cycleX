@@ -171,7 +171,7 @@ const Divdend = () => {
         setInviteUrl(window.location.origin + "/login?t=up&referral=" + account?.referral_code);
     }, [account]);
     return (
-        <div className="w-full bg-[rgb(8,10,11)] rounded-box overflow-hidden xl:overflow-visible">
+        <div className="w-full bg-[#08090A] rounded-box overflow-hidden xl:overflow-visible">
             <div className="bg-gradient-to-b p-4 pb-1 pr-1 pt-1 lg:p-8 lg:pt-16 rounded-t-box flex mt-6">
                 <div className="w-[60%]">
                     <div className="w-full">
@@ -229,7 +229,7 @@ const Divdend = () => {
                     </div>
 
 
-                    <div className="bg-[#212125] py-1 px-3 lg:p-3 rounded-md w-4/5 mt-4 lg:mt-10 lg:w-4/5">
+                    <div className="bg-[#212125] py-1 px-4 lg:py-3 rounded-md w-4/5 mt-4 lg:mt-10 lg:w-4/5">
                         <div className="text-grey text-xxs lg:text-xs">{t("Event end countdown")}</div>
                         <div className="text-white flex items-center justify-between">
                             <Countdown
@@ -254,13 +254,13 @@ const Divdend = () => {
                 </div>
             </div>
             <div className="bg-gradient-to-r rounded-b-box">
-                <div className="divider h-0 after:bg-gery-300 before:bg-gery-300 after:h-[1px] before:h-[1px] mx-4 lg:mx-8 lg:mt-0"></div>
-                <div className="flex items-center gap-2 lg:gap-8 px-4 lg:px-8 w-full justify-between">
+                <div className="divider h-0 after:bg-[#373839] before:bg-[#373839] after:h-[1px] before:h-[1px] mx-4 lg:mx-8 lg:mt-0"></div>
+                <div className="flex items-center gap-4 lg:gap-8 px-4 lg:px-8 w-full justify-between">
                     <div className="text-xxs lg:text-sm whitespace-nowrap">{t("My invitation link")}</div>
                     <div className="text-white text-xxs lg:text-sm truncate">{account?.referral_code ? invite_url : t("Please login first!")}</div>
                     <button className="btn bg-[#fff] font-normal text-black border-0 p-3 py-[5px] lg:py-3 lg:px-6 h-auto min-h-0 self-stretch hover:bg-[#fff] text-xs rounded-md" onClick={() => handleCopy(invite_url)}>{t("Copy link")}</button>
                 </div>
-                <div className="divider h-0 after:bg-gery-300 before:bg-gery-300 after:h-[1px] before:h-[1px] mx-4 lg:mx-8 lg:mb-0"></div>
+                <div className="divider h-0 after:bg-[#373839] before:bg-[#373839] after:h-[1px] before:h-[1px] mx-4 lg:mx-8 lg:mb-0"></div>
 
                 <div className="pb-4 relative lg:mt-6">
                     <img src="/assets/dividend_card_bg.png" className="absolute top-0 right-0 w-1/2 hidden lg:block" alt="" />
