@@ -276,8 +276,17 @@ const In = () => {
   const [loading, setLoading] = useState(false);
   const accessToken = useLocalStorage();
   const [toast] = useAtom(messageContext);
-  const confirm = () => {
+  const confirm = async () => {
     setLoading(true);
+    const { data } = await request.post('/api/api/auth/checkUserStatus', {
+      name: nickname
+    });
+    if (data.data.status !== 0) {
+      setLoading(false);
+      return toast?.error({
+        message: t("Your account is suspected of illegal operations and has been frozen")
+      })
+    }
     request
       .post("/api/oauth/token", {
         grant_type: "password",
@@ -555,21 +564,21 @@ const Up = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en === "Chain" ? "China" : item.name_en,
-                title: item.name_en === "Chain" ? "China" : item.name_en,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name_en === "Chain" ? "China" : item.name_en,
+              title: item.name_en === "Chain" ? "China" : item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
             : {
-                label: item.name,
-                title: item.name,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
         )
       );
     });
@@ -1048,21 +1057,21 @@ const ForgotPhone = () => {
         data.data.map((item: any) =>
           i18n.language === "en"
             ? {
-                label: item.name_en === "Chain" ? "China" : item.name_en,
-                title: item.name_en === "Chain" ? "China" : item.name_en,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name_en === "Chain" ? "China" : item.name_en,
+              title: item.name_en === "Chain" ? "China" : item.name_en,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
             : {
-                label: item.name,
-                title: item.name,
-                key: item.prefix,
-                onClick: (e: any) => {
-                  setPhonePrefix(e.key);
-                },
-              }
+              label: item.name,
+              title: item.name,
+              key: item.prefix,
+              onClick: (e: any) => {
+                setPhonePrefix(e.key);
+              },
+            }
         )
       );
     });
@@ -1264,7 +1273,7 @@ const Revise = () => {
       setVilid(false);
     }
   };
-  const confirm = () => {};
+  const confirm = () => { };
   return (
     <div className="mt-8 flex-1">
       <div className="text-2xl font-bold font-whalebold my-4">{t("Change Password")}</div>

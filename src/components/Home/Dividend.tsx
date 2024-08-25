@@ -27,6 +27,7 @@ const Divdend = () => {
     const [, account] = useAccounts();
     const [invite_url, setInviteUrl] = useState("");
     const [endDate, setEndDate] = useState<Moment | null>();
+    const [startDate, setStartDate] = useState<Moment | null>();
     const [days, setDays] = useState('0');
     const [userRankInfo, setUserRankInfo] = useState({
         ranking: 0,
@@ -137,10 +138,12 @@ const Divdend = () => {
 
     const getDivdendConfig = () => {
         request.post('/api/api/contributionActivite/index').then(res => {
+            console.log('res.data.data.start_at', res.data.data.start_at)
             const endDate = moment(res.data.data.end_at, "YYYY-MM-DD HH:mm:ss");
             const days = endDate.diff(moment(), "days");
             setDays(days < 10 ? '0' + days : days.toString());
             setEndDate(endDate);
+            setStartDate(moment(res.data.data.start_at, "YYYY-MM-DD HH:mm:ss"));
         })
 
         request.post('/api/api/contributionOrder/getList').then(res => {
@@ -231,20 +234,28 @@ const Divdend = () => {
 
                     <div className="bg-[#212125] py-1 px-4 lg:py-3 rounded-md w-4/5 mt-4 lg:mt-10 lg:w-4/5">
                         <div className="text-grey text-xxs lg:text-xs">{t("Event end countdown")}</div>
-                        <div className="text-white flex items-center justify-between">
-                            <Countdown
-                                title=""
-                                value={getDiffTime()}
-                                format="HH:mm:ss"
-                                valueStyle={{
-                                    color: "#fff",
-                                    alignSelf: "flex-end",
-                                    fontSize: width > 600 ? "1.5rem" : ".9rem",
-                                    fontWeight: width > 600 ? "normal" : "bold"
-                                }}
-                            />
-                            <div className="text-base lg:text-2xl self-end mg-0 lg:mb-[3px]"><span className="text-sm lg:text-2xl font-bold lg:font-normal">{days}</span> <span className="text-xxs lg:text-sm">{t("days")}</span></div>
-                        </div>
+                        {
+                            moment().isBefore(startDate) ?
+                                <div className="text-white mt-4">{t("Wait for activity to begin")}</div>
+                                :
+                                moment().isAfter(endDate) ?
+                                    <div className="text-white mt-4">{t("Event has ended")}</div>
+                                    :
+                                    <div className="text-white flex items-center justify-between">
+                                        <Countdown
+                                            title=""
+                                            value={getDiffTime()}
+                                            format="HH:mm:ss"
+                                            valueStyle={{
+                                                color: "#fff",
+                                                alignSelf: "flex-end",
+                                                fontSize: width > 600 ? "1.5rem" : ".9rem",
+                                                fontWeight: width > 600 ? "normal" : "bold"
+                                            }}
+                                        />
+                                        <div className="text-base lg:text-2xl self-end mg-0 lg:mb-[3px]"><span className="text-sm lg:text-2xl font-bold lg:font-normal">{days}</span> <span className="text-xxs lg:text-sm">{t("days")}</span></div>
+                                    </div>
+                        }
                     </div>
                 </div>
                 <div className="flex-1">
@@ -294,7 +305,9 @@ const Divdend = () => {
                     </div>
                     <div className="lg:px-8 px-4 pb-6">
                         <div className="divider h-0 after:bg-gery-120 before:bg-gery-120 after:h-[1px] before:h-[1px] my-1"></div>
-                        <Table columns={columns} dataSource={list} scroll={{ x: 600, y: 300 }} size="small" pagination={false} />
+                        <Table columns={columns} dataSource={list} scroll={{ x: 600, y: 300 }} size="small" pagination={false} rowKey={record => record.id} locale={{
+                            emptyText: () => <div className="text-white my-4 text-base">{t("Wait for activity to begin")}</div>
+                        }} />
                     </div>
 
                 </div>
