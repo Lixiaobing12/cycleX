@@ -189,7 +189,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* <div className="md:p-10 mt-10 md:mt-0">
+          <div className="md:p-10 mt-10 md:mt-0">
             <ConfigProvider
               theme={{
                 token: {
@@ -212,7 +212,7 @@ export default function Home() {
               }}>
               <Divdend />
             </ConfigProvider>
-          </div> */}
+          </div>
 
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center mb-14 md:mb-20">

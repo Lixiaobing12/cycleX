@@ -233,28 +233,39 @@ const Divdend = () => {
 
 
                     <div className="bg-[#212125] py-1 px-4 lg:py-3 rounded-md w-4/5 mt-4 lg:mt-10 lg:w-4/5">
-                        <div className="text-grey text-xxs lg:text-xs">{t("Event end countdown")}</div>
                         {
                             moment().isBefore(startDate) ?
-                                <div className="text-white mt-4">{t("Wait for activity to begin")}</div>
+                                <>
+                                    <div className="text-grey text-xxs lg:text-xs">{t("Event Start Time")}</div>
+                                    <div className="text-white mt-2">
+                                        <div>{t("Aug 27th, 00:00")}</div>
+                                    </div>
+                                </>
                                 :
                                 moment().isAfter(endDate) ?
-                                    <div className="text-white mt-4">{t("Event has ended")}</div>
+                                    <>
+                                        <div className="text-grey text-xxs lg:text-xs">{t("Event end countdown")}</div>
+                                        <div className="text-white mt-2">{t("Event has ended")}</div>
+                                    </>
                                     :
-                                    <div className="text-white flex items-center justify-between">
-                                        <Countdown
-                                            title=""
-                                            value={getDiffTime()}
-                                            format="HH:mm:ss"
-                                            valueStyle={{
-                                                color: "#fff",
-                                                alignSelf: "flex-end",
-                                                fontSize: width > 600 ? "1.5rem" : ".9rem",
-                                                fontWeight: width > 600 ? "normal" : "bold"
-                                            }}
-                                        />
-                                        <div className="text-base lg:text-2xl self-end mg-0 lg:mb-[3px]"><span className="text-sm lg:text-2xl font-bold lg:font-normal">{days}</span> <span className="text-xxs lg:text-sm">{t("days")}</span></div>
-                                    </div>
+                                    <>
+                                        <div className="text-grey text-xxs lg:text-xs">{t("Event end countdown")}</div>
+                                        <div className="text-white flex items-center justify-between">
+                                            <Countdown
+                                                title=""
+                                                value={getDiffTime()}
+                                                format="HH:mm:ss"
+                                                valueStyle={{
+                                                    color: "#fff",
+                                                    alignSelf: "flex-end",
+                                                    fontSize: width > 600 ? "1.5rem" : ".9rem",
+                                                    fontWeight: width > 600 ? "normal" : "bold"
+                                                }}
+                                            />
+                                            <div className="text-base lg:text-2xl self-end mg-0 lg:mb-[3px]"><span className="text-sm lg:text-2xl font-bold lg:font-normal">{days}</span> <span className="text-xxs lg:text-sm">{t("days")}</span></div>
+                                        </div>
+                                    </>
+
                         }
                     </div>
                 </div>
