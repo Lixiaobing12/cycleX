@@ -32,18 +32,18 @@ function App() {
   setMessage(api);
   setModal(modal);
 
-  useEffect(() => {
-    if (router.pathname === "/login" && accessToken) {
-      toast?.open({
-        icon: <Loader spinning />,
-        message: "logging in...",
-        duration: 1.5,
-        onClose: () => {
-          navigator("/");
-        },
-      });
-    }
-  }, [router, accessToken]);
+  // useEffect(() => {
+  //   if (router.pathname === "/login" && accessToken) {
+  //     toast?.open({
+  //       icon: <Loader spinning />,
+  //       message: "logging in...",
+  //       duration: 1.5,
+  //       onClose: () => {
+  //         navigator("/");
+  //       },
+  //     });
+  //   }
+  // }, [router, accessToken]);
 
   useEffect(() => {
     const img = new Image();
