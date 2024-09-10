@@ -19,29 +19,29 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "https://cyclex.cc/",
+        target: "https://test.cyclex.cc/",
         changeOrigin: true,
         // target: "http://127.0.0.1:8000/",
         // rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/sapi": {
-        target: "https://cyclex.cc/",
+        target: "https://test.cyclex.cc/",
         changeOrigin: true,
       },
       "/images": {
-        target: "https://cyclex.cc/",
+        target: "https://test.cyclex.cc/",
         changeOrigin: true,
       },
       "/static/file": {
-        target: "https://cyclex.cc/",
+        target: "https://test.cyclex.cc/",
         changeOrigin: true,
       },
       "/rwa": {
-        target: "https://cyclex.cc/",
+        target: "https://test.cyclex.cc/",
         changeOrigin: true,
       },
       "/translate": {
-        target: "https://cyclex.cc/",
+        target: "https://test.cyclex.cc/",
         changeOrigin: true,
       },
     },

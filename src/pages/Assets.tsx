@@ -12,9 +12,11 @@ import { useTranslateLocalStorage } from "../hooks/localStorage";
 import { fundProductApiType } from "../types/fundProduct";
 import { scientific } from "../utils/BigNumberToString";
 import { request } from "../utils/request";
+import { useWindowSize } from "usehooks-ts";
 
 export default function Assets() {
   const { t, i18n } = useTranslation();
+  const { width } = useWindowSize();
   const params = useParams();
   const [product, setProductInfo] = useAtom(product_info);
   const { handleTranslate } = useTranslateLocalStorage();
@@ -72,7 +74,11 @@ export default function Assets() {
             </div>
             <div className="flex gap-6 items-center w-fit">
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">{Number(product?.income).toFixed(0) + "%"} APY</div>
-              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(product?.market_value) + 300000)} TVL</div>
+              <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">
+                {
+                  product?.simple_name === "CDEX" ? '- TVL' : `$ ${scientific(Number(product?.market_value) + 300000)} TVL`
+                }
+              </div>
               <img src="/assets/eth_white.png" width={30} alt="" />
             </div>
             {/* {product?.img_url && <img src={product.img_url} className="w-full h-" alt="" />} */}
@@ -83,12 +89,13 @@ export default function Assets() {
             <Deposit />
           </div>
 
-          <div className="mt-14">
+          {product?.simple_name !== 'CDEX' && <div className="mt-14">
             <div className="w-full text-center mb-14 md:mb-20">
               <h1 className="text-black text-3xl mb-6">{product?.simple_name}</h1>
             </div>
             <Constitute />
-          </div>
+          </div>}
+
           {product?.id === 8 && (
             <>
               <div className="mt-14">
@@ -112,6 +119,22 @@ export default function Assets() {
               </div>
             </>
           )}
+          {
+            product?.simple_name === 'CDEX' && (
+              <>
+                <div className="mt-14">
+                  {
+                    i18n.language === "en" ? <img src="/assets/CDEX/content1.png" className="w-full" /> : <img src="/assets/CDEX/content1-zh.png" className="w-full" />
+                  }
+                </div>
+                <div className="mt-14">
+                  {
+                    i18n.language === "en" ? (width < 600 ? <img src="/assets/CDEX/content2-mb.png" className="w-full" /> : <img src="/assets/CDEX/content2.png" className="w-full" />) : (width < 600 ? <img src="/assets/CDEX/content2-mb-zh.png" className="w-full" /> : <img src="/assets/CDEX/content2-zh.png" className="w-full" />)
+                  }
+                </div>
+              </>
+            )
+          }
           {product?.id === 9 && (
             <>
               <div className="mt-14">

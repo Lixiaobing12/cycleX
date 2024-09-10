@@ -146,8 +146,10 @@ const Wallet = () => {
     } else {
       setPage((state) => ({ ...state, size: 8 }));
     }
-    fetch();
+    !records.length && fetch();
   }, [user?.id, size]);
+
+
   return (
     <div className="w-full p-4 py-10 min-h-11/12" id="main">
       <Row justify="center">

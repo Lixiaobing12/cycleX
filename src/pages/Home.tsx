@@ -132,7 +132,10 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
 
+
+        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-11/12 m-auto">
           <div className="flex flex-wrap gap-4 item-center justify-center my-20 mt-4" id="fund">
             <div className={`grid grid-cols-1 lg:grid-cols-${assets.length} w-full gap-4 md:p-10`}>
               {assets.map((item, ind) => (
@@ -188,6 +191,8 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </div>
+        <div className="w-[92%] md:w-11/12 lg:w-10/12 xl:w-8/12 2xl:w-5/12 m-auto">
 
           <div className="md:p-10 mt-10 md:mt-0">
             <ConfigProvider
@@ -415,7 +420,8 @@ export default function Home() {
             <News />
           </div>
         </div>
-        {/* <div className="w-[92%] m-auto md:p-10 mt-14 md:mt-0">
+      </div>
+      {/* <div className="w-[92%] m-auto md:p-10 mt-14 md:mt-0">
           <div className="w-full text-center mb-14 md:mb-20">
             <h1 className="text-black text-2xl mb-6 font-bold">{t("News & Insights")}</h1>
           </div>
@@ -423,7 +429,6 @@ export default function Home() {
             <News />
           </div>
         </div> */}
-      </div>
-    </div>
+    </div >
   );
 }

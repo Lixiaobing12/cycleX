@@ -113,7 +113,7 @@ const Platform = () => {
     }
   };
   useEffect(() => {
-    fetch();
+    !data.length && fetch();
   }, [userInfo]);
   return (
     <div className="w-full p-4 py-10 min-h-11/12">
