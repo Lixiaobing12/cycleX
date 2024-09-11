@@ -104,7 +104,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="w-[92%] md:w-11/12 lg:w-10/12 xl:w-8/12 2xl:w-5/12 m-auto">
+        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-7/12 m-auto">
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center">
               <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Start Investing")}</h1>
@@ -135,7 +135,7 @@ export default function Home() {
         </div>
 
 
-        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-11/12 m-auto">
+        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-7/12 m-auto">
           <div className="flex flex-wrap gap-4 item-center justify-center my-20 mt-4" id="fund">
             <div className={`grid grid-cols-1 lg:grid-cols-${assets.length} w-full gap-4 md:p-10`}>
               {assets.map((item, ind) => (
