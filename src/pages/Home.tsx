@@ -62,9 +62,8 @@ export default function Home() {
           _tvl += Number(items[i].market_value);
           _aum += Number(items[i].aum_value);
         }
-        console.log(_tvl, _aum);
         setAssetsItems(items);
-        setTvl(_tvl);
+        setTvl(_tvl + 116000);
         setAum(_aum);
       }
     );
