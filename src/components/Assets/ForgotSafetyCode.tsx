@@ -32,6 +32,7 @@ const ForgetSafetyCode: React.FC<{
   const [sendAndCountDown, setCountDownShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [codeItemStatus, setCodeItemStatus] = useState("validating");
+  const [cdTime, setCdTime] = useState(0)
 
   const onVilid = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === newPassword) {
@@ -64,6 +65,7 @@ const ForgetSafetyCode: React.FC<{
             });
           }
         } else {
+          setCdTime(Date.now() + 60 * 1000)
           setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
@@ -184,7 +186,7 @@ const ForgetSafetyCode: React.FC<{
             suffix={
               sendAndCountDown ? (
                 <Countdown
-                  value={Date.now() + 60 * 1000}
+                  value={cdTime}
                   format="ss"
                   suffix="s"
                   valueStyle={{

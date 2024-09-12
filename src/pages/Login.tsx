@@ -30,6 +30,7 @@ const SafetyInput: React.FC<{
   const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
   const [toast] = useAtom(messageContext);
+  const [cdTime, setCdTime] = useState(0)
 
   const [newPassword, setNewPassword] = useState("");
   const [inputsAreCorrect, setCorrent] = useState(false);
@@ -72,6 +73,7 @@ const SafetyInput: React.FC<{
             });
           }
         } else {
+          setCdTime(Date.now() + 60 * 1000);
           setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
@@ -193,7 +195,7 @@ const SafetyInput: React.FC<{
             suffix={
               sendAndCountDown ? (
                 <Countdown
-                  value={Date.now() + 60 * 1000}
+                  value={cdTime}
                   format="ss"
                   suffix="s"
                   valueStyle={{
@@ -399,6 +401,7 @@ const Up = () => {
   const [validateStatus, setStatus] = useState("validating");
   const [sendAndCountDown, setCountDownShow] = useState(false);
   const [sending, setSending] = useState(false);
+  const [cdTime, setCdTime] = useState(0)
   /** 安全密钥  */
   const secrityKey = useRef<SecrityKeyType>();
 
@@ -514,6 +517,7 @@ const Up = () => {
             });
           }
         } else {
+          setCdTime(Date.now() + 60 * 1000)
           setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
@@ -652,7 +656,7 @@ const Up = () => {
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
-                      value={Date.now() + 60 * 1000}
+                      value={cdTime}
                       format="ss"
                       suffix="s"
                       valueStyle={{
@@ -739,6 +743,8 @@ const ForgotEmail = () => {
   const [loading, setLoading] = useState(false);
   const [, setType] = useAtom(tabTypes);
   const [sending, setSending] = useState(false);
+  const [cdTime, setCdTime] = useState(0)
+
 
   const onVilid = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === newPassword) {
@@ -820,6 +826,7 @@ const ForgotEmail = () => {
             });
           }
         } else {
+          setCdTime(Date.now() + 60 * 1000)
           setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
@@ -880,7 +887,7 @@ const ForgotEmail = () => {
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
-                      value={Date.now() + 60 * 1000}
+                      value={cdTime}
                       format="ss"
                       suffix="s"
                       valueStyle={{
@@ -940,6 +947,7 @@ const ForgotPhone = () => {
   const [toast] = useAtom(messageContext);
   const { handleTranslate } = useTranslateLocalStorage();
   const [loading, setLoading] = useState(false);
+  const [cdTime, setCdTime] = useState(0)
   const [sending, setSending] = useState(false);
   const [selectOptions, setOptions] = useState<
     {
@@ -1026,6 +1034,7 @@ const ForgotPhone = () => {
               message: data.res_msg,
             });
         } else {
+          setCdTime(Date.now() + 60 * 1000);
           setCountDownShow(true);
           toast?.success({
             icon: <img src="/assets/success.png" width={30} />,
@@ -1113,7 +1122,7 @@ const ForgotPhone = () => {
                 suffix={
                   sendAndCountDown ? (
                     <Countdown
-                      value={Date.now() + 60 * 1000}
+                      value={cdTime}
                       format="ss"
                       suffix="s"
                       valueStyle={{
