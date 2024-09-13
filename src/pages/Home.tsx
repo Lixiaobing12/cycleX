@@ -103,7 +103,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-7/12 m-auto">
+        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-10/12 m-auto">
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center">
               <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Start Investing")}</h1>
@@ -134,7 +134,7 @@ export default function Home() {
         </div>
 
 
-        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-7/12 m-auto">
+        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-10/12 m-auto">
           <div className="flex flex-wrap gap-4 item-center justify-center my-20 mt-4" id="fund">
             <div className={`grid grid-cols-1 lg:grid-cols-${assets.length} w-full gap-4 md:p-10`}>
               {assets.map((item, ind) => (
@@ -157,7 +157,8 @@ export default function Home() {
                   <div className="flex items-center justify-between mt-4">
                     <div className="flex gap-4">
                       <div>
-                        <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">$ {scientific(Number(item.market_value))} TVL</div>
+                        <div className="font-bold bg-white rounded-full px-4 py-1 text-[#000]">{
+                          item.simple_name === 'CDEX' ? '- TVL' : `$ ${scientific(Number(item.market_value))} TVL`}</div>
                       </div>
                       <div className="flex items-center">
                         <img src="/assets/eth.png" className="w-8 h-8" alt="" />
@@ -191,7 +192,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="w-[92%] md:w-11/12 lg:w-10/12 xl:w-8/12 2xl:w-5/12 m-auto">
+        <div className="w-[92%] md:w-11/12 lg:w-10/12 xl:w-10/12 2xl:w-10/12 3xl:w-9/12 4xl:7/12 m-auto">
 
           <div className="md:p-10 mt-10 md:mt-0">
             <ConfigProvider

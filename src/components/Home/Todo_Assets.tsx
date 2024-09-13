@@ -11,6 +11,8 @@ import { request } from "../../utils/request";
 import WrapperButton from "../Common/Button";
 import WrapperImg from "../Common/Img";
 import CountUp from "react-countup";
+import moment from "moment";
+import { useWindowSize } from "usehooks-ts";
 
 interface DataType {
   key: string;
@@ -27,6 +29,9 @@ const TodoListAssets = () => {
   const navigate = useNavigate();
   const [activeItem, setItem] = useState(1);
   const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
+  const day = moment().format("MM/YYYY");
+  const { width } = useWindowSize();
+
 
   const columns: TableProps<fundProductApiType>["columns"] = [
     {
@@ -52,7 +57,7 @@ const TodoListAssets = () => {
           }}>
           <img src="/assets/assets_dollor.png" className="w-[25px]" alt="" />
           <div className="flex flex-col">
-            <span className="text-md font-bold font-whalebold">{value}</span>
+            <span className="text-md font-bold font-whalebold leading-5">{value}</span>
             <span className="text-threePranentTransblack text-sm">{t("Tokenized funds")}</span>
           </div>
         </a>
@@ -111,7 +116,7 @@ const TodoListAssets = () => {
         </div>
 
         <div className="self-end md:self-auto flex items-center text-greyblack text-sm">
-          <span className="mr-2">{t("Until 01/08/2024")}</span>
+          <span className="mr-2">{t("Until") + ' 01/' + day}</span>
           <WrapperImg src="/assets/reflush.png" width={14} />
         </div>
       </div>

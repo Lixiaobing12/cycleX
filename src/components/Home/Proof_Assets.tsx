@@ -8,13 +8,14 @@ import { scientific } from "../../utils/BigNumberToString";
 import { request } from "../../utils/request";
 import WrapperImg from "../Common/Img";
 import CountUp from "react-countup";
+import moment from "moment";
 
 const Table = () => {
   const { t, i18n } = useTranslation();
   const [proofs] = useAtom(fundProofs_atom);
   const columns: TableProps<FundProofType>["columns"] = [
     {
-      title: t("Current assets/Size"),
+      title: <span className="leading-5">{t("Current assets/Size")}</span>,
       dataIndex: "MarketValue",
       key: "MarketValue",
       render: (value) => {
@@ -25,13 +26,13 @@ const Table = () => {
       }
     },
     {
-      title: t("Category/Type"),
+      title: <span className="leading-5">{t("Category/Type")}</span>,
       dataIndex: "TypeSort",
       key: "TypeSort",
       render: (value, row) => <span className="capitalize">{i18n.language === "en" ? row.TypeSortDct?.en : row.TypeSortDct?.zh}</span>,
     },
     {
-      title: t("Report/Reserve details"),
+      title: <span className="leading-5">{t("Report/Reserve details")}</span>,
       dataIndex: "Name",
       key: "Name",
       render: (value, row) => (
@@ -52,6 +53,7 @@ const ProofAssets = () => {
   const [proofs, setProofs] = useAtom(fundProofs_atom);
   const { handleTranslate } = useTranslateLocalStorage();
   const { t, i18n } = useTranslation();
+  const day = moment().format("MM/YYYY")
   useEffect(() => {
     request.post("/sapi/fundProof/list").then(
       async ({
@@ -85,9 +87,9 @@ const ProofAssets = () => {
     <div className="flex flex-col md:flex-row w-full items-center gap-10 text-black">
       <div className="flex-1 flex flex-col">
         <div className="flex items-end ">
-          <span className="text-2xl mr-4">{t("Reserve detail")}</span>
+          <span className="text-2xl mr-4 leading-5">{t("Reserve detail")}</span>
           <div className="flex items-center">
-            <span className="mr-2 text-sm">{t('Until 01/08/2024')}</span>
+            <span className="mr-2 text-sm leading-5">{t('Until') + ' 01/' + day}</span>
             <WrapperImg src="/assets/reflush.png" width={14} />
           </div>
         </div>

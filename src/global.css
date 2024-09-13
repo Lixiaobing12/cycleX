@@ -139,25 +139,28 @@ summary {
   background: rgb(68, 68, 68) !important;
   border-radius: 10px !important;
 }
-.ant-table-cell-fix-left-last::after{
+.ant-table-cell-fix-left-last::after {
   box-shadow: none !important;
 }
 .ant-table-thead .ant-table-cell {
   font-weight: 400 !important;
 }
-.ant-table-container::after{
+.ant-table-container::after {
   box-shadow: none !important;
 }
-.ant-table-row{
+.ant-table-row {
   line-height: 35px !important;
 }
-.ant-table-cell{
+.ant-table-cell {
   line-height: 35px !important;
 }
 .hidden-scroll {
   scrollbar-width: none;
   /* internet explorer 10+ */
   -ms-overflow-style: none;
+}
+.ant-table-cell {
+  line-height: 16px !important;
 }
 .hidden-scroll::-webkit-scrollbar {
   display: none;
