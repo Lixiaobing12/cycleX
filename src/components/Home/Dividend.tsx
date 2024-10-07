@@ -56,7 +56,7 @@ const Divdend = () => {
         },
         {
             title: t("Account"),
-            width: 170,
+            width: 200,
             dataIndex: 'age',
             key: 'age',
             render: (text, record, index) => {
@@ -316,7 +316,7 @@ const Divdend = () => {
                     </div>
                     <div className="lg:px-8 px-4 pb-6">
                         <div className="divider h-0 after:bg-gery-120 before:bg-gery-120 after:h-[1px] before:h-[1px] my-1"></div>
-                        <Table columns={columns} dataSource={list} scroll={{ x: 600, y: 300 }} size="small" pagination={false} rowKey={record => record.id} locale={{
+                        <Table columns={columns} dataSource={list} scroll={{ x: 650, y: 300 }} size="small" pagination={false} rowKey={record => record.id} locale={{
                             emptyText: () => <div className="text-white my-4 text-base">{t("Wait for activity to begin")}</div>
                         }} />
                     </div>

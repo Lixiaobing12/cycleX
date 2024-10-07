@@ -79,7 +79,7 @@ const Footers = () => {
             <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.55)] flex items-center justify-center">
               <Countdown
                 title=""
-                value={1728316800000}
+                value={1728921599000}
                 format="DD:HH:mm:ss"
                 valueStyle={{
                   color: "#fff",
@@ -96,7 +96,7 @@ const Footers = () => {
             <div className="absolute left-0 right-0 top-0 bottom-0 bg-black rounded-box bg-[rgba(0,0,0,0.55)] flex items-center justify-center">
               <Countdown
                 title=""
-                value={1728316800000}
+                value={1728921599000}
                 format="DD:HH:mm:ss"
                 valueStyle={{
                   color: "#fff",
