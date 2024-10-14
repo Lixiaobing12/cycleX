@@ -653,5 +653,7 @@
   "Event has ended": "活动已结束",
   "Aug 27th, 00:00": "08/27 00:00",
   "Event Start Time": "活动开始时间",
-  "Event Start Time: August 27, 00:00 (UTC+8)": "活动开始时间: 08/27 00:00 (UTC+8)"
+  "Event Start Time: August 27, 00:00 (UTC+8)": "活动开始时间: 08/27 00:00 (UTC+8)",
+  "Withdraw": "提现",
+  "tip_withdraw_not_open":"由于系统升级，提现功能将在升级完成后开放"
 }

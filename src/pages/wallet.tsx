@@ -95,6 +95,13 @@ const Wallet = () => {
     set_recharge_modal_visible(true);
   };
 
+  const Withdraw = () => {
+    toast?.warning({
+      message: t("tip_withdraw_not_open"),
+      icon: <img src="/assets/error.png" width={30} />,
+    });
+  }
+
   const handleChange = (_page: number, pageSize: number) => {
     page.page = _page;
     page.size = pageSize;
@@ -154,8 +161,11 @@ const Wallet = () => {
     <div className="w-full p-4 py-10 min-h-11/12" id="main">
       <Row justify="center">
         <Col xs={24} md={22} lg={18}>
-          <div className="rounded-box bg-black flex flex-col p-8 gap-4 relative  bg-wallet bg-100">
+          <div className="rounded-box bg-black flex flex-col p-8 pt-16 lg:pt-8 gap-4 relative  bg-wallet bg-100">
             <div className="absolute right-4 top-4 flex gap-2">
+              <button className=" btn btn-sm border-light bg-black text-white hover:text-white hover:bg-black" onClick={Withdraw}>
+                {t("Withdraw")}
+              </button>
               <button className=" btn btn-sm border-light bg-black text-white hover:text-black hover:bg-white" onClick={Recharge}>
                 {t("Recharge")}
               </button>
