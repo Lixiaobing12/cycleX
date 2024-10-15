@@ -98,7 +98,7 @@ const Wallet = () => {
   const Withdraw = () => {
     toast?.warning({
       message: t("tip_withdraw_not_open"),
-      icon: <img src="/assets/error.png" width={30} />,
+      icon: <></>,
     });
   }
 
