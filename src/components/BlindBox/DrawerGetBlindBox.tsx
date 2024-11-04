@@ -68,7 +68,12 @@ const DrawerGetBlindBox = () => {
   useEffect(() => {
     const localStorage = window.localStorage;
     const opened = localStorage.getItem("opened") as any;
+
+    let opening = false;
     if (opened) {
+
+      if (!opening) return;
+      else opening = true;
       const types = JSON.parse(opened);
       for (const t of types) {
         if (t.type === "login" && moment().diff(moment(t.date), "d") !== 0) {
