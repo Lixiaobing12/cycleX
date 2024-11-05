@@ -18,7 +18,7 @@ const Law = () => {
               <ul className="ml-6">
                 <li>
                   These terms of service, together with any documents and additional terms they expressly incorporate by reference, which includes any other terms and conditions or other agreement
-                  that WHALE FLOW Inc. ("WHALE FLOW," "we," "us" and "our") posts publicly or makes available to you or the company or other legal entity you represent ("you" or "your") (collectively,
+                  that WHALE FLOW Group Ltd. ("WHALE FLOW," "we," "us" and "our") posts publicly or makes available to you or the company or other legal entity you represent ("you" or "your") (collectively,
                   these "Terms" or "Agreement"), are entered into between WHALE FLOW and you concerning your use of, and access to, WHALE FLOW's websites, including WHALE FLOW; web applications;
                   mobile applications; and all associated sites linked thereto by WHALE FLOW or its affiliates (collectively with any materials and services available therein, and successor website(s)
                   or application(s) thereto, the "Site") and the Services (as defined in Section 2.1 hereto).
@@ -860,10 +860,10 @@ const Law = () => {
               <p>
                 Disclaimers: Neither this web page, nor any related discussions, nor any portion hereof or thereof, constitutes any offer to sell, or any solicitation of an offer to buy, any
                 securities, including but not limited to Tokens. Neither this web page, nor any related discussions, nor any portion hereof or thereof, constitutes any representation, warranty or
-                covenant on the part of WHALE FLOW Inc. or any other person. This web page contains, and officers, agents or representatives of WHALE FLOW Inc. may from time to time make,
+                covenant on the part of WHALE FLOW Group Ltd. or any other person. This web page contains, and officers, agents or representatives of WHALE FLOW Group Ltd. may from time to time make,
                 "forward-looking statements". Forward-looking statements are neither historical facts nor assurances of future performance. Instead, they are based only on current beliefs,
                 expectations and assumptions. Because forward-looking statements relate to the future, they are subject to inherent uncertainties, risks and changes in circumstances that are difficult
-                to predict and many of which are outside of the control of WHALE FLOW Inc., and its officers, agents and representatives. Actual results and financial condition may differ materially
+                to predict and many of which are outside of the control of WHALE FLOW Group Ltd., and its officers, agents and representatives. Actual results and financial condition may differ materially
                 from those indicated in the forward-looking statements. Therefore, you should not rely on any of these forward-looking statements. Acquiring Tokens is speculative and involves
                 substantial risks. There can be no assurances that a Token holder will not incur losses, including total loss of their investment in Tokens.
               </p>
