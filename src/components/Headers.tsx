@@ -1,6 +1,6 @@
 import { Drawer, Dropdown, Menu, MenuProps, Space } from "antd";
 import { useAtom } from "jotai";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { modalContext } from "../App";
@@ -16,7 +16,7 @@ const HeaderComponent = () => {
   const accessToken = useLocalStorage();
   const navigate = useNavigate();
   const [users, setUsersInfo] = useAtom(userInfo_atom);
-  const [openMenu, setOpenMenu] = useAtom(DrawerShow);
+  const [openMenu, setOpenMenu] = useState(false);
   const [modal] = useAtom(modalContext);
   const invite_img = useRef("");
   // const { openConnectModal } = useConnectModal();
