@@ -116,7 +116,7 @@ const Footers = () => {
         <div>
           <span className="rounded-md border border-light py-1 px-4 text-base">{t("More products coming soon")}</span>
         </div>
-        <div className="text-white mt-4">
+        <div className="text-white mt-10 text-xs">
           {i18n.language === "en" ? (
             <div>
               <p className="mb-2">CycleX is a digital asset platform supported by Whaleflow Group. The following licensed/registered entities are wholly-owned subsidiaries of Whaleflow Group: </p>
@@ -146,9 +146,7 @@ const Footers = () => {
         </div>
       </div>
 
-      <div className="w-full divider md:w-[82%] m-auto"></div>
-
-      <div className="w-full flex justify-between items-center text-white mt-6 md:w-[82%] m-auto">
+      <div className="w-full flex justify-between items-center text-white md:w-[81%] m-auto">
         <div className="flex gap-4 md:gap-10 text-sm">
           <span
             className="cursor-pointer"
