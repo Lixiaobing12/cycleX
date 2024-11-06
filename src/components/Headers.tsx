@@ -342,7 +342,6 @@ const HeaderComponent = () => {
         </div>
       </div>
       <Drawer
-        destroyOnClose
         placement="right"
         width="70vw"
         closable={false}
