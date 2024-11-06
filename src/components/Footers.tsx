@@ -13,7 +13,7 @@ const { Countdown } = Statistic;
 /** 用户协议弹窗 */
 
 const Footers = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [toast] = useAtom(messageContext);
   const [assets, setAssetsItems] = useState<fundProductApiType[]>([]);
   const navigate = useNavigate();
@@ -111,8 +111,39 @@ const Footers = () => {
           </a>
         </div>
       </div>
+
       <div className="text-white my-10 md:w-[81%] md:ml-[9%]">
-        <span className="rounded-md border border-light py-1 px-4 text-base">{t("More products coming soon")}</span>
+        <div>
+          <span className="rounded-md border border-light py-1 px-4 text-base">{t("More products coming soon")}</span>
+        </div>
+        <div className="text-white mt-4">
+          {i18n.language === "en" ? (
+            <div>
+              <p className="mb-2">CycleX is a digital asset platform supported by Whaleflow Group. The following licensed/registered entities are wholly-owned subsidiaries of Whaleflow Group: </p>
+              <p className="mb-2">
+                Whaleflow Group Usltd: Registered as a Money Services Business (MSB) (Registration No: 31000243370255) and holds an investment advisor license (RIA) under the regulation of the U.S.
+                Securities and Exchange Commission (SEC). The tokenized funds it issues meet the SEC’s regulatory standards for securities-class crypto assets and are aimed at accredited investors who
+                have passed KYC and anti-money laundering reviews.
+              </p>
+              <p className="mb-2">
+                CycleX establishes an online asset pool (RWA pool) through Special Purpose Entities (SPE) or Special Purpose Vehicles (SPV), including cash, credit assets (such as bonds and
+                securities), cryptocurrencies, and alternative investments (such as real estate and art). Assets are managed by qualified custodians to ensure the safety of investors' assets.
+              </p>
+            </div>
+          ) : (
+            <div>
+              <p className="mb-2"> CycleX是由Whaleflow Group提供支持的数字资产平台，以下许可/注册实体是WhaleFlow Group的全资子公司： </p>{" "}
+              <p className="mb-2">
+                Whaleflow Group Usltd:
+                注册为货币服务企业(MSB)(注册号:31000243370255)，具备美国证券交易委员会(SEC)监管下的投资顾问牌照(RIA)，其发行的代币化基金符合SEC监管的证券类加密资产标准，面向已通过KYC和反洗钱审核的合格投资者。
+              </p>
+              <p className="mb-2">
+                CycleX以特殊目的实体(SPE)或特殊目的载体(SPV)为主体，构建线上资产池(RWA
+                pool)，包含现金、信用资产(包括债券、证券)、加密货币以及另类投资(包括房地产、艺术品等)。资产由合格托管机构管理，确保投资者的资产安全。
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="w-full divider md:w-[82%] m-auto"></div>
