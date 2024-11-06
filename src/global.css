@@ -41,6 +41,9 @@ body {
   user-select: none;
 }
 
+.ant-drawer:focus-visible{
+  outline: none !important;
+}
 #c-table :where(th, td) {
   padding-left: 0;
 }

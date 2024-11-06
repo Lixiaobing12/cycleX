@@ -346,6 +346,7 @@ const HeaderComponent = () => {
         width="70vw"
         closable={false}
         onClose={() => setOpenMenu(false)}
+        forceRender
         open={openMenu}
         styles={{
           body: {
@@ -397,16 +398,20 @@ const HeaderComponent = () => {
                   <button
                     className="btn btn-sm rounded-full bg-white text-black flex-1 border-0"
                     onClick={() => {
+                      setTimeout(() => {
+                        navigate("/login?t=in");
+                      }, 200);
                       setOpenMenu(false);
-                      navigate("/login?t=in");
                     }}>
                     {t("Sign in")}
                   </button>
                   <button
                     className="btn btn-sm rounded-full bg-black border-grey flex-1 text-white border-0"
                     onClick={() => {
+                      setTimeout(() => {
+                        navigate("/login?t=up");
+                      }, 100);
                       setOpenMenu(false);
-                      navigate("/login?t=up");
                     }}>
                     {t("Sign up")}
                   </button>
