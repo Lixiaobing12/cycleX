@@ -182,13 +182,13 @@ const HeaderComponent = () => {
     },
     {
       label: t("Language"),
-      icon: <WrapperImg src="/assets/lang-light.png"/>,
+      icon: <WrapperImg src="/assets/lang-light.png" />,
       key: "Language",
       children: items,
     },
     {
       label: t("Connect Wallet"),
-      icon: <WrapperImg src="/assets/connection.png"  width={15}/>,
+      icon: <WrapperImg src="/assets/connection.png" width={15} />,
       key: "connectWallet",
       onClick: () => {
         toast?.warning({ message: t("Waiting for upgrade..."), icon: <img src="/assets/error.png" width={30} /> });
@@ -313,15 +313,24 @@ const HeaderComponent = () => {
         <div className="hidden md:flex text-right mr-10">
           <Space size="large">
             {users && accessToken ? (
-              <Dropdown menu={{ items: accountItems }}>
-                <div onClick={(e) => e.preventDefault()} className="flex items-center cursor-pointer">
-                  {users.avatar && <img src={users.avatar} width={32} className="mr-2 rounded-full" alt="" />}
-                  {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
-                  <div className="mt-1 ml-1">
-                    <img src="/assets/down.png" width={15} alt="" />
+              <>
+                <Dropdown menu={{ items: accountItems }}>
+                  <div onClick={(e) => e.preventDefault()} className="flex items-center cursor-pointer">
+                    {users.avatar && <img src={users.avatar} width={32} className="mr-2 rounded-full" alt="" />}
+                    {users.email?.replace(/^(.{2}).*(.{10})$/, "$1...$2") ?? users.mobile}
+                    <div className="mt-1 ml-1">
+                      <img src="/assets/down.png" width={15} alt="" />
+                    </div>
                   </div>
-                </div>
-              </Dropdown>
+                </Dropdown>
+                <button
+                  className="btn btn-sm bg-black text-white rounded-md border-0"
+                  onClick={() => {
+                    toast?.warning({ message: t("Waiting for upgrade..."), icon: <img src="/assets/error.png" width={30} /> });
+                  }}>
+                  {t("Connect Wallet")}
+                </button>
+              </>
             ) : (
               <>
                 <div className="cursor-pointer  hover:scale-105" onClick={() => navigate("/login?t=in")}>
