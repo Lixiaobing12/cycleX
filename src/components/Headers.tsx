@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import { modalContext } from "../App";
+import { messageContext, modalContext } from "../App";
 import { DrawerShow } from "../atom/menu";
 import { userInfo_atom } from "../atom/userInfo";
 import useLocalStorage from "../hooks/localStorage";
@@ -16,6 +16,7 @@ const HeaderComponent = () => {
   const accessToken = useLocalStorage();
   const navigate = useNavigate();
   const [users, setUsersInfo] = useAtom(userInfo_atom);
+  const [toast, setMessage] = useAtom(messageContext);
   const [openMenu, setOpenMenu] = useState(false);
   const [modal] = useAtom(modalContext);
   const invite_img = useRef("");
@@ -181,9 +182,17 @@ const HeaderComponent = () => {
     },
     {
       label: t("Language"),
-      icon: <WrapperImg src="/assets/lang-light.png" />,
+      icon: <WrapperImg src="/assets/lang-light.png"/>,
       key: "Language",
       children: items,
+    },
+    {
+      label: t("Connect Wallet"),
+      icon: <WrapperImg src="/assets/connection.png"  width={15}/>,
+      key: "connectWallet",
+      onClick: () => {
+        toast?.warning({ message: t("Waiting for upgrade..."), icon: <img src="/assets/error.png" width={30} /> });
+      },
     },
   ];
 
@@ -321,6 +330,13 @@ const HeaderComponent = () => {
                 <button className="btn btn-sm bg-black text-white rounded-md border-0" onClick={() => navigate("/login?t=up")}>
                   {t("Sign up")}
                 </button>
+                <button
+                  className="btn btn-sm bg-black text-white rounded-md border-0"
+                  onClick={() => {
+                    toast?.warning({ message: t("Waiting for upgrade..."), icon: <img src="/assets/error.png" width={30} /> });
+                  }}>
+                  {t("Connect Wallet")}
+                </button>
               </>
             )}
           </Space>
@@ -394,28 +410,30 @@ const HeaderComponent = () => {
                   </button>
                 </div>
               ) : (
-                <div className="flex gap-4">
-                  <button
-                    className="btn btn-sm rounded-full bg-white text-black flex-1 border-0"
-                    onClick={() => {
-                      setTimeout(() => {
-                        navigate("/login?t=in");
-                      }, 200);
-                      setOpenMenu(false);
-                    }}>
-                    {t("Sign in")}
-                  </button>
-                  <button
-                    className="btn btn-sm rounded-full bg-black border-grey flex-1 text-white border-0"
-                    onClick={() => {
-                      setTimeout(() => {
-                        navigate("/login?t=up");
-                      }, 100);
-                      setOpenMenu(false);
-                    }}>
-                    {t("Sign up")}
-                  </button>
-                </div>
+                <>
+                  <div className="flex gap-4">
+                    <button
+                      className="btn btn-sm rounded-full bg-white text-black flex-1 border-0"
+                      onClick={() => {
+                        setTimeout(() => {
+                          navigate("/login?t=in");
+                        }, 200);
+                        setOpenMenu(false);
+                      }}>
+                      {t("Sign in")}
+                    </button>
+                    <button
+                      className="btn btn-sm rounded-full bg-black border-grey flex-1 text-white border-0"
+                      onClick={() => {
+                        setTimeout(() => {
+                          navigate("/login?t=up");
+                        }, 100);
+                        setOpenMenu(false);
+                      }}>
+                      {t("Sign up")}
+                    </button>
+                  </div>
+                </>
               )}
             </div>
           </div>
