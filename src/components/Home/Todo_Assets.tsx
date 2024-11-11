@@ -32,7 +32,6 @@ const TodoListAssets = () => {
   const day = moment().format("MM/YYYY");
   const { width } = useWindowSize();
 
-
   const columns: TableProps<fundProductApiType>["columns"] = [
     {
       title: t("Name"),
@@ -74,24 +73,33 @@ const TodoListAssets = () => {
       dataIndex: "market_value",
       key: "market_value",
       width: 180,
-      render: (value, record) => (record.id === 8 ? "$200M" : record.id === 9 ? "$10M" : "$10k"),
+      render: (value, record) => (record.id === 8 ? "$200M" : record.id === 9 ? "$10M" : record.id === 11 ? scientific(Number(record.market_value)) : "$10k"),
     },
     {
       title: t("NAV"),
       key: "unit",
       dataIndex: "unit",
       width: 180,
-      render: (value) => (Number(value) ? '$' + value : value),
+      render: (value) => (Number(value) ? "$" + value : value),
     },
     {
       title: t("APY"),
       key: "income",
       dataIndex: "income",
       width: 100,
-      render: (value) => <div>{Number(value) > 0 ? <span className="text-[#58BD7D]">
-        <CountUp end={Number(value)} decimals={0} prefix="+" suffix="%" />
-      </span> : <span className="text-[#FF6838]">
-        <CountUp end={Number(value)} decimals={0} prefix="-" suffix="%" /></span>}</div>,
+      render: (value) => (
+        <div>
+          {Number(value) > 0 ? (
+            <span className="text-[#58BD7D]">
+              <CountUp end={Number(value)} decimals={0} prefix="+" suffix="%" />
+            </span>
+          ) : (
+            <span className="text-[#FF6838]">
+              <CountUp end={Number(value)} decimals={0} prefix="-" suffix="%" />
+            </span>
+          )}
+        </div>
+      ),
     },
   ];
 
@@ -116,7 +124,7 @@ const TodoListAssets = () => {
         </div>
 
         <div className="self-end md:self-auto flex items-center text-greyblack text-sm">
-          <span className="mr-2">{t("Until") + ' 01/' + day}</span>
+          <span className="mr-2">{t("Until") + " 01/" + day}</span>
           <WrapperImg src="/assets/reflush.png" width={14} />
         </div>
       </div>

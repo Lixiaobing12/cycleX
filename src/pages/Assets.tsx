@@ -75,9 +75,7 @@ export default function Assets() {
             <div className="flex gap-6 items-center w-fit">
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">{Number(product?.income).toFixed(0) + "%"} APY</div>
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">
-                {
-                  product?.simple_name === "CDEX" ? '- TVL' : `$ ${scientific(Number(product?.market_value) + 300000)} TVL`
-                }
+                {product?.simple_name === "CDEX" ? "- TVL" : `$ ${scientific(Number(product?.market_value) + 300000)} TVL`}
               </div>
               <img src="/assets/eth_white.png" width={30} alt="" />
             </div>
@@ -89,12 +87,15 @@ export default function Assets() {
             <Deposit />
           </div>
 
-          {product?.simple_name !== 'CDEX' && <div className="mt-14">
-            <div className="w-full text-center mb-14 md:mb-20">
-              <h1 className="text-black text-3xl mb-6">{product?.simple_name}</h1>
-            </div>
-            <Constitute />
-          </div>}
+          {product?.simple_name !== "CDEX" ||
+            (product?.id !== 11 && (
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">{product?.simple_name}</h1>
+                </div>
+                <Constitute />
+              </div>
+            ))}
 
           {product?.id === 8 && (
             <>
@@ -119,22 +120,24 @@ export default function Assets() {
               </div>
             </>
           )}
-          {
-            product?.simple_name === 'CDEX' && (
-              <>
-                <div className="mt-14">
-                  {
-                    i18n.language === "en" ? <img src="/assets/CDEX/content1.png" className="w-full" /> : <img src="/assets/CDEX/content1-zh.png" className="w-full" />
-                  }
-                </div>
-                <div className="mt-14">
-                  {
-                    i18n.language === "en" ? (width < 600 ? <img src="/assets/CDEX/content2-mb.png" className="w-full" /> : <img src="/assets/CDEX/content2.png" className="w-full" />) : (width < 600 ? <img src="/assets/CDEX/content2-mb-zh.png" className="w-full" /> : <img src="/assets/CDEX/content2-zh.png" className="w-full" />)
-                  }
-                </div>
-              </>
-            )
-          }
+          {product?.simple_name === "CDEX" && (
+            <>
+              <div className="mt-14">{i18n.language === "en" ? <img src="/assets/CDEX/content1.png" className="w-full" /> : <img src="/assets/CDEX/content1-zh.png" className="w-full" />}</div>
+              <div className="mt-14">
+                {i18n.language === "en" ? (
+                  width < 600 ? (
+                    <img src="/assets/CDEX/content2-mb.png" className="w-full" />
+                  ) : (
+                    <img src="/assets/CDEX/content2.png" className="w-full" />
+                  )
+                ) : width < 600 ? (
+                  <img src="/assets/CDEX/content2-mb-zh.png" className="w-full" />
+                ) : (
+                  <img src="/assets/CDEX/content2-zh.png" className="w-full" />
+                )}
+              </div>
+            </>
+          )}
           {product?.id === 9 && (
             <>
               <div className="mt-14">
@@ -155,6 +158,26 @@ export default function Assets() {
                   <h1 className="text-black text-3xl mb-6">Product Analysis</h1>
                 </div>
                 <img src="/assets/CPTF/analysis.png" className="w-full" />
+              </div>
+            </>
+          )}
+
+          {product?.id === 11 && (
+            <>
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
+                </div>
+                <img src="/assets/CMTF/fund_overview_1.jpg" className="w-full" />
+                <img src="/assets/CMTF/fund_overview_2.jpg" className="w-full" />
+                <img src="/assets/CMTF/fund_overview_3.jpg" className="w-full" />
+                <img src="/assets/CMTF/fund_overview_4.jpg" className="w-full" />
+              </div>
+              <div className="mt-14">
+                <div className="w-full text-center mb-14 md:mb-20">
+                  <h1 className="text-black text-3xl mb-6">Fund Process</h1>
+                </div>
+                <img src="/assets/CMTF/fund_process.jpg" className="w-full" />
               </div>
             </>
           )}
