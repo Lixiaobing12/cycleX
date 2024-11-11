@@ -165,7 +165,7 @@ export default function Assets() {
           {product?.id === 11 && (
             <>
               <div className="mt-14">
-                <div className="w-full text-center mb-14 md:mb-20">
+                <div className="w-full text-center mb-10">
                   <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
                 </div>
                 <img src="/assets/CMTF/fund_overview_1.jpg" className="w-full" />
@@ -174,7 +174,7 @@ export default function Assets() {
                 <img src="/assets/CMTF/fund_overview_4.jpg" className="w-full" />
               </div>
               <div className="mt-14">
-                <div className="w-full text-center mb-14 md:mb-20">
+                <div className="w-full text-center mb-10">
                   <h1 className="text-black text-3xl mb-6">Fund Process</h1>
                 </div>
                 <img src="/assets/CMTF/fund_process.jpg" className="w-full" />
@@ -183,7 +183,7 @@ export default function Assets() {
           )}
 
           <div className="mt-14">
-            <div className="w-full text-center mb-14 md:mb-20">
+            <div className="w-full text-center mb-10">
               <h1 className="text-black text-3xl mb-6">{t("Expected Return")}</h1>
               <p className="text-center text-black max-w-[600px] m-auto">{t("On top of our initia returns, we have enhanced our gains with WFCandboosted the future exponentia arowth of NAV.")}</p>
             </div>
