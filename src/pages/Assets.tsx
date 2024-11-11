@@ -87,15 +87,16 @@ export default function Assets() {
             <Deposit />
           </div>
 
-          {product?.simple_name !== "CDEX" ||
-            (product?.id !== 11 && (
-              <div className="mt-14">
-                <div className="w-full text-center mb-14 md:mb-20">
-                  <h1 className="text-black text-3xl mb-6">{product?.simple_name}</h1>
-                </div>
-                <Constitute />
+          {product?.simple_name === "CDEX" || product?.id === 11 ? (
+            <></>
+          ) : (
+            <div className="mt-14">
+              <div className="w-full text-center mb-14 md:mb-20">
+                <h1 className="text-black text-3xl mb-6">{product?.simple_name}</h1>
               </div>
-            ))}
+              <Constitute />
+            </div>
+          )}
 
           {product?.id === 8 && (
             <>
@@ -103,20 +104,21 @@ export default function Assets() {
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
                 </div>
-                <img src="/assets/CFOF/overview.png" />
+                <img src="/assets/CFOF/overview1.jpg" />
+                <img src="/assets/CFOF/overview2.jpg" />
               </div>
               <div className="mt-14">
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Fund Process</h1>
                 </div>
-                <img src="/assets/CFOF/process.png" />
+                <img src="/assets/CFOF/process.jpg" />
               </div>
 
               <div className="mt-14">
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Product Analysis</h1>
                 </div>
-                <img src="/assets/CFOF/analysis.png" />
+                <img src="/assets/CFOF/analysis.jpg" />
               </div>
             </>
           )}
@@ -144,20 +146,21 @@ export default function Assets() {
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
                 </div>
-                <img src="/assets/CPTF/overview.png" className="w-full" />
+                <img src="/assets/CPTF/overview1.jpg" className="w-full" />
+                <img src="/assets/CPTF/overview2.jpg" className="w-full" />
               </div>
               <div className="mt-14">
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Fund Process</h1>
                 </div>
-                <img src="/assets/CPTF/process.png" className="w-full" />
+                <img src="/assets/CPTF/process.jpg" className="w-full" />
               </div>
 
               <div className="mt-14">
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Product Analysis</h1>
                 </div>
-                <img src="/assets/CPTF/analysis.png" className="w-full" />
+                <img src="/assets/CPTF/analysis.jpg" className="w-full" />
               </div>
             </>
           )}
