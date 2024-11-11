@@ -168,6 +168,7 @@ export default function Assets() {
                 <div className="w-full text-center mb-10">
                   <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
                 </div>
+                <img src="/assets/CMTF/fund_overview_0.jpg" className="w-full" />
                 <img src="/assets/CMTF/fund_overview_1.jpg" className="w-full" />
                 <img src="/assets/CMTF/fund_overview_2.jpg" className="w-full" />
                 <img src="/assets/CMTF/fund_overview_3.jpg" className="w-full" />
