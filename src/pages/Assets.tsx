@@ -111,7 +111,7 @@ export default function Assets() {
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Fund Process</h1>
                 </div>
-                <img src="/assets/CFOF/process.jpg" />
+                <img src="/assets/CFOF/process1.jpg" />
               </div>
 
               <div className="mt-14">
@@ -153,7 +153,7 @@ export default function Assets() {
                 <div className="w-full text-center mb-14 md:mb-20">
                   <h1 className="text-black text-3xl mb-6">Fund Process</h1>
                 </div>
-                <img src="/assets/CPTF/process.jpg" className="w-full" />
+                <img src="/assets/CPTF/process1.jpg" className="w-full" />
               </div>
 
               <div className="mt-14">
