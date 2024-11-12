@@ -173,8 +173,8 @@ export default function Assets() {
                 </div>
                 <img src="/assets/CMTF/fund_overview_0.jpg" className="w-full" />
                 <img src="/assets/CMTF/fund_overview_1.jpg" className="w-full" />
-                <img src="/assets/CMTF/fund_overview_2.jpg" className="w-full" />
-                <img src="/assets/CMTF/fund_overview_3.jpg" className="w-full" />
+                <img src="/assets/CMTF/fund_overview_2.png" className="w-full" />
+                <img src="/assets/CMTF/fund_overview_3.png" className="w-full" />
                 <img src="/assets/CMTF/fund_overview_4.jpg" className="w-full" />
               </div>
               <div className="mt-14">
