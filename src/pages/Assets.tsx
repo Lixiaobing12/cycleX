@@ -75,7 +75,7 @@ export default function Assets() {
             <div className="flex gap-6 items-center w-fit">
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">{Number(product?.income).toFixed(0) + "%"} APY</div>
               <div className="leading-normal text-base bg-white rounded-full px-4 py-1 text-[#000]">
-                {product?.simple_name === "CDEX" ? "- TVL" : `$ ${scientific(Number(product?.market_value) + 300000)} TVL`}
+                {product?.simple_name === "CDEX" ? "- TVL" : product?.id === 11 ? `$ ${scientific(Number(product?.market_value))} TVL` : `$ ${scientific(Number(product?.market_value) + 300000)} TVL`}
               </div>
               <img src="/assets/eth_white.png" width={30} alt="" />
             </div>

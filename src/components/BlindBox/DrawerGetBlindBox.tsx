@@ -71,8 +71,7 @@ const DrawerGetBlindBox = () => {
 
     let opening = false;
     if (opened) {
-
-      if (!opening) return;
+      if (opening) return;
       else opening = true;
       const types = JSON.parse(opened);
       for (const t of types) {
