@@ -137,7 +137,7 @@ export default function Home() {
 
         <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-10/12 m-auto">
           <div className="flex flex-wrap gap-4 item-center justify-center my-20 mt-4" id="fund">
-            <div className={`grid grid-cols-1 lg:grid-cols-${assets.length} w-full gap-4 md:p-10`}>
+            <div className={`grid grid-cols-1 lg:grid-cols-${assets.length > 3 ? 3 : assets.length} w-full gap-4 md:p-10`}>
               {assets.map((item, ind) => (
                 <div key={item.id} className={`bg-black rounded-box p-4 flex flex-col justify-evenly ${getAssetsBgImg(ind++)} w-full min-h-80 bg-100`}>
                   <div className="flex items-center my-4">

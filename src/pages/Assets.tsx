@@ -186,6 +186,25 @@ export default function Assets() {
             </>
           )}
 
+          {product?.id === 12 && (
+            <>
+              <div className="mt-14">
+                <div className="w-full text-center mb-10">
+                  <h1 className="text-black text-3xl mb-6">Fund Overview</h1>
+                </div>
+                <img src="/assets/CATF/overview1.jpg" className="w-full" />
+                <img src="/assets/CATF/overview2.jpg" className="w-full" />
+                <img src="/assets/CATF/overview3.jpg" className="w-full" />
+              </div>
+              <div className="mt-14">
+                <div className="w-full text-center mb-10">
+                  <h1 className="text-black text-3xl mb-6">Fund Process</h1>
+                </div>
+                <img src="/assets/CATF/process.jpg" className="w-full" />
+              </div>
+            </>
+          )}
+
           <div className="mt-14">
             <div className="w-full text-center mb-10">
               <h1 className="text-black text-3xl mb-6">{t("Expected Return")}</h1>
