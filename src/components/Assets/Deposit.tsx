@@ -316,7 +316,7 @@ const ItemDeposit: React.FC<{
           <div>
             {t("Available Balance")}: {walletInfo?.balance ?? 0} USDT
           </div>
-          <div className="w-fit bg-black text-white rounded-full py-1 px-2 text-xxs md:text-xs" onClick={() => navigate("/wallet#main")}>
+          <div className="w-fit bg-black text-white rounded-full py-1 px-2 text-xxs md:text-xs whitespace-pre	self-start" onClick={() => navigate("/wallet#main")}>
             {t("TOP-UP")}
           </div>
         </div>
