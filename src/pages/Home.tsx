@@ -59,6 +59,12 @@ export default function Home() {
               en: data,
             });
           }
+          console.log(items[i].id)
+          if (items[i].id === 12) {
+            items[i].market_value = (Number(items[i].market_value) + 300000).toString();
+          }
+
+          console.log(items[i].market_value)
           _tvl += Number(items[i].market_value);
           _aum += Number(items[i].aum_value);
         }

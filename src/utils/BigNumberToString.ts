@@ -6,6 +6,6 @@ export const scientific = (num: string | number) => {
   }
   const toK = num_b / 1e3;
   if (toK > 0) {
-    return parseInt(toK.toString()) + "K";
+    return parseInt(toK.toString()).toFixed(2) + "K";
   }
 };

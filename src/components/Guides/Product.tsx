@@ -65,7 +65,7 @@ const Product = () => {
       key: "unit",
       dataIndex: "unit",
       width: 150,
-      render: (value) => (Number(value) ? '$'+ value : value),
+      render: (value) => (Number(value) ? '$' + value : value),
     },
     {
       title: t("APY"),
@@ -78,6 +78,11 @@ const Product = () => {
 
   useEffect(() => {
     request.post("/api/api/fundProduct/getList").then(({ data }) => {
+      data.data.forEach((item: any) => {
+        if (item.id === 12) {
+          item.aum_value = 10000
+        }
+      })
       setAssetsItems(data.data);
     });
   }, []);

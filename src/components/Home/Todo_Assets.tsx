@@ -73,7 +73,7 @@ const TodoListAssets = () => {
       dataIndex: "market_value",
       key: "market_value",
       width: 180,
-      render: (value, record) => (record.id === 8 ? "$200M" : record.id === 9 ? "$10M" : record.id === 11 ? scientific(Number(record.market_value)) : "$10k"),
+      render: (value, record) => '$' + scientific(Number(record.aum_value))
     },
     {
       title: t("NAV"),
@@ -105,6 +105,11 @@ const TodoListAssets = () => {
 
   useEffect(() => {
     request.post("/api/api/fundProduct/getList").then(({ data }) => {
+      data.data.forEach((item: any) => {
+        if (item.id === 12) {
+          item.aum_value = 10000
+        }
+      })
       setAssetsItems(data.data);
     });
   }, []);
