@@ -105,11 +105,6 @@ const TodoListAssets = () => {
 
   useEffect(() => {
     request.post("/api/api/fundProduct/getList").then(({ data }) => {
-      data.data.forEach((item: any) => {
-        if (item.id === 12) {
-          item.aum_value = 10000
-        }
-      })
       setAssetsItems(data.data);
     });
   }, []);

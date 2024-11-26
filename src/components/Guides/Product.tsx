@@ -58,7 +58,7 @@ const Product = () => {
       dataIndex: "aum_value",
       key: "aum_value",
       width: 200,
-      render: (value, record) => scientific(value),
+      render: (value, record) => '$' +scientific(value),
     },
     {
       title: t("NAV"),
@@ -78,11 +78,6 @@ const Product = () => {
 
   useEffect(() => {
     request.post("/api/api/fundProduct/getList").then(({ data }) => {
-      data.data.forEach((item: any) => {
-        if (item.id === 12) {
-          item.aum_value = 10000
-        }
-      })
       setAssetsItems(data.data);
     });
   }, []);
