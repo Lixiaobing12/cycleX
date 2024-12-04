@@ -114,14 +114,14 @@ const HeaderComponent = () => {
         setOpenMenu(false);
       },
     },
-    {
-      label: t("$WFC TOKEN"),
-      key: "wfc",
-      onClick: () => {
-        navigate("/wfc");
-        setOpenMenu(false);
-      },
-    },
+    // {
+    //   label: t("$WFC TOKEN"),
+    //   key: "wfc",
+    //   onClick: () => {
+    //     navigate("/wfc");
+    //     setOpenMenu(false);
+    //   },
+    // },
 
     // {
     //   label: t("About"),
@@ -300,9 +300,9 @@ const HeaderComponent = () => {
           <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === "/guide" && "underline"}`} onClick={() => navigate("/guide")}>
             {t("Docs")}
           </div>
-          <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === "/wfc" && "underline"}`} onClick={() => navigate("/wfc")}>
+          {/* <div className={`cursor-pointer  hover:scale-105 leading-normal flex items-center xl:w-fit ${location.pathname === "/wfc" && "underline"}`} onClick={() => navigate("/wfc")}>
             {t("$WFC TOKEN")}
-          </div>
+          </div> */}
           {/* <div className="cursor-pointer leading-normal xl:w-fit" onClick={() => navigate("/blindbox")}>
             <img src="/assets/airdrop-btn.png" width={120} />
           </div> */}

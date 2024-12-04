@@ -169,9 +169,9 @@ const Wallet = () => {
               <button className=" btn btn-sm border-light bg-black text-white hover:text-black hover:bg-white" onClick={Recharge}>
                 {t("Recharge")}
               </button>
-              <button className=" btn btn-sm border-light bg-black text-white hover:text-black hover:bg-white" onClick={() => navigate("/platform")}>
+              {/* <button className=" btn btn-sm border-light bg-black text-white hover:text-black hover:bg-white" onClick={() => navigate("/platform")}>
                 WFC
-              </button>
+              </button> */}
             </div>
             <div className="text-grey">{t("Total assets")} US$</div>
             <div className="text-white text-2xl">
