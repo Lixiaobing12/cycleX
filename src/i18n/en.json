@@ -9,5 +9,6 @@
   "visitwebsite": "Visit the official CycleX website or App, which you can access by typing <a href='https://cyclex.cc'>https://cyclex.cc</a> into your browser.",
   "wfc tips": "$WFC is the utility and governance token of the CycleX platform. $WFC tokens are issued to support the growth,development and sustainability of the platform.",
   "$WFC plan": "CycleX will release 20% of the tokens to be airdropped to early adopters. The token distribution strategy will ensure that all key stakeholders are properly incentivized to promote a prosperous and strong ecosystem, as follows:",
-  "tip_withdraw_not_open": "Due to system upgrades, the withdrawal function will be available after the upgrade is completed."
+  "tip_withdraw_not_open": "Due to system upgrades, the withdrawal function will be available after the upgrade is completed.",
+  "deposit_tip": "To request an investment that exceeds your instant limit, please contact us at <a href='mailto:services@whaleflow.co'>services@whaleflow.co</a>. The amount you can instantly redeem is dictated by several factors, including restrictions put in place by CycleX."
 }

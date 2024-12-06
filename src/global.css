@@ -41,11 +41,18 @@ body {
   user-select: none;
 }
 
-.ant-drawer:focus-visible{
+.ant-drawer:focus-visible {
   outline: none !important;
 }
 #c-table :where(th, td) {
   padding-left: 0;
+}
+.badge-xxs {
+  height: 0.5rem /* 12px */;
+  font-size: 0.5rem /* 12px */;
+  line-height: 0.5rem /* 12px */;
+  padding-left: 0.213rem /* 5.008px */;
+  padding-right: 0.213rem /* 5.008px */;
 }
 ul li {
   list-style-type: disc;

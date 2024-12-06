@@ -1,4 +1,4 @@
-import { Modal, Select, Spin, Tabs } from "antd";
+import { Flex, Modal, Pagination, Progress, Select, Skeleton, Spin, Table, TableProps, Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
@@ -17,12 +17,56 @@ import SafetyInput from "./SafetyInput";
 import ForgetSafetyCode from "./ForgotSafetyCode";
 import { Icon } from "@ricons/utils";
 import { CloseCircleOutlined } from "@ricons/antd";
+import { ConnectButton, useAccountModal, useChainModal, useConnectModal, WalletButton } from "@rainbow-me/rainbowkit";
+import { useAccount, useReadContract, useSendTransaction, useWriteContract } from "wagmi";
+import Countdown from "antd/es/statistic/Countdown";
+import { erc20Abi, formatEther, parseEther, size } from "viem";
+import BigNumber from "bignumber.js";
+import { i18n } from "@rainbow-me/rainbowkit/dist/locales";
+import { t } from "i18next";
 let CloseCircleOutlineds = CloseCircleOutlined as any;
+let countDownTimer: any;
+const PaymentCroptyCard: React.FC<{ timeStamp: number; amount: number; product_name?: string; product_id?: string; chain_id: number; show: boolean; setModalShow: Function }> = (props) => {
+  const { t } = useTranslation();
+
+  return (
+    <Modal
+      destroyOnClose
+      open={props.show}
+      onCancel={() => props.setModalShow(false)}
+      onClose={() => props.setModalShow(false)}
+      maskClosable={true}
+      footer={null}
+      modalRender={() => <>
+        <div className="card bg-base-100 w-96 shadow-xl">
+          <figure>
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              alt="Shoes" />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">
+              Shoes!
+              <div className="badge badge-secondary">NEW</div>
+            </h2>
+            <p>If a dog chews shoes whose shoes does he choose?</p>
+            <div className="card-actions justify-end">
+              <div className="badge badge-outline">Fashion</div>
+              <div className="badge badge-outline">Products</div>
+            </div>
+          </div>
+        </div></>}></Modal>
+  );
+};
 
 const ItemDeposit: React.FC<{
   network: string;
 }> = ({ network }) => {
   const { t, i18n } = useTranslation();
+  const { openConnectModal } = useConnectModal();
+  const { openChainModal } = useChainModal();
+  const { openAccountModal } = useAccountModal();
+  const account = useAccount();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
   const [isSign, user, walletInfo] = useAccounts();
@@ -35,6 +79,11 @@ const ItemDeposit: React.FC<{
   const [, copy] = useCopyToClipboard();
   const [confirmModalShow, setConfirmModalShow] = useState(false);
   const navigate = useNavigate();
+  const [croptyPaymentModalShow, setCroptyPaymentModalShow] = useState(false);
+  const [orderInfo, setOrderInfo] = useState<any>();
+  const [expirationTime, setExpirationTime] = useState<number>(0);
+  // const { sendTransaction } = useSendTransaction();
+  const { writeContract } = useWriteContract();
 
   const handleCopy = (text: string) => {
     copy(text)
@@ -145,6 +194,16 @@ const ItemDeposit: React.FC<{
         icon: <img src="/assets/error.png" width={30} />,
         message: t("please sign in"),
       });
+      return;
+    }
+
+    if (loading) return;
+    if (account.isConnected) {
+      if (orderInfo && expirationTime > 0) {
+        payment();
+      } else {
+        handleCreateOrder();
+      }
     } else {
       const min = product?.min_pay;
       const balance = walletInfo?.balance;
@@ -165,50 +224,61 @@ const ItemDeposit: React.FC<{
       }
 
       setConfirmModalShow(true);
-      // const context: any = modal?.info({
-      //   closable: true,
-      //   icon: <></>,
-      //   onCancel: () => context.destroy(),
-      //   title: <h1 className="w-full py-2 text-center text-lg">{t("Please enter security key")}</h1>,
-      //   content: (
-      //     <SafetyInput
-      //       onSave={(e: string) => {
-      //         secrityKey.current = e;
-      //       }}
-      //     />
-      //   ),
-      //   centered: true,
-      //   footer: () => (
-      //     <>
-      //       <button
-      //         className="btn btn-block bg-black text-white hover:bg-black hover:text-white hover:scale-x-95 m-auto mt-4 disabled:text-threePranentTransblack"
-      //         onClick={() => {
-      //           checkSecurity().then(() => {
-      //             context.destroy();
-      //           });
-      //         }}>
-      //         <Loader spinning={loading} />
-      //         {t("Confirm")}
-      //       </button>
-      //       <div
-      //         onClick={() => {
-      //           context.destroy();
-      //           setTimeout(openForgotSafetyModal, 200);
-      //         }}
-      //         className="text-center text-sm mt-2">
-      //         {t("Forget the password")}?
-      //       </div>
-      //     </>
-      //   ),
-      //   styles: {
-      //     body: {
-      //       width: "100%",
-      //     },
-      //   },
-      // });
     }
   };
 
+  const payment = async () => {
+    setLoading(true);
+    writeContract({
+      abi: erc20Abi,
+      address: import.meta.env.VITE_USDT_ETH,
+      functionName: "transfer",
+      args: [
+        import.meta.env.VITE_PAYMENT_ADDRESS,
+        BigInt(BigNumber(amount).times(10 ** 6).toNumber()),
+      ],
+    }, {
+      onSuccess(data, variables, context) {
+        console.log("payment success", data, variables, context);
+        const params = {
+          id: orderInfo.id,
+          txid: data
+        }
+        request.post('/api/api/cryptoPayment/confirm', params).then(res => {
+          if (res.data.res_code === 0) {
+            setLoading(false);
+            setOrderInfo(res.data.data);
+            setTimeout(() => {
+              const el = document.querySelector('#order_container');
+              if (el) {
+                el?.classList.add('animate__animated', 'animate__zoomOutUp');
+                el?.addEventListener('animationend', () => {
+                  setCroptyPaymentModalShow(false);
+                  setOrderInfo(null);
+                });
+              }
+            }, 1500)
+          } else {
+            setTimeout(() => {
+              setLoading(false);
+              toast?.warning({
+                message: t("Payment failed, please contract us"),
+                icon: <img src="/assets/error.png" width={30} />,
+              });
+            }, 1500)
+          }
+        })
+      },
+      onError(error, variables, context) {
+        console.log("payment error", error, variables, context);
+        setLoading(false);
+        toast?.warning({
+          message: t("Payment failed, try again later"),
+          icon: <img src="/assets/error.png" width={30} />,
+        });
+      }
+    })
+  }
   const openForgotSafetyModal = () => {
     const context: any = modal?.info({
       closable: true,
@@ -232,6 +302,60 @@ const ItemDeposit: React.FC<{
       },
     });
   };
+
+  const handleCreateOrder = async () => {
+    if (isSign) {
+      setLoading(true)
+      setCroptyPaymentModalShow(true)
+      const params = {
+        amount: amount,
+        product_id: product?.id,
+        product_type: "FUND",
+        asset_id: 3,
+        chain_id: account.chainId,
+        payment_address: account.address
+      }
+      try {
+        const res = await request.post('/api/api/cryptoPayment/create', params);
+        console.log('data', res.data)
+        if (res.data.res_code === 0) {
+          setTimeout(() => {
+            setLoading(false)
+            setOrderInfo(res.data.data);
+            setExpirationTime(moment(res.data.data.expiration_time, 'YYYY-MM-DD HH:mm:ss').valueOf() - moment().valueOf());
+            if (countDownTimer) clearInterval(countDownTimer);
+            countDownTimer = setInterval(() => {
+              let timestamp = moment(res.data.data.expiration_time, 'YYYY-MM-DD HH:mm:ss').valueOf() - moment().valueOf();
+              if (timestamp <= 0) {
+                clearInterval(countDownTimer);
+                setExpirationTime(0);
+              } else {
+                setExpirationTime(timestamp);
+              }
+            }, 10 * 1000)
+          }, 2000)
+        } else {
+          setTimeout(() => {
+            setCroptyPaymentModalShow(false);
+            toast?.warning({
+              message: t("Payment failed, try again later"),
+              icon: <img src="/assets/error.png" width={30} />,
+            });
+          }, 2000)
+        }
+      } catch (e) {
+        setLoading(false)
+        setCroptyPaymentModalShow(false)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (expirationTime === 0 && orderInfo && orderInfo.payment_status === 'CREATED') {
+      handleCreateOrder();
+    }
+  }, [expirationTime])
+
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
       <Modal
@@ -261,6 +385,15 @@ const ItemDeposit: React.FC<{
         }>
         <SafetyInput onSave={setSecrityKey} />
       </Modal>
+      {/* <PaymentCroptyCard
+        timeStamp={Date.now()}
+        amount={Number(amount)}
+        product_name={product?.name}
+        product_id={product?.id.toString()}
+        chain_id={1}
+        show={croptyPaymentModalShow}
+        setModalShow={setCroptyPaymentModalShow}
+      /> */}
       <div className="flex justify-between items-center">
         <span>{t("Settlement Period")}</span>
         <div className="rounded-full border border-light p-1 flex items-center px-4 gap-1">
@@ -298,6 +431,11 @@ const ItemDeposit: React.FC<{
             setDisabled(false);
             // 最终设置金额
             setAmount(value);
+            if (croptyPaymentModalShow) {
+              setOrderInfo(null);
+              setExpirationTime(0);
+              handleCreateOrder()
+            }
           }}
           placeholder={`${t("Min Purchase")}${product?.min_pay}`}
         />
@@ -321,9 +459,99 @@ const ItemDeposit: React.FC<{
           </div>
         </div>
       </div>
-      <button disabled={btnDisabled} className="btn btn-block bg-[#161618] disabled:bg-[#e4e4e4] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
-        {!isSign ? t("please sign in") : t("Confirm Purchase")}
-      </button>
+
+      <div style={{ height: croptyPaymentModalShow ? 'auto' : 0, transition: "height 0.3s ease-in-out" }} className="overflow-hidden">
+        {
+          orderInfo ?
+            <div id="order_container">
+              <div className="flex flex-col gap-1 text-xs">
+                <div className="flex justify-between items-center">
+                  <span>{t("Payment ID")}</span>
+                  <span>{orderInfo.order_sn}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>{t("Payment Crypto")}</span>
+                  <img src='/assets/usdt.png' width={16}></img>
+                </div>
+                {
+                  orderInfo.payment_status === 'CREATED' ?
+                    <div className="flex justify-between items-center">
+                      <span>{t("Expired time")}</span>
+                      <Flex align="center">
+                        {
+                          expirationTime && <Progress type="circle" percent={expirationTime / 60 / 1000 / 20 * 100} size={16} className="mr-2" />
+                        }
+                        <Countdown
+                          title=""
+                          value={moment(orderInfo.expiration_time, 'YYYY-MM-DD HH:mm:ss').valueOf()}
+                          format="mm:ss"
+                          valueStyle={{
+                            fontFamily: "Whale-bold",
+                            fontWeight: "bold",
+                            fontSize: "0.9em",
+                            textAlign: "center",
+                          }}
+                        />
+                      </Flex>
+                    </div> :
+                    <div className="flex justify-between items-center">
+                      <span>{t("Payment Status")}</span>
+                      {
+                        orderInfo.payment_status === 'PENDING' && <span className="text-xs text-yellow-300">{t("Being confirmed")}</span>
+                      }
+                      {
+                        orderInfo.payment_status === 'SUCCESS' && <span className="text-xs text-green">{t("Completed")}</span>
+                      }
+                      {
+                        orderInfo.payment_status === 'FAILED' && <span className="text-xs text-red-300">{t("Failed")}</span>
+                      }
+                    </div>
+                }
+              </div>
+              <div className="border-[1px] border-[#e4e5ea] p-4 flex gap-2 items-start rounded-lg mt-2">
+                <img src="/assets/info.svg" width={16} alt="" className="mt-4" />
+                <p className="text-xs">
+                  <Trans i18nKey="deposit_tip" components={{ a: <a></a> }}></Trans>
+                </p>
+              </div>
+            </div> :
+            <Skeleton active></Skeleton>
+        }
+      </div>
+
+      {/* <>
+        {openConnectModal ? (
+          <button className="btn btn-block bg-[#161618] border-0 rounded-md text-white p-4" onClick={openConnectModal}>
+            {t("Connect Wallet")}
+          </button>
+        ) : (
+          <button className="btn btn-block bg-[#161618] border-0 rounded-md text-white p-4" onClick={handleCreateOrder}>
+            {t("Payment Crypto")}
+          </button>
+        )}
+      </> */}
+
+      <Flex gap={12}>
+        <button disabled={btnDisabled} className="btn flex-1 bg-[#161618] disabled:bg-[#e4e4e4] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
+          {!isSign ? t("please sign in") : loading ?
+            <Loader spinning={loading} />
+            : t("Purchase")}
+        </button>
+        <WalletButton.Custom wallet="metamask">
+          {({ ready, connect }) => {
+            return (
+              <button
+                className="btn bg-white px-2 gap-0"
+                type="button"
+                onClick={ready ? connect : openAccountModal}
+              >
+                <img src="/assets/metamask.png" width={38} alt="" />
+                <div className={`badge ${account.isConnected ? 'badge-accent' : 'bg-[#bbb] border-[#bbb]'} badge-xxs ml-2`}></div>
+              </button>
+            );
+          }}
+        </WalletButton.Custom>
+      </Flex>
       <div className="flex items-center justify-center gap-1">
         <span className="text-xs">
           <Trans i18nKey={"access"} components={{ a: <a /> }}></Trans>
@@ -335,9 +563,103 @@ const ItemDeposit: React.FC<{
           </a>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
+
+const Records: React.FC<{
+  active: string;
+  width: number
+}> = (props) => {
+  const { i18n } = useTranslation();
+  const [loading, setLoading] = useState(false);
+  const { handleTranslate } = useTranslateLocalStorage();
+  const columns: TableProps<any>["columns"] = [
+    {
+      title: t("Order Sn"),
+      dataIndex: "order_no",
+      key: "order_no",
+      width: 100,
+    },
+    {
+      title: t("Amount"),
+      dataIndex: "amount",
+      key: "amount",
+      width: 100,
+      render: (value) => <strong>${Number(value).toFixed(2)}</strong>,
+    },
+    {
+      title: t("Payment Method"),
+      dataIndex: "payment_type",
+      key: "payment_type",
+      width: 100,
+      render: (value) => <span className="capitalize">{value}</span>,
+    },
+    {
+      title: t("Order Status"),
+      key: "Labels",
+      dataIndex: "Labels",
+      width: 100,
+      render: (value, row) => (<>
+        {row.status === 'CREATED' ? <span className="text-xs text-yellow-300">{i18n.language === 'en' ? row.StatusNameDct.en : row.StatusNameDct.zh}</span> : <span className="text-xs text-green">{i18n.language === 'en' ? row.StatusNameDct.en : row.StatusNameDct.zh}</span>}
+      </>),
+    },
+  ];
+  const [page, setPage] = useState({
+    page: 0,
+    size: 5,
+    total: 0
+  })
+  const [list, setList] = useState<any[]>([]);
+
+
+  const handleChange = (_page: number, pageSize: number) => {
+    page.page = _page - 1;
+    page.size = pageSize;
+    getData();
+  };
+  const getData = async () => {
+    setLoading(true)
+    const res = await request.post('/api/api/fundOrder/getList', {
+      page: page.page,
+      size: page.size
+    });
+    if (res.data.res_code === 0) {
+      for (let item of res.data.data) {
+        item.StatusNameDct = {
+          en: await handleTranslate(item.status_name),
+          zh: item.status_name
+        }
+      }
+      console.log(res.data)
+      setPage(state => {
+        console.log({ ...state, total: res.data.page.total })
+        return { ...state, total: res.data.page.total }
+      })
+      setList(res.data.data);
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    if (props.active === "2") {
+      page.page = 0;
+      getData();
+    }
+  }, [props.active])
+  return (
+    <div className="flex flex-col items-center gap-10" style={{
+      width: props.width + 'px',
+    }}>
+      <Table columns={columns} dataSource={list} pagination={false} className="w-full" scroll={{ x: 400 }} rowKey="order_no" loading={loading} />
+      {list.length > 0 && (
+        <div className="text-right flex items-center">
+          <Pagination simple total={page.total} defaultCurrent={1} pageSize={page.size} onChange={handleChange} onShowSizeChange={handleChange} />
+        </div>
+      )}
+    </div>
+  )
+}
 
 const Card = () => {
   const { t } = useTranslation();
@@ -345,6 +667,7 @@ const Card = () => {
   const [network, set_network] = useState("Ethereum");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [elementWidth, setElementWidth] = useState(0);
 
   const handleClick = (e: "Ethereum" | "BEVM") => {
     setLoading(true);
@@ -366,7 +689,26 @@ const Card = () => {
       ),
       children: <ItemDeposit network={network} />,
     },
+    {
+      key: "2",
+      label: (
+        <div className="flex gap-1 items-center">
+          <span className="text-base">{t("Records")}</span>
+          <div>
+            <img src={active === "2" ? "/assets/wallet_record_active.png" : "/assets/wallet_record.png"} width={14} />
+          </div>
+        </div>
+      ),
+      children: <Records active={active} width={elementWidth} />,
+    },
   ];
+
+  useEffect(() => {
+    const el = document.getElementById("card_container");
+    if (el) {
+      setElementWidth(el.offsetWidth)
+    }
+  }, [])
   return (
     <div className="flex flex-col justify-center gap-6 h-full">
       <img src="/assets/airdropbox.gif" className="hidden lg:block" alt="" onClick={() => navigate("/blindbox")} />
@@ -393,9 +735,11 @@ const Card = () => {
             style={{ fontSize: "12px" }}
           />
         </div>
-        <div>
+        <div id="card_container">
           <Spin spinning={loading}>
-            <Tabs items={items} onChange={setActive}></Tabs>
+            <div className="w-full overflow-hidden">
+              <Tabs items={items} onChange={setActive}></Tabs>
+            </div>
           </Spin>
         </div>
       </div>
