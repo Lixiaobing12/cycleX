@@ -537,7 +537,7 @@ const ItemDeposit: React.FC<{
             <Loader spinning={loading} />
             : t("Purchase")}
         </button>
-        <WalletButton.Custom wallet="metamask">
+        {/* <WalletButton.Custom wallet="metamask">
           {({ ready, connect }) => {
             return (
               <button
@@ -550,7 +550,8 @@ const ItemDeposit: React.FC<{
               </button>
             );
           }}
-        </WalletButton.Custom>
+        </WalletButton.Custom> */}
+        <ConnectButton />
       </Flex>
       <div className="flex items-center justify-center gap-1">
         <span className="text-xs">
