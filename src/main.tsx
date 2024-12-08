@@ -1,6 +1,6 @@
-import { connectorsForWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import { injectedWallet, metaMaskWallet, rainbowWallet, tokenPocketWallet, walletConnectWallet } from "@rainbow-me/rainbowkit/wallets";
+import { injectedWallet, metaMaskWallet, rainbowWallet, tokenPocketWallet, uniswapWallet, walletConnectWallet } from "@rainbow-me/rainbowkit/wallets";
 import 'animate.css';
 import { ConfigProvider } from "antd";
 import ReactDOM from "react-dom/client";
@@ -15,9 +15,25 @@ import "./global.css";
 import "./i18n/config";
 import "./polyfills";
 
-const config = getDefaultConfig({
-  appName: 'RainbowKit demo',
-  projectId: 'YOUR_PROJECT_ID',
+const projectId = "123e23ac15abc13f7df4392e27f9c070";
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, metaMaskWallet, tokenPocketWallet, walletConnectWallet, uniswapWallet],
+    },
+  ],
+  {
+    appName: 'CycleX',
+    projectId,
+  }
+);
+
+const config = createConfig({
+  connectors,
+  // appName: 'CycleX',
+  // projectId: '123e23ac15abc13f7df4392e27f9c070',
   chains: [mainnet],
   transports: {
     [mainnet.id]: http(),

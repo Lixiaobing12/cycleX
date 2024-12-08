@@ -531,7 +531,7 @@ const ItemDeposit: React.FC<{
         )}
       </> */}
 
-      <Flex gap={12}>
+      <Flex gap={12} align="center">
         <button disabled={btnDisabled} className="btn flex-1 bg-[#161618] disabled:bg-[#e4e4e4] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
           {!isSign ? t("please sign in") : loading ?
             <Loader spinning={loading} />
@@ -551,7 +551,98 @@ const ItemDeposit: React.FC<{
             );
           }}
         </WalletButton.Custom> */}
-        <ConnectButton />
+        <ConnectButton.Custom>
+          {({
+            account,
+            chain,
+            openAccountModal,
+            openChainModal,
+            openConnectModal,
+            authenticationStatus,
+            mounted,
+          }) => {
+            // Note: If your app doesn't use authentication, you
+            // can remove all 'authenticationStatus' checks
+            const ready = mounted && authenticationStatus !== 'loading';
+            const connected =
+              ready &&
+              account &&
+              chain &&
+              (!authenticationStatus ||
+                authenticationStatus === 'authenticated');
+
+            return (
+              <div
+                {...(!ready && {
+                  'aria-hidden': true,
+                  'style': {
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    userSelect: 'none',
+                  },
+                })}
+              >
+                {(() => {
+                  if (!connected) {
+                    return (
+                      <button onClick={openConnectModal} type="button"
+                        className="btn bg-black border-[1px] rounded-box text-white"
+                      >
+                        {t("Connect Wallet")}
+                      </button>
+                    );
+                  }
+
+                  if (chain.unsupported) {
+                    return (
+                      <button onClick={openChainModal} type="button">
+                        Wrong network
+                      </button>
+                    );
+                  }
+
+                  return (
+                    <div style={{ display: 'flex', gap: 12 }}>
+                      <button
+                        onClick={openAccountModal}
+                        style={{ display: 'flex', alignItems: 'center' }}
+                        type="button"
+                        className="btn bg-transparent border-[1px] rounded-box border-[#bbb]"
+                      >
+                        {chain.hasIcon && (
+                          <div
+                            style={{
+                              background: chain.iconBackground,
+                              width: 24,
+                              height: 24,
+                              borderRadius: 999,
+                              overflow: 'hidden',
+                            }}
+                          >
+                            {chain.iconUrl && (
+                              <img
+                                alt={chain.name ?? 'Chain icon'}
+                                src={chain.iconUrl}
+                                style={{ width: 24, height: 24 }}
+                              />
+                            )}
+                          </div>
+                        )}
+                      </button>
+
+                      {/* <button onClick={openAccountModal} type="button">
+                        {account.displayName}
+                        {account.displayBalance
+                          ? ` (${account.displayBalance})`
+                          : ''}
+                      </button> */}
+                    </div>
+                  );
+                })()}
+              </div>
+            );
+          }}
+        </ConnectButton.Custom>
       </Flex>
       <div className="flex items-center justify-center gap-1">
         <span className="text-xs">
