@@ -311,7 +311,7 @@ const In = () => {
         window.dispatchEvent(setItemEvent);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         setLoading(false);
         toast?.error({
           icon: <img src="/assets/error.png" width={30} />,
@@ -589,7 +589,7 @@ const Up = () => {
   }, [i18n.language]);
 
   useEffect(() => {
-    console.log(referral_code);
+    //console.log(referral_code);
     referral_code && setInviteCode(referral_code);
   }, [referral_code]);
   return (

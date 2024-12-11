@@ -55,7 +55,7 @@ function App() {
     const match = window.location.href.match(/referral=([^&]*)/);
     const code = match ? match[1] : null;
 
-    console.log("code", code);
+    //console.log("code", code);
     setReferralCode(code);
   }, []);
   return (

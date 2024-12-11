@@ -138,7 +138,7 @@ const Divdend = () => {
 
     const getDivdendConfig = () => {
         request.post('/api/api/contributionActivite/index').then(res => {
-            console.log('res.data.data.start_at', res.data.data.start_at)
+            //console.log('res.data.data.start_at', res.data.data.start_at)
             const endDate = moment(res.data.data.end_at, "YYYY-MM-DD HH:mm:ss");
             const days = endDate.diff(moment(), "days");
             setDays(days < 10 ? '0' + days : days.toString());

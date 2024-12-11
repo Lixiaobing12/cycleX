@@ -60,12 +60,12 @@ export default function Home() {
               en: data,
             });
           }
-          console.log(items[i].id)
+          //console.log(items[i].id)
           if (items[i].id === 12) {
             items[i].market_value = (Number(items[i].market_value) + 300000).toString();
           }
 
-          console.log(items[i].market_value)
+          //console.log(items[i].market_value)
           _tvl += Number(items[i].market_value);
           _aum += Number(items[i].aum_value);
         }
@@ -181,7 +181,7 @@ export default function Home() {
                       width={30}
                       className="cursor-pointer hover:scale-105"
                       onClick={() => {
-                        console.log("user", users);
+                        //console.log("user", users);
                         if (users) {
                           navigate(`/assets/${item.id}#main`);
                         } else {

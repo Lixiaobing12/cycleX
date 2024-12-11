@@ -82,7 +82,7 @@ const Verify = () => {
       }
     },
     onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
+      //console.log("Dropped files", e.dataTransfer.files);
     },
   };
   const FrontProps: UploadProps = {
@@ -120,12 +120,12 @@ const Verify = () => {
       }
     },
     onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
+      //console.log("Dropped files", e.dataTransfer.files);
     },
   };
 
   const confirm = () => {
-    console.log(info.real_name, info.certificate, info.cardnumber)
+    //console.log(info.real_name, info.certificate, info.cardnumber)
     if (loading) return;
     if (!info.real_name) return;
     if (!info.certificate) return;

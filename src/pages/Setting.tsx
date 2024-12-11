@@ -54,7 +54,7 @@ const Setting = () => {
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+        //console.log(info.file, info.fileList);
       }
       if (status === "done") {
         setBackImg(info.file.response.data);
@@ -66,7 +66,7 @@ const Setting = () => {
       }
     },
     onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
+      //console.log("Dropped files", e.dataTransfer.files);
     },
   };
   const FrontProps: UploadProps = {
@@ -78,7 +78,7 @@ const Setting = () => {
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+        //console.log(info.file, info.fileList);
       }
       if (status === "done") {
         setFrontImg(info.file.response.data);
@@ -90,7 +90,7 @@ const Setting = () => {
       }
     },
     onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
+      //console.log("Dropped files", e.dataTransfer.files);
     },
   };
 

@@ -28,7 +28,7 @@ const Guide = () => {
     { icon: <img width={24} src="/assets/book.png" />, label: t("White Paper"), key: "book" },
   ];
   useEffect(() => {
-    console.log("location", location);
+    //console.log("location", location);
     if (location.hash) {
       setSelectKey((state) => [location.hash.replace("#", "")]);
     }

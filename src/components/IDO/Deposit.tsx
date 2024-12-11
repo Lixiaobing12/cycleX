@@ -393,7 +393,7 @@ const ItemDeposit = () => {
         setLoading(false);
       }, 500);
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       setLoading(false);
       toast?.warning({
         message: t("Something went wrong, try again later"),

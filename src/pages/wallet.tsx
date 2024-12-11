@@ -79,7 +79,7 @@ const Wallet = () => {
   ];
 
   const handleCopy = (text: string) => {
-    console.log(text);
+    //console.log(text);
     copy(text)
       .then(() => {
         toast?.success({

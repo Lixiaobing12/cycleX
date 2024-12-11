@@ -257,7 +257,7 @@ const ItemDeposit: React.FC<{
       ],
     }, {
       onSuccess(data, variables, context) {
-        console.log("payment success", data, variables, context);
+        //console.log("payment success", data, variables, context);
         const params = {
           id: orderInfo.id,
           txid: data
@@ -288,7 +288,7 @@ const ItemDeposit: React.FC<{
         })
       },
       onError(error, variables, context) {
-        console.log("payment error", error, variables, context);
+        //console.log("payment error", error, variables, context);
         setLoading(false);
         toast?.warning({
           message: t("Payment failed, try again later"),
@@ -324,7 +324,7 @@ const ItemDeposit: React.FC<{
   const handleCreateOrder = async () => {
     if (isSign) {
       const min = product?.min_pay;
-      console.log(min, amount)
+      //console.log(min, amount)
       if (min && (Number(amount) < Number(min))) {
         return;
       }
@@ -340,7 +340,7 @@ const ItemDeposit: React.FC<{
       }
       try {
         const res = await request.post('/api/api/cryptoPayment/create', params);
-        console.log('data', res.data)
+        //console.log('data', res.data)
         if (res.data.res_code === 0) {
           setTimeout(() => {
             setLoading(false)
@@ -746,9 +746,9 @@ const Records: React.FC<{
           zh: item.status_name
         }
       }
-      console.log(res.data)
+      //console.log(res.data)
       setPage(state => {
-        console.log({ ...state, total: res.data.page.total })
+        //console.log({ ...state, total: res.data.page.total })
         return { ...state, total: res.data.page.total }
       })
       setList(res.data.data);
