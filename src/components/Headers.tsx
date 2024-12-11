@@ -44,49 +44,49 @@ const HeaderComponent = () => {
   const accountItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-          { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-          {
-            label: t("Logout"),
-            icon: <img src="/assets/exit.png" width={12} />,
-            key: "exit",
-            onClick: () => {
-              window.localStorage.removeItem("token");
-              const setItemEvent = new Event("localstorage_save");
-              window.dispatchEvent(setItemEvent);
-              setTimeout(() => {
-                navigate("/login");
-              }, 200);
-            },
+        { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+        {
+          label: t("Logout"),
+          icon: <img src="/assets/exit.png" width={12} />,
+          key: "exit",
+          onClick: () => {
+            window.localStorage.removeItem("token");
+            const setItemEvent = new Event("localstorage_save");
+            window.dispatchEvent(setItemEvent);
+            setTimeout(() => {
+              navigate("/login");
+            }, 200);
           },
-        ]
+        },
+      ]
       : [
-          // {
-          //   label: t("Certification"),
-          //   icon: (
-          //     <div className="flex items-center">
-          //       <img src="/assets/risk.png" width={15} alt="" />
-          //     </div>
-          //   ),
-          //   key: "realName",
-          //   onClick: () => navigate("/verify"),
-          // },
-          { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
-          { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
-          {
-            label: t("Logout"),
-            icon: <img src="/assets/exit.png" width={12} />,
-            key: "exit",
-            onClick: () => {
-              window.localStorage.removeItem("token");
-              const setItemEvent = new Event("localstorage_save");
-              window.dispatchEvent(setItemEvent);
-              setTimeout(() => {
-                navigate("/login");
-              }, 200);
-            },
+        // {
+        //   label: t("Certification"),
+        //   icon: (
+        //     <div className="flex items-center">
+        //       <img src="/assets/risk.png" width={15} alt="" />
+        //     </div>
+        //   ),
+        //   key: "realName",
+        //   onClick: () => navigate("/verify"),
+        // },
+        { label: t("Wallet"), icon: <img src="/assets/wallet.png" width={12} />, key: "wallet", onClick: () => navigate("/wallet") },
+        { label: t("Invite"), icon: <img src="/assets/users.png" width={12} />, key: "users", onClick: () => invite() },
+        {
+          label: t("Logout"),
+          icon: <img src="/assets/exit.png" width={12} />,
+          key: "exit",
+          onClick: () => {
+            window.localStorage.removeItem("token");
+            const setItemEvent = new Event("localstorage_save");
+            window.dispatchEvent(setItemEvent);
+            setTimeout(() => {
+              navigate("/login");
+            }, 200);
           },
-        ];
+        },
+      ];
   }, [users, t]);
 
   const MobileRouterItems: MenuProps["items"] = [
@@ -186,59 +186,59 @@ const HeaderComponent = () => {
       key: "Language",
       children: items,
     },
-    {
-      label: t("Connect Wallet"),
-      icon: <WrapperImg src="/assets/connection.png" width={15} />,
-      key: "connectWallet",
-      onClick: () => {
-        toast?.warning({ message: t("Waiting for upgrade..."), icon: <img src="/assets/error.png" width={30} /> });
-      },
-    },
+    // {
+    //   label: t("Connect Wallet"),
+    //   icon: <WrapperImg src="/assets/connection.png" width={15} />,
+    //   key: "connectWallet",
+    //   onClick: () => {
+    //     toast?.warning({ message: t("Waiting for upgrade..."), icon: <img src="/assets/error.png" width={30} /> });
+    //   },
+    // },
   ];
 
   const MobileAccountActiveItems: MenuProps["items"] = useMemo(() => {
     return users?.user_type === 1
       ? [
-          {
-            label: t("Wallet"),
-            icon: <WrapperImg src="/assets/wallet-light.png" />,
-            key: "wallet",
-            onClick: () => {
-              setOpenMenu(false);
-              navigate("/wallet");
-            },
+        {
+          label: t("Wallet"),
+          icon: <WrapperImg src="/assets/wallet-light.png" />,
+          key: "wallet",
+          onClick: () => {
+            setOpenMenu(false);
+            navigate("/wallet");
           },
-          { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
-        ]
+        },
+        { label: t("Invite"), icon: <WrapperImg src="/assets/invite-light.png" />, key: "users" },
+      ]
       : [
-          // {
-          //   label: t("Certification"),
-          //   icon: <WrapperImg src="/assets/warning-light.png" />,
-          //   key: "realName",
-          //   onClick: () => {
-          //     setOpenMenu(false);
-          //     navigate("/verify");
-          //   },
-          // },
-          {
-            label: t("Wallet"),
-            icon: <WrapperImg src="/assets/wallet-light.png" />,
-            key: "wallet",
-            onClick: () => {
-              setOpenMenu(false);
-              navigate("/wallet");
-            },
+        // {
+        //   label: t("Certification"),
+        //   icon: <WrapperImg src="/assets/warning-light.png" />,
+        //   key: "realName",
+        //   onClick: () => {
+        //     setOpenMenu(false);
+        //     navigate("/verify");
+        //   },
+        // },
+        {
+          label: t("Wallet"),
+          icon: <WrapperImg src="/assets/wallet-light.png" />,
+          key: "wallet",
+          onClick: () => {
+            setOpenMenu(false);
+            navigate("/wallet");
           },
-          {
-            label: t("Invite"),
-            icon: <WrapperImg src="/assets/invite-light.png" />,
-            key: "users",
-            onClick: () => {
-              setOpenMenu(false);
-              invite();
-            },
+        },
+        {
+          label: t("Invite"),
+          icon: <WrapperImg src="/assets/invite-light.png" />,
+          key: "users",
+          onClick: () => {
+            setOpenMenu(false);
+            invite();
           },
-        ];
+        },
+      ];
   }, [users, t]);
 
   const invite = async () => {
@@ -323,13 +323,13 @@ const HeaderComponent = () => {
                     </div>
                   </div>
                 </Dropdown>
-                <button
+                {/* <button
                   className="btn btn-sm bg-black text-white rounded-md border-0"
                   onClick={() => {
                     toast?.warning({ message: t("Waiting for upgrade..."), icon: <img src="/assets/error.png" width={30} /> });
                   }}>
                   {t("Connect Wallet")}
-                </button>
+                </button> */}
               </>
             ) : (
               <>
@@ -339,13 +339,13 @@ const HeaderComponent = () => {
                 <button className="btn btn-sm bg-black text-white rounded-md border-0" onClick={() => navigate("/login?t=up")}>
                   {t("Sign up")}
                 </button>
-                <button
+                {/* <button
                   className="btn btn-sm bg-black text-white rounded-md border-0"
                   onClick={() => {
                     toast?.warning({ message: t("Waiting for upgrade..."), icon: <img src="/assets/error.png" width={30} /> });
                   }}>
                   {t("Connect Wallet")}
-                </button>
+                </button> */}
               </>
             )}
           </Space>

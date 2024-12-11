@@ -52,6 +52,7 @@ function RouterProviders() {
       <Route path="/wfc" element={<WFC />} />
       <Route path="/new/:id" element={<NewsDetails />} />
       <Route path="/blindbox" element={<BlindBox />}></Route>
+
       <Route
         path="/login"
         element={

@@ -700,26 +700,28 @@ const Up = () => {
                 onChange={(e) => {
                   setAgree(e.target.checked);
                 }}>
-                <span className="text-white md:text-current">{t("I have read, agreed and understood")}</span>
-                <a
-                  className="text-white md:text-black"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setType("agreement");
-                    setModalShow(true);
-                  }}>
-                  {t("User Agreement")}
-                </a>
-                &
-                <a
-                  className="text-white md:text-black"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setType("privite");
-                    setModalShow(true);
-                  }}>
-                  {t("Privacy policy")}
-                </a>
+                <div className="">
+                  <span className="text-white md:text-current mr-1 word-break-all">{t("I have read, agreed and understood")}</span>
+                  <a
+                    className="text-white md:text-black"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setType("agreement");
+                      setModalShow(true);
+                    }}>
+                    {t("User Agreement")}
+                  </a>
+                  <span className="text-white mx-1">&</span>
+                  <a
+                    className="text-white md:text-black"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setType("privite");
+                      setModalShow(true);
+                    }}>
+                    {t("Privacy policy")}
+                  </a>
+                </div>
               </Checkbox>
             </div>
           </Form.Item>
@@ -849,7 +851,8 @@ const ForgotEmail = () => {
       }
     };
     let status = false;
-    let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
     status = reg.test(email);
     if (!status) {
       toast?.error({

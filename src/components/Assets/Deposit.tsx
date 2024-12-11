@@ -1,7 +1,7 @@
-import { Flex, Modal, Pagination, Progress, Select, Skeleton, Spin, Table, TableProps, Tabs } from "antd";
+import { Flex, Modal, Pagination, Progress, Select, Skeleton, Space, Spin, Table, TableProps, Tabs } from "antd";
 import { useAtom } from "jotai";
 import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useCopyToClipboard, useEventListener } from "usehooks-ts";
@@ -18,12 +18,13 @@ import ForgetSafetyCode from "./ForgotSafetyCode";
 import { Icon } from "@ricons/utils";
 import { CloseCircleOutlined } from "@ricons/antd";
 import { ConnectButton, useAccountModal, useChainModal, useConnectModal, WalletButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useReadContract, useSendTransaction, useWriteContract } from "wagmi";
+import { useAccount, useBalance, useClient, usePublicClient, useReadContract, useSendTransaction, useToken, useWatchAsset, useWriteContract } from "wagmi";
 import Countdown from "antd/es/statistic/Countdown";
-import { erc20Abi, formatEther, parseEther, size } from "viem";
+import { createPublicClient, erc20Abi, formatEther, getContract, http, parseEther, size } from "viem";
 import BigNumber from "bignumber.js";
 import { i18n } from "@rainbow-me/rainbowkit/dist/locales";
 import { t } from "i18next";
+import { userInfo_atom } from "../../atom/userInfo";
 let CloseCircleOutlineds = CloseCircleOutlined as any;
 let countDownTimer: any;
 const PaymentCroptyCard: React.FC<{ timeStamp: number; amount: number; product_name?: string; product_id?: string; chain_id: number; show: boolean; setModalShow: Function }> = (props) => {
@@ -63,9 +64,6 @@ const ItemDeposit: React.FC<{
   network: string;
 }> = ({ network }) => {
   const { t, i18n } = useTranslation();
-  const { openConnectModal } = useConnectModal();
-  const { openChainModal } = useChainModal();
-  const { openAccountModal } = useAccountModal();
   const account = useAccount();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
@@ -82,9 +80,20 @@ const ItemDeposit: React.FC<{
   const [croptyPaymentModalShow, setCroptyPaymentModalShow] = useState(false);
   const [orderInfo, setOrderInfo] = useState<any>();
   const [expirationTime, setExpirationTime] = useState<number>(0);
-  // const { sendTransaction } = useSendTransaction();
+  const [users] = useAtom(userInfo_atom);
+  const [openWalletModal, setOpenWalletModal] = useState(false);
   const { writeContract } = useWriteContract();
+  const { watchAssetAsync } = useWatchAsset();
+  const client = usePublicClient();
 
+  const userTokenBalance = useCallback(() => {
+    return (account?.address && client) ? client.readContract({
+      address: import.meta.env.VITE_USDT_ETH,
+      abi: erc20Abi,
+      functionName: "balanceOf",
+      args: [account.address]
+    }) : Promise.resolve(0n);
+  }, [account, client])
   const handleCopy = (text: string) => {
     copy(text)
       .then(() => {
@@ -229,6 +238,15 @@ const ItemDeposit: React.FC<{
 
   const payment = async () => {
     setLoading(true);
+    const balance = await userTokenBalance();
+    if (balance < BigInt(BigNumber(amount).times(10 ** 6).toNumber())) {
+      toast?.warning({
+        message: t("Wallet Insufficient balance"),
+        icon: <img src="/assets/error.png" width={30} />,
+      });
+      setLoading(false);
+      return;
+    }
     writeContract({
       abi: erc20Abi,
       address: import.meta.env.VITE_USDT_ETH,
@@ -305,6 +323,11 @@ const ItemDeposit: React.FC<{
 
   const handleCreateOrder = async () => {
     if (isSign) {
+      const min = product?.min_pay;
+      console.log(min, amount)
+      if (min && (Number(amount) < Number(min))) {
+        return;
+      }
       setLoading(true)
       setCroptyPaymentModalShow(true)
       const params = {
@@ -356,6 +379,21 @@ const ItemDeposit: React.FC<{
     }
   }, [expirationTime])
 
+  useEffect(() => {
+    let min = product?.min_pay;
+    if (min && (Number(amount) >= Number(min))) {
+      if (croptyPaymentModalShow) {
+        setOrderInfo(null);
+        setExpirationTime(0);
+        handleCreateOrder()
+      }
+    } else {
+      setCroptyPaymentModalShow(false);
+      setOrderInfo(null);
+      setExpirationTime(0);
+    }
+  }, [amount])
+
   return (
     <div className="flex flex-col gap-4  text-greyblack font-bold font-whalebold">
       <Modal
@@ -384,6 +422,22 @@ const ItemDeposit: React.FC<{
           </>
         }>
         <SafetyInput onSave={setSecrityKey} />
+      </Modal>
+      <Modal
+        destroyOnClose
+        centered
+        width={400}
+        open={openWalletModal}
+        onCancel={() => setOpenWalletModal(false)}
+        onClose={() => setOpenWalletModal(false)}
+        closable={false}
+        footer={null}
+        style={{ borderRadius: '24px' }}
+      >
+        <Space direction="vertical">
+          <div>Connect a wallet</div>
+          <WalletButton wallet="metamask" />
+        </Space>
       </Modal>
       {/* <PaymentCroptyCard
         timeStamp={Date.now()}
@@ -430,12 +484,10 @@ const ItemDeposit: React.FC<{
             }
             setDisabled(false);
             // 最终设置金额
-            setAmount(value);
-            if (croptyPaymentModalShow) {
-              setOrderInfo(null);
-              setExpirationTime(0);
-              handleCreateOrder()
-            }
+            setAmount(prevCount => {
+              prevCount = value;
+              return prevCount;
+            });
           }}
           placeholder={`${t("Min Purchase")}${product?.min_pay}`}
         />
@@ -519,130 +571,101 @@ const ItemDeposit: React.FC<{
         }
       </div>
 
-      {/* <>
-        {openConnectModal ? (
-          <button className="btn btn-block bg-[#161618] border-0 rounded-md text-white p-4" onClick={openConnectModal}>
-            {t("Connect Wallet")}
-          </button>
-        ) : (
-          <button className="btn btn-block bg-[#161618] border-0 rounded-md text-white p-4" onClick={handleCreateOrder}>
-            {t("Payment Crypto")}
-          </button>
-        )}
-      </> */}
-
       <Flex gap={12} align="center">
         <button disabled={btnDisabled} className="btn flex-1 bg-[#161618] disabled:bg-[#e4e4e4] disabled:text-threePranentTransblack border-0 rounded-md text-white p-4" onClick={handlerClick}>
           {!isSign ? t("please sign in") : loading ?
             <Loader spinning={loading} />
             : t("Purchase")}
         </button>
-        {/* <WalletButton.Custom wallet="metamask">
-          {({ ready, connect }) => {
-            return (
-              <button
-                className="btn bg-white px-2 gap-0"
-                type="button"
-                onClick={ready ? connect : openAccountModal}
-              >
-                <img src="/assets/metamask.png" width={38} alt="" />
-                <div className={`badge ${account.isConnected ? 'badge-accent' : 'bg-[#bbb] border-[#bbb]'} badge-xxs ml-2`}></div>
-              </button>
-            );
-          }}
-        </WalletButton.Custom> */}
-        <ConnectButton.Custom>
-          {({
-            account,
-            chain,
-            openAccountModal,
-            openChainModal,
-            openConnectModal,
-            authenticationStatus,
-            mounted,
-          }) => {
-            // Note: If your app doesn't use authentication, you
-            // can remove all 'authenticationStatus' checks
-            const ready = mounted && authenticationStatus !== 'loading';
-            const connected =
-              ready &&
-              account &&
-              chain &&
-              (!authenticationStatus ||
-                authenticationStatus === 'authenticated');
 
-            return (
-              <div
-                {...(!ready && {
-                  'aria-hidden': true,
-                  'style': {
-                    opacity: 0,
-                    pointerEvents: 'none',
-                    userSelect: 'none',
-                  },
-                })}
-              >
-                {(() => {
-                  if (!connected) {
+        <div className="w-fit">
+
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              // Note: If your app doesn't use authentication, you
+              // can remove all 'authenticationStatus' checks
+              const ready = mounted && authenticationStatus !== 'loading';
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus ||
+                  authenticationStatus === 'authenticated');
+
+              return (
+                <div
+                  {...(!ready && {
+                    'aria-hidden': true,
+                    'style': {
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      userSelect: 'none',
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button onClick={openConnectModal} type="button"
+                          className="btn bg-black border-[1px] rounded-box text-white"
+                        >
+                          {t("Connect Wallet")}
+                        </button>
+                      );
+                    }
+
+                    if (chain.unsupported) {
+                      return (
+                        <button onClick={openChainModal} type="button">
+                          Wrong network
+                        </button>
+                      );
+                    }
+
                     return (
-                      <button onClick={openConnectModal} type="button"
-                        className="btn bg-black border-[1px] rounded-box text-white"
-                      >
-                        {t("Connect Wallet")}
-                      </button>
+                      <div style={{ display: 'flex', gap: 12 }}>
+                        <button
+                          onClick={openAccountModal}
+                          style={{ display: 'flex', alignItems: 'center' }}
+                          type="button"
+                          className="btn bg-transparent border-[1px] rounded-box border-[#bbb]"
+                        >
+                          {chain.hasIcon && (
+                            <div
+                              style={{
+                                background: chain.iconBackground,
+                                width: 24,
+                                height: 24,
+                                borderRadius: 999,
+                                overflow: 'hidden',
+                              }}
+                            >
+                              {chain.iconUrl && (
+                                <img
+                                  alt={chain.name ?? 'Chain icon'}
+                                  src={chain.iconUrl}
+                                  style={{ width: 24, height: 24 }}
+                                />
+                              )}
+                            </div>
+                          )}
+                        </button>
+                      </div>
                     );
-                  }
-
-                  if (chain.unsupported) {
-                    return (
-                      <button onClick={openChainModal} type="button">
-                        Wrong network
-                      </button>
-                    );
-                  }
-
-                  return (
-                    <div style={{ display: 'flex', gap: 12 }}>
-                      <button
-                        onClick={openAccountModal}
-                        style={{ display: 'flex', alignItems: 'center' }}
-                        type="button"
-                        className="btn bg-transparent border-[1px] rounded-box border-[#bbb]"
-                      >
-                        {chain.hasIcon && (
-                          <div
-                            style={{
-                              background: chain.iconBackground,
-                              width: 24,
-                              height: 24,
-                              borderRadius: 999,
-                              overflow: 'hidden',
-                            }}
-                          >
-                            {chain.iconUrl && (
-                              <img
-                                alt={chain.name ?? 'Chain icon'}
-                                src={chain.iconUrl}
-                                style={{ width: 24, height: 24 }}
-                              />
-                            )}
-                          </div>
-                        )}
-                      </button>
-
-                      {/* <button onClick={openAccountModal} type="button">
-                        {account.displayName}
-                        {account.displayBalance
-                          ? ` (${account.displayBalance})`
-                          : ''}
-                      </button> */}
-                    </div>
-                  );
-                })()}
-              </div>
-            );
-          }}
-        </ConnectButton.Custom>
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
+        </div>
       </Flex>
       <div className="flex items-center justify-center gap-1">
         <span className="text-xs">

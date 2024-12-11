@@ -20,6 +20,7 @@ import { userInfo_atom } from "../atom/userInfo";
 import moment from "moment";
 import CountUp from "react-countup";
 import Divdend from "../components/Home/Dividend";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const getAssetsBgImg = (ind = 1) => {
   return ind % 3 === 0 ? "bg-assets_t" : ind % 2 === 0 ? "bg-assets_s" : "bg-assets_f";
@@ -77,6 +78,7 @@ export default function Home() {
   }, []);
   return (
     <div>
+
       <div className="relative text-white pb-10">
         {/* {openNotice && (
           <div className="bg-[#1a1a1a] w-full absolute top-0 h-[50px] leading-[50px] text-center">
@@ -110,7 +112,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-10/12 m-auto">
+        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-10/12 3xl:w-9/12 4xl:7/12 m-auto">
           <div className="md:p-10 mt-10 md:mt-0">
             <div className="w-full text-center">
               <h1 className="text-black text-2xl mb-6 font-bold text-whalebold">{t("Start Investing")}</h1>
@@ -141,7 +143,7 @@ export default function Home() {
         </div>
 
 
-        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-10/12 m-auto">
+        <div className="w-[92%] md:w-11/12 xl:w-10/12 2xl:w-10/12 3xl:w-9/12 4xl:7/12 m-auto">
           <div className="flex flex-wrap gap-4 item-center justify-center my-20 mt-4" id="fund">
             <div className={`grid grid-cols-1 lg:grid-cols-${assets.length > 3 ? 3 : assets.length} w-full gap-4 md:p-10`}>
               {assets.map((item, ind) => (

@@ -15,12 +15,16 @@ import { InviteCodeAtom } from "./atom/invite";
 export const messageContext = atom<NotificationInstance | null>(null);
 export const modalContext = atom<HookAPI | null>(null);
 const { Header, Content, Footer } = Layout;
+window.onerror = function (message, source, lineno, colno, error) {
+  console.error("", message, source, lineno, colno, error);
+};
 
+window.addEventListener('error', function (event) {
+  console.error("", event.message, event.filename, event.lineno, event.colno, event.error);
+});
 function App() {
   const { modal } = AntdApp.useApp();
   const router = useLocation();
-  const accessToken = useLocalStorage();
-  const navigator = useNavigate();
 
   const [api, contextHolder] = notification.useNotification({
     duration: 1.5,

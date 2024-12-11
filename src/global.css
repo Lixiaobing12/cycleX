@@ -182,6 +182,17 @@ summary {
 .ant-modal-confirm-paragraph {
   max-width: 100% !important;
 }
+/* 在你的 CSS 文件中添加以下样式 */
+.ant-input:focus {
+  outline: none; /* 移除默认的 outline */
+  box-shadow: none; /* 移除默认的阴影 */
+  border-color: initial; /* 恢复边框颜色为初始状态 */
+}
+
+.input:focus,
+.input:focus-within {
+  outline: none; /* 移除默认的 outline */
+}
 @media screen and (max-width: 600px) {
   .head-item-mb {
     display: none;

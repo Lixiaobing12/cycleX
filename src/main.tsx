@@ -5,7 +5,7 @@ import 'animate.css';
 import { ConfigProvider } from "antd";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
-import { createConfig } from "wagmi";
+import { createConfig, useReconnect } from "wagmi";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiProvider, http } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
