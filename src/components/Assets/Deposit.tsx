@@ -18,13 +18,20 @@ import ForgetSafetyCode from "./ForgotSafetyCode";
 import { Icon } from "@ricons/utils";
 import { CloseCircleOutlined } from "@ricons/antd";
 import { ConnectButton, useAccountModal, useChainModal, useConnectModal, WalletButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useBalance, useClient, usePublicClient, useReadContract, useSendTransaction, useToken, useWatchAsset, useWriteContract } from "wagmi";
+import { useAccount, useBalance, useClient, useDisconnect, usePublicClient, useReadContract, useSendTransaction, useToken, useWatchAsset, useWriteContract } from "wagmi";
 import Countdown from "antd/es/statistic/Countdown";
-import { createPublicClient, erc20Abi, formatEther, getContract, http, parseEther, size } from "viem";
+import { Chain, createPublicClient, erc20Abi, formatEther, getContract, http, parseEther, size } from "viem";
 import BigNumber from "bignumber.js";
 import { i18n } from "@rainbow-me/rainbowkit/dist/locales";
 import { t } from "i18next";
 import { userInfo_atom } from "../../atom/userInfo";
+import { switchChain } from "@wagmi/core";
+import { config } from "../../middleware/wagmi.config";
+import { bevmMainnet, mainnet, merlin } from "viem/chains";
+import { getBalance } from "viem/actions";
+import { walletTypeAtom } from "../../atom/wallet";
+import { connectZetrixWallet } from "../../middleware/zetrix.wallet";
+
 let CloseCircleOutlineds = CloseCircleOutlined as any;
 let countDownTimer: any;
 const PaymentCroptyCard: React.FC<{ timeStamp: number; amount: number; product_name?: string; product_id?: string; chain_id: number; show: boolean; setModalShow: Function }> = (props) => {
@@ -67,6 +74,7 @@ const ItemDeposit: React.FC<{
   const account = useAccount();
   const [toast] = useAtom(messageContext);
   const [product] = useAtom(product_info);
+  const { openChainModal } = useChainModal();
   const [isSign, user, walletInfo] = useAccounts();
   const [amount, setAmount] = useState("");
   const [modal] = useAtom(modalContext);
@@ -83,16 +91,23 @@ const ItemDeposit: React.FC<{
   const [users] = useAtom(userInfo_atom);
   const [openWalletModal, setOpenWalletModal] = useState(false);
   const { writeContract } = useWriteContract();
-  const { watchAssetAsync } = useWatchAsset();
+  const [walletType, setWalletType] = useAtom(walletTypeAtom);
   const client = usePublicClient();
+  const [zetrixAccount, setZetrixAccount] = useState<any>();
 
-  const userTokenBalance = useCallback(() => {
-    return (account?.address && client) ? client.readContract({
-      address: import.meta.env.VITE_USDT_ETH,
-      abi: erc20Abi,
-      functionName: "balanceOf",
-      args: [account.address]
-    }) : Promise.resolve(0n);
+  const userBalance = useCallback(() => {
+    if (account?.address && client) {
+      return account.chainId === 1 ? client.readContract({
+        address: import.meta.env.VITE_USDT_ETH,
+        abi: erc20Abi,
+        functionName: "balanceOf",
+        args: [account.address]
+      }) : getBalance(client, {
+        address: account.address
+      })
+    }
+    return Promise.resolve(0n);
+
   }, [account, client])
   const handleCopy = (text: string) => {
     copy(text)
@@ -206,6 +221,16 @@ const ItemDeposit: React.FC<{
       return;
     }
 
+    if (walletType !== 'Ethereum') {
+      toast?.warning({
+        icon: <img src="/assets/error.png" width={30} />,
+        message: t("Please switch to Ethereum"),
+      });
+      setDisabled(true);
+      setAmount('');
+      return;
+    }
+
     if (loading) return;
     if (account.isConnected) {
       if (orderInfo && expirationTime > 0) {
@@ -238,64 +263,89 @@ const ItemDeposit: React.FC<{
 
   const payment = async () => {
     setLoading(true);
-    const balance = await userTokenBalance();
-    if (balance < BigInt(BigNumber(amount).times(10 ** 6).toNumber())) {
-      toast?.warning({
-        message: t("Wallet Insufficient balance"),
-        icon: <img src="/assets/error.png" width={30} />,
-      });
-      setLoading(false);
-      return;
-    }
-    writeContract({
-      abi: erc20Abi,
-      address: import.meta.env.VITE_USDT_ETH,
-      functionName: "transfer",
-      args: [
-        import.meta.env.VITE_PAYMENT_ADDRESS,
-        BigInt(BigNumber(amount).times(10 ** 6).toNumber()),
-      ],
-    }, {
-      onSuccess(data, variables, context) {
-        //console.log("payment success", data, variables, context);
-        const params = {
-          id: orderInfo.id,
-          txid: data
-        }
-        request.post('/api/api/cryptoPayment/confirm', params).then(res => {
-          if (res.data.res_code === 0) {
-            setLoading(false);
-            setOrderInfo(res.data.data);
-            setTimeout(() => {
-              const el = document.querySelector('#order_container');
-              if (el) {
-                el?.classList.add('animate__animated', 'animate__zoomOutUp');
-                el?.addEventListener('animationend', () => {
-                  setCroptyPaymentModalShow(false);
-                  setOrderInfo(null);
-                });
-              }
-            }, 1500)
-          } else {
-            setTimeout(() => {
-              setLoading(false);
-              toast?.warning({
-                message: t("Payment failed, please contract us"),
-                icon: <img src="/assets/error.png" width={30} />,
-              });
-            }, 1500)
+    let payment_amount = 0;
+    let payment_type: 'USDT' | 'BTC' | 'ZTX' = 'USDT';
+    try {
+      {
+        if (account.chainId === bevmMainnet.id || account.chainId === merlin.id) {
+          payment_type = 'BTC';
+          const res = await request.get('https://www.okx.com/api/v5/market/ticker?instId=BTC-USD-SWAP');
+          console.log(res)
+          const price = res.data.code === "0" && Array.isArray(res.data.data) && res.data.data.length ? res.data.data[0].last : -1;
+          if (price === -1) {
+            toast?.warning({
+              message: t("Payment failed, try again later"),
+              icon: <img src="/assets/error.png" width={30} />,
+            });
+            return;
           }
-        })
-      },
-      onError(error, variables, context) {
-        //console.log("payment error", error, variables, context);
-        setLoading(false);
+          payment_amount = Number(amount) / price;
+        } else if (account.chainId === mainnet.id) {
+          payment_type = 'USDT';
+          payment_amount = Number(amount);
+        }
+      }
+      const balance = await userBalance();
+      if (balance < BigInt(BigNumber(amount).times(payment_type === 'USDT' ? 10 ** 6 : 10 ** 18).toNumber())) {
         toast?.warning({
-          message: t("Payment failed, try again later"),
+          message: t("Wallet Insufficient balance"),
           icon: <img src="/assets/error.png" width={30} />,
         });
+        setLoading(false);
+        return;
       }
-    })
+      writeContract({
+        abi: erc20Abi,
+        address: import.meta.env.VITE_USDT_ETH,
+        functionName: "transfer",
+        args: [
+          import.meta.env.VITE_PAYMENT_ADDRESS,
+          BigInt(BigNumber(amount).times(payment_type === 'USDT' ? 10 ** 6 : 10 ** 18).toNumber()),
+        ],
+      }, {
+        onSuccess(data, variables, context) {
+          //console.log("payment success", data, variables, context);
+          const params = {
+            id: orderInfo.id,
+            txid: data
+          }
+          request.post('/api/api/cryptoPayment/confirm', params).then(res => {
+            if (res.data.res_code === 0) {
+              setLoading(false);
+              setOrderInfo(res.data.data);
+              setTimeout(() => {
+                const el = document.querySelector('#order_container');
+                if (el) {
+                  el?.classList.add('animate__animated', 'animate__zoomOutUp');
+                  el?.addEventListener('animationend', () => {
+                    setCroptyPaymentModalShow(false);
+                    setOrderInfo(null);
+                  });
+                }
+              }, 1500)
+            } else {
+              setTimeout(() => {
+                setLoading(false);
+                toast?.warning({
+                  message: t("Payment failed, please contract us"),
+                  icon: <img src="/assets/error.png" width={30} />,
+                });
+              }, 1500)
+            }
+          })
+        },
+        onError(error, variables, context) {
+          //console.log("payment error", error, variables, context);
+          setLoading(false);
+          toast?.warning({
+            message: t("Payment failed, try again later"),
+            icon: <img src="/assets/error.png" width={30} />,
+          });
+        }
+      })
+    } catch (e) {
+
+    }
   }
   const openForgotSafetyModal = () => {
     const context: any = modal?.info({
@@ -371,6 +421,20 @@ const ItemDeposit: React.FC<{
         setCroptyPaymentModalShow(false)
       }
     }
+  }
+
+  const handleConnectWallet = () => {
+    connectZetrixWallet().then((res: any) => {
+      if (res?.code === 404) {
+        toast?.warning({
+          message: t("Please install Zetrix wallet"),
+          icon: <img src="/assets/error.png" width={30} />,
+        });
+      } else {
+        console.log(res)
+        setZetrixAccount(res)
+      }
+    })
   }
 
   useEffect(() => {
@@ -579,92 +643,132 @@ const ItemDeposit: React.FC<{
         </button>
 
         <div className="w-fit">
+          {
+            walletType === 'Zetrix' ? <>
+              <button onClick={handleConnectWallet} type="button"
+                className="btn bg-black border-[1px] rounded-box text-white"
+              >
+                {
+                  zetrixAccount ? <div>
+                    <img src="/assets/zetrix.png" width={20} alt="" />
+                  </div> : t("Connect Wallet")
+                }
+              </button></> : <ConnectButton.Custom>
+              {({
+                account,
+                chain,
+                openAccountModal,
+                openChainModal,
+                openConnectModal,
+                authenticationStatus,
+                mounted,
+              }) => {
+                // Note: If your app doesn't use authentication, you
+                // can remove all 'authenticationStatus' checks
+                const ready = mounted && authenticationStatus !== 'loading';
+                const connected =
+                  ready &&
+                  account &&
+                  chain &&
+                  (!authenticationStatus ||
+                    authenticationStatus === 'authenticated');
 
-          <ConnectButton.Custom>
-            {({
-              account,
-              chain,
-              openAccountModal,
-              openChainModal,
-              openConnectModal,
-              authenticationStatus,
-              mounted,
-            }) => {
-              // Note: If your app doesn't use authentication, you
-              // can remove all 'authenticationStatus' checks
-              const ready = mounted && authenticationStatus !== 'loading';
-              const connected =
-                ready &&
-                account &&
-                chain &&
-                (!authenticationStatus ||
-                  authenticationStatus === 'authenticated');
+                return (
+                  <div
+                    {...(!ready && {
+                      'aria-hidden': true,
+                      'style': {
+                        opacity: 0,
+                        pointerEvents: 'none',
+                        userSelect: 'none',
+                      },
+                    })}
+                  >
+                    {(() => {
+                      if (!connected) {
+                        return (
+                          <button onClick={openConnectModal} type="button"
+                            className="btn bg-black border-[1px] rounded-box text-white"
+                          >
+                            {t("Connect Wallet")}
+                          </button>
+                        );
+                      }
 
-              return (
-                <div
-                  {...(!ready && {
-                    'aria-hidden': true,
-                    'style': {
-                      opacity: 0,
-                      pointerEvents: 'none',
-                      userSelect: 'none',
-                    },
-                  })}
-                >
-                  {(() => {
-                    if (!connected) {
+                      if (chain.unsupported) {
+                        return (
+                          <button onClick={openChainModal} type="button">
+                            Wrong network
+                          </button>
+                        );
+                      }
+
                       return (
-                        <button onClick={openConnectModal} type="button"
-                          className="btn bg-black border-[1px] rounded-box text-white"
-                        >
-                          {t("Connect Wallet")}
-                        </button>
-                      );
-                    }
-
-                    if (chain.unsupported) {
-                      return (
-                        <button onClick={openChainModal} type="button">
-                          Wrong network
-                        </button>
-                      );
-                    }
-
-                    return (
-                      <div style={{ display: 'flex', gap: 12 }}>
-                        <button
-                          onClick={openAccountModal}
-                          style={{ display: 'flex', alignItems: 'center' }}
-                          type="button"
-                          className="btn bg-transparent border-[1px] rounded-box border-[#bbb]"
-                        >
-                          {chain.hasIcon && (
-                            <div
-                              style={{
-                                background: chain.iconBackground,
-                                width: 24,
-                                height: 24,
-                                borderRadius: 999,
-                                overflow: 'hidden',
-                              }}
-                            >
-                              {chain.iconUrl && (
+                        <div style={{ display: 'flex', gap: 12 }}>
+                          <button
+                            onClick={openAccountModal}
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            type="button"
+                            className="btn bg-transparent border-[1px] rounded-box border-[#bbb]"
+                          >
+                            {chain.id === mainnet.id && (
+                              <div
+                                style={{
+                                  background: chain.iconBackground,
+                                  width: 24,
+                                  height: 24,
+                                  borderRadius: 999,
+                                  overflow: 'hidden',
+                                }}
+                              >
                                 <img
                                   alt={chain.name ?? 'Chain icon'}
                                   src={chain.iconUrl}
                                   style={{ width: 24, height: 24 }}
                                 />
-                              )}
-                            </div>
-                          )}
-                        </button>
-                      </div>
-                    );
-                  })()}
-                </div>
-              );
-            }}
-          </ConnectButton.Custom>
+                              </div>
+                            )}
+                            {
+                              chain.id === bevmMainnet.id && (<div
+                                style={{
+                                  width: 24,
+                                  height: 24,
+                                  borderRadius: 999,
+                                  overflow: 'hidden',
+                                }}
+                              >
+                                <img
+                                  alt={chain.name ?? 'Chain icon'}
+                                  src='/assets/bevm.png'
+                                  style={{ width: 24, height: 24 }}
+                                />
+                              </div>)
+                            }
+                            {
+                              chain.id === merlin.id && (<div
+                                style={{
+                                  width: 24,
+                                  height: 24,
+                                  borderRadius: 999,
+                                  overflow: 'hidden',
+                                }}
+                              >
+                                <img
+                                  alt={chain.name ?? 'Chain icon'}
+                                  src='/assets/merlin.png'
+                                  style={{ width: 24, height: 24 }}
+                                />
+                              </div>)
+                            }
+                          </button>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                );
+              }}
+            </ConnectButton.Custom>
+          }
         </div>
       </Flex>
       <div className="flex items-center justify-center gap-1">
@@ -778,19 +882,52 @@ const Records: React.FC<{
 
 const Card = () => {
   const { t } = useTranslation();
+  const { openChainModal, chainModalOpen } = useChainModal();
   const [active, setActive] = useState("1");
   const [network, set_network] = useState("Ethereum");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [elementWidth, setElementWidth] = useState(0);
+  const account = useAccount();
+  const [walletType, setWalletType] = useAtom(walletTypeAtom);
+  const { disconnect } = useDisconnect();
 
-  const handleClick = (e: "Ethereum" | "BEVM") => {
-    setLoading(true);
+  const handleClick = async (e: "Ethereum" | "BEVM" | "Merlin" | "Zetrix") => {
+    setLoading(true)
+    setWalletType(e);
     set_network(e);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    if (e !== 'Zetrix') {
+      let chainId: 1 | 11501 | 4200 = 1;
+      switch (e) {
+        case "Ethereum":
+          chainId = 1
+          break;
+        case "BEVM":
+          chainId = 11501;
+          break;
+        case "Merlin":
+          chainId = 4200;
+          break;
+      }
+      try {
+        await switchChain(config, { chainId })
+      } catch (e) {
+      };
+      setLoading(false)
+    } else {
+      disconnect();
+      setTimeout(() => {
+        setLoading(false)
+      }, 500)
+    }
   };
+
+  useEffect(() => {
+    console.log(account);
+    if (account) {
+      handleClick(account?.chainId === 11501 ? "BEVM" : account?.chainId === 4200 ? "Merlin" : "Ethereum")
+    }
+  }, [account])
   const items = [
     {
       key: "1",
@@ -827,29 +964,30 @@ const Card = () => {
   return (
     <div className="flex flex-col justify-center gap-6 h-full">
       <img src="/assets/airdropbox.gif" className="hidden lg:block" alt="" onClick={() => navigate("/blindbox")} />
-      <div className="shadow-2xl rounded-lg p-4">
-        <div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit">
-          {network === "Ethereum" ? (
-            <img src="/assets/eth.png" width={20} />
-          ) : network === "BEVM" ? (
-            <img src="/assets/bevm.png" width={20} />
-          ) : network === "Merlin" ? (
-            <img src="/assets/merlin.png" width={20} />
-          ) : (
-            <></>
-          )}
-          <Select
-            size="small"
-            defaultValue="Ethereum"
-            onChange={handleClick}
-            options={[
-              { value: "Ethereum", label: "Ethereum" },
-              { value: "BEVM", label: "BEVM" },
-              { value: "Merlin", label: "Merlin" },
-            ]}
-            style={{ fontSize: "12px" }}
-          />
-        </div>
+      <div className="shadow-2xl rounded-lg p-4"><div className="inline-flex p-2 items-center gap-2 bg-[#F5F6F8] rounded-md w-fit" >
+        {network === "Ethereum" ? (
+          <img src="/assets/eth.png" width={20} />
+        ) : network === "BEVM" ? (
+          <img src="/assets/bevm.png" width={20} />
+        ) : network === "Merlin" ? (
+          <img src="/assets/merlin.png" width={20} />
+        ) : network === "Zetrix" ? (
+          <img src="/assets/zetrix.png" width={20} />
+        ) : <></>}
+        <Select
+          size="small"
+          defaultValue="Ethereum"
+          onChange={handleClick}
+          options={[
+            { value: "Ethereum", label: "Ethereum" },
+            { value: "BEVM", label: "BEVM" },
+            { value: "Merlin", label: "Merlin" },
+            { value: "Zetrix", label: "Zetrix" },
+          ]}
+          style={{ fontSize: "12px" }}
+        />
+      </div>
+
         <div id="card_container">
           <Spin spinning={loading}>
             <div className="w-full overflow-hidden">

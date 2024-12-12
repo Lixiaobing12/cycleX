@@ -11,6 +11,8 @@ import Loader from "./components/Loader";
 import useLocalStorage from "./hooks/localStorage";
 import RouterProviders from "./router";
 import { InviteCodeAtom } from "./atom/invite";
+import { disconnect } from "@wagmi/core";
+import { config } from "./middleware/wagmi.config";
 
 export const messageContext = atom<NotificationInstance | null>(null);
 export const modalContext = atom<HookAPI | null>(null);
@@ -22,6 +24,7 @@ window.onerror = function (message, source, lineno, colno, error) {
 window.addEventListener('error', function (event) {
   console.error("", event.message, event.filename, event.lineno, event.colno, event.error);
 });
+
 function App() {
   const { modal } = AntdApp.useApp();
   const router = useLocation();

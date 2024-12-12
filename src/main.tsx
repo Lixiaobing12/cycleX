@@ -8,37 +8,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createConfig, useReconnect } from "wagmi";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiProvider, http } from 'wagmi'
-import { mainnet } from 'wagmi/chains'
+import { bevmMainnet, mainnet, merlin } from 'wagmi/chains'
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 import App from "./App";
 import "./global.css";
 import "./i18n/config";
 import "./polyfills";
+import { createClient } from "viem";
+import { config } from "./middleware/wagmi.config";
 
-const projectId = "123e23ac15abc13f7df4392e27f9c070";
-
-const connectors = connectorsForWallets(
-  [
-    {
-      groupName: 'Recommended',
-      wallets: [rainbowWallet, metaMaskWallet, tokenPocketWallet, walletConnectWallet, uniswapWallet],
-    },
-  ],
-  {
-    appName: 'CycleX',
-    projectId,
-  }
-);
-
-const config = createConfig({
-  connectors,
-  // appName: 'CycleX',
-  // projectId: '123e23ac15abc13f7df4392e27f9c070',
-  chains: [mainnet],
-  transports: {
-    [mainnet.id]: http(),
-  },
-})
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

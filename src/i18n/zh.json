@@ -675,5 +675,7 @@
   "Failed": "失败",
   "deposit_tip": "如需请求超出即时限额的投资，请通过 <a href='mailto:services@whaleflow.co'>services@whaleflow.co</a> 联系我们。您可以立即兑换的金额取决于多个因素，包括 CycleX 实施的限制。",
   "Order Sn": "订单号",
-  "Payment failed, please contract us": "支付失败，请联系我们"
+  "Payment failed, please contract us": "支付失败，请联系我们",
+  "Please install Zetrix wallet": "请安装Zetrix钱包",
+  "Please switch to Ethereum": "请切换至以太坊网络"
 }
