@@ -884,7 +884,7 @@ const Card = () => {
   const { t } = useTranslation();
   const { openChainModal, chainModalOpen } = useChainModal();
   const [active, setActive] = useState("1");
-  const [network, set_network] = useState("Ethereum");
+  const [network, set_network] = useState<"Ethereum" | "BEVM" | "Merlin" | "Zetrix">("Ethereum");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [elementWidth, setElementWidth] = useState(0);
@@ -926,6 +926,7 @@ const Card = () => {
     console.log(account);
     if (account) {
       handleClick(account?.chainId === 11501 ? "BEVM" : account?.chainId === 4200 ? "Merlin" : "Ethereum")
+      set_network(account?.chainId === 11501 ? "BEVM" : account?.chainId === 4200 ? "Merlin" : "Ethereum")
     }
   }, [account])
   const items = [
@@ -976,7 +977,7 @@ const Card = () => {
         ) : <></>}
         <Select
           size="small"
-          defaultValue="Ethereum"
+          value={network}
           onChange={handleClick}
           options={[
             { value: "Ethereum", label: "Ethereum" },
