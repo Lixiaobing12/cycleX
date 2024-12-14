@@ -1,7 +1,7 @@
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import { injectedWallet, metaMaskWallet, rainbowWallet, tokenPocketWallet, uniswapWallet, walletConnectWallet } from "@rainbow-me/rainbowkit/wallets";
 import { createClient, http } from "viem";
-import { mainnet, bevmMainnet, merlin } from "viem/chains";
+import { mainnet, bevmMainnet, merlin, arbitrum } from "viem/chains";
 import { createConfig } from "wagmi";
 
 const projectId = "123e23ac15abc13f7df4392e27f9c070";
@@ -20,10 +20,11 @@ const connectors = connectorsForWallets(
 );
 export const config = createConfig({
   connectors,
-  chains: [mainnet, bevmMainnet, merlin],
+  chains: [mainnet, bevmMainnet, merlin, arbitrum],
   transports: {
     [mainnet.id]: http(),
     [bevmMainnet.id]: http(),
     [merlin.id]: http(),
+    [arbitrum.id]: http(),
   },
 });

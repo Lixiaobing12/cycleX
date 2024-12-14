@@ -27,7 +27,7 @@ import { t } from "i18next";
 import { userInfo_atom } from "../../atom/userInfo";
 import { switchChain } from "@wagmi/core";
 import { config } from "../../middleware/wagmi.config";
-import { bevmMainnet, mainnet, merlin } from "viem/chains";
+import { arbitrum, bevmMainnet, mainnet, merlin } from "viem/chains";
 import { getBalance } from "viem/actions";
 import { walletTypeAtom } from "../../atom/wallet";
 import { connectZetrixWallet } from "../../middleware/zetrix.wallet";
@@ -99,6 +99,11 @@ const ItemDeposit: React.FC<{
     if (account?.address && client) {
       return account.chainId === 1 ? client.readContract({
         address: import.meta.env.VITE_USDT_ETH,
+        abi: erc20Abi,
+        functionName: "balanceOf",
+        args: [account.address]
+      }) : account.chainId === arbitrum.id ? client.readContract({
+        address: import.meta.env.VITE_USDT_ARB,
         abi: erc20Abi,
         functionName: "balanceOf",
         args: [account.address]
@@ -221,7 +226,7 @@ const ItemDeposit: React.FC<{
       return;
     }
 
-    if (walletType !== 'Ethereum') {
+    if (walletType !== 'Ethereum' && walletType !== 'Arb') {
       toast?.warning({
         icon: <img src="/assets/error.png" width={30} />,
         message: t("Please switch to Ethereum"),
@@ -264,7 +269,7 @@ const ItemDeposit: React.FC<{
   const payment = async () => {
     setLoading(true);
     let payment_amount = 0;
-    let payment_type: 'USDT' | 'BTC' | 'ZTX' = 'USDT';
+    let payment_type: 'USDT-ERC20' | 'BTC' | 'ZTX' | 'USDT-Arb' = 'USDT-ERC20';
     try {
       {
         if (account.chainId === bevmMainnet.id || account.chainId === merlin.id) {
@@ -281,12 +286,25 @@ const ItemDeposit: React.FC<{
           }
           payment_amount = Number(amount) / price;
         } else if (account.chainId === mainnet.id) {
-          payment_type = 'USDT';
+          payment_type = 'USDT-ERC20';
+          payment_amount = Number(amount);
+        } else if (account.chainId === arbitrum.id) {
+          payment_type = 'USDT-Arb';
           payment_amount = Number(amount);
         }
       }
       const balance = await userBalance();
-      if (balance < BigInt(BigNumber(amount).times(payment_type === 'USDT' ? 10 ** 6 : 10 ** 18).toNumber())) {
+
+      console.log('balance', balance)
+
+      let decimals = 6;
+      if (payment_type === 'USDT-ERC20' || payment_type === 'USDT-Arb') {
+        decimals = 6;
+      } else {
+        decimals = 18;
+      }
+
+      if (balance < BigInt(BigNumber(amount).times(10 ** decimals).toNumber())) {
         toast?.warning({
           message: t("Wallet Insufficient balance"),
           icon: <img src="/assets/error.png" width={30} />,
@@ -300,14 +318,15 @@ const ItemDeposit: React.FC<{
         functionName: "transfer",
         args: [
           import.meta.env.VITE_PAYMENT_ADDRESS,
-          BigInt(BigNumber(amount).times(payment_type === 'USDT' ? 10 ** 6 : 10 ** 18).toNumber()),
+          BigInt(BigNumber(amount).times(10 ** decimals).toNumber()),
         ],
       }, {
         onSuccess(data, variables, context) {
           //console.log("payment success", data, variables, context);
           const params = {
             id: orderInfo.id,
-            txid: data
+            txid: data,
+            chainId: account.chainId,
           }
           request.post('/api/api/cryptoPayment/confirm', params).then(res => {
             if (res.data.res_code === 0) {
@@ -760,6 +779,22 @@ const ItemDeposit: React.FC<{
                                 />
                               </div>)
                             }
+                            {
+                              chain.id === arbitrum.id && (<div
+                                style={{
+                                  width: 24,
+                                  height: 24,
+                                  borderRadius: 999,
+                                  overflow: 'hidden',
+                                }}
+                              >
+                                <img
+                                  alt={chain.name ?? 'Chain icon'}
+                                  src='/assets/arb.png'
+                                  style={{ width: 24, height: 24 }}
+                                />
+                              </div>)
+                            }
                           </button>
                         </div>
                       );
@@ -884,7 +919,7 @@ const Card = () => {
   const { t } = useTranslation();
   const { openChainModal, chainModalOpen } = useChainModal();
   const [active, setActive] = useState("1");
-  const [network, set_network] = useState<"Ethereum" | "BEVM" | "Merlin" | "Zetrix">("Ethereum");
+  const [network, set_network] = useState<"Ethereum" | "BEVM" | "Merlin" | "Zetrix" | 'Arb'>("Ethereum");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [elementWidth, setElementWidth] = useState(0);
@@ -892,12 +927,12 @@ const Card = () => {
   const [walletType, setWalletType] = useAtom(walletTypeAtom);
   const { disconnect } = useDisconnect();
 
-  const handleClick = async (e: "Ethereum" | "BEVM" | "Merlin" | "Zetrix") => {
+  const handleClick = async (e: "Ethereum" | "BEVM" | "Merlin" | "Zetrix" | 'Arb') => {
     setLoading(true)
     setWalletType(e);
     set_network(e);
     if (e !== 'Zetrix') {
-      let chainId: 1 | 11501 | 4200 = 1;
+      let chainId: 1 | 11501 | 4200 | 42161 = 1;
       switch (e) {
         case "Ethereum":
           chainId = 1
@@ -907,6 +942,9 @@ const Card = () => {
           break;
         case "Merlin":
           chainId = 4200;
+          break;
+        case "Arb":
+          chainId = 42161;
           break;
       }
       try {
@@ -923,10 +961,9 @@ const Card = () => {
   };
 
   useEffect(() => {
-    console.log(account);
     if (account) {
-      handleClick(account?.chainId === 11501 ? "BEVM" : account?.chainId === 4200 ? "Merlin" : "Ethereum")
-      set_network(account?.chainId === 11501 ? "BEVM" : account?.chainId === 4200 ? "Merlin" : "Ethereum")
+      handleClick(account?.chainId === 11501 ? "BEVM" : account?.chainId === 4200 ? "Merlin" : account?.chainId === 42161 ? "Arb" : "Ethereum")
+      set_network(account?.chainId === 11501 ? "BEVM" : account?.chainId === 4200 ? "Merlin" : account?.chainId === 42161 ? "Arb" : "Ethereum")
     }
   }, [account])
   const items = [
@@ -974,6 +1011,8 @@ const Card = () => {
           <img src="/assets/merlin.png" width={20} />
         ) : network === "Zetrix" ? (
           <img src="/assets/zetrix.png" width={20} />
+        ) : network === "Arb" ? (
+          <img src="/assets/arb.png" width={20} />
         ) : <></>}
         <Select
           size="small"
@@ -981,6 +1020,7 @@ const Card = () => {
           onChange={handleClick}
           options={[
             { value: "Ethereum", label: "Ethereum" },
+            { value: "Arb", label: "Arbitrum One" },
             { value: "BEVM", label: "BEVM" },
             { value: "Merlin", label: "Merlin" },
             { value: "Zetrix", label: "Zetrix" },
