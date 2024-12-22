@@ -1051,8 +1051,8 @@ const Card = () => {
             { value: "Ethereum", label: "Ethereum" },
             { value: "Arb", label: "Arbitrum One" },
             { value: "Bsc", label: "BSC" },
-            { value: "BEVM", label: "BEVM" },
-            { value: "Merlin", label: "Merlin" },
+            // { value: "BEVM", label: "BEVM" },
+            // { value: "Merlin", label: "Merlin" },
             { value: "Zetrix", label: "Zetrix" },
           ]}
           style={{ fontSize: "12px" }}

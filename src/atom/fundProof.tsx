@@ -22,4 +22,4 @@ export type FundProofType = {
         zh: string;
     }
 };
-export const fundProofs_atom = atom<FundProofType[]>([]);
+export const fundProofs_atom = atom<any[]>([]);

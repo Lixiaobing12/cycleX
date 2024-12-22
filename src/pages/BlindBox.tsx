@@ -42,23 +42,21 @@ const AppendLotteryUserRecordComponent = () => {
   const columns: TableProps["columns"] = [
     {
       title: t("Rewards num"),
-      key: "Amount",
-      render: ({ Amount }) => <span>{Amount} WFC</span>,
+      key: "amount",
+      render: ({ amount }) => <span>{amount} WFC</span>,
     },
     {
       title: t("Rewards time"),
-      key: "CreatedAt",
-      render: ({ CreatedAt }) => <span>{moment(CreatedAt).format("MM/DD HH:mm")}</span>,
+      key: "created_at",
+      render: ({ created_at }) => <span>{moment(created_at).format("MM/DD HH:mm")}</span>,
     },
   ];
   const getData = () => {
     if (account?.id && !userLotteryList.length) {
       request
-        .post("/sapi/lottery/list", {
-          UserId: account?.id,
-          unlock: false,
-          Page: 1,
-          Size: 9999,
+        .post("/api/api/lottery/getList", {
+          page: 1,
+          size: 9999,
         })
         .then(({ data }) => {
           const newdata = new Set<any>(data.data);
@@ -201,9 +199,7 @@ const BlindBox = () => {
     if (openStatus) return;
     setOpenStatus(true);
     request
-      .post("/sapi/lottery/open", {
-        BearerToken: "Bearer " + accessToken?.token,
-      })
+      .post("/api/api/lottery/openBindBox")
       .then(({ data }) => {
         init();
         setTimeout(() => {
@@ -241,9 +237,7 @@ const BlindBox = () => {
   const init = () => {
     if (account) {
       request
-        .post("/sapi/lottery/info", {
-          UserId: account?.id,
-        })
+        .post("/api/api/lottery/getDetail")
         .then((res) => {
           setLotteryInfo(res.data.data);
           // setData((state) => {
@@ -264,18 +258,17 @@ const BlindBox = () => {
   };
   const getBullet = () => {
     request
-      .post("/sapi/lottery/list", {
-        unlock: false,
-        Page: page,
-        Size: 3,
+      .post("/api/api/lottery/getList", {
+        page: page,
+        size: 3,
       })
       .then(({ data }) => {
         if (data.data.length) {
           data.data.forEach((item: any) => {
             screenRef.current.push(`
                 <div class="flex gap-2 items-center text-white bg-[rgba(255,255,255,0.1)] px-4 rounded-full py-1">
-                    <img src="${item.Avatar}" width="25" class="rounded-full"/>
-                    <span>${item.Email.replace(/^(.{3}).*(.{2}@.*\.com)$/, "$1***$2")}</span>won<span class="text-[#61f6ff]">${item.Amount}</span> WFC
+                    <img src="${item.avatar}" width="25" class="rounded-full"/>
+                    <span>${item.email.replace(/^(.{3}).*(.{2}@.*\.com)$/, "$1***$2")}</span>won<span class="text-[#61f6ff]">${item.amount}</span> WFC
                 </div>`);
           });
           if (data.data.length < 8) {

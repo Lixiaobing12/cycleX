@@ -46,8 +46,8 @@ const Wallet = () => {
   const columns: TableProps<any>["columns"] = [
     {
       title: t("Category/Type"),
-      dataIndex: "Description",
-      key: "Description",
+      dataIndex: "description",
+      key: "description",
       width: 100,
       render(value, record, index) {
         return i18n.language === "en" ? record.descDcts.en : record.descDcts.zh;
@@ -55,23 +55,23 @@ const Wallet = () => {
     },
     {
       title: t("Earnings/Change"),
-      dataIndex: "BalanceChange",
-      key: "BalanceChange",
+      dataIndex: "balance_change",
+      key: "balance_change",
       width: 100,
       render(value, record, index) {
-        if (record.AssetId === 2) {
-          return value + " ETH" + `(${record.Status === 1 ? t("receipt") + Number(record.TotalValue).toFixed(4) + " USDT" : t("pending")})`;
-        } else if (record.AssetId === 3) {
+        if (record.asset_id === 2) {
+          return value + " ETH" + `(${record.Status === 1 ? t("receipt") + Number(record.total_value).toFixed(4) + " USDT" : t("pending")})`;
+        } else if (record.asset_id === 3) {
           return value + " USDT";
         } else {
-          return value + " BTC" + `(${record.Status === 1 ? t("receipt") + Number(record.TotalValue).toFixed(4) + " USDT" : t("pending")})`;
+          return value + " BTC" + `(${record.Status === 1 ? t("receipt") + Number(record.total_value).toFixed(4) + " USDT" : t("pending")})`;
         }
       },
     },
     {
       title: t("Update Time"),
-      dataIndex: "CreatedAt",
-      key: "CreatedAt",
+      dataIndex: "created_at",
+      key: "created_at",
       width: 100,
       render(value, record, index) {
         return moment(value).format("YYYY-MM-DD HH:mm:ss");
@@ -112,26 +112,25 @@ const Wallet = () => {
     if (user) {
       setLoading(true);
       request
-        .post("/sapi/walletAccountAssetChange/list", {
-          UserId: user?.id,
-          Page: page.page,
-          Size: page.size,
+        .post("/api/api/walletAccountAssetChange/getList", {
+          page: page.page,
+          size: page.size,
         })
         .then(async ({ data }) => {
           if (Array.isArray(data.data)) {
             for (let i = 0; i < data.data.length; i++) {
               data.data[i].descDcts = {
-                key: data.data[i].Description,
-                zh: data.data[i].Description,
-                en: await handleTranslate(data.data[i].Description),
+                key: data.data[i].description,
+                zh: data.data[i].description,
+                en: await handleTranslate(data.data[i].description),
               };
             }
             setRecords(data.data);
           }
           setPage((state) => ({
             ...state,
-            page: data.page.currentPage,
-            total: data.page.count,
+            page: data.page.current_page,
+            total: data.page.total,
           }));
         })
         .finally(() => {
@@ -290,7 +289,7 @@ const Wallet = () => {
                 </div>
 
                 <div className="mt-4 bg-lightgrey rounded-md p-4 gap-4">
-                  {recharge_coin === "USDT" ? (
+                  {/USDT/g.test(recharge_coin) ? (
                     <div className="flex justify-between items-center">
                       <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
                       <span>{Number(rechargeInfo?.deposit_min).toFixed(2)} USDT</span>
@@ -300,12 +299,12 @@ const Wallet = () => {
                       <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
                       <span>0.003 ETH</span>
                     </div>
-                  ) : (
+                  ) : recharge_coin === "BTC" ? (
                     <div className="flex justify-between items-center">
                       <span className="text-threePranentTransblack">{t("Minimum recharge amount")}</span>
                       <span>0.0001 BTC</span>
                     </div>
-                  )}
+                  ) : (<></>)}
 
                   <div className="flex justify-between items-center">
                     <span className="text-threePranentTransblack">{t("Block Confirmations")}</span>
