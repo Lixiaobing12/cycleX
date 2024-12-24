@@ -1,6 +1,6 @@
 import { CaretRightOutlined, CloseCircleOutlined } from "@ricons/antd";
 import { Icon } from "@ricons/utils";
-import { Avatar, Collapse, CollapseProps, Divider, List, Modal, Table, TableProps } from "antd";
+import { Avatar, Collapse, CollapseProps, Divider, List, Modal, Pagination, Table, TableProps } from "antd";
 import { useAtom } from "jotai";
 import BulletJs from "js-bullets";
 import moment from "moment";
@@ -35,10 +35,16 @@ const Loader = () => {
   return <img src={picture} alt="" style={{ width: "200px", height: "43px" }} />;
 };
 
-const AppendLotteryUserRecordComponent = () => {
+const AppendLotteryUserRecordComponent = ({ show }: { show: boolean }) => {
   const [userLotteryList, setUserLotteryList] = useState<any[]>([]);
   const [, account] = useAccounts();
   const { t } = useTranslation();
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  const handleChange = (_page: number, pageSize: number) => {
+    setPage(_page)
+  };
   const columns: TableProps["columns"] = [
     {
       title: t("Rewards num"),
@@ -52,28 +58,40 @@ const AppendLotteryUserRecordComponent = () => {
     },
   ];
   const getData = () => {
-    if (account?.id && !userLotteryList.length) {
+    if (account?.id) {
       request
         .post("/api/api/lottery/getList", {
-          page: 1,
-          size: 9999,
+          page: page,
+          size: 10,
         })
         .then(({ data }) => {
           const newdata = new Set<any>(data.data);
           setUserLotteryList(Array.from(newdata));
+          setTotal(data.count)
         });
-    } else {
-      setTimeout(getData, 1000);
     }
   };
 
   useEffect(() => {
     getData();
-  }, [account]);
+  }, [page]);
+
+  useEffect(() => {
+    if (show) {
+      getData();
+    } else {
+      setPage(1);
+    }
+  }, [show])
 
   return (
     <div className="max-h-[300px] overflow-y-auto hidden-scroll">
-      <Table columns={columns} dataSource={userLotteryList} pagination={false} className="w-full" rowKey={"Amount"} />
+      <Table columns={columns} dataSource={userLotteryList} pagination={false} className="w-full" rowKey={"Amount"} key={'id'} />
+      {userLotteryList.length > 0 && (
+        <div className="text-right flex items-center justify-end">
+          <Pagination simple total={total} defaultCurrent={1} onChange={handleChange} showSizeChanger={false} />
+        </div>
+      )}
     </div>
   );
 };
@@ -319,7 +337,7 @@ const BlindBox = () => {
                 <img src="/assets/close_r.png" />
               </Icon>
             </a>
-            <AppendLotteryUserRecordComponent />
+            <AppendLotteryUserRecordComponent show={openLotteryModal} />
           </div>
         )}></Modal>
 

@@ -22,7 +22,7 @@ const Wallet = () => {
   const [loading, setLoading] = useState(false);
   const [loading_recharge, setLoading_recharge] = useState(false);
   const [page, setPage] = useState({
-    page: 1,
+    page: 0,
     size: 8,
     total: 0,
   });
@@ -60,11 +60,11 @@ const Wallet = () => {
       width: 100,
       render(value, record, index) {
         if (record.asset_id === 2) {
-          return value + " ETH" + `(${record.Status === 1 ? t("receipt") + Number(record.total_value).toFixed(4) + " USDT" : t("pending")})`;
+          return value + " ETH" + `(${record.status === 1 ? t("receipt") + Number(record.total_value).toFixed(4) + " USDT" : t("pending")})`;
         } else if (record.asset_id === 3) {
           return value + " USDT";
         } else {
-          return value + " BTC" + `(${record.Status === 1 ? t("receipt") + Number(record.total_value).toFixed(4) + " USDT" : t("pending")})`;
+          return value + " BTC" + `(${record.status === 1 ? t("receipt") + Number(record.total_value).toFixed(4) + " USDT" : t("pending")})`;
         }
       },
     },
